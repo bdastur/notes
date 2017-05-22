@@ -2,12 +2,12 @@
 
 ## Behavioral Patterns:
 
-#o## Iterators:
+### Iterators:
 
 #### Reference Links:
 
-[https://docs.python.org/3/tutorial/classes.html#iterators]
-[https://stackoverflow.com/questions/9884132/what-exactly-are-pythons-iterator-iterable-and-iteration-protocols]
+* https://docs.python.org/3/tutorial/classes.html#iterators
+* https://stackoverflow.com/questions/9884132/what-exactly-are-pythons-iterator-iterable-and-iteration-protocols
 
 #### notes:
 
