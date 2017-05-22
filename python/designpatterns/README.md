@@ -9,11 +9,11 @@
 * https://docs.python.org/3/tutorial/classes.html#iterators
 * https://stackoverflow.com/questions/9884132/what-exactly-are-pythons-iterator-iterable-and-iteration-protocols
 
-#### notes:
+#### Notes:
 
 Iteration means looping over a list of items one after the other.
 
-An iterable is an object that has an __iter__ method which returns an iterator.
+An **iterable** is an object that has an __iter__ method which returns an iterator.
 Or which defines a __getitem__ method that can take sequential indexes starting 
 from zero (and raises and IndexError when the indexes are no longer valid).
 So an **iterable** is an object you can get an iterator from.
@@ -74,6 +74,9 @@ A python iterator must support a method called __next__() that takes no argument
 and always returns the next element of the stream.
 If there are no elements in the stream __next__() must raise the StopIteration exception.
 
+#### Examples:
+
+* https://github.com/bdastur/notes/blob/master/python/designpatterns/iterators.py
 
 
 
