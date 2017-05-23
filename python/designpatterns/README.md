@@ -80,4 +80,60 @@ If there are no elements in the stream __next__() must raise the StopIteration e
 
 
 
+### Generators:
+
+#### Links:
+
+* https://docs.python.org/dev/howto/functional.html#iterators
+
+#### notes:
+
+Generators are a special class of functions that simplify the task of writing
+iterators.
+
+Regular functions return a value, but generators return an iterator that returns
+a stream of values.
+
+A Generator function has a yield keyword.
+
+
+```
+>>> def generate_range(n):
+...     for i in range(n):
+...         yield i
+...     
+>>> gen = generate_range(3)
+>>> 
+>>> next(gen)
+0
+>>> next(gen)
+1
+>>> next(gen)
+2
+>>> next(gen)
+Traceback (most recent call last):
+  File "<input>", line 1, in <module>
+      next(gen)
+StopIteration
+>>> 
+>>> type(gen)
+<type 'generator'>
+
+```
+
+**Passing values into a generator**:
+Values are sent into a generator by calling it's send(value) method. This method resumes the generator's code and the yield expression returns the specified value.
+
+
+#### Examples:
+
+* https://github.com/bdastur/notes/blob/master/python/designpatterns/generators.py
+
+
+
+
+
+
+
+
 
