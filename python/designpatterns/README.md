@@ -122,7 +122,54 @@ StopIteration
 ```
 
 **Passing values into a generator**:
-Values are sent into a generator by calling it's send(value) method. This method resumes the generator's code and the yield expression returns the specified value.
+Values are sent into a generator by calling it's send(value) method. 
+This method resumes the generator's code and the yield expression returns 
+the specified value.
+
+**Generator Expressions:**
+Generator expressions are concise way to create iterators.
+Generator expressions are surrounded by ()
+
+```
+>>> total = (x for x in range(4))
+>>> type(total)
+<type 'generator'>
+>>> 
+>>> total = sum(x for x in range(4))
+>>> print total
+6
+>>> 
+
+```
+
+**Efficiency**
+The performance improvement from the use of generators is the result of the
+lazy (on demand) generation ait of values, which translates to lower memory usage.
+
+Secondly we do not need to wait until all the elements have been generated before
+we start using them. This is similar to be benefits of iterators.
+
+An example to illustrate.
+using range and xrange. 
+range() returns a list, while xrange() returns a generator.
+
+Here both can be used to do similar thing. Calculate the sum of consecutive numbers from 0 to 1000000000.
+Here range will first create a list of numbers in memory
+In the below case it hangs and is killed forcefully, while xrange returns successfull.
+
+```
+>>> mysum = sum(range(1000000000
+(awsenv)SymMacToolkit-C02MC9VDFD57:designpatterns behzad_dastur$ 
+(awsenv)SymMacToolkit-C02MC9VDFD57:designpatterns behzad_dastur$ bpython
+bpython version 0.15 on top of Python 2.7.10 /Users/behzad_dastur/pyenvironments/awsenv/bin/python
+>>> 
+>>> mysum = sum(xrange(1000000000))
+>>> print mysum
+499999999500000000
+>>> 
+ 
+```
+
 
 
 #### Examples:
