@@ -1,5 +1,11 @@
 # Python Design Patters
 
+## Links:
+
+* https://github.com/faif/python-patterns
+* https://www.toptal.com/python/python-design-patterns
+
+
 ## Behavioral Patterns:
 
 ### Iterators:
@@ -85,8 +91,9 @@ If there are no elements in the stream __next__() must raise the StopIteration e
 #### Links:
 
 * https://docs.python.org/dev/howto/functional.html#iterators
+* https://wiki.python.org/moin/Generators
 
-#### notes:
+#### Notes:
 
 Generators are a special class of functions that simplify the task of writing
 iterators.
@@ -176,9 +183,25 @@ bpython version 0.15 on top of Python 2.7.10 /Users/behzad_dastur/pyenvironments
 
 * https://github.com/bdastur/notes/blob/master/python/designpatterns/generators.py
 
+### Chain of responsibility:
+
+#### Links:
+
+#### Notes:
+
+
+#### Examples:
+
+
+### Command pattern:
+
+#### Links:
+
+#### Notes:
 
 
 
+#### Examples:
 
 
 
