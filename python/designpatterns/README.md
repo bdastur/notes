@@ -197,9 +197,30 @@ bpython version 0.15 on top of Python 2.7.10 /Users/behzad_dastur/pyenvironments
 
 #### Links:
 
+* https://sourcemaking.com/design_patterns/command
+
 #### Notes:
 
+**Intent:**
+* Encapsulate a request/operation as an object, letting you parameterize clients with
+  different requests, queue or log requests, and support undoable operations.
 
+* Promote invocation of a method on an object to full object status.
+* An object-oriented callback.
+
+Put simply the command design pattern helps encapsulate an operation
+(undo, redo, copy, paste) as an object. We create a class that contains all the
+logic and methods required to implement the operation.
+
+The advantage is:
+* Clients don't need to know how the command/operation is actually implemented.
+* If it makes sense, multiple commands can be grouped to allow the invoker 
+  to execute them in order.
+
+**Usecases:**
+* Undo operations, redo, cut copy, capitalize.
+* Transactional behavior and logging: logging important info and keeping persistent log of changes.
+* Macros: a sequence of actions that can be recorded and executed on demand at any point in time.
 
 #### Examples:
 
