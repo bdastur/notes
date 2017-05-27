@@ -225,6 +225,200 @@ The advantage is:
 #### Examples:
 
 
+## Decorators:
+
+### Links:
+
+* http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/
+* http://www.artima.com/weblogs/viewpost.jsp?thread=240808
+
+### Notes:
+
+Functions in python are first class objects. Which means they have attributes
+just like any other objects.
+
+```
+>>> issubclass(int, object)
+True
+>>> def foo():
+...     '''
+...     This is a test function docstring
+...     '''
+...     pass
+... 
+>>> foo.__class__
+<type 'function'>
+>>> 
+>>> issubclass(foo.__class__, object)
+True
+>>> 
+
+```
+
+You can pass functions to functions as arguments or return functions from other
+functions as return values.
+
+```
+>>> def add(x, y):
+...     return x + y
+... 
+>>> def sub(x, y):
+...     return x - y
+... 
+>>> def operate(func, x, y):
+...     return func(x, y)
+... 
+>>> operate(add, 6, 3)
+9
+>>> operate(sub, 6, 3)
+3
+>>> 
+
+```
+
+Now look at the case of a function returning another function.
+The function outer() returns a variable inner which happens to be a function label.
+Now we invoke the outer function like any normal function and set it's return 
+value to foo. Since the return value is of type function, we can then invoke
+foo(), and the inner() function is called.
+
+
+```
+>>> def outer():
+...     print "outer function"
+...     def inner():
+...         print "inner function"
+...     return inner
+... 
+>>> 
+>>> 
+>>> foo = outer()
+outer function
+>>> print foo
+<function inner at 0x10996df50>
+>>> foo()
+inner function
+>>> 
+
+```
+
+**Function Closures**:
+At this point let's take a step further. Modify the above outer() function to
+define a variable 'x = 1'. We can print this variable x in the inner function, which
+would work as expected according to the python namespace rules.
+
+But what about calling foo(). We can still see that the variable x is printed. 
+The variable x is local to the function outer, which means it would cease to exist
+once we exit outer. 
+
+This is because Python supports a feature called **function closures** 
+which means that inner functions defined in non-global scope remember what
+their enclosing namespaces looked like at definition time.
+The func_closure attributed of the inner function shows it contains the variables
+in the enclosing scopes.
+
+```
+>>> def outer():
+...     x = 1
+...     def inner():
+...         print "x: ", x
+...     return inner
+... 
+>>> foo = outer()
+>>> foo.func_closure
+(<cell at 0x109c49398: int object at 0x7fa689e054c8>,)
+>>> foo()
+x:  1
+>>> 
+
+```
+
+We modify our outer() function once more to pass in an argument.
+Now we can invoke outer with different arguments, and we can see that
+the inner function remembers the outer functions name space, and prints
+the correct value of x.
+
+```
+>>> def outer(x):
+...     def inner():
+...         print "x: ", x
+...     return inner
+... 
+>>> foo = outer()
+Traceback (most recent call last):
+  File "<input>", line 1, in <module>
+      foo = outer()
+      TypeError: outer() takes exactly 1 argument (0 given)
+      >>> 
+      >>> foo = outer(4)
+      >>> foo()
+      x:  4
+      >>> foo = outer(2)
+      >>> foo()
+      x:  2
+      >>> 
+
+```
+
+**Decorators**:
+A decorator is just a callable that takes a function as an argument and returns
+a replacement function.
+
+```
+>>> def outer(func):
+...     def inner():
+...         print "Inner"
+...         ret = func() + 1
+...         return ret
+...     return inner
+... 
+>>> def foo():
+...     return 1
+... 
+>>> 
+>>> decorated = outer(foo)
+>>> decorated()
+Inner
+2
+>>> 
+
+```
+
+The @ symbol applies a decorator to a function.
+```
+>>> @outer
+... def foo():
+...     return 1
+... 
+>>> foo()
+Inner
+2
+>>> 
+
+```
+
+More generic decorators can be written with take the *args and \*\*kwargs 
+arguments to functions.
+
+```
+>>> def logger(function):
+...     def inner(*args, **kwargs):
+...         print "Arguments: %s, %s" % (args, kwargs)
+...         return function(*args, **kwargs)
+...     return inner
+... 
+>>> 
+>>>  
+>>> @logger
+... def foo(x, y):
+...     return x + y
+... 
+>>> foo(4, 5)
+  Arguments: (4, 5), {}
+  9
+>>> 
+
+```
 
 
 
