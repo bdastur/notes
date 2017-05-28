@@ -486,9 +486,141 @@ myDecorator.__call__ end
 
 ```
 
+You can accumulate decorators.
+
+```
+>>> def bread(func):
+...     def wrapper(*args, **kwargs):
+...         print "------- bread ----"
+...         func(*args, **kwargs)
+...         print "------- bread ----"
+...         
+...     return wrapper
+... 
+>>> def ingredients(function):
+...     def wrapper(*args, **kwargs):
+...         print "#tomatoes#"
+...         function(*args, **kwargs)
+...         print "#lettuce#"
+...         
+...     return wrapper
+... 
+>>> def sandwich(food="--trukey--"):
+...     print food
+...     
+... 
+>>> sandwich()
+--trukey--
+>>> sandwich = bread(ingredients(sandwich))
+>>> sandwich()
+------- bread ----
+#tomatoes#
+--trukey--
+#lettuce#
+------- bread ----
+>>> 
+>>> @bread
+... @ingredients
+... def sandwich(food="--trukey--"):
+...     print food
+...     
+... 
+>>> sandwich()
+------- bread ----
+#tomatoes#
+--trukey--
+#lettuce#
+------- bread ----
+>>> 
+
+```
+
+**Passing arguments to Decorator**
 
 
+```
+>>> def decorator_maker():
+...     print "Decorator maker"
+...     def mydecorator(func):
+...         print "myDecorator start"
+...         def inner(*args, **kwargs):
+...             print "Inner start"
+...             func(*args, **kwargs)
+...             print "Inner end"
+...             
+...         return inner
+...     return mydecorator
+... 
+>>> 
+# Now we create a new decorator as below.
 
+>>> new_decorator = decorator_maker()
+Decorator maker
+
+# Now to use this decorator.
+>>> @new_decorator
+... def myfunction(x, y):
+...     print x, y
+...     
+... 
+myDecorator start
+>>> 
+>>> myfunction(4, 4)
+Inner start
+4 4
+Inner end
+>>> 
+
+```
+
+Now this step will skip the intermediate steps to create the new_decorator.
+Notice how we are calling the decorator_maker '@decorator_maker()'
+
+```
+>>> @decorator_maker()
+... def myfunction(x, y):
+...     print x, y
+...     
+... 
+Decorator maker
+myDecorator start
+>>> myfunction(4, 4)
+Inner start
+4 4
+Inner end
+>>> 
+
+```
+
+So now if we are using functions to generate a decorator on the fly, we can pass
+it arguments as well.
+
+```
+>>> def decorator_maker(*args, **kwargs):
+...     print "Decorator maker, args: %s, kwargs: %s" % (args, kwargs)
+...     def mydecorator(func):
+...         print "myDecorator start: %s, %s" % (args, kwargs)
+...         def inner(*args, **kwargs):
+...             print "Inner start"
+...             func(*args, **kwargs)
+...             print "Inner end"
+...         return inner
+...     return mydecorator
+...
+>>> @decorator_maker('test', 'test2', key1='Value')
+... def myfunction(x, y):
+...     print x, y
+...     
+... 
+Decorator maker, args: ('test', 'test2'), kwargs: {'key1': 'Value'}
+myDecorator start: ('test', 'test2'), {'key1': 'Value'}
+>>> myfunction(4, 4)
+Inner start
+4 4
+Inner end
+>>> 
+
+```
 
 
 
