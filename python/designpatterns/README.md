@@ -231,6 +231,7 @@ The advantage is:
 
 * http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/
 * http://www.artima.com/weblogs/viewpost.jsp?thread=240808
+* https://stackoverflow.com/questions/739654/how-to-make-a-chain-of-function-decorators/1594484#1594484
 
 ### Notes:
 
@@ -416,9 +417,86 @@ arguments to functions.
 >>> foo(4, 5)
   Arguments: (4, 5), {}
   9
+>>>** 
+
+```
+
+Ok so far we saw creating decorators with function closures, but we can see
+how we can create decorators using classes.
+Here we define a class myDecorator, which takes the function object as the
+argument to it's __init__ method. Also we invoke the function in the init.
+
+The only constraint upon the object returned by the decorator is that is can
+be used as a function. Which means it must be callable. So any class we use
+as a decorator must implement the __call__ method.
+
+
+```
+>>> class myDecorator(object):
+...     def __init__(self, func):
+...         print "myDecorator initialized"
+...         func()
+...     def __call__(self):
+...         print "myDecorator.__call__"
+...
+...
+... 
+>>> @myDecorator
+... def foo():
+...     print "inside foo"
+...
+... 
+myDecorator initialized
+inside foo
+>>> foo()
+myDecorator.__call__
+ 
+```
+
+When we run the above code, we see the decorator initialized and function invoked
+at the time of initializeation.
+
+On subsequent calls to foo(), the class myDecorator's __call__ method is invoked.
+
+A slightly more useful thing to do would be to call the function from the __call__ method,
+instead of the __init__. So that's what we will do.
+
+```
+>>> class myDecorator(object):
+...     def __init__(self, func):
+...         self.func = func
+...
+...     def __call__(self):
+...         print "myDecorator.__call__ start"
+...         self.func()
+...         print "myDecorator.__call__ end"
+...
+...
+... 
+>>> @myDecorator
+... def foo():
+...     print "inside foo"
+...
+... 
+>>> foo()
+myDecorator.__call__ start
+inside foo
+myDecorator.__call__ end
 >>> 
 
 ```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
