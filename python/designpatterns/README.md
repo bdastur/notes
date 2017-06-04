@@ -640,7 +640,7 @@ communciation between the two interfaces. This layer is called the Adapter.
 
 #### Examples:
 
-
+* https://github.com/bdastur/notes/blob/master/python/designpatterns/adapters.py
 
 
 ## Dependency Injection.
