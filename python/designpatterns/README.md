@@ -622,6 +622,61 @@ Inner end
 
 ```
 
+## Structural Patterns:
+
+### Adapter Pattern:
+
+#### Reference Links:
+
+#### Notes:
+
+A structural design pattern that helps make two incompatible interfaces
+compatible. There are several use cases for this pattern. If we have an old
+component and we want to use it in a new system, or vice a versa, the
+two systems could not communicate without needing to make code changes. But
+in many cases chaning the existing code is not possible. In this case we 
+write an extra layer tha makes all the required modifiations for enabling
+communciation between the two interfaces. This layer is called the Adapter.
+
+#### Examples:
+
+
+
+
+## Dependency Injection.
+
+### Reference Links:
+
+* https://wiki.python.org/moin/DependencyInjectionPattern
+* https://pypi.python.org/pypi/dependency_injector/
+
+
+### Notes:
+
+Aimed at achieving loose coupling of components within an application.
+
+The components do not have to know each other directly.
+Components specify external dependencies using some kind of key.
+Some other instance resolves the dependencies once for each component and 
+therby wires the components together.
+
+If object A depends on object B, object A must not create or import i
+object B directly. Instead object A must provide a way for injecting object B.
+The responsibility of object creation and dependencies injection are delegated
+to external code - the dependency injector.
+
+* Object A, that is dependent on object B, is called - the client
+* Object B, that is a dependency is called - the service
+* External code that is responsible for creation of objects and injection
+  of dependencies is called - the dependency injector.
+
+Ways of how service can be injected into the client.
+
+* By passing it as __init__ argument (Constructor/ initializer injection)
+* By setting it as attribute's value (attribute injection)
+* By passing it as method's argument (method injection)
+
+
 
 
 
