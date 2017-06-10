@@ -75,3 +75,98 @@ Map([<Rule '/' (HEAD, OPTIONS, GET) -> index>,
 >>>
 
 ```
+
+In our flask add we only added two Routes '/'   and '/user/<name>'.
+The /static/<filename> route is a special route added by Flask to give access
+to static files.
+
+The HEAD, OPTIONS, GET elements shown in the URL map are request methods
+that are handled by the route. The HEAD and OPTIONS methods are managed
+automatically by Flask.
+
+## Request Hooks:
+Flask provides a way to execute some code before or after each request is
+processed. For eg, you might need to create a DB connection or authenticate
+a user when handling a request. Instead of duplicating the code in the
+view function, Flask gives you an option to register common functions to
+be invoked before or after a request is dispatched to the view function.
+
+Request hooks are implemented as decorators.
+There are 4 hooks supported:
+1. before_first_request: Register a function to run before the first request
+                         is handled.
+2. before_request:       Register a function to run before each request.
+3. after_request:        Register a function to run after each request, if no
+                         unhandled exceptions occured.
+4. teardown_request:     Register a function to run after each request, equivalent
+                         if unhandled exceptions occured.
+
+A common pattern to share data between the request hook functions and view
+functions is to use the g context global. For example, a before_request handler
+can load the logged-in user from the database and store it in g.user. Later
+when the view function is invoked, it can access the user from there.
+
+## Responses:
+When Flask invokes a view function, it expects its return value to be the
+response to the request. In most cases the response is a simple string that is
+sent back to the client as an HTML page.
+
+But HTTP protocol requires more than a string as a response to a request.
+A very important part of the HTTP response is the status code, which Flask by
+default sets to 200, the code that indicates the request was carried out
+successfully.
+
+When the view function needs to respond with a different status code, it can
+add the numeric code as a second return value after the response text.
+
+```
+@app.route('/')
+def index():
+    return '<h1>Bad Request</h1>', 400
+
+```
+Responses returned by the view function can also take a third argument,
+a dictionary of headers that are added to the HTTP response.
+
+* Instead of returning one, two or three values as a tuple, Flask view functions
+  have the option of returning a Response object.
+* The make_response() function takes one, two or three arguments,
+  the same values that can be returned from a view function, and returns
+  a Response object.
+
+  ```
+  @app.route('/cookie/')
+  def setcookie():
+      response = make_response(
+      '<h1>Set Cookie</h1>')
+      response.set_cookie('answer', '42')
+      return response
+  ```
+
+A redirect is indicated with a 302 response status code and the URL to redirect
+to, given in the Location header. Flask provides a redirect() function
+that creates this response.
+
+```
+from flask import redirect
+
+@app.route('/redirectme')
+def redirect_handler():
+    return redirect('/')
+
+```
+
+Another special response is the abort. Flask provides an abort() function which
+is used for error handling.
+NOTE: that abort does not return control back to the view function. Instead it
+gives the control back to the web server by raising an exception. 
+```
+from flask import abort_test
+
+@app.route('/abortonodd/<number>')
+def abort_test(number):
+    if int(number) % 2 != 0:
+        abort(500)
+    return '<h2>Numer %s is even</h2>' % number
+
+```
