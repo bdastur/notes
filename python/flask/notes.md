@@ -62,3 +62,16 @@ the view functions that handle them.
 
 Flask builds this URL map using the app.route decorator or equivalent API
 app.add_url_rule().
+
+First app:
+https://github.com/bdastur/notes/blob/master/python/flask/first/first.py
+
+```
+>>> from first import app
+>>> app.url_map
+Map([<Rule '/' (HEAD, OPTIONS, GET) -> index>,
+ <Rule '/static/<filename>' (HEAD, OPTIONS, GET) -> static>,
+ <Rule '/user/<name>' (HEAD, OPTIONS, GET) -> user>])
+>>>
+
+```
