@@ -159,7 +159,7 @@ def redirect_handler():
 Another special response is the abort. Flask provides an abort() function which
 is used for error handling.
 NOTE: that abort does not return control back to the view function. Instead it
-gives the control back to the web server by raising an exception. 
+gives the control back to the web server by raising an exception.
 ```
 from flask import abort_test
 
@@ -170,3 +170,60 @@ def abort_test(number):
     return '<h2>Numer %s is even</h2>' % number
 
 ```
+
+
+## Blueprints:
+
+### Functional structure:
+```
+yourapp/
+    __init__.py
+    static/
+    templates/
+        home/
+        admin/
+    views/
+        __init__.py
+        home.py
+        admin.py
+    models.py
+
+```
+
+In the functional structure, each file under views/ is a seperate blueprint.
+You would import those blueprints in your yourapp/__init__.py and register
+them on your Flask() object.
+
+
+### Divisional structure
+```
+yourapp/
+    __init__.py
+    home/
+        __init__.py
+        views.py
+        static/
+        templates/
+    admin/
+        __init__.py
+        views.py
+        static/
+        templates/
+    models.py
+```
+In the divisional structure, each subfolder under yourapp/ is a separate
+blueprint. All the blueprints are applied to the Flask() app at the
+yourapp/__init__.py.
+
+Choose the one that makes sense for your application.
+
+If your app has largely independent pieces that only share things like
+models and configuration, then divisional structure might be better. blueprints
+in divisional structure have their own static files and templates completely
+separate from other blueprints.
+
+However, if the components in your application flow together a little more,
+it might be better to have a functional structure. 
+
+
+The Blueprintexample1 shows a functional structure.
