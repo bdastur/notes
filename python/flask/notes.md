@@ -223,7 +223,7 @@ in divisional structure have their own static files and templates completely
 separate from other blueprints.
 
 However, if the components in your application flow together a little more,
-it might be better to have a functional structure. 
+it might be better to have a functional structure.
 
 
 The Blueprintexample1 shows a functional structure.
