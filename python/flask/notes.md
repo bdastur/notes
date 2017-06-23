@@ -211,6 +211,7 @@ yourapp/
         templates/
     models.py
 ```
+
 In the divisional structure, each subfolder under yourapp/ is a separate
 blueprint. All the blueprints are applied to the Flask() app at the
 yourapp/__init__.py.
@@ -227,3 +228,21 @@ it might be better to have a functional structure.
 
 
 The Blueprintexample1 shows a functional structure.
+
+
+## Flask Forms.
+
+To install this extension:
+
+```
+pip install flask-wtf
+```
+
+### Cross-Site Request Forgery (CSRF) Protection:
+By default, Flask-WTF protects all forms against CSRF attacks. A CSRF attack
+occurs when a malicious website sends requests to a different website on
+which the victing is logged in.
+
+To implement CSRF protection, Flask-WTF needs the application to configure
+an encryption key. Flask-WTF uses this key to generate encrypted tokens
+that are used to verify the authenticity of requests with form data.

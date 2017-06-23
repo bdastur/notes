@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.register_blueprint(home, url_prefix="/home")
 app.register_blueprint(profile, url_prefix="/profile")
 
+app.config['SECRET_KEY'] = "test secret key"
 
 def main():
     app.run(debug=True, port=5001)
