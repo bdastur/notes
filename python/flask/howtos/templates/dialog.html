@@ -1,12 +1,44 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset=utf-8>
-    <title>Dialog Test</title>
-</head>
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Dialog Tests</h2>
 <body>
 
+<p></p>
+<!-- Dialog Window. -->
+
+<dialog id="dialog_window">
+  <h3>Hello World!</h3>
+  <p>Test Dialog Window!</p>
+  <button id="exit">Exit</button>
+</dialog>
+<button id="btn_show">Show Dialog</button>
 
 
-</body>
-</html>
+<!-- A Modal Dialog box. -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span id="modal-close" class="close">&times;</span>
+    <p>Generate AWS Tokens</p>
+    <p></p>
+  </div>
+</div>
+
+
+<h4>Generate API Access Keys</h4>
+<button class="btn btn-primary btn-sm" id="myBtn">modal dialog open</button>
+
+
+
+<div class="alert alert-dismissible alert-danger">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Oh snap!</strong> <a href="#" class="alert-link">Change a few things up</a> and try submitting again.
+</div>
+
+<script type="text/javascript" src="/static/js/dialog.js"></script>
+
+
+<a href="#" onclick="location.href='/';" >Back to Home</a>
+
+{% endblock %}
