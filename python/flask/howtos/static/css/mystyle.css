@@ -14,6 +14,12 @@
     border-style: outset;
 }
 
+#alert_modal {
+    left: 200;
+    top: 50;
+    width: 400px;
+    height: 400px;
+}
 
 /* The Modal (background) */
 .modal {
