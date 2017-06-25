@@ -10,10 +10,3 @@ dialog = Blueprint('dialog', __name__,
 @dialog.route("/")
 def index():
     return render_template('dialog.html')
-
-
-@dialog.route("/test")
-def test():
-    return render_template('test.html')
-
-    
