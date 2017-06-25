@@ -4,7 +4,7 @@
 <h2>Forms Tests</h2>
 <body>
 <br>
-<!-- Form. -->
+<!-- Form.1 -->
 <div class="container">
     <div class="well" bs-component">
         <form method="post" class="form-horizontal">
@@ -23,10 +23,44 @@
                 </div>
             </fieldset>
         </form>
+        {% if obj.email %}
+            <p><small>{{ obj.email }}</small></p>
+        {% endif %}
     </div>
+
+    <!-- Form.2 -->
+        <div class="well" bs-component">
+            <form method="post" class="form-horizontal">
+                <fieldset>
+                    <legend>SampleForm-2</legend>
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-lg-1 control-label">Email</label>
+                        <div class="col-lg-10">
+                            <input type="text" class="form-control" id="inputEmail" placeholder="Email" name="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button class="btn btn-primary"
+                            onclick="submitForm()">Submit</button>
+
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            {% if obj.email %}
+                <p><small>{{ obj.email }}</small></p>
+            {% endif %}
+        </div>
 
     <br><br>
     <a href="#" onclick="location.href='/';" >Back to Home</a>
-</div>
 
+    <script
+      src="https://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/static/js/form.js"></script>
+
+</div>
 {% endblock %}
