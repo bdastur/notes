@@ -314,6 +314,10 @@ http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
 
 
 ## DynamoDB:
+
+**Links:**
+http://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/quick-intro.html
+
 * A fully managed NoSQL database service that provides fast and low latency
   performance that scales with ease.
 * Amazon DynamoDB can provide consistent performance levels by automatically
@@ -324,10 +328,63 @@ http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
   DynamoDB will adjust the internal Partitioning accordingly.
 * DynamoDB provides HA and durability by replicating data across multiple AZs
   within an AWS Region.
-  
+
+### Data Model:
+* Main components of DynamoDB are:
+  * Tables:
+    DynamoDB stores data in tables.
+
+  * Items:
+    * Each table contains multiple items. An item is a group of attributes that
+      is uniquely identifiable. For E.g in a people table each item represents
+      one person.
+    * There is no limit on the number of items you can store in a table.
+
+  * Attributes:
+    * An attribute in DynamoDB is similar to fields or colums in other
+      databases.
+    * Each item is composed of one ore more attributes. An attribute is a
+      fundamental data element that does not need to be broken down further.
+
+  * Primary Key:
+    * When you create a table, in addition to the table name, you must specifically
+      the primary key of the table.
+    * A primary key in DynamoDB uniquely identifies each item in the table,
+      so that no two items can have the same key.
+    * When you add update or delete an item from a table you must specifically
+      the primary key attribute values for that item.
+
+    DynamoDB supports two types of primary keys:
+
+    **Partition Key**:
+    * A simple primary key, composed of one attribute known as the partiton key.
+    * DynamoDB uses the partiton key's value as input to an internal hash function.
+      The output from the hash function determines the partition where the item is
+      stored.
+    * No two items in a table can have the same partition key value.
+
+
+    **Partition key and sort key**:
+
+
+  * Secondary Indexes:
 
 
 
+
+## Boto3:
+
+### Catching Exceptions:
+You can either explicitly catch some exceptions like ProfileNotFound etc,
+or you can catch any Client Error, as ClientError exception.
+```
+try:
+    self.dbclient.describe_table(TableName=table_name)
+except botocore.exceptions.ClientError as ce:
+    print "Resource %s not found" % table_name
+    print " exception: %s" % ce.response['Error']
+
+```
 
 
 
