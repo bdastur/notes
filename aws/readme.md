@@ -1,8 +1,6 @@
 # AWS Notes:
 
 
-## Dynamo DB:
-
 ## Virtual Private Cloud (VPC):
 
 **Links**
