@@ -1,6 +1,15 @@
 # AWS Notes:
 
 
+## IAM
+
+### Links:
+
+https://aws.amazon.com/blogs/security/new-attach-an-aws-iam-role-to-an-existing-amazon-ec2-instance-by-using-the-aws-cli/?sc_channel=sm&sc_campaign=rolesforrunninginstances&sc_publisher=tw&sc_medium=social&sc_content=read-post&sc_country=global&sc_geo=global&sc_category=ec2&sc_outcome=launch
+
+
+
+
 ## Virtual Private Cloud (VPC):
 
 **Links**
@@ -316,6 +325,8 @@ http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
 **Links:**
 http://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/quick-intro.html
 
+http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTables.html
+
 * A fully managed NoSQL database service that provides fast and low latency
   performance that scales with ease.
 * Amazon DynamoDB can provide consistent performance levels by automatically
@@ -363,12 +374,187 @@ http://docs.aws.amazon.com/amazondynamodb/latest/gettingstartedguide/quick-intro
 
 
     **Partition key and sort key**:
-
+    * A composite primary key, composed of two attributes. First attribute is
+      the partition key and the second one is the sort key.
+    * All the items with the same partition key are stored together, in sorted
+      order by sort key value.
+    * With a composite key it is possible for two items to have the same
+      partition key value, but those two items must have different sort keys.
 
   * Secondary Indexes:
+    * You can read data in a table by providing it's primary key attribute value.
+    * However you can read data using non-key attributes using a secondary
+      index as well.
+    * After you create a secondary index on a table, you can read data from
+      the index in the same way as you do from the table.
+    * Using secondary indexes, allows you to use many different query patterns,
+      to access data from DynamoDB tables.
 
 
+### Data types
+* Scalar data types:
+    * String: upto 400KB. Supports UTF8 encoding
+    * number: Positive or negative number with up to 38 digits of precision.
+    * Binary: Binary data images, compressed objects up to 400KB in size.
+    * Boolean: Binary flag representing true or false value.
+    * Null: Represents a blank, empty or unknown state.
 
+* Set data types:
+* Represent a unique list of one or more scalar values.
+* Sets do not gurantee order.
+
+    * String set: Unique list of string attributes
+    * Number set: Unique list of number attributes
+    * Binary set: Unique list of binary attributes
+
+* Document data type:
+* Document type is useful to represent multiple nested attributes,
+  similar to a JSON file.
+
+    * List: Each list can be used to store an ordered list of attributes of
+      different data types.
+
+    * Map: Each Map can be used to store an unordered list of key/value pairs.
+      It can be used to represent any JSON object.
+
+### Provisioned Capacity:
+* When creating a DynamoDB table, you are required to provision certain
+  read and write capacity to handle expected workloads.
+* DynamoDB will provision the right amount of infrastructure capacity to meet
+  the provisioned capacity configured.
+* Provisioned capacity can be scaled up or down later as well depending on
+  changing needs.
+* The specific amount of capacity units consumed depends largely on the size
+  of the item, but other factors apply as well.
+* For read operations, the amount of capacity consumed also depends on the read
+  consistency selected in the request.
+* For eg, given a table without a local secondary index, you will consume
+  1 capacity unit if you read an item that is 4KB or smaller.
+* Similarly for write operations you will consume 1 capacity unit if you write
+  an item 1KB or smaller.
+* For read operations that are strongly consistent, they will consume twice
+  the number of capacity units.
+* You can use Amazon cloudwatch to monitor your DynamoDB capacity and make
+  scaling decisions.
+
+### Secondary Indexes:
+* You can optionally define one or more secondary indexes on a table, along with
+  the partiton key and sort key.
+* A secondary index lets you query the data in the table using alternate key,
+  in addition to queries against the primary key.
+
+#### Global Secondary Index:
+* It is an index with a partition and sort key that can be different from
+  those on the table.
+* You can create/delete a global secondary index on a table at any time.
+* You can have multiple global secondary indexes on a table.
+
+#### Local Secondary Index:
+* It has the same partition key attribute as the primary key of the table,
+  but a different sort key.
+* Can only create a local secondary index during table creation.
+* Allow you to search a large table efficiently and avoid and expensive
+  scan operation to find items with specific attributes.
+* You can only have one local secondary index.
+* DynamoDB updates each secondary index when an item is modified. These Updates
+  consume write capacity units from the main table, while global secondary
+  indexes maintain their own provisioned throughput settings separate from
+  the table.
+
+### Reading and Writing Data:
+
+#### Writing Items:
+* PutItem, UpdateItem and DeleteItem are the 3 operations that you can do to
+  write/modify/delete items into a DynamoDB table.
+* PutItem will update an existing item, if it already exists (item with the
+  same primary key value exists).
+* UpdateItem action also provides support for atomic counters.
+* These actions also support conditional expressions that allow you to
+  perform validations before an action is applied.
+
+#### Reading Items:
+* GetItem action can be used retrive an item. Primary key is required for this
+  action.
+* All the items attributes are returned by default, and you have the option
+  to select individual attributes to filter down the results.
+* By default the GetItem action performs an eventually consistent read.
+* You can optionally request a strongly consistent read, but will consume
+  additional read capacity units - but will return the most up-to-date version
+  of the item.
+
+### Eventual Consistency:
+* When reading items from DynamoDB, the operation can be either eventually
+  consistent or strongly consistent.
+* DynamoDB is a distributed system that stores multiple copies of an item
+  across an AWS Region to provide HA and durability.
+* When an item is updated in DynamoDB, it starts replicating across multiple
+  servers. This replication might take some time to complete.
+* A read request immediately a write operation might not show the latest
+
+### Strongly Consistent Reads:
+* Applications might need to guarantee that the data latest, in which case it
+  can use strongly consistent reads. DynamoDB returns a response with the
+  most up-to-date data that reflects updates by all prior related write
+  operations to which DynamoDB returned a successful response.
+
+* DynamoDb also provides batch write and read operations.
+* BatchGetItem and BatchWriteItem. Using BatchWriteItem you can perform up to
+  25 item creates or updates with a single operation.
+
+### Searching Items:
+
+#### Scan:
+* Scan operation will read every item in a table or a secondary index.
+* By default scan operation returns all of the data attributes of every item
+  in the table or index.
+* Each request can return upto 1MB of data.
+* This can be resource intensive.
+*
+#### Query:
+* Query is the primary search operation to find item in a table or a
+  secondary index using only primary key attribute values.
+* Results are automatically sorted by the primary key and are limited to 1MB.
+
+### Scaling and Partitioning:
+* A DynamoDb table can scale horizontally using partitions to meed the storage
+  and performance needs of the applications.
+* Each individual partition represents a unit of compute and storage capacity.
+* A single DynamoDb partition can support a maximum of 3000 read capacity
+  units or 1000 write capacity units. It can hold approximately 10GB of data.
+* To achive the full amount of request throughput provisioned for a table,
+  keep your workload spread evenly across the partition key values.
+* Distributing requests across partition key values distributes the requests
+  across partitions.
+* For example if a table has 10,000 provisioned read capacity units configured,
+  but all the traffic is hitting one partition key, you will not be able to
+  get more than 3,000 maximum read capacity units that a single partition can
+  support.
+
+* When you create a new table, the initial number of partitions can be expressed
+  as below:
+  ```
+  (ReadCapacityUnits / 3000) +
+     (WriteCapacityUnits/1000) = initial partitions (rounded up)
+  ```  
+  For example: say you create a table with 1000 read capacity units and 500
+  write capacity units, the initial partitions would be
+  ```
+   (1000/3000) + (500/1000) = 0.8333 --> 1
+  ```
+
+### Security
+* DynamoDb gives you granular control over access rights and permissions for
+  users and administrators.
+* IAM policies to restrict access to specific tables.
+* Restrict access to specific item and attributes with conditionals.
+
+### DynamoDb Streams:
+* To keep track of changes to DynamDb.
+* Can get a list of item modifications for the last 24 hour period.
+* Each stream record represents a single data modification in the DynamDb table
+  to which the stream belongs.
+* Each stream record is assigned a sequence number, reflecting the order in
+  which the record was published to the stream.
 
 ## Boto3:
 
