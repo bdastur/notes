@@ -556,6 +556,108 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 * Each stream record is assigned a sequence number, reflecting the order in
   which the record was published to the stream.
 
+## Simple Queue Service (SQS)
+* A fast, reliable, scalable and fully managed queuing service.
+* Makes it simple and cost effective to decouple components of your cloud
+  application.
+* Does not guarantee message delivery order (no FIFO)
+* If message order is required applications can handle that by passing a
+  message sequence id.
+* Ensures delivery of each message at least once and supports multiple
+  readers and writers interacting with the same queue.
+
+### Message lifecycle:
+1. Component 1 sends message A to a queue. The message is redundantly distributed
+    across the SQS servers.
+2. Component 2 retrieves the message from the queue and message A is returned.
+   While message A is being processed, it remains in the queue and is not
+   returned to subsequent receive requests for a duration of the visibility
+   timeout.
+3. Component 2 deletes message A from the queue to prevent the message from
+   being received and processed again after the visibility timeout expires.
+
+### Delay Queues and Visibility Timeouts:
+* Delay queues allow you to postpone the delivery of new messages in a queue
+  for specific number of seconds.
+* Any message that you send in that queue will be invisible to the consumer for
+  the duration of the delay period.
+* Delay period can range from 0 to 900 seconds (0 to 15 minutes)
+* Default value of delay period is 0 seconds.
+* You can turn an existing queue into a delay queue using SetQueueAttributes
+  to set the queue's DelaySeconds attribute.
+* Visibility timeout hides a message only after the message is retrieved
+  from the queue.
+* When a message is in the queue but is neither delayed nor in a Visibility
+  timeout, it is considered to be "in flight"
+* You can have up to 120,000 messages in flight at any given time.
+* SQS supports up to 12 hours max visibility timeout.
+
+### Queue Operations, Unique IDs and Metadata:
+* Some SQS Operations:
+  CreateQueue, ListQueues, DeleteQueue, SendMessage, SendMessageBatch,
+  ReceiveMessage, DeleteMessage,..
+* Messages are identified via a globally unique ID that SQS returns when the
+  message is delivered to the queue. The ID is useful for tracking whether
+  a particular message in the queue has been received.
+* When you receive a message from the queue, the response includes a
+  receipt handle, which you must provide when deleting the message.
+
+### Queue and message identifiers:
+* Three identifiers for SQS: queue URLs, message IDs and receipt handles.
+* When creating a new queue, you must provide a queue name that is unique within
+  the scope of all your queues. SQS assigns each queue an identifier called
+  the queue URL, which includes the queue name and other components that SQS
+  determines.
+* Provide the queue URL whenever you want to perform an action on the queue.
+
+* SQS assigns each message a unique ID, that it returns to you in the
+  SendMessage response.
+* The identifier is useful for identifying messages but not deleting it.
+
+* Each time you receive a message from a queue, you also get a receipt handle
+  for that message.
+* To delete the message you must provide the receipt handle.
+* Max length of the receipt handle is 1024 characters.
+
+### Message Attributes:
+* Provide structured metadata items about the message.
+* Each message can have up to 10 attributes.
+* Are optional and separate from, but sent along with the message body.
+* The receiver can use this information to help decide how to handle the
+  message without having to process the message body first.
+
+
+### Long polling:
+* To receive message the consumer invokes ReceiveMessage API.
+* ReceiveMessage will check for existence of a message in the queue and
+  return immediately, either with or without a message.
+* With long polling, you send WaitTimeSeconds argument to ReceiveMessage
+  of up to 20 seconds.
+* If there is no message in the queue the call will wait up to WaitTimeSeconds
+  for a message before returning.
+* If a message appears before the time expires, the call will return with
+  the message right away.
+
+
+### Dead Letter Queues:
+* A queue that other queus can target to send messages that for some reason
+  could not be successfully processed.
+* Ability to sideline and isolate unsuccessfully processed messages.
+
+### Access Control:
+* IAM policies to grant specific instructions.
+
+
+
+## Simple Workflow Service (SWF):
+
+
+
+
+
+
+
+
 ## Boto3:
 
 ### Catching Exceptions:
