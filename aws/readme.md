@@ -698,7 +698,25 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 * A single Memcached cluster can contain upto 20 nodes.
 * Redis clusters are always made up of a single node; however multiple
   clusters can be grouped into a Redis replication group.
-* 
+* For Memcached clusters ElastiCache supports Auto Discovery with the provided
+  client library.
+
+### Backup and Recovery
+* Redis allows you to persist your data from in-memory to disk and create a
+  snapshot.
+* Each snapshot is a full clone of the data that can be used to recover to a
+  specific point in time.
+* Snapshots CANNOT be created for Memcached engine because it is purely
+  in-memory key/value store and always starts empty.
+* Taking snapshot can have performance impact, and best practice is to create
+  a replication group and perform a snapshot against a read replica instead of
+  a primary node.
+
+### Access Control:
+* Access to ElastiCache cluster is controlled primarily by restricting inbound
+  network access to your cluster, using security groups.
+* Access to manage the configuration of the cluster is controlled by IAM policies.
+
 
 
 ## Boto3:
