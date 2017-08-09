@@ -590,7 +590,14 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 * When a message is in the queue but is neither delayed nor in a Visibility
   timeout, it is considered to be "in flight"
 * You can have up to 120,000 messages in flight at any given time.
+* Default visibility timeout is 30 seconds.
 * SQS supports up to 12 hours max visibility timeout.
+* SQS automatically deletes messages that have been in the queue for more than
+  maximum message retention period.
+* Shortest message retention period is 60 seconds.
+* Default message retention period is 4 days.
+* Longest message retention period is 14 days.
+
 
 ### Queue Operations, Unique IDs and Metadata:
 * Some SQS Operations:
@@ -652,10 +659,46 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 ## Simple Workflow Service (SWF):
 
 
+## Simple Notification Service (SNS):
 
 
 
+## ElastiCache:
+* Improves application performance by storing the most frequently accessed
+  data in memory.
+* Simplifies the setup and management of distributed in-memory Catching
+  environments.
+* You can choose from Memcached or Redis protocol-compliant cache engine and
+  quickly launch a cluster within minutes.
 
+### Cache Engines:
+
+#### Memcached
+* Provides a simple interface that allows you to write and read objects into
+  in-memory key/value data stores.
+* You can elastically grow and shrink a cluster of memcached nodes to meet
+  your demands.
+* You can partition your cluster into shards and parallelize oprations for
+  very high performance throughput.
+
+
+#### Redis
+* Beyond the object support provided in Memcached, Redis supports a rich
+  set of data types like strings, lists and sets.
+* Unlike Memcached, Redis supports the ability to persist the in-memory data
+  on to disks. This allows you to create snapshots that backup data and then
+  recover or replicate from the backups.
+* It can support up to 5 read replicas to offload read requests. In the event
+  of a primary node failure, a read replica can be promoted to become the new
+  master using multi AZ replication groups.
+* Redis also has advanced features that make it easy to sort and rank data.
+
+### Nodes and Clusters
+* Each deployment of ElastiCache consists of one or more nodes in a cluster.
+* A single Memcached cluster can contain upto 20 nodes.
+* Redis clusters are always made up of a single node; however multiple
+  clusters can be grouped into a Redis replication group.
+* 
 
 
 ## Boto3:
