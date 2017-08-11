@@ -718,6 +718,65 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 * Access to manage the configuration of the cluster is controlled by IAM policies.
 
 
+## CloudFront:
+* It is a global Content Delivery Network (CDN) service.
+* A CDN is a globally distributed network of caching servers that speed up
+  the downloading of web pages and other content.
+* CDNs use DNS geo-location to determine the geographic location of each
+  request for a web page, then serve that content from edge caching servers
+  closest to that location.
+* CloudFront can be used to deliver your web content using Amazon's global
+  network of edge locations.
+* A request is first routed to the edge location that provides the lowest latency.
+  If the content is already in the edge location, CloudFront delivers it. If the
+  content is not present, then CloudFront retrieves it from the origin server.
+* CloudFront works with S3 buckets, S3 static websites, EC2, ELB and also
+  non AWS origin server such as on-premises web server.
+* CloudFront also integrates with Route53.
+* It supports all content that can be served over HTTP or HTTPS, including static
+  files, HTML files, images, JS, CSS, audio, video and media files or software
+  downloads, also supports media streaming using both HTTP and RTMP.
+
+### CloudFront Basics:
+Three core concepts to understand CloudFront.
+
+#### Distributions
+* You start by creating a distribution, which is identified by a DNS domain
+  name like 'd11223233.cloudfront.net'.
+* To serve files from CloudFront, you simply use the distribution domain name
+  in place of your website's domain name. Rest of the file path stays the same.
+* You can also create a CNAME record in Route53 for DNS.
+
+#### Origins
+* You must specify the DNS domain name of the origin - S3 bucket or HTTP server.
+
+#### Cache control
+* Once requested and served from the edge location, objects stay in the Cache
+  until they expire or are evicted to make room for more frequently reqeusted
+  content.
+* By default objects expire from the cache after 24 hours.
+* You can control how long objects stay in CloudFront cache before expiring.
+* You can use cache-control headers set by your origin server or you can
+  set the min, max and default TTL for objects in your CloudFront distribution.
+* You can also remove copies of an object from all CloudFront edge locations
+  at any time by calling the invalidation API. This feature removes the object
+  from every CloudFront edge location regardless of the expiration period set
+  on the object on your origin server.
+* Instead of invalidating objects, it is best practice to use a version
+  identifier as part of the object path name.
+* When using versioning, users will always see the latest content through
+  CloudFront, when you update your site. Old versions will expire from the
+  cache automatically.
+  
+
+
+
+
+
+
+
+
+
 
 ## Boto3:
 
