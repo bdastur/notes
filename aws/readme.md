@@ -767,8 +767,27 @@ Three core concepts to understand CloudFront.
 * When using versioning, users will always see the latest content through
   CloudFront, when you update your site. Old versions will expire from the
   cache automatically.
-  
 
+#### Advance CloudFront Features:
+* Can be setup to use more than one origins. You can control which requests
+  are served by which origin and how the requests are cached - using a feature
+  called "cache behaviors".
+* Cache Behaviors:
+  * Path patterns
+  * Which origin to forward requests to
+  * Whether to forward query strings to your origin
+  * Whether you need signed URL for specific files.
+  * Require HTTPS access
+* Cache behaviors are applied in order. If a request does not match the
+  first path pattern, it drops down to the next.
+* Signed URLs - URLs that are valid only between certain times and
+  optionally from certain IP addresses.
+* Signed cookies - Require authentication via public and private keys.
+* Origin Access Identities: Restrict access to an S3 bucket only to a
+  special CloudFront user associated with your distribution.
+
+
+## Storage Gateway:
 
 
 
