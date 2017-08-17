@@ -906,6 +906,10 @@ Example:
 ```
 
 ### Multipart Upload:
+
+**Links**
+  http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadComplete.html
+
 * For larger objects use multipart Upload
 * Each chunk should be minimum 5MB size.
 * Always complete or abort a multipart upload - else the individual chunks
@@ -920,6 +924,19 @@ Example:
   it does not get replicated to the dest bucket, it's only when you delete
   an object that it gets deleted from the replicated bucket.
 
+
+## Cloudwatch:
+* Two plans: basic and detailed
+* Basic is default, sends data points to Cloudwatch every 5 minutes for a
+  limited number of metrics.
+* Detailed is to be explicitly enabled. Sends data points every minute and
+  allows data aggregation
+* Limit of 500 alarms per AWS account.
+* Metrics data is retained for 2 weeks.
+* A cloudwatch logs agent is available that provides an automated way to
+  send log data to cloudwatch logs. Install it on an EC2 instance. It stays
+  running until you disable it.
+* Cloudwatch metrics provide hypervisor visible metrics.
 
 
 ## Storage Gateway:
