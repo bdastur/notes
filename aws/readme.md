@@ -891,7 +891,7 @@ Three core concepts to understand CloudFront.
 
 Example:
 ```
->>> session = boto3.Session(profile_name="cpeproduction", region_name="us-east-1")
+>>> session = boto3.Session(profile_name="default", region_name="us-east-1")
   >>>
   >>> s3client = session.client('s3')
   >>>
