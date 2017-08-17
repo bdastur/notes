@@ -855,6 +855,7 @@ Three core concepts to understand CloudFront.
   frequently accessed data.
 * It has lower per GB-month storage cost than standard.
 * Minimum object size of 128KB.
+* Objects can be moved here 30 days after creation.
 
 #### S3 Reduced Redundancy Storage (RRS):
 * Offers slightly less durability (4 nines) than standard or standard AI at
@@ -867,6 +868,8 @@ Three core concepts to understand CloudFront.
   Three to five hours later object is copied to S3 RRS.
 * Glacier allows you to retrieve up to 5% of the S3 data store in glacier
   for free each month.
+* Objects archived to glacier incur cost for atleast 90 days even if they
+  are deleted or overwritten earlier.
 
 ### Versioning:
 * Versioning is enabled at the bucket level.
@@ -902,6 +905,20 @@ Example:
   >>>
 ```
 
+### Multipart Upload:
+* For larger objects use multipart Upload
+* Each chunk should be minimum 5MB size.
+* Always complete or abort a multipart upload - else the individual chunks
+  upload will not be cleaned up and will cost.
+
+
+### Cross-Region Replication:
+* To enable CRR you need versioning enabled on source and destination buckets.
+* Existing objects will not be replicated, oly new objects will be replicated.
+* Permissions also get replicated.
+* When you delete specific versions of an object or delete a delete marker,
+  it does not get replicated to the dest bucket, it's only when you delete
+  an object that it gets deleted from the replicated bucket.
 
 
 
