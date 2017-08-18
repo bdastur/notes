@@ -924,6 +924,22 @@ Example:
   it does not get replicated to the dest bucket, it's only when you delete
   an object that it gets deleted from the replicated bucket.
 
+* S3 will scale automatically to support very high request rates, automatically
+  re-partitioning your buckets as needed. If you need request rates higher than
+  100 requests/second, you may want to review the S3 best practices guidelines
+  in DEV guide.
+* To support higher request rates, it is best to ensure some level of random
+  distribution of keys. For eg, by including a hash as a prefix to key names.
+
+* S3 charges:
+  You are charged for:
+  * Storage
+  * requests
+  * Storage management pricing (charged for each tag)
+  * Data transfer pricing
+  * Transfer acceleration
+
+
 
 ## Cloudwatch:
 * Two plans: basic and detailed
