@@ -8,9 +8,140 @@
 https://aws.amazon.com/blogs/security/new-attach-an-aws-iam-role-to-an-existing-amazon-ec2-instance-by-using-the-aws-cli/?sc_channel=sm&sc_campaign=rolesforrunninginstances&sc_publisher=tw&sc_medium=social&sc_content=read-post&sc_country=global&sc_geo=global&sc_category=ec2&sc_outcome=launch
 
 
+## EC2:
+* Default maximum EC2 instance limit per region is 20.
+* Within each family of instance type, there are several choices that scale
+  up linearly in size. The hourly price for each size scales linearly as well.
+
+### Instance types
+
+**General Purpose:**
+T2:
+* Burstable performance instances.
+* Provide a baseline level of CPU performance with ability to burst above
+  the baseline.
+* The baseline performance and ability to burst are governed by CPU credits.
+* Lowest cost general purpose instance types.
+Uses:
+* Webservers, developer environments and databases.
+
+http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/t2-instances.html#t2-instances-cpu-credits
+
+M4:
+* Latest generation of general purpose instances
+* Support for enhanced networking
+* EBS optimized by default at no additional cost.
+* Balance of compute, memory and network resources.
+
+M3:
+* SSD based instance storage for fast I/O performance.
+* Balance of compute, memory and network resources
+
+Uses:
+* Small and midsize databases, data processing
+
+**Compute Optimized:**
+C4:
+* Features highest performing processors and lowest price/compute performance
+  in EC2.
+* EBS optimized by default
+C3:
+* Support for enhanced networking
+* Support for clustering
+* SSD backed
+
+**Memory Optimized:**
+X1:
+* Memory optimized and have lowest price per GiB of RAM in EC2 types.
+* Upto 1953 GiB of DDR based instance memory.
+* SSD Storage
+* EBS optimized
+* Ability to control processor C-state and P-state configuration.
+
+R4:
+* Enhanced networking
+* DDR4 memory
+
+R3:
+* SSD Storage
+* High frequency intel Xeon Ivy bridge processors
+* Enhanced networking
+
+**Accelerated Computing:**
+P2:
+* General purpose GPU compute
+
+G2:
+F1:
 
 
-## Virtual Private Cloud (VPC):
+**Storage Optimized:**
+I3:
+* High I/o instances
+* NVMe SSD Storage
+
+D2:
+* HDD Storage
+* High disk throughput.
+
+**Enhanced Networking:**
+* Many instances support enhanced networking. Enhanced networking reduces
+  impact of virtualization on network performance by enabling a capability called
+  SR-IOV (Single Root I/O Virtualization). The result is more PPS, lowercase
+  latency and less jitter.
+* Enhanced networking is available only for instances launched in Amazon VPC.
+
+
+
+### AMIs
+* AMIs define the initial software that will be on an instance when launched.
+* OS, Initial state of any patches, appln or system software.
+
+There are 4 sources:
+* Published by AWS
+* AWS Marketplace
+* Generated from existing instances
+* Uploaded virtual servers
+
+* When launching windows instance, EC2 generates a random password for the
+  local admin account and encrypts the password using a public key. initial
+  access is obtained by decrypting the password with the private key, either
+  in the console or using API.
+  The decrypted password can be used to login into the instance with local
+  admin account via RDP.
+
+### Security Groups:
+* Virtual firewall
+* Security groups have different capabilities depending on whether they are
+  associated with a VPC or EC2 classic.
+EC2 classic SG -- Control outgoing instance traffic
+VPC SG         -- Control outgoing and incoming instance traffic.
+
+* SG is stateful firewall; that is an outgoing message is remembered so that
+  the response is allowed through the SG without an explicit inbound rule
+  being required.
+* Changes to SG are immediate.
+* Everything is denied by default. You can add a SG Rule to allow traffic,
+  you cannot add a rule to deny traffic.
+
+* You can only export previously imported EC2 instances. Instances launched
+  within AWS from AMIs cannot be exported.
+
+* Instance metadata: http://169.254.169.254/latest/meta-data/
+
+**Termination Protection**
+* Prevents from accidental Termination from console, CLI or API.
+* It does not prevent termination triggered by an OS shutdown command,
+  termination from an ASG, or termination of a spot instance due to spot price
+  changes.
+
+### Lifecycle of instances
+
+
+
+
+
+## Virtual Private Cloud (VPC:):
 
 **Links**
 http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
@@ -657,6 +788,57 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 
 
 ## Simple Workflow Service (SWF):
+* SWF makes it easy to build applications that coordinate work across
+  distributed components.
+* In SWF task represents a logical unit of work that is performed by a
+  component of your application.
+* You implement the workers to perform tasks.
+* Workers can run either on EC2 or on on-premises instances/servers.
+* You can create long running tasks that might fail, timeout or require
+  restart or tasks that can complete with varying throughput and latency.
+* SWF stores tasks, and assigns them to workers when they are ready, monitor
+  their progress and maintain their state, including details on their
+  completion.
+* To coordinate tasks you write a program that gets the latest state of
+  each task from SWF and uses it to initiate subsequent tasks.
+
+### Workflows:
+* In SWF you can implement distributed, asynchronous applications as workflows.
+* Workflows coordinate and manage execution of activities that can be run
+  asynchronously across multiple computing devices and that can feature
+  both sequential and parallel processing.
+
+### Workflow Domains:
+* Workflows in different domains cannot interact with one another.
+* Domains are a way of scoping SWF resources within your AWS account.
+
+### Workflow history:
+* Is a detailed, complete and consistent record of every event that occured
+  since the workflow execution started.
+
+### Actors:
+* Programatic features are known as actors.
+* They can be workflow starters, deciders or activity workers.
+* Actors communicate with SWF through it's API.
+* You can develop actors in any programming language.
+* A workflow starter is an app that initiates workflow executions - like a
+  website or a mobile application.
+* A decider is the logic that coordinates the tasks in a workflow. The decider
+  also processes events that arrive while the workflow is in progress.
+* An activity worker is a single computer process (or thread) that performs
+ the activity task in your workflow.
+
+
+### Tasks:
+* Three types of tasks:
+  * Activity tasks:
+    * tells and activity worker to perform it's function.
+  * AWS Lambda tasks:
+    * Similar to activity task, but executes an AWS Lambda function
+  * Decision tasks:
+    * Tells a decider that the state of the workflow execution has changed
+      to determine the next activity that needs to be performed.
+
 
 
 ## Simple Notification Service (SNS):
@@ -958,7 +1140,25 @@ Example:
 ## Storage Gateway:
 
 
+## Lambda
 
+**Links**:
+http://docs.aws.amazon.com/lambda/latest/dg/welcome.html
+
+http://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
+
+http://docs.aws.amazon.com/lambda/latest/dg/limits.html
+
+
+* Server less way to run your application
+* Allows you to run code without provisioning or managing servers.
+* Executes your code only when needed and scales automatically from few
+  requests per day to thousands per second.
+* Supports synchronous and asynchronous invocation of a lambda function.
+* You can control the invocation type only when you invoke a lambda function.
+* When the lambda function is invoked from another aws service, the invocation
+  type is pre-determined.
+* languages supported: C#, Java, Node.js, Python.
 
 
 
