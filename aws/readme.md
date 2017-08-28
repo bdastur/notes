@@ -135,6 +135,140 @@ VPC SG         -- Control outgoing and incoming instance traffic.
   termination from an ASG, or termination of a spot instance due to spot price
   changes.
 
+### Pricing Options:
+**On-Demand Instances:**
+* The price per hour for each instance type published on AWS website represents
+  the price for on-demand instances.
+* This is the most flexible pricing option. No upfront commitment required,
+  and customer has control over when instance is launched and terminated.
+* It is the least cost effective of the three pricing options per compute hour.
+
+**Reserved Instances:**
+* Enables to make capacity reservations for predictable workloads.
+* Can save upto 75% on the on-demand hourly rate.
+* When reserving customers specify the instance type and availability zone for
+  the instance.
+* Capacity in AWS DC is reserved for the customer.
+* Payment Options
+  * All upfront
+  * Partial upfront
+  * No upfront
+
+**Modifying your reserved instances:**
+* Modification does not change the remaining term of your reserved instances.
+  Their end dates remain the same. There is no fee and you do not receive
+  a new bill or invoice.
+* Modification is different from purchase.
+* What can you modify?
+  * Switch AZz within the same region.
+  * Change between EC2 VPC and EC2 classic.
+  * Change instance type within the same instance family (Linux only)
+
+* ASG can take advantage of reserved instance pricing. Reserved instances,
+  are billing construct. RI gets applied to any running instance that fits
+  the parameters of the RI. In other words it really isn't associated to just
+  one instance.
+* If you have an ASG which launches instances in an AZ where you purchased RI,
+  it will take advantage of that.
+
+**Spot Instances:**
+* Can be used for workloads that are not time critical and tolerant to
+  interruption.
+* Offers greatest discount.
+* Specify the price you are willing to pay for a certain instance type. When
+  the bid price is above the current spot price, the customer will receive the
+  requested instances.
+* These instances operate like all other instances, and customers pay the spot
+  price for the hours that the instances run.
+* The instances run until:
+  * The customer terminates them
+  * The spot price goes above the customers bid price.
+  * There is not enough unused capacity to meet the demand of the spot instances.
+* If AWS needs to terminate the spot instance, the instance will receive a
+  termination notice providing 2 minute warning prior to terminating the
+  instance.
+* If AWS terminates the instance, you get the hour it was terminated in for
+  free.
+* If you terminate your spot instance, you pay for the hour.
+
+### Tenancy Options:
+
+**Shared Tenancy:**
+* Default tenancy model for all EC2 instances regardless of instance type or
+  pricing.
+* Single host machine may host instances for different customers.
+* AWS does not use over provisioning. Fully isolates instances from other
+  instances on the same host.
+
+**Dedicated Instances:**
+* Run on hardware that is dedicated to a single customer.
+* Other instances in the account will run on shared tenancy and will be
+  isolated at hardware level from dedicated instances in the account.
+
+
+**Dedicated host:**
+* A physical server with EC2 instance capacity fully dedicated to a customer.
+* Customer has control over which specific host runs an instance at launch.
+
+**Placement groups:**
+* A logical grouping of instances within a single AZ.
+* Recommended for applications that benefit from low network latency, high
+  network throughput or both.
+
+### Instance Stores:
+* Provides temporary block-level storage for your instance.
+* Located on disks that are physically attached to the host computer.
+* The size of an instance store as well as the number of devices available
+  varies by instance type.
+* Data in an instance store persists only during the lifetime of it's
+  associated instance.
+* If the instance reboots (intentionally or unintentionally), data in the
+  instance store persists.
+* Data in the instance store is lost when:
+  * The underlying disk drive fails.
+  * The instance is stopped.
+  * The instance terminates.
+* When you stop or terminate an instance, every block of storage in the
+  instance store is reset. Therefore data cannot be accessed through the
+  instance store of another instance.
+* If you create an AMI from the instance, the data on it's instance store
+  volumes isn't preserved and isn't present on the instance store volumes of
+  the instances that you launched from the AMI.  
+
+
+### EBS:
+* Provide persistent block-level storage volumes for use with EC2 instanes.
+* EBS volume is automatically replicated within it's AZ to provide HA and
+  durability.
+
+**Types of EBS Volumes:**
+
+**Magnettic volumes:**
+* Lowest performance characteristics and lowest cost per gigabyte.
+* Great cost effective solution for appropriate workloads.
+* Can range from 1 GB to 1 TB and avg 100 IOPS, with ability to burst to
+  hunderds of IOPS.
+Use cases:
+  * infrequently accessed data
+  * Sequential reads.
+  * Situation where low-cost storage is requirement.
+* Billed based on provisioned space, regardless of how much data is actually
+  stored on the volume.
+
+**General purpose SSD:**
+
+**Provisioned IOPS SSD:**
+
+**HDD throughput optimized (ST1):**
+
+**HDD Cold (SC1):**
+
+
+
+
+
+
+
 ### Lifecycle of instances
 
 
