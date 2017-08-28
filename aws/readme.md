@@ -256,12 +256,90 @@ Use cases:
   stored on the volume.
 
 **General purpose SSD:**
+* Strong performance at a moderate price.
+* Ranges from 1GB to 16TB and provides baseline performance of 3 IOPS per
+  gigabyte provisioned.
+* Caping at 10,000 IOPS.
+  EG: for a 1 TB volume, you can expect a baseline performance of 3000 IOPS
+* Under 1TB, it has ability to burst upto 3000 IOPS for extended periods of
+  time.
+* When not using IOPS are accumulated as I/O credits, which get used during
+  heavy traffic.
+* Use cases:
+  * System boot volumes
+  * Small to medium sized DB.
+  * Development and test environments.
+
 
 **Provisioned IOPS SSD:**
+* Designed to meet needs of I/O intensive workloads.
+* Range from 4GB to 16TB.
+* When provisioning specify the size and desired IOPS, up to the lower of
+  maximum of 30 times the number of GB of volume or 20,000 IOPS.
+* EBS delivers within 10% of the provisioned IOPS 99.9 % of the time over a
+  given year.
+* Price is on provisioned size. Additional monthly fee is based on provisioned
+  IOPS (whether consumed or not).
+* Use cases:
+  * Critical business apps requiring sustained IOPS performance.
+  * Large DB workloads.
+
 
 **HDD throughput optimized (ST1):**
+* Sequential writes.
+* frequently accessed workloads.
+* Usually used for data warehouse apps.
+
 
 **HDD Cold (SC1):**
+* Less frequently accessed data
+* Usually used for file servers.
+
+* Note that ST1 and SC1 cannot be used as Root volumes.
+* HDD, magnetic - standard can be used as Root volume.
+* Termination protection is turned off by default, you must trun it on.
+* Default action for the root EBS volume is to be deleted when the instances
+  is terminated.
+
+**Protecting data:**
+**Snapshots:**
+* Snapshots are incremental backups, meaning only the blocks on the device that
+  have changed since your most recent snapshot are saved.
+* Snapshots are saved in S3.
+* The action for taking a snapshot is free. You pay for the storage cost.
+* Snapshots are constrained to the region in which they are created. meaning
+  you can use them to create new volumes only in the same region.
+* If you need to restore a snapshot in a different region, you can copy a
+  snapshot to another region.
+* To use a snapshot you create a new EBS volume from the snapshot. The volume
+  is created immediately, but data is loaded lazily.
+* Means the volume can be accessed upon creation, and if data being requested
+ is not yet restored, it will be upon first request.
+* Snapshots can used to increase the size of an EBS volume.
+* Snapshots of encrypted volumes are encrypted automatically.
+* Volumes restored from encrypted snapshots are encrypted automatically.
+* You can share snapshots, but only if they are unencrypted.
+* To create a snapshot for EBS volumes that serve as root devices, you should
+  stop the instance before taking the snapshot.
+
+**Encryption:**
+* EBS volumes can be encrypted. Uses AWS Key management service to handle
+  key management.
+* A new master key is created unless you select a master key.
+* Data and keys are encrypted using AES-256 algorithm.
+* Encryption happens on the servers that host the EC2 instance, so the data
+  is actually encrypted in transit between the host and the storage media
+  and also on the media.
+* Encryption is transparent, and you can expect same IOPS performance with
+  minimal effect on latency.
+* Snapshots from encrypted volumes are automatically encrypted, as are the
+  volumes created from encrypted snapshots.
+* EBS Root volumes of your default AMIs cannot be encrypted.
+* You can use 3rd party tools to encrypt the root volume, or it can be Done
+  when creating AMIs in the AWS console or using API.
+* You are not tied to the type of volume with snapshot. Meaning - you could
+  have a snapshot of a volume of type magnetic disk, and you can created
+  a new volume from this snapshot with a different volume type like SSD.
 
 
 
