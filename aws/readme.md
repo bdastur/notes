@@ -429,9 +429,80 @@ Use cases:
 * You can configure ELB to create a session cookie by specifying your own
   stickness duration. ELB creates a cookie names AWSELB that is used to mapped
   the session to the instance.
-  
+
 * Health checks: to test the status of the EC2 Instances
 * Either InService or OutOfService.
+
+
+## Autoscaling (ASG:)
+* Allows automatic scaling of EC2 instances based on criteria. Scaling in or  
+  scaling out.
+### Autoscaling plans:
+**Maintain current levels:**
+* Maintain a minimum or specified number of running instances at all times.
+* When ASG finds an unhealth instance it terminates it and launches a new one.
+
+**Manual scaling:**
+* Most basic way to scale your resources.
+* Specify the change in max, min or desired capacity of your ASG group.
+* ASG maintains the process of creating or terminating instances to maintain
+  the updated capacity.
+
+**Scheduled scaling:**
+* Scaling actions are performed automatically as a function of time and date.
+
+**Dynamic scaling:**
+* Create a scaling policy based on criteria like n/w bandwidth or CPU
+  measured by cloudwatch and measure a threshold.
+
+### ASG Components:
+
+**Launch configuration:**
+* A template that ASG uses to create new instances.
+* It is composed of config name, AMI, Instance type, SG, key pair.
+* Only a launch config name, AMI and instance type are required to create a
+  launch configuration. key pair, SG, block device mapping are optional elements.
+* Default limit for launch configs is 100 per region.
+
+* ASG can use on-demand or spot instances as EC2 instances it manages.
+* on-demand is default, but spot instances can be used by referencing a max
+  bid price in the launch config.
+* A launch config can reference on-demand or spot instances but not both.
+
+
+**Autoscaling group:**
+* ASG is a collection of EC2 instances managed by ASG service.
+
+
+**Scaling policy:**
+* You can associate cloudwatch alarms and scaling policies to an ASG group
+  to adjust dynamically.
+* The policy is a set of instructions that tell ASG whether to scale out or in.
+* You can associate more than one scaling policy to an ASG group.
+
+* You are billed for a full hour of running time even for EC2 instances that
+  are launched and terminated within the hour.
+
+* A good ASG best practice is to scale out quickly when needed but to scale in
+  more slowly to avoid having to relaunch new and separate EC2 instances for
+  a spike in workload that fluctuates up and down within minutes.
+* It is important to consider bootstrapping for EC2 instances launched by
+  ASG.
+* It takes time to configure each EC2 instance before the instance is
+  healthy and capable of accepting traffic.
+* Instances that are more stateless instead of statefull will more gracefully
+  enter and exit an ASG group.
+
+
+### ASG Limits:
+* Default Launch configurations per region: 100
+* Default ASG groups per region: 20
+* Default scaling policies per ASG: 50
+* Default scheduled actions per autoscaling group: 125
+* Default lifecycle hooks per ASG group: 10
+* Default SNS topics per ASG group: 10
+* Default Classic ELB per ASG: 50
+
 
 
 
