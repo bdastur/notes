@@ -431,6 +431,9 @@ Use cases:
   the session to the instance.
 
 * Health checks: to test the status of the EC2 Instances
+* An ELB health check may be a ping, a connection attempt or a page that is
+  checked.
+  
 * Either InService or OutOfService.
 
 
@@ -472,7 +475,8 @@ Use cases:
 
 **Autoscaling group:**
 * ASG is a collection of EC2 instances managed by ASG service.
-
+* An Autoscaling group must have minimum size and launch configuration defined
+  in order to be created.
 
 **Scaling policy:**
 * You can associate cloudwatch alarms and scaling policies to an ASG group
