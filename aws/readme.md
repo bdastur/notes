@@ -433,7 +433,7 @@ Use cases:
 * Health checks: to test the status of the EC2 Instances
 * An ELB health check may be a ping, a connection attempt or a page that is
   checked.
-  
+
 * Either InService or OutOfService.
 
 
@@ -1356,7 +1356,7 @@ Three core concepts to understand CloudFront.
 * Can have upto 100 buckets per account by default.
 * Even though the namespace of S3 is global, each S3 bucket is created in a
   specific region that you choose. This lets you control where your data is
-  stored. Default if you dont specifiy is us-east-1.
+  stored. Default if you don't specifiy is us-east-1.
 * Each object consist of data and metadata. Data is opaque to S3. Data is
   treated simply as a stream of bytes.
 * metadata can be system metadata - created and used by S3 or user metadata
@@ -1469,7 +1469,7 @@ Example:
 
 ### Cross-Region Replication:
 * To enable CRR you need versioning enabled on source and destination buckets.
-* Existing objects will not be replicated, oly new objects will be replicated.
+* Existing objects will not be replicated, only new objects will be replicated.
 * Permissions also get replicated.
 * When you delete specific versions of an object or delete a delete marker,
   it does not get replicated to the dest bucket, it's only when you delete
@@ -1531,6 +1531,33 @@ http://docs.aws.amazon.com/lambda/latest/dg/limits.html
 
 
 
+## AWS Import/Export:
+* Service that accelerates transferring large amounts of data in and out of
+  AWS using physical storage appliances, bypassing the internet.
+* A good choice if you have 16TB or less of data to import into S3 or EBS.
+* You can also export from S3 with AWS import/export.
+
+## Snowball:
+* Uses Amazon provided shippable storage appliances, shipped through UPS.
+* Each Snowball is protected by KMS and made physically rugged to secure
+  and protect your data while in transit.
+* Comes in two sizes: 50 TB and 80 TB and varies by region.
+* Features:
+  * Import/export data between on-premise data storage and S3.
+  * Encryption is enforced.
+  * You don't buy and maintain your own hardware devices.
+  * Manage your jobs through AWS snowball console.
+
+## Snowball Edge:
+* 100TB data transfer device with on-board storage and compute capabilities.
+* Snowball edge connects to your existing applications and infra using standard
+  storage interfaces.
+* It can cluster together to form a local storage tier and process your
+  data on-premise, ensuring applications continue to run even when they are
+  not able to access the cloud.
+
+## Snowmobile:
+* Petabyte and Exabyte amount of data.
 
 
 
