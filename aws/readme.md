@@ -763,7 +763,122 @@ the wide range of ephemeral ports.
 
 ### VPC Flowlogs:
 
+
 ## Route53:
+* Route53 is an authoritative DNS system. An authoritative DNS system provides
+  and update mechanism that developers use to manage their public DNS names.
+  It then answers DNS queries, translating domain names into IP addresses so
+  that computers can communicate to each other.
+
+### DNS Concepts:
+
+**TLDs**  (Top Level Domains)
+* Most general part of the domain
+* eg: .com, .org, .Ed_Aboud
+* Top of the hierarchy in terms of domain names.
+* ICANN - Internet Corporation for Assigned Names and Numbers.
+
+* Domain names: Human friendly name used to associate to an internet source.
+* A proper FQDN ends with a '.', indicating the root of the DNS hierarchy.
+* Sometimes software that calls for an FQDN does not require an ending ., but
+  it is required to conform to ICAAN standards.
+
+In the URL: api.aws.amazon.com.
+api            == host
+aws.amazon.com == subdomain
+amazon         == sld
+com            == tld
+.              == root
+
+* DNS uses port 53 to serve requests.
+
+**Name servers:**
+* A computer designated to translate domain names to IP addresses
+* A nameserver can be authoritative, meaning that they give answers to queries
+  about domains under their control. Or they may point to other servers to
+  serve cached copies of other name servers data.
+
+**Zone files:**
+* A simple text file that contains mapping between domain names and IP
+  addresses.
+* This is how a DNS server finally identifies which IP maps to a certain
+  domain name.
+* Zone files reside in name servers and define the resources available under
+  a specific domain, or the place where one can go to get that info.
+
+
+**Top level Domain (TLD) Name Registrars**
+* Domain names must be unique
+* Domain registrar is an organization or commercial entity that manages
+  reservation of internet domain names.
+* A domain name registrar must be accredited by a generic TLD registry and/or
+  a country code TDL (ccTLD registry)
+
+**Steps involved in DNS resolution**
+* When you type a domain name in your browser, the computer first checks it's
+  host file to see if the domain name is stored locally.
+* If not it will check it's DNS cache to see if the site was visited before.
+* If it still does not have a record of that domain name, it will contact a
+  DNS server to resolve the domain name.
+* DNS is a hierarchical system. At the top of the system are root servers.
+* There are approximately 13 root servers in operation.
+* When a request comes in for a domain that a lower level name server cannot
+  resolve, a query is made to the root server for domain.
+* The root servers are mirrored and replicated. When reqeusts are made to a
+  certain root server, the request will be routed to the nearest mirror
+  of that root server.
+* The root servers won't actually know where the domain is hosted. They will
+  however be able to direct the requester to the name server that handles
+  the specifically-requested TLD.
+* For eg: if request for www.wikipedia.org is made to the root server, it will
+  check it's zone files for a listing that matches the domain name but will
+  not find it.
+* It will instead find a record for .rog TLD and give the requester address
+  of the name server responsible for .org addresses.
+
+**Top level domain servers:**
+* After the root server returns the address of the appropriate server
+  responsible for the TLD, the requester sends a new request to that address.
+* Once again when the name server searches it's zone files it will not find
+  one in it's records. However it will find a listing for the IP address of
+  the name server responsible for wikipedia.org.
+
+**Domain-level name servers:**
+* At this point the requester has the IP address of the name server that is
+  responsible for knowing the actual IP address of the resource.
+* It sends a request to the name server to resolve www.wikipedia.org
+* The name server checks it's zone files and finds a zone file associated
+  with wikipedia.org. Inside the file is a record that contains the IP address
+  of the .www host.
+* The name server returns the final address to the requester.
+
+**Resolving name servers:**
+* A resolving name server is configured to ask other servers questions.
+* It's primary function is to act as an intermediary for a user, caching
+  previous query results for improving speed and providing the address of
+  appropriate root servers to resolve new requests.
+* A user will have a few name servers configured on their computer system.
+* Name servers are typically provided by an ISP or other organization.
+* There are public DNS servers that you can query.
+
+**Zone files:**
+* Zone files are the way the name servers store info about domains they know.
+* The more zone files a name server has, the more requests it will be able to
+  answer authoritatively.
+* If the server is configured to handle recursive queries, like a Resolving
+  name server, it will find the answer and return it. Otherwise it will tell
+  the requesting entity where to look next.
+* Zone files describe a DNS zone, which is a subset of the entire DNS.
+* Generally used to configure a single domain.
+* Zone file's $ORIGIN directive is a parameter equal to the zone's highest
+  level of authority by default.
+* If a zone file is used to configure the example.com domain, the $ORIGIN would
+  be set to example.com
+* $TTL - Time to live value. Defines the length of time the previously queried
+  results are available to the caching name server before they expire.
+
+### Record Types:
+
 
 
 
