@@ -419,7 +419,7 @@ Use cases:
 * Ensure that the ELB is not sitting behind a proxy server with proxy protocol
   enabled, otherwise there will be a duplicate header.
 
-## Sticky sesstions:
+### Sticky sesstions:
 * Enables ELB to bind a user's session to a specific instance. This Ensures
   that requests from the user during the session are sent to the same instance.
 * Key to managing sticky sessions is to determine how long your ELB should
@@ -726,7 +726,7 @@ any malicious ports within that range.
 the wide range of ephemeral ports.
 
 
-## NAT Instance and NAT Gateway:
+### NAT Instance and NAT Gateway:
 * NAT instances and gateways allow instances deployed in private subnets to
   gain internet access.
 
@@ -763,6 +763,7 @@ the wide range of ephemeral ports.
 
 ### VPC Flowlogs:
 
+## Route53:
 
 
 
