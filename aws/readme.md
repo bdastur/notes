@@ -700,6 +700,8 @@ http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
 
 
 ### Network ACLs:
+* Your VPC automatically comes with a default network ACL and by default it
+  allows all outbound and inbound traffic.
 * Operates at subnet level (second level of defense)
 * Supports allow and deny rules.
 * Stateless: Return traffic must be explicitly allowed by rules.
@@ -708,6 +710,20 @@ http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
 * Automatically applied to all instances in the associated subnets.
 * When you create a custom network ACL, it's initial configuration will deny
   all inbound and outbound traffic, until you create rules to allow otherwise.
+* Each subnet in your VPC must be associated with a network ACL. If you do not
+  explicitly associate a subnet with a network ACL, the subnet is automatically
+  associated with the default network ACL.
+* You can associate a network ACL with multiple subnets, however a subnet can
+  be associated to only one network ACL at a time.
+
+
+**Ephemeral Ports**
+* To cover the different types of clients that might initiate traffic to   
+public facing instances in your VPC, you can open ephemeral ports
+1025-65535. However you can also add rules to your ACL to deny traffic on
+any malicious ports within that range.
+* Remember to place DENY rules earlier in table than ALLOW rules that open
+the wide range of ephemeral ports.
 
 
 ## NAT Instance and NAT Gateway:
@@ -731,31 +747,6 @@ http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
 * Remember to update your route table to point to the NAT gateway for traffic
   from private subnet to flow out the NAT gateway.
 
-
-### VPC Security (Network ACL and Security Groups)
-* Your VPC automatically comes with a default network ACL and by default it
-  allows all outbound and inbound traffic.
-* You can create a custom network ACL. By default the custom network ACL denies
-  all inbound and outbound traffic until you add rules.
-* Each subnet in your VPC must be associated with a network ACL. If you do not
-  explicitly associate a subnet with a network ACL, the subnet is automatically
-  associated with the default network ACL.
-* You can associate a network ACL with multiple subnets, however a subnet can
-  be associated to only one network ACL at a time.
-* A network ACL contains a numbered list of rules, that is evaulated in order
-  with the lowest numbered rule.
-* A network ACL is stateless. It has separate inbound and outbound rules. And
-  each rule can allow or deny traffic.
-* When you want to explicitly deny certain traffic you have to add a rule to
-  a network ACL. You cannot use a SG.
-
-**Ephemeral Ports**
-* To cover the different types of clients that might initiate traffic to   
-  public facing instances in your VPC, you can open ephemeral ports
-  1025-65535. However you can also add rules to your ACL to deny traffic on
-  any malicious ports within that range.
-* Remember to place DENY rules earlier in table than ALLOW rules that open
-  the wide range of ephemeral ports.
 
 
 ### VPC Flowlogs:
