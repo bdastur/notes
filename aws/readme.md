@@ -747,6 +747,18 @@ the wide range of ephemeral ports.
 * Remember to update your route table to point to the NAT gateway for traffic
   from private subnet to flow out the NAT gateway.
 
+### Virtual private gateways (VPG:), Customer gatways and VPNs:
+* Allows you to connect existing datacenter to amazon VPC using either h/w
+  or s/w VPN connections.
+* A VGP: is a virtual private network connector on the AWS side of the VPN
+  connection.
+* A customer GW (CGW) represents the physical device or software application
+  on the customers side of the VPN connection.
+* After these two are created the last step is to create a VPN tunnel.
+* A VPN tunnel is established after traffic is generated from the customers
+  side of the VPN connection.
+* You must specify the type of routing for the tunnel - dynamic (BGP) or static.
+* VPG is the AWS end of the VPN tunnel.
 
 
 ### VPC Flowlogs:
