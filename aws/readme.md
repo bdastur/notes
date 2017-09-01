@@ -524,11 +524,129 @@ http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
 172.16.0.0  - 172.31.255.255 (172.16/12 prefix)
 192.168.0.0 - 192.168.255.255 (192.168./16 prefix)
 
-* Maximum addressable size of a network size is /16.
+* VPC CIDR block may be as large as /16 (65536 ip addresses) or as
+  small as /28 (16 ip addresses)
+* Maximum addressable size of a network is /16.
+* Default limit for Amazon VPCs in a region is 5.
 * Each subnet is mapped to a specific availability zone.
 * Security groups and Network ACLs can span multiple availability zones.
 * Can only have one internet gateway in a VPC.
 * Network ACLs are stateless.
+* When you create a VPC all subnets can communicate with each other by default.
+
+* VPC has the following components:
+  * subnets
+  * Route tables
+  * DHCP option sets
+  * Security groups
+  * Network ACLs
+  and the following optional components:
+  * IGW
+  * EIP addresses
+  * ENI (Elastic network interfaces)
+  * Endpoints
+  * Peering
+  * NAT instances and NAT gateways
+  * VPG, customer gateways and VPNs.
+
+* IPsec is the security protocol supported by VPC.
+
+### Subnets:
+* 1 Subnet == 1 AZ. 1 AZ however can have multiple subnets.
+* Subnets can be private, public or VPN only
+* A public subnet is one in which the associated route table directs the
+  subnets's traffic to VPC's IGW.
+* A private subnet is one in which the route table does not direct the
+  subnet's traffic to VPC's IGW.
+* A VPN-only subnet is one in which the route table directs the subnet traffic
+  to Amazon VPC's VPG and does not have a route to IGW.
+* Regardless of the type of subnet, the internal IP address range of the
+  subnet is always private.
+* The minimum size subnet you can have in a VPC is /28
+* The maximum size subnet you can have in a VPC is /16
+* AWS reserves 5 IP addresses within a subnet for it's own purposes.
+  (First 4 and last 1 ip address)
+
+### Route Tables:
+* A logical construct that contains a set of rules/routes that are applied
+  to the subnet to determine where n/w traffic is directed.
+* You can use route tables to specify which subnets are public and which
+  are private.
+* Each route table contains a default route, called the local route which
+  enables communication within the VPC. This route cannot be modified or removed.
+* VPC has an implicit router.
+* VPC comes with a main route table that you can modify.
+* You can create additional custom route tables for your VPC.
+* Each subnet must be associated with a route table.
+* If you do not associate a route table, the subnet uses the main route table.
+* You can replace main route table with a custom table, so that each new
+  subnet is automatically associated with it.
+* Each route in the route table specifies a destination CIDR and a target;
+  eg: traffic destined for 172.16.0.0/12 is targeted for the VPG.
+* AWS uses the most specific route that matches the traffic to determine
+  how to route the traffic.
+
+### Internet Gateways (IGW:)
+* A component that allows communication between instances in the VPC and
+  the internet. IGW translates the reply address to the instances public ip
+  address and maintains a 1-to-1 map of the instance private ip addr and public
+  ip addr.
+* When IGW receives traffic from internet it translates dest addr (public ip)
+  to instances private ip addr.
+* You must do the following to create a public subnet with internet access:
+  * Attach an IGW to amazon VPC.
+  * Create a subnet route table rule to send all non-local traffic (0.0.0.0/0)
+    to the IGW
+  * Configure your network ACLs and security groups to allow relevant traffic
+    to flow to and from your instance.
+
+### DHCP option sets:
+* AWS automatically creates and associates a DHCP option set for your VPC
+  and sets two options: domain name servers and domain name.
+* DHCP option sets allow you to direct EC2 host name assignments to your own
+  resources.
+* To assign your own domain name to your instances, create a custom DHCP
+  option set and assign it to your VPC.
+* Can configure the following values:
+  - domain name servers - IP addr of up to 4 domain name servers.
+  - domain name - desired domain name
+  - ntp-servers - The ip address of up to 4 ntp servers.
+  - netbios-name-servers - ip addr of up to 4 NetBIOS name servers.
+  - netbios-node-type - set this value to 2.
+
+
+### Elastic IP Addresses (EIP:)
+* AWS maintains a pool of public ip addresses in each region.
+* EIP allow you to maintain a set of IP addresses that remain fixed while the
+  underlying infrastructure may change over time.
+* You must first allocate an EIP for use within the VPC and then assign it to
+  an instance.
+* EIPs are specific to a region.
+* There is a one-to-one relationship between network interfaces and EIPs.
+* You can move EIPs from one instance to another, either in same or different
+  VPC, but within the same region.
+* EIPs remain associated with your AWS account until you release them.
+* There is a charge for an EIP that is allocated to your account and if it
+  is not associated with a resource.
+* In Classic VPC if you stop and isntance, its EIP is disassociated. But in a
+ VPC if you stop and instance, it's EIP remains associated.
+
+### Elastic Network interfaces (ENI:)
+* An ENI is a virtual n/w interface that you can attach to an instance in a VPC.
+* ENIs are only available within a VPC and are associated with a subnet
+  upon creation.
+* They can have 1 public ip address and multiple private ip address. One of
+  them is primary.
+* Allow you to create dual-homed instances with workloads on distinct subnets.
+
+### Endpoints:
+* Enables you to create a private connection between your VPC and another
+  AWS service without requiring access over the internet, or a NAT interface,
+  VPN connection or AWS direct connect.
+* VPC endpoint currently supports S3.
+
+
+
 
 ### Default VPC:
 * AWS provides a default VPC in each region.
@@ -538,14 +656,63 @@ http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
 * If you delete the default VPC, only way to restore it is to contact AWS support.
 
 ### VPC Peering:
-* Allows you to connect one VPC with another via a direct network route using
-  private IP addresses.
+* Peering connection is a n/w connection between two VPCs that Enables
+  communication between instances in those VPCs.
 * Instances behave as if they were on the same private network.
-* You can peer VPCs with other AWS accounts as well as with other VPCs in
-  the same account.
-* Peering is a star configuration. **No transitive peering**.
+* You can create a peering connection between VPCs in same account or a VPC
+  in another AWS account, within a single region.
+* A peering connection is neither a gateway nor a VPN connection and does not
+  introduce a SPF for communication.
+
+* Peering connections are created through request/accept protocol.
+  * The owner of the requesting VPC sends a request to peer to the owner of
+    the peer VPC.
+  * If the peer is in the same account it is identified by VPC id. If peer is
+    in a different account it is identified by Account id and VPC id.
+  * The owner of the peer VPC has 1 week to accept or reject the request
+    else the request expires.
+* You cannot create a peering connection between VPCs that have matching or
+  overlapping CIDR blcoks.
+* You cannot create peering connections between VPCs in different regions.
+* Does not support transitive peering.
+* You cannot have more than one peering connection between same two VPCs at
+  the same time.
+
+### Security groups:
+* A virtual firewall that controls inbound and outbound traffic to AWS
+  resources and EC2 instances.
+* All EC2 instances must be launched into a SG.
+* If a SG is not specified at launch, then the instance will be launched in
+  the default SG.
+* A default SG :
+  * allows all outbound traffic,
+  * allows communication within the SG
+  * Denies all inbound traffic.
+* You can create up to 500 security groups for each VPC.
+* You can add 50 inbound and 50 outbound rules to each SG.
+* You can specify allow rules but not deny rules in a SG.
+* Have separate rules for inbound and outbound traffic.
+* By default all outbound traffic is allowed.
+* SGs are stateful. This means the responses to allowed inbound traffic are
+  allowed to flow outbound regardless of the outbound rules.
+* You can change the SG which is associated to an instance, and changes will
+  take effect immediately.
+
+
+### Network ACLs:
+* Operates at subnet level (second level of defense)
+* Supports allow and deny rules.
+* Stateless: Return traffic must be explicitly allowed by rules.
+* Processes rules in numbered order when deciding whether to allow traffic,
+  starting with the lowest numbered rule.
+* Automatically applied to all instances in the associated subnets.
+* When you create a custom network ACL, it's initial configuration will deny
+  all inbound and outbound traffic, until you create rules to allow otherwise.
+
 
 ## NAT Instance and NAT Gateway:
+* NAT instances and gateways allow instances deployed in private subnets to
+  gain internet access.
 
 **NAT Instances**
 * When creating a NAT instance, disable source/destination check on the instance
