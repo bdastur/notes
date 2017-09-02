@@ -878,7 +878,130 @@ com            == tld
   results are available to the caching name server before they expire.
 
 ### Record Types:
+A record is a single mapping between a resource and a name.
 
+**Start of Authority Record (SOA)**
+* Mandatory in all zone files.
+* Identifies the base DNS information about the domain
+* Each zone contains a single SOA record.
+* Stores information about:
+  * Name of the DNS server for that zone
+  * The administrator of the zone.
+  * The current version of the data file
+  * Number of seconds a secondary name server should wait before checking for
+    updates.
+  * Number of seconds a secondary name server should wait before retrying
+    failed zone transfer.
+  * Max number of seconds a secondary name server can use data before it
+    must be refreshed or expire.
+  * Default TTL value for resource records in the zone.
+
+**A and AAAA:**
+* Both types of address records map a host to an IP address
+* A: map a host to IPV4 address
+* AAAA: map a host to IPV6 address
+
+**Canonical Name (CNAME):**
+* Defines an alias for the CNAME for your server (the domain name defined in
+  A or AAAA record)
+
+**Mail Exchange (MX):**
+* Define the mail servers used for a domain and ensures emails are routed
+  correctly.
+* MX record should point to a host defined by A or AAAA record and not defined
+  by CNAME.
+
+**Name Server (NS)**
+* Used by TLD servers to direct traffic to the DNS server that contains the
+  authoritative DNS record.
+
+**Pointer (PTR)**
+* PTR record is essentially the reverse of an A record
+* PTR records map an IP address to a DNS name.
+* Mainly used to check if the server name is associated with an IP address
+  from where the connection was initiated.
+* A PTR record is used to resolve an IP address to a domain name commonly
+  referred to as 'reverse DNS'
+
+
+**Sender Policy Framework (SPF)**
+* SPF records are used by mail servers to combat spam
+* It tells a main server what IP addresses are authorized to send an emails
+  from your domain name.
+* Prevents people from spoofing emails from your domain name.
+
+
+**Text (TXT)**
+* Used to hold text information
+* Provides the ability to associate some arbitary and unformatted text with
+  a host or other name, such as human readable information about a server,
+  network, data center.
+
+**Service (SRV)**
+* It is a specification of data in the DNS defining the location of the
+  servers for specified services.
+
+### Route53 three main functions:
+
+#### **Domain registration:**
+* Amazon route53 lets you register domain names, such has example.com.
+* You also have an option to transfer an already registered domain name with
+  another registrar to route53.
+* Supports domain registration for a wide variety of generic TLDs and
+  geographic TLDs.
+
+
+#### **DNS Service:**
+* Route53 is an authoritative DNS service.
+* When someone enters your domain name in a browser or sends you an email,
+  a DNS request is forwarded to the nearest Route53 DNS server in a global
+  network of authoritative DNS servers. Route53 responds with the IP address
+  that you specified.
+* I you registered your domain with another domain registrar, that registrar
+  is probably providing DNS service for your domain. You can transfer DNS
+  service to Route53 without having to transfer the registration for the domain.
+
+##### **Hosted Zones:**
+* A hosted zone is a collection of resource record sets hosted by route53.
+* A hosted zone represents resource record sets that are managed together
+  under a single domain name.
+* Each hosted zone has it's own metadata and configuration information.
+* There are two types of hosted zones:
+  * Private hosted zone: Holds information about how you want to route traffic
+    for a domain and it's subdomains within one or more VPCs.
+
+  * Public hosted zone: How you want to route traffic on the internet for
+    a domain and it's subdomains.
+
+##### **Supported Record Types**
+Supported record types:
+* A
+* AAAA
+* CNAME
+* MX
+* NS
+* PTR
+* SOA
+* SPF
+* SRV
+* TXT
+
+##### **Routing Policies:**
+**Simple**
+* This is the default routing policy when you create a new resource.
+
+**Weighted**
+* You can associate multiple resources with a single DNS name.
+
+**Latency based**
+
+**Failover**
+
+**Geolocation**
+
+
+
+#### **Health checking:**
 
 
 
