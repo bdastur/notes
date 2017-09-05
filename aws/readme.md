@@ -1937,10 +1937,15 @@ Example:
     and versioning.
 * It also provides low latency access to data through transparent local
   caching.
+* Maximum number of file shares/S3 bucket is 1. There isa 1-to-1 mapping
+  between a file share and S3 bucket.
+* maximum number of file shares per gateway is 10.
+* Maximum file size is 5 TB (same as the limit for S3.)
 
 ### Volume gateway:
 * Provides cloud backed storage volumes that you can mount as iSCSI devices
   from on-premise application servers.
+
 
 #### Cached Volumes
 * You store your data in S3 and retain a copy of frequently accessed data
@@ -1948,6 +1953,9 @@ Example:
 * They offer substantial cost savings on primary storage and minimize need
   to scale on premise storage.
 * You also retain low-latency access to your frequently accessed data.
+* Maximum size of a cached volume is 32 TB
+* Maximum number of volumes / gateway : 32
+* Total size of all volumes: 1024 TB.
 
 
 #### Stored Volumes:
@@ -1955,11 +1963,65 @@ Example:
   can recover to your local data center or EC2.
 * You configure your on-premises gateway to store all data locally and then
   asynchronously backup point-in-time snapshots to S3.
+* Maximum size of a stored volume is 16 TB.
+* Maximum number of volumes/gateway : 32
+* Total size of all stored volumes: 512 TB
 
 ### Tape gateway:
 * cost-effectively and durably archive backup data in Amazon Glacier.
 * Provides a virtual tape infrastructure that scales seamlessly with your
   business needs.
+* Minimum size of virtual tape : 100 GiB
+* Maximum size of a virtual tape: 2.5 TiB
+* Max number of virtual tapes for a VTL (Virtual tape library): 1500
+* Total size of all tapes in a VTL: 1 PiB
+* Max number of virtual tapes in archive: unlimited.
+
+
+## AWS Directory Service:
+* Provides directories that contain information about your org, including users
+  groups, computers and other resources.
+* Designed to reduce identity management tasks.
+* Each directory is deployed across multiple AZs and monitoring automatically
+  detects and replaces domain controllers that fail.
+* Data replication and automated daily snapshots are configured.
+
+* Three directory types:
+  * Microsoft AD
+  * Simple AD
+  * AD connector
+
+
+
+### Microsoft AD:
+* Provides similar functionality offered by Microsoft AD, plus integration
+  with other AWS services.
+* Easily setup trust relationships with existing AD domains to extend
+  those directories.
+
+### Simple AD:
+* Microsoft AD compatible directory service from AWS powered by Samba 4.
+* Supports: user accounts, group memberships, domain-joining EC2 instances
+  running Linux and Windows, Kerberose-based SSO, and group policies.
+* User accounts in Simple AD can also access AWS applications, like AWS
+  Workspaces, WorkDocs and WorkMail.
+* They can also use IAM roles to access console and manage AWS resources.
+* Provides daily automated shapshots.
+* You can setup trust relationships between simple AD and other AD domains.
+* Features not supported: DNS dynamic update, schema extensions, MFA,
+  communication over LDAP, AD cmdlets and transfer of flexible Single-Master
+  operations roles.
+
+### AD connector:
+* Proxy service for connecting your on-premise Microsoft AD to AWS without
+  requiring complex directory synchronization or the cost and complexity
+  of hosting a federation infrastructure.
+* AD connector forwards sign-in requests to your AD domain controllers for
+  authentication.
+* After setup your users can use their existing corp credentials to login
+  to AWS applications.
+ 
+
 
 
 
