@@ -1920,6 +1920,47 @@ Example:
 
 
 ## Storage Gateway:
+* Connects on-premise software appliance with cloud based storage.
+* Provides seamless integration with data security between your data center
+  and AWS storage infrastructure.
+
+### File Gateway:
+* Adds to the users current block-based volume and VTL storage.
+* Provides access to objects in S3 as files on NFS mount point.
+*  It combines a service and virtual software appliance.
+* The appliance/gateway is deployed on the premise on a VMWare ESXi.
+  The gateway provides access to S3 objects as NFS moutned files.
+* With File gatway you can:
+  * Store and retrieve files directly using NFS 3 or 4.1 protocol.
+  * Access your data directly in S3 from any cloud application or service.
+  * Manage your data in S3 using lifecyle policies, cross origin replication
+    and versioning.
+* It also provides low latency access to data through transparent local
+  caching.
+
+### Volume gateway:
+* Provides cloud backed storage volumes that you can mount as iSCSI devices
+  from on-premise application servers.
+
+#### Cached Volumes
+* You store your data in S3 and retain a copy of frequently accessed data
+  locally.
+* They offer substantial cost savings on primary storage and minimize need
+  to scale on premise storage.
+* You also retain low-latency access to your frequently accessed data.
+
+
+#### Stored Volumes:
+* This configuration provides durable and inexpensive off-site backups that you
+  can recover to your local data center or EC2.
+* You configure your on-premises gateway to store all data locally and then
+  asynchronously backup point-in-time snapshots to S3.
+
+### Tape gateway:
+* cost-effectively and durably archive backup data in Amazon Glacier.
+* Provides a virtual tape infrastructure that scales seamlessly with your
+  business needs.
+
 
 
 ## Lambda
