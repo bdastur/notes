@@ -791,6 +791,8 @@ com            == tld
 .              == root
 
 * DNS uses port 53 to serve requests.
+* DNS primarily uses UDP protocol to serve reuests.
+* When the response data exceeds 512 bytes TCP protocol is used.
 
 **Name servers:**
 * A computer designated to translate domain names to IP addresses
@@ -972,6 +974,8 @@ A record is a single mapping between a resource and a name.
 
   * Public hosted zone: How you want to route traffic on the internet for
     a domain and it's subdomains.
+* Resource record sets contained in a hosted zone must share the same suffix.
+
 
 ##### **Supported Record Types**
 Supported record types:
@@ -1626,7 +1630,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 ## ElastiCache:
 * Improves application performance by storing the most frequently accessed
   data in memory.
-* Simplifies the setup and management of distributed in-memory Catching
+* Simplifies the setup and management of distributed in-memory caching
   environments.
 * You can choose from Memcached or Redis protocol-compliant cache engine and
   quickly launch a cluster within minutes.
@@ -1638,7 +1642,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
   in-memory key/value data stores.
 * You can elastically grow and shrink a cluster of memcached nodes to meet
   your demands.
-* You can partition your cluster into shards and parallelize oprations for
+* You can partition your cluster into shards and parallelize operations for
   very high performance throughput.
 
 
