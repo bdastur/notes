@@ -2020,9 +2020,62 @@ Example:
   authentication.
 * After setup your users can use their existing corp credentials to login
   to AWS applications.
- 
+
+## AWS Key Management Service (KMS) and CLoudHSM:
+* Key management is a management of cryptographic keys within a cryptosystem.
+* Deals with generation, exchange, storage, use and replacement of keys.
+* Two services are offered: KMS and CloudHSM.
+
+### AWS Key Management Service (KMS):
+* Service to generate, store, enable/disable and delete symmetric keys
+* Lets you create keys that can never be exported from the service and that
+  can be used to encrypt and decrypt data based on policies you define.
+* You can use KMS directly in your appln or through cloud services that are
+  integrated with KMS.
+* Enables you to have control over who can use your keys and gain access to
+  encrypted data.
+
+#### Customer managed keys:
+* KMS uses a type of key called Customer Master Key to encrypt/decrypt data.
+* CMKs are the fundamental resource that KMS manages.
+* They can be used inside KMS to encrypt/decrypt upto 4KB of data directly.
+* They can also be used to encrypt generated data keys that are then used
+  to encrypt/decrypt large amount of data outside of the service.
+* CMKs can never leave KMS unencrypted, but data keys can.
+
+#### Data keys:
+* Data keys are used to encrypt large data objects in your appln (outside
+  of KMS)
+* GenerateDataKey API Call - KMS returns a plaintext version of the key and
+  ciphertext that contains the key encrypted under the specified CMK.
+* AWS tracks which CMK was used to encrypt the data key
+* You use the plaintext data key in your appln to encrypt data, and you
+  typically store the encrypted key alongside the encrypted data.
+* Remove the plaintext key from memory as soon as possible.
+* To decrypt data pass the encrypted data key to the decrypt function.
+  AWS uses the CMK to decrypt and retrieve your plaintext data key. Use
+  this plaintext key to decrypt your data and then remove the key from memory.
 
 
+#### Envelope Encryption:
+* KMS uses envelope encryption to protect data.
+* You can retrieve a plaintext data key only if you have the encrypted data
+  key and have permission to use the corresponding master key.
+
+#### Encryption Context:
+* All KMS cryptographic operations accept an optional key/value map of
+  additional contextual information called encryption context.
+* Context must be the same for both encrypt and decrypt operations or decryption
+  will fail.
+* The encryption context is logged and can be used for auditing, and is
+  available as context in AWS policy language for file-grained policy based
+  authentication.
+
+### AWS CloudHSM:
+* Service providing secure cryptographic key storage by making hardware
+  security modules (HSM) in the cloud.
+* A HSM is a hardware appliance that provides secure key storage and
+  cryptographic operations within a temper-resistant hardware module.
 
 
 ## Lambda
