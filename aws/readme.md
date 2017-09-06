@@ -2077,6 +2077,27 @@ Example:
 * A HSM is a hardware appliance that provides secure key storage and
   cryptographic operations within a temper-resistant hardware module.
 
+## Cloudtrail:
+
+* Records important info about each API call, including API name, user, time of
+  api, request parameters and response elements returned by AWS service.
+* Two types of trails:
+  **Trail that applies to all regions:**
+  * Cloudtrail creates the same trail in each region, records the log files in
+    each region and delivers the log files to a S3 bucket and to cloudwatch
+    log groups if specified.
+  * This is the default option.
+  * If you choose, you can receive SNS notification for log file deliveries. One
+    SNS topic will suffice for all regions.
+
+  **Trail that applies to one region:**
+
+* By default, your log files are encrypted using S3 SSE.
+* Typically delivers logfiles within 15 minutes of API call.
+* Service publishes new log files multiple times an hour, usually every
+5 minutes.
+
+
 
 ## Lambda
 
