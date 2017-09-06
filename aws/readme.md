@@ -2123,7 +2123,68 @@ Example:
 ### Kinesis Analytics:
 * Enables you to analyze streaming data real time with Standard SQL.
 
+## Amazon EMR:
+* Fully managed on-demand Hadoop framework.
+* When you launch an EMR cluster you specify:
+  * Instance type
+  * Number of nodes in the cluster
+  * Version of Hadoop to run
+  * Additional tools or applications like Hive, Pig, Spark or Presto.
 
+* Storage types when using EMR:
+**Hadoop Distributed File System (HDFS)**
+* Standard file system that comes with hadoop.
+* All data is replicated across multiple instances for durability
+* Can use instance storage or EBS.
+
+**EMR File System (EMRFS)**
+* Is an implementation of HDFS that allows clusters to store data on S3.
+* You get durability and low cost while preserving your data even if the
+  cluster shuts down.
+* Key factor is whether cluster is persistent.
+
+* For persistent clusters HDFS is appropriate.
+
+* For some use cases like big data workloads, which are run infrequently it
+  can be cost effective to turn off the cluster when not in use.
+* These are called **transient clusters**.
+* EMRFS is well suited for such clusters as data persist independent of the
+  lifecycle of the cluster.
+
+* Use cases:
+  * Log processing: large number of unstructured logs to get useful insights.
+  * Clickstream analysis: to segment users and understand user preferences.
+  * Genomics and life sciences: Process vas amounts of genomic data and
+    other large scientific datasets quickly and efficiently.
+
+## AWS Data pipeline:
+* A web service that helps you reliably process and move data between different
+  compute and storage services and also on-premise data sources at specified
+  intervals.
+* It is best for regular batch processes instead of continous data streams.
+
+
+## OpsWorks:
+* A configuration management service that helps you configure and operate
+  applications using Chef.
+* Can work with any application, and is independent of any architectural
+  patterns.
+* You can define an application's architecture and specification of each
+  component, including package installation, configuration and resources
+  such as storage.
+* Supports both linux and windows servers, including exisitng EC2 instances and
+  servers running in private data center.
+
+## AWS Cloudformation:
+* Provides an easy way to create and manage a collection of related AWS
+  resources, provisioning and updating them in an orderly and pretictable
+  fashion.
+* You create a cloudformation template and you create a stack.
+* Either JSON or YAML format.
+
+
+## AWS Elastic Beanstalk:
+* 
 
 
 ## Lambda
