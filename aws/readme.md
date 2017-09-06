@@ -2095,7 +2095,34 @@ Example:
 * By default, your log files are encrypted using S3 SSE.
 * Typically delivers logfiles within 15 minutes of API call.
 * Service publishes new log files multiple times an hour, usually every
-5 minutes.
+  5 minutes.
+
+## Amazon Kinesis:
+* Platform for handling massive streaming data on AWS.
+
+### Kinesis Firehose:
+* It is Amazon's data-ingestion product.
+* It is used to capture and load streaming data into other AWS services
+  like S3 and Redshift.
+* Clients write data to stream using API call and data is automatically sent
+  to proper destination.
+* When configured to save to S3, firehose sends data directly to S3. for
+  Redshift data is first sent to S3 and then a Redshift copy command is
+  executed to load data to Redshift.
+* Firehose can also write data to Elasticsearch, with option to back it up
+  in S3.
+
+### Kinesis Streams:
+* Capable of capturing large amounts of data from data producers and streaming
+  it into custom applications for data processing and analysis.
+* You can scale to support limitless data streams by distributing incoming
+  data across number of shards.
+* The processing is then executed on consumers which read data from shards
+  and run the kinesis stream application.
+
+### Kinesis Analytics:
+* Enables you to analyze streaming data real time with Standard SQL.
+
 
 
 
@@ -2109,7 +2136,7 @@ http://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
 http://docs.aws.amazon.com/lambda/latest/dg/limits.html
 
 
-* Server less way to run your application
+* Server-less way to run your application
 * Allows you to run code without provisioning or managing servers.
 * Executes your code only when needed and scales automatically from few
   requests per day to thousands per second.
