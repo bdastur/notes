@@ -2184,7 +2184,62 @@ Example:
 
 
 ## AWS Elastic Beanstalk:
-* 
+* Fastest way to get application up and running
+* Developers simply upload their application code and the service automatically
+  handles details like resource provisioning, load balancing, auto scaling
+  and monitoring.
+* An Elastic Beanstalk application is a logical collection of these AWS
+  beanstalk components.
+* An application is conceptually similar to a folder.
+* An application version refers to a specific labeled iteration of deployable
+  code.
+* An application version points to an S3 object that contains deployale code.
+* An environment is an application version that is deployed on AWS resources.
+* Each environment runs only a single application version at a time. However
+  the same version or different version can run in many different environments
+  at the same time.
+* An environment configuration identifies a collection of parameters and
+  settings that define how an environment and it's resources behave.
+* When env configurations are updated, Elastic beanstalk applies those changes
+  to existing resources or deletes and deploys new resources.
+* The environment tier that is chosen determines whether AWS elastic beanstalk
+  provisions resources to support a web application that handles http/s
+  requests or an application that has background processing tasks. Web server
+  tier, or worker tier as they are called.
+
+
+## Trusted Advisor:
+* Trusted Advisor provides 4 checks at no cost:
+**Cost optimization**
+
+**Security**
+
+**Fault tolerance**
+
+**Performance improvement**
+
+
+## AWS Config:
+* service that provides you with AWS resource inventory, configuration history
+  configuration change notification.
+* Gives detailed view of configuration of AWS resources. Including how resources
+  are related and how they were configured in the past, and shows how
+  relationships and configurations changed over time.
+* When you turn on AWS config, it first discovers the supported AWS resources
+  and generates a configuration item for each resource.
+* The configuration item include metadata, attributes, relationships,
+  current configuration and related events.
+* By default AWS config creates config items for every supported resource in
+  the region. You can override that by specifying the resource type you want
+  it to track.
+**Usecases:**
+  * Discovery
+  * Change management
+  * Continous audit and compliance
+  * Troubleshooting
+  * Security and Incident analysis
+
+
 
 
 ## Lambda
