@@ -1226,9 +1226,28 @@ Supported record types:
 * Optimized for high performance analysis and reporting very large datasets.
 * Uses standard SQL commands to query large datasets.
 
-
 ### Clusters and Nodes:
+* Key component of Redshift is cluster.
+* A cluster is composed of a leader node and one ore more compute nodes.
+* A client interacts with leader node. Compute nodes are transparent to
+  applications.
+* Supports six different node types with different mix of CPU, memory and
+  storage.
+* Nodes are grouped into two categories:
+  * Dense compute: supports up to 326TB using fast SSDs.
+  * Dense Storage: supports 2 Petabyte using large magnetic disks.
 
+* Each cluster contains one ore more databases.
+* User data for each table is distributed across compute nodes.
+* Disk storage is divided into slices. Number of slices per node depends
+  on node size of the cluster and varies between 2 to 16.
+* Nodes participate in parallel query execution, working on data that is
+  evenly distributed across slices.
+* Query performance can be increased by adding multiple nodes to a cluster.
+* You can resize a cluster to add storage and compute over time.
+* During a resize database will become read only.
+
+**Table **
 
 
 
@@ -1244,7 +1263,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
   performance that scales with ease.
 * Amazon DynamoDB can provide consistent performance levels by automatically
   distributing data and traffic for a table over multiple partitions.
-* DynamoDB will automatically add enough infrastructure capacity to supported
+* DynamoDB will automatically add enough infrastructure capacity to support
   the requested throughput levels.
 * You can adjust the read/write capacity after the table is created as well.
   DynamoDB will adjust the internal Partitioning accordingly.
@@ -1263,7 +1282,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
     * There is no limit on the number of items you can store in a table.
 
   * Attributes:
-    * An attribute in DynamoDB is similar to fields or colums in other
+    * An attribute in DynamoDB is similar to fields or columns in other
       databases.
     * Each item is composed of one ore more attributes. An attribute is a
       fundamental data element that does not need to be broken down further.
@@ -1273,16 +1292,15 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
       the primary key of the table.
     * A primary key in DynamoDB uniquely identifies each item in the table,
       so that no two items can have the same key.
-    * When you add update or delete an item from a table you must specifically
+    * When you add update or delete an item from a table you must specify
       the primary key attribute values for that item.
 
     DynamoDB supports two types of primary keys:
 
     **Partition Key**:
-    * A simple primary key, composed of one attribute known as the partiton key.
-    * DynamoDB uses the partiton key's value as input to an internal hash function.
-      The output from the hash function determines the partition where the item is
-      stored.
+    * A simple primary key, composed of one attribute known as the partition key.
+    * DynamoDB uses the partition key's value as input to an internal hash
+      function. The output from the hash function determines the partition where the item is stored.
     * No two items in a table can have the same partition key value.
 
 
@@ -1314,7 +1332,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 
 * Set data types:
 * Represent a unique list of one or more scalar values.
-* Sets do not gurantee order.
+* Sets do not guarantee order.
 
     * String set: Unique list of string attributes
     * Number set: Unique list of number attributes
@@ -1347,12 +1365,12 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
   an item 1KB or smaller.
 * For read operations that are strongly consistent, they will consume twice
   the number of capacity units.
-* You can use Amazon cloudwatch to monitor your DynamoDB capacity and make
+* You can use Amazon Cloudwatch to monitor your DynamoDB capacity and make
   scaling decisions.
 
 ### Secondary Indexes:
 * You can optionally define one or more secondary indexes on a table, along with
-  the partiton key and sort key.
+  the partition key and sort key.
 * A secondary index lets you query the data in the table using alternate key,
   in addition to queries against the primary key.
 
@@ -1386,7 +1404,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
   perform validations before an action is applied.
 
 #### Reading Items:
-* GetItem action can be used retrive an item. Primary key is required for this
+* GetItem action can be used retrieve an item. Primary key is required for this
   action.
 * All the items attributes are returned by default, and you have the option
   to select individual attributes to filter down the results.
@@ -1402,11 +1420,12 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
   across an AWS Region to provide HA and durability.
 * When an item is updated in DynamoDB, it starts replicating across multiple
   servers. This replication might take some time to complete.
-* A read request immediately a write operation might not show the latest
+* A read request immediately following a write operation might not show the
+  latest data.
 
 ### Strongly Consistent Reads:
-* Applications might need to guarantee that the data latest, in which case it
-  can use strongly consistent reads. DynamoDB returns a response with the
+* Applications might need to guarantee that the data is latest, in which case
+  it can use strongly consistent reads. DynamoDB returns a response with the
   most up-to-date data that reflects updates by all prior related write
   operations to which DynamoDB returned a successful response.
 
@@ -1420,9 +1439,9 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 * Scan operation will read every item in a table or a secondary index.
 * By default scan operation returns all of the data attributes of every item
   in the table or index.
-* Each request can return upto 1MB of data.
+* Each request can return up to 1MB of data.
 * This can be resource intensive.
-*
+
 #### Query:
 * Query is the primary search operation to find item in a table or a
   secondary index using only primary key attribute values.
@@ -1434,7 +1453,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 * Each individual partition represents a unit of compute and storage capacity.
 * A single DynamoDb partition can support a maximum of 3000 read capacity
   units or 1000 write capacity units. It can hold approximately 10GB of data.
-* To achive the full amount of request throughput provisioned for a table,
+* To achieve the full amount of request throughput provisioned for a table,
   keep your workload spread evenly across the partition key values.
 * Distributing requests across partition key values distributes the requests
   across partitions.
@@ -1462,10 +1481,10 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 * Restrict access to specific item and attributes with conditionals.
 
 ### DynamoDb Streams:
-* To keep track of changes to DynamDb.
+* To keep track of changes to DynamoDb.
 * Can get a list of item modifications for the last 24 hour period.
-* Each stream record represents a single data modification in the DynamDb table
-  to which the stream belongs.
+* Each stream record represents a single data modification in the DynamoDb
+  table to which the stream belongs.
 * Each stream record is assigned a sequence number, reflecting the order in
   which the record was published to the stream.
 
