@@ -1247,7 +1247,87 @@ Supported record types:
 * You can resize a cluster to add storage and compute over time.
 * During a resize database will become read only.
 
-**Table **
+**Table design:**
+* Like SQL databases, you can create a table using CREATE TABLE command.
+* Takes name of the table, columns and their data types.
+* In addition Redshift CREATE TABLE command also supports specifying compression
+  encodings, distribution strategy and sort keys.
+
+**Data Types**
+* numeric data like INTEGER, DECIMAL and DOUBLE, text data like CHAR and VARCHAR,
+  date types like DATE and TIMESTAMP.
+
+**Compression Encoding**
+* performance optimization used by Redshift
+* Redshift will automatically sample your data and select the best Compression
+  scheme for each column.
+* You can also specify compression scheme on a per-column basis.
+
+**Distribution Strategy**
+* Define how to distribute the records across the nodes and slices in your
+  cluster.
+* Goal in selecting table table distribution style is to minimize the impact
+  of redistribution step by putting the data where it needs to be before
+  the query is performed.
+
+    Even distribution:
+    * Default option.
+    * Distributes across the slices in a uniform fashion regardless of data.
+
+    Key distribution:
+    * Rows are distributed according to the values in one column.
+    * Leader node will store matching values close together and increase query
+      performance.
+
+    All distribution:
+    * Full copy of the entire table is distributed to every node.
+    * This is useful for lookup tables and other large tables that are not
+      updated frequently.
+
+**Sort Keys:**
+* Sorting enables efficient handling of range restricted predicates.
+* If a query uses a range-restricted predicate, the query processor can
+  rapidly skip over large number of blocks during table scans.
+* Sort keys can be compound or interleaved.
+* Compound sort key is more efficient when query predicates use a prefix
+  which is a subset of the sort key columns in order.
+* An interleaved sort key gives equal weight to each column in the sort key,
+  so query predicates can use any subset of the columns that make up the sort
+  key in any order.
+
+**Loading Data:**
+* Supports SQL commands like INSERT and UPDATE to create an modify records in
+  a table.
+* For bulk operations provides COPY command. More efficient than INSERT of
+  large number of records.
+* When loading data from S3, COPY command can read from multiple files at the
+  same time.
+* After each bulk data load, you need to perform a VACUUM command to reorganize  
+  your data and reclaim space after deletes.
+* Also recommended to run ANALYZE command to update table statistics.
+* UNLOAD command to export data out of Redshift.
+
+**Querying Data:**
+* Standard SQL commands to query your tables.
+* For large clusters supporting many users, you can configure Workload
+  Management (WLM) to queue and prioritize queries.
+* With WLM define multiple queues and set concurrency level for each queue.
+
+**Snapshots:**
+* Can create point-in-time snapshots of Redshift cluster.
+* Supports automated and manual snapshots.
+* You can perform manual snapshots and share them across regions or even other
+  AWS accounts.
+* Manual snapshots are retained until you delete them.
+
+**Security:**
+* IAM policies
+* Network level security with VPC
+* Also create a Master user account and password.
+* You can create users and groups and grant permissions to tables and database
+  objects. This is different than IAM policies.
+* Data in transit encryption. SSL.
+* Data at rest with KMS.
 
 
 
