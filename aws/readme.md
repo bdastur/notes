@@ -87,15 +87,14 @@ D2:
 **Enhanced Networking:**
 * Many instances support enhanced networking. Enhanced networking reduces
   impact of virtualization on network performance by enabling a capability called
-  SR-IOV (Single Root I/O Virtualization). The result is more PPS, lowercase
+  SR-IOV (Single Root I/O Virtualization). The result is more PPS, lower
   latency and less jitter.
 * Enhanced networking is available only for instances launched in Amazon VPC.
 
 
-
 ### AMIs
 * AMIs define the initial software that will be on an instance when launched.
-* OS, Initial state of any patches, appln or system software.
+* OS, Initial state of any patches, application or system software.
 
 There are 4 sources:
 * Published by AWS
@@ -297,7 +296,7 @@ Use cases:
 
 * Note that ST1 and SC1 cannot be used as Root volumes.
 * HDD, magnetic - standard can be used as Root volume.
-* Termination protection is turned off by default, you must trun it on.
+* Termination protection is turned off by default, you must turn it on.
 * Default action for the root EBS volume is to be deleted when the instances
   is terminated.
 
@@ -1091,6 +1090,11 @@ Supported record types:
   * You must provide the appropriate Oracle DB license
   * You are responsible for tracking and managing licenses.
 
+
+* Amazon RDS supports Microsoft SQL Server Enterprise edition and the license is
+  available *only* under the BYOL model.
+
+
 #### Amazon Aurora:
 * Offers enterprise grade commercial database technology while offering
   the simplicity and cost effectiveness of an open source database.
@@ -1142,7 +1146,7 @@ Supported record types:
     from backup and to resume processing.
 
 * For large databases, it can take hours to restore from a full backup.
-* In the even of failure, you can reduce your RTO to minutes by failing over
+* In the event of failure, you can reduce your RTO to minutes by failing over
   to secondary node.
 
 #### Automated Backups:
@@ -1162,25 +1166,25 @@ Supported record types:
 #### Recovery:
 * RDS allows you to recover your DB quickly from automated or manual DB
   snapshots.
-* You cannot restore from a Db snapshot to an existing DB instance. A network
+* You cannot restore from a Db snapshot to an existing DB instance. A new
   DB instance is created when you restore.
 * When you restore a DB instance, only the default DB parameter and SG are
   associated with the restored instance.
 * When using automated backups, RDS combines the daily backups performed
   during your maintenance window in conjunction with transaction logs, to
   enable you to restore your DB instance to any point during your retention
-  period, typically upto last 5 mintues.
+  period, typically up to last 5 minutes.
 
 
 #### HA with Multi AZ Deployment:
-* You can select Multip AZ Deployment as an option when creating a DB instance.
+* You can select Multi AZ Deployment as an option when creating a DB instance.
 * Primary instance is created in one AZ, while a secondary instance is created
   in another AZ.
 * RDS automatically replicates data from master Db to slave Db using
   synchronous replication.
 * RDS detects and automatically recovers from the most common failure scenarios.
 * RDS performs an automatic failover in following cases:
-  * Loss of availabilityin primary AZ.
+  * Loss of availability in primary AZ.
   * Loss of network connectivity to primary db.
   * Compute unit failure on primary DB.
   * Storage failure on primary db.
@@ -1196,12 +1200,13 @@ Supported record types:
 
 **Horizontal Scaling**:
   **Partitioning**:
-    * Partitioning a large relational database into mu,tiple instances or shards
+    * Partitioning a large relational database into multiple instances or shards
       is a common technique for handling more requests beyond the capabilities
       of a single instance.
     * Requires additional logic in the application layer. Application needs to
       decide how to route DB request to the correct shard.
-    * NoSQL Databases like DynamoDB and Cassandra are designed to scale horizontally.
+    * NoSQL Databases like DynamoDB and Cassandra are designed to scale
+      horizontally.
 
   **Read Replicas**:
   * Offload read transactions from the primary database to increase the
@@ -1484,8 +1489,8 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
   perform validations before an action is applied.
 
 #### Reading Items:
-* GetItem action can be used retrieve an item. Primary key is required for this
-  action.
+* GetItem action can be used to retrieve an item. Primary key is required
+  for this action.
 * All the items attributes are returned by default, and you have the option
   to select individual attributes to filter down the results.
 * By default the GetItem action performs an eventually consistent read.
@@ -1528,7 +1533,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 * Results are automatically sorted by the primary key and are limited to 1MB.
 
 ### Scaling and Partitioning:
-* A DynamoDb table can scale horizontally using partitions to meed the storage
+* A DynamoDb table can scale horizontally using partitions to meet the storage
   and performance needs of the applications.
 * Each individual partition represents a unit of compute and storage capacity.
 * A single DynamoDb partition can support a maximum of 3000 read capacity
@@ -1567,6 +1572,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
   table to which the stream belongs.
 * Each stream record is assigned a sequence number, reflecting the order in
   which the record was published to the stream.
+
 
 ## Simple Queue Service (SQS)
 * A fast, reliable, scalable and fully managed queuing service.
