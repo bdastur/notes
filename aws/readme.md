@@ -297,7 +297,7 @@ Use cases:
 * Note that ST1 and SC1 cannot be used as Root volumes.
 * HDD, magnetic - standard can be used as Root volume.
 * Termination protection is turned off by default, you must turn it on.
-* Default action for the root EBS volume is to be deleted when the instances
+* Default action for the root EBS volume is to be deleted when the instance
   is terminated.
 
 **Protecting data:**
@@ -314,7 +314,7 @@ Use cases:
   is created immediately, but data is loaded lazily.
 * Means the volume can be accessed upon creation, and if data being requested
  is not yet restored, it will be upon first request.
-* Snapshots can used to increase the size of an EBS volume.
+* Snapshots can be used to increase the size of an EBS volume.
 * Snapshots of encrypted volumes are encrypted automatically.
 * Volumes restored from encrypted snapshots are encrypted automatically.
 * You can share snapshots, but only if they are unencrypted.
@@ -1700,7 +1700,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 * Domains are a way of scoping SWF resources within your AWS account.
 
 ### Workflow history:
-* Is a detailed, complete and consistent record of every event that occured
+* Is a detailed, complete and consistent record of every event that occurred
   since the workflow execution started.
 
 ### Actors:
@@ -1729,7 +1729,42 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 
 
 ## Simple Notification Service (SNS):
+* A web service for mobile and enterprise messaging that enables you to
+  setup, operate and send notifications.
+* It follows the publish-subscribe messaging paradigm, with notifications
+  being delivered to clients using push mechanism that eliminates the need to
+  check periodically for new updates.
+* You can use SNS to send short message service (SMS) messages to mobile devices
+  in the US or to email receipients worldwide.
+* Two client types:
+  * Publishers and Subscribers.
 
+* Publishers communicate to Subscribers asynchronously by sending a message to
+  a topic.
+* A topic is simply a logical access point/communication channel that contains
+  a list of subscribers and the methods used to communicate to them.
+* When you send a message to a topic it is automatically forwarded to each
+  subscriber of that topic using the communication method configured for
+  that subscriber.
+* Topic names should typically be available for reuse approx 30 - 60 seconds
+  after the previous topic with same name is deleted. Topics with larger
+  subscription lists may take longer.
+* After a message has been successfully published to a topic, it cannot be
+  recalled.
+* Protocols included: HTTP, HTTPS, EMAIL, EMAIL-JSON, Amazon SQS, Application.
+
+### Common SNS scenarios:
+* Fanout:
+  A SNS message is sent to a topic and then replicated and pushed to
+  multiple SQS queues, HTTP endpoints or email addresses.
+* Application and System Alerts:
+  They are SMS and/or email notifications that are triggered by predefined
+  thresholds.
+* Push Email and Text messaging:
+  Two ways to transmit messages to individuals or groups via email and/or SMS.
+
+* Mobile push notifications:
+  Enables you to send messages directly to mobile applications.
 
 
 ## ElastiCache:
@@ -1874,7 +1909,7 @@ Three core concepts to understand CloudFront.
 * Can have upto 100 buckets per account by default.
 * Even though the namespace of S3 is global, each S3 bucket is created in a
   specific region that you choose. This lets you control where your data is
-  stored. Default if you don't specifiy is us-east-1.
+  stored. Default if you don't specify is us-east-1.
 * Each object consist of data and metadata. Data is opaque to S3. Data is
   treated simply as a stream of bytes.
 * metadata can be system metadata - created and used by S3 or user metadata
@@ -1933,11 +1968,17 @@ Three core concepts to understand CloudFront.
 #### Amazon Glacier:
 * Secure, durable and extremely low cost storage for data.
 * Optimized for infrequently accessed data.
+* Data is stored in archives. An archive can contain up to 40TB of data.
+* You can have unlimited umber of archives.
+* After an archive is created it cannot be modified.
+* Vaults are containers for archives.
+* Each AWS account can have up to 1000 vaults.
+* Vault acess can be controlled with IAM policies.
 * To retrieve object from Glacier you issue a restore command using S3 APIs.
   Three to five hours later object is copied to S3 RRS.
 * Glacier allows you to retrieve up to 5% of the S3 data store in glacier
   for free each month.
-* Objects archived to glacier incur cost for atleast 90 days even if they
+* Objects archived to glacier incur cost for at least 90 days even if they
   are deleted or overwritten earlier.
 
 ### Versioning:
@@ -1964,14 +2005,14 @@ Three core concepts to understand CloudFront.
 Example:
 ```
 >>> session = boto3.Session(profile_name="default", region_name="us-east-1")
-  >>>
-  >>> s3client = session.client('s3')
-  >>>
-  >>> s3client.generate_presigned_url('get_object',
-   Params={'Bucket': 'my-test-bucket', 'Key': 'scripts/aws_volume_helper.py'}, ExpiresIn=3600)
-  u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccessKeyId=AXXXXXXXXXXX3REGL5A&Expires=1491340796&Signature=2pfqmdtyOcRbXWQ8'
-  >>>
-  >>>
+>>>
+>>> s3client = session.client('s3')
+>>>
+>>> s3client.generate_presigned_url('get_object',
+Params={'Bucket': 'my-test-bucket', 'Key': 'scripts/aws_volume_helper.py'}, ExpiresIn=3600)
+u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccessKeyId=AXXXXXXXXXXX3REGL5A&Expires=1491340796&Signature=2pfqmdtyOcRbXWQ8'
+>>>
+>>>
 ```
 
 ### Multipart Upload:
@@ -2035,7 +2076,7 @@ Example:
 *  It combines a service and virtual software appliance.
 * The appliance/gateway is deployed on the premise on a VMWare ESXi.
   The gateway provides access to S3 objects as NFS moutned files.
-* With File gatway you can:
+* With File gateway you can:
   * Store and retrieve files directly using NFS 3 or 4.1 protocol.
   * Access your data directly in S3 from any cloud application or service.
   * Manage your data in S3 using lifecyle policies, cross origin replication
@@ -2071,6 +2112,7 @@ Example:
 * Maximum size of a stored volume is 16 TB.
 * Maximum number of volumes/gateway : 32
 * Total size of all stored volumes: 512 TB
+
 
 ### Tape gateway:
 * cost-effectively and durably archive backup data in Amazon Glacier.
