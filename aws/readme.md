@@ -1705,7 +1705,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 
 ### Actors:
 * Programatic features are known as actors.
-* They can be workflow starters, deciders or activity workers.
+* They can be **workflow starters**, **deciders** or **activity workers**.
 * Actors communicate with SWF through it's API.
 * You can develop actors in any programming language.
 * A workflow starter is an app that initiates workflow executions - like a
@@ -1904,7 +1904,7 @@ Three core concepts to understand CloudFront.
   AZs regardless of the versioning configuration. AWS does not use tables.
 
 * Bucket names must be unique across all AWS accounts, much like DNS names.
-* Bucket names can contain upto 63 lowercase letters, numbers, hyphens and
+* Bucket names can contain up to 63 lowercase letters, numbers, hyphens and
   periods.
 * Can have upto 100 buckets per account by default.
 * Even though the namespace of S3 is global, each S3 bucket is created in a
@@ -1969,11 +1969,11 @@ Three core concepts to understand CloudFront.
 * Secure, durable and extremely low cost storage for data.
 * Optimized for infrequently accessed data.
 * Data is stored in archives. An archive can contain up to 40TB of data.
-* You can have unlimited umber of archives.
+* You can have unlimited number of archives.
 * After an archive is created it cannot be modified.
 * Vaults are containers for archives.
 * Each AWS account can have up to 1000 vaults.
-* Vault acess can be controlled with IAM policies.
+* Vault access can be controlled with IAM policies.
 * To retrieve object from Glacier you issue a restore command using S3 APIs.
   Three to five hours later object is copied to S3 RRS.
 * Glacier allows you to retrieve up to 5% of the S3 data store in glacier
@@ -2438,6 +2438,89 @@ http://docs.aws.amazon.com/lambda/latest/dg/limits.html
 
 ## Snowmobile:
 * Petabyte and Exabyte amount of data.
+
+
+## Security on AWS:
+* AWS is responsible for security of the cloud, and customers are responsible
+  for security in the cloud.
+
++-----------------------------------------------------
+Customer data
++-----------------------------------------------------
+Platform, Applications, Identity and Access Management
++-----------------------------------------------------   Customer Responsible
+Operating System, Network and Firewall configuration
++------------------------------------------------------
+Client side Encryption,
+Server side Encryption, Network Traffic Protection
++-------------------------------------------------x------x-----x-----x-----
+Compute, Storage, Database, Networking
++-----------------------------------------------------      AWS Responsible
+AWS GLobal Infrastruture (Regions, AZs) Edge Locations
++------------------------------------------------------
+
+### Physical and Environmental Security
+#### Fire detection and supression
+#### power
+#### Climate and Temperature
+#### Management
+#### Storage device decommissioning
+
+### Business Continuity Management:
+#### Availability:
+* Data centers are build in clusters in various global regions.
+* Each AZ within a region is designed as an independent failure zone.
+* AZs are are all redundantly connected to multiple tier-1 transit providers.
+
+#### Incident response:
+#### Communication:
+
+### Network Security
+#### Secure network architecture
+
+#### Secure Access points
+* Strategically placed limited number of access points to the cloud.
+* More comprehesive monitoring of inbound and outbound communications and
+  network traffic.
+* Permit secure HTTP (HTTPS) traffic.
+* Supports FIPS compliance.
+
+#### Transmission protection
+
+### Network monitoring and protection:
+#### DDoS Attachs.
+#### Man in the middle attacks.
+#### IP Spoofing.
+* Amazon EC2 instances cannot send spoofed network traffic.
+* AWS controlled host based firewall will not permit an instance to send
+  traffic with a source IP or MAC address other than it's own.
+#### Port scanning
+* Unauthorized port scans by EC2 customers are a violation of AWS acceptable
+  use policy.
+* You may request permission from Amazon to conduct vulnerability scans to
+  meet your specific compliance requirements.
+* These scans must be limited to your own instances.
+
+#### Packet sniffing by other tenants
+* While you can place your instances in promiscuous mode, the hypervisor
+  will not deliver any traffic to them that is not addressed to them.
+* Even two virtual instances that are owned by the same customer located on
+  the same physical host cannot listen to each other's traffic.
+
+
+### AWS Account Security Features
+#### AWS credentials
+  * passwords
+  * MFA
+  * Access keys
+  * Key pairs (ssh access)
+  * X.509 certificates
+* If you loose credentials you cannot recover them, you can however create
+  new credentials and then disable or delete the old set of credentials.
+
+### AWS Cloudtrail
+
+### AWS Cloud Service specific Security
 
 
 
