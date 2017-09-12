@@ -233,20 +233,21 @@ VPC SG         -- Control outgoing and incoming instance traffic.
 * If you create an AMI from the instance, the data on it's instance store
   volumes isn't preserved and isn't present on the instance store volumes of
   the instances that you launched from the AMI.  
-
+* You cannot create a snapshot of an instance store like you can for an EBS
+  volume.
 
 ### EBS:
-* Provide persistent block-level storage volumes for use with EC2 instanes.
+* Provide persistent block-level storage volumes for use with EC2 instances.
 * EBS volume is automatically replicated within it's AZ to provide HA and
   durability.
 
 **Types of EBS Volumes:**
 
-**Magnettic volumes:**
+**Magnetic volumes:**
 * Lowest performance characteristics and lowest cost per gigabyte.
 * Great cost effective solution for appropriate workloads.
 * Can range from 1 GB to 1 TB and avg 100 IOPS, with ability to burst to
-  hunderds of IOPS.
+  hundreds of IOPS.
 Use cases:
   * infrequently accessed data
   * Sequential reads.
@@ -418,7 +419,7 @@ Use cases:
 * Ensure that the ELB is not sitting behind a proxy server with proxy protocol
   enabled, otherwise there will be a duplicate header.
 
-### Sticky sesstions:
+### Sticky sessions:
 * Enables ELB to bind a user's session to a specific instance. This Ensures
   that requests from the user during the session are sent to the same instance.
 * Key to managing sticky sessions is to determine how long your ELB should
@@ -426,7 +427,7 @@ Use cases:
 * If your app has a session cookie configure ELB so that the session cookie
   follows the duration specified by the appln's session cookie.
 * You can configure ELB to create a session cookie by specifying your own
-  stickness duration. ELB creates a cookie names AWSELB that is used to mapped
+  stickness duration. ELB creates a cookie named AWSELB that is used to map
   the session to the instance.
 
 * Health checks: to test the status of the EC2 Instances
@@ -442,7 +443,7 @@ Use cases:
 ### Autoscaling plans:
 **Maintain current levels:**
 * Maintain a minimum or specified number of running instances at all times.
-* When ASG finds an unhealth instance it terminates it and launches a new one.
+* When ASG finds an unhealthy instance it terminates it and launches a new one.
 
 **Manual scaling:**
 * Most basic way to scale your resources.
@@ -493,7 +494,7 @@ Use cases:
   ASG.
 * It takes time to configure each EC2 instance before the instance is
   healthy and capable of accepting traffic.
-* Instances that are more stateless instead of statefull will more gracefully
+* Instances that are more stateless instead of stateful will more gracefully
   enter and exit an ASG group.
 
 
@@ -525,7 +526,6 @@ http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
 
 * VPC CIDR block may be as large as /16 (65536 ip addresses) or as
   small as /28 (16 ip addresses)
-* Maximum addressable size of a network is /16.
 * Default limit for Amazon VPCs in a region is 5.
 * Each subnet is mapped to a specific availability zone.
 * Security groups and Network ACLs can span multiple availability zones.
@@ -539,7 +539,7 @@ http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
   * DHCP option sets
   * Security groups
   * Network ACLs
-  and the following optional components:
+  And the following optional components:
   * IGW
   * EIP addresses
   * ENI (Elastic network interfaces)
@@ -627,7 +627,7 @@ http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
 * EIPs remain associated with your AWS account until you release them.
 * There is a charge for an EIP that is allocated to your account and if it
   is not associated with a resource.
-* In Classic VPC if you stop and isntance, its EIP is disassociated. But in a
+* In Classic VPC if you stop and instance, its EIP is disassociated. But in a
  VPC if you stop and instance, it's EIP remains associated.
 
 ### Elastic Network interfaces (ENI:)
@@ -664,7 +664,7 @@ http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
   introduce a SPF for communication.
 
 * Peering connections are created through request/accept protocol.
-  * The owner of the requesting VPC sends a request to peer to the owner of
+  * The owner of the requesting VPC sends a request to peer, to the owner of
     the peer VPC.
   * If the peer is in the same account it is identified by VPC id. If peer is
     in a different account it is identified by Account id and VPC id.
@@ -734,7 +734,7 @@ the wide range of ephemeral ports.
 * Always deploy NAT Gateway in the public subnet.
 * Must have an Elastic IP address associated to work.
 * NAT gateways must be behind a security group.
-* There must be a route of the private subnet to the NAT instance in order
+* There must be a route from the private subnet to the NAT instance in order
   for this to work.
 * The amount of traffic that a NAT instance supports depends on the instance size.
 
@@ -746,7 +746,7 @@ the wide range of ephemeral ports.
 * Remember to update your route table to point to the NAT gateway for traffic
   from private subnet to flow out the NAT gateway.
 
-### Virtual private gateways (VPG:), Customer gatways and VPNs:
+### Virtual private gateways (VPG:), Customer gateways and VPNs:
 * Allows you to connect existing datacenter to amazon VPC using either h/w
   or s/w VPN connections.
 * A VGP: is a virtual private network connector on the AWS side of the VPN
@@ -773,7 +773,7 @@ the wide range of ephemeral ports.
 
 **TLDs**  (Top Level Domains)
 * Most general part of the domain
-* eg: .com, .org, .Ed_Aboud
+* eg: .com, .org, .edu
 * Top of the hierarchy in terms of domain names.
 * ICANN - Internet Corporation for Assigned Names and Numbers.
 
@@ -825,7 +825,7 @@ com            == tld
 * There are approximately 13 root servers in operation.
 * When a request comes in for a domain that a lower level name server cannot
   resolve, a query is made to the root server for domain.
-* The root servers are mirrored and replicated. When reqeusts are made to a
+* The root servers are mirrored and replicated. When requests are made to a
   certain root server, the request will be routed to the nearest mirror
   of that root server.
 * The root servers won't actually know where the domain is hosted. They will
@@ -834,7 +834,7 @@ com            == tld
 * For eg: if request for www.wikipedia.org is made to the root server, it will
   check it's zone files for a listing that matches the domain name but will
   not find it.
-* It will instead find a record for .rog TLD and give the requester address
+* It will instead find a record for .org TLD and give the requester address
   of the name server responsible for .org addresses.
 
 **Top level domain servers:**
@@ -927,14 +927,14 @@ A record is a single mapping between a resource and a name.
 
 **Sender Policy Framework (SPF)**
 * SPF records are used by mail servers to combat spam
-* It tells a main server what IP addresses are authorized to send an emails
+* It tells a mail server what IP addresses are authorized to send emails
   from your domain name.
 * Prevents people from spoofing emails from your domain name.
 
 
 **Text (TXT)**
 * Used to hold text information
-* Provides the ability to associate some arbitary and unformatted text with
+* Provides the ability to associate some arbitrary and unformatted text with
   a host or other name, such as human readable information about a server,
   network, data center.
 
@@ -945,7 +945,7 @@ A record is a single mapping between a resource and a name.
 ### Route53 three main functions:
 
 #### **Domain registration:**
-* Amazon route53 lets you register domain names, such has example.com.
+* Amazon route53 lets you register domain names, such as example.com.
 * You also have an option to transfer an already registered domain name with
   another registrar to route53.
 * Supports domain registration for a wide variety of generic TLDs and
@@ -958,7 +958,7 @@ A record is a single mapping between a resource and a name.
   a DNS request is forwarded to the nearest Route53 DNS server in a global
   network of authoritative DNS servers. Route53 responds with the IP address
   that you specified.
-* I you registered your domain with another domain registrar, that registrar
+* If you registered your domain with another domain registrar, that registrar
   is probably providing DNS service for your domain. You can transfer DNS
   service to Route53 without having to transfer the registration for the domain.
 
@@ -1271,7 +1271,7 @@ Supported record types:
 **Distribution Strategy**
 * Define how to distribute the records across the nodes and slices in your
   cluster.
-* Goal in selecting table table distribution style is to minimize the impact
+* Goal in selecting table distribution style is to minimize the impact
   of redistribution step by putting the data where it needs to be before
   the query is performed.
 
@@ -1301,7 +1301,7 @@ Supported record types:
   key in any order.
 
 **Loading Data:**
-* Supports SQL commands like INSERT and UPDATE to create an modify records in
+* Supports SQL commands like INSERT and UPDATE to create and modify records in
   a table.
 * For bulk operations provides COPY command. More efficient than INSERT of
   large number of records.
@@ -1665,7 +1665,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 
 
 ### Dead Letter Queues:
-* A queue that other queus can target to send messages that for some reason
+* A queue that other queues can target to send messages that for some reason
   could not be successfully processed.
 * Ability to sideline and isolate unsuccessfully processed messages.
 
@@ -1735,9 +1735,9 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
   being delivered to clients using push mechanism that eliminates the need to
   check periodically for new updates.
 * You can use SNS to send short message service (SMS) messages to mobile devices
-  in the US or to email receipients worldwide.
+  in the US or to email recipients worldwide.
 * Two client types:
-  * Publishers and Subscribers.
+  * **Publishers** and **Subscribers**.
 
 * Publishers communicate to Subscribers asynchronously by sending a message to
   a topic.
@@ -1856,7 +1856,7 @@ Three core concepts to understand CloudFront.
 
 #### Cache control
 * Once requested and served from the edge location, objects stay in the Cache
-  until they expire or are evicted to make room for more frequently reqeusted
+  until they expire or are evicted to make room for more frequently requested
   content.
 * By default objects expire from the cache after 24 hours.
 * You can control how long objects stay in CloudFront cache before expiring.
@@ -2075,11 +2075,11 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 * Provides access to objects in S3 as files on NFS mount point.
 *  It combines a service and virtual software appliance.
 * The appliance/gateway is deployed on the premise on a VMWare ESXi.
-  The gateway provides access to S3 objects as NFS moutned files.
+  The gateway provides access to S3 objects as NFS mounted files.
 * With File gateway you can:
   * Store and retrieve files directly using NFS 3 or 4.1 protocol.
   * Access your data directly in S3 from any cloud application or service.
-  * Manage your data in S3 using lifecyle policies, cross origin replication
+  * Manage your data in S3 using lifecycle policies, cross origin replication
     and versioning.
 * It also provides low latency access to data through transparent local
   caching.
@@ -2153,7 +2153,7 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 * User accounts in Simple AD can also access AWS applications, like AWS
   Workspaces, WorkDocs and WorkMail.
 * They can also use IAM roles to access console and manage AWS resources.
-* Provides daily automated shapshots.
+* Provides daily automated snapshots.
 * You can setup trust relationships between simple AD and other AD domains.
 * Features not supported: DNS dynamic update, schema extensions, MFA,
   communication over LDAP, AD cmdlets and transfer of flexible Single-Master
@@ -2215,7 +2215,7 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 * Context must be the same for both encrypt and decrypt operations or decryption
   will fail.
 * The encryption context is logged and can be used for auditing, and is
-  available as context in AWS policy language for file-grained policy based
+  available as context in AWS policy language for fine-grained policy based
   authentication.
 
 ### AWS CloudHSM:
@@ -2324,7 +2324,7 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 
 ## AWS Cloudformation:
 * Provides an easy way to create and manage a collection of related AWS
-  resources, provisioning and updating them in an orderly and pretictable
+  resources, provisioning and updating them in an orderly and predictable
   fashion.
 * You create a cloudformation template and you create a stack.
 * Either JSON or YAML format.
