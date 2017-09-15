@@ -1936,6 +1936,34 @@ Three core concepts to understand CloudFront.
 * ACLs are legacy access control, created before IAM existed.
 * S3 bucket policies are the recommended access control mechanism for S3
   and provide much finer grained control.
+* **An interesting note on ACLs:**
+  * You can make a specific object publicly accessible using ACLs.
+  * However you can still control access to this object with bucket policy.
+    Like restricting access to the object from specific IP addresses.
+    ```
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowFromMyNetworkOnly",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": [
+                "arn:aws:s3:::mybucket/path/to/object/*"
+            ],
+            "Condition": {
+                "NotIpAddress": {
+                    "aws:SourceIp": [
+                        "192.168.2.0/24",
+                        "172.22.10.0/28"
+                    ]
+                }
+            }
+        }]
+     }
+    ```
+
 
 ### Static Website hosting:
 * Create a bucket, upload static files, make them public (world readable)
