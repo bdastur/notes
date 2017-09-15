@@ -425,9 +425,9 @@ Use cases:
 * Key to managing sticky sessions is to determine how long your ELB should
   consistently route the users request to the same instance.
 * If your app has a session cookie configure ELB so that the session cookie
-  follows the duration specified by the appln's session cookie.
+  follows the duration specified by the application's session cookie.
 * You can configure ELB to create a session cookie by specifying your own
-  stickness duration. ELB creates a cookie named AWSELB that is used to map
+  stickiness duration. ELB creates a cookie named AWSELB that is used to map
   the session to the instance.
 
 * Health checks: to test the status of the EC2 Instances
@@ -2340,7 +2340,7 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 * An application is conceptually similar to a folder.
 * An application version refers to a specific labeled iteration of deployable
   code.
-* An application version points to an S3 object that contains deployale code.
+* An application version points to an S3 object that contains deployable code.
 * An environment is an application version that is deployed on AWS resources.
 * Each environment runs only a single application version at a time. However
   the same version or different version can run in many different environments
@@ -2444,6 +2444,10 @@ http://docs.aws.amazon.com/lambda/latest/dg/limits.html
 * AWS is responsible for security of the cloud, and customers are responsible
   for security in the cloud.
 
+**Links**:
+https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
+
+
 +-----------------------------------------------------
 Customer data
 +-----------------------------------------------------
@@ -2480,7 +2484,7 @@ AWS GLobal Infrastruture (Regions, AZs) Edge Locations
 
 #### Secure Access points
 * Strategically placed limited number of access points to the cloud.
-* More comprehesive monitoring of inbound and outbound communications and
+* More comprehensive monitoring of inbound and outbound communications and
   network traffic.
 * Permit secure HTTP (HTTPS) traffic.
 * Supports FIPS compliance.
