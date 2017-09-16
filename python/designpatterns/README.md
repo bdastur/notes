@@ -20,7 +20,7 @@
 Iteration means looping over a list of items one after the other.
 
 An **iterable** is an object that has an __iter__ method which returns an iterator.
-Or which defines a __getitem__ method that can take sequential indexes starting 
+Or which defines a __getitem__ method that can take sequential indexes starting
 from zero (and raises and IndexError when the indexes are no longer valid).
 So an **iterable** is an object you can get an iterator from.
 
@@ -29,12 +29,12 @@ So an **iterable** is an object you can get an iterator from.
 >>> for element in [1, 2, 3, 4, 5]:
 ...     print(element)
 ```
-Behind the scenes the for statement calls the iter() on the container object. 
+Behind the scenes the for statement calls the iter() on the container object.
 The function returns an iterator object that defines the method __next__()
 which accesses the elements in the container on at a time.
 
 The built in iter() function takes an arbitary object and tries to return
-the objects contents or elements, raising TypeError if the object does not 
+the objects contents or elements, raising TypeError if the object does not
 support iteration.
 
 ```
@@ -51,7 +51,7 @@ Traceback (most recent call last):
   File "<input>", line 1, in <module>
       next(it)
 StopIteration
->>> 
+>>>
 
 ```
 
@@ -63,14 +63,14 @@ Traceback (most recent call last):
   File "<input>", line 1, in <module>
       it = iter(val)
 TypeError: 'int' object is not iterable
->>> 
+>>>
 
 ```
 
 ```
 >>> mydict = {'Paris': 'France', 'India': 'Delhi', 'Canada': 'Ottawa', 'US': 'Washington DC'}
 >>> it = iter(mydict)
->>> 
+>>>
 >>> list(it)
 ['Paris', 'Canada', 'India', 'US']
 
@@ -110,7 +110,7 @@ A Generator function has a yield keyword.
 ...         yield i
 ...     
 >>> gen = generate_range(3)
->>> 
+>>>
 >>> next(gen)
 0
 >>> next(gen)
@@ -122,15 +122,15 @@ Traceback (most recent call last):
   File "<input>", line 1, in <module>
       next(gen)
 StopIteration
->>> 
+>>>
 >>> type(gen)
 <type 'generator'>
 
 ```
 
 **Passing values into a generator**:
-Values are sent into a generator by calling it's send(value) method. 
-This method resumes the generator's code and the yield expression returns 
+Values are sent into a generator by calling it's send(value) method.
+This method resumes the generator's code and the yield expression returns
 the specified value.
 
 **Generator Expressions:**
@@ -141,11 +141,11 @@ Generator expressions are surrounded by ()
 >>> total = (x for x in range(4))
 >>> type(total)
 <type 'generator'>
->>> 
+>>>
 >>> total = sum(x for x in range(4))
 >>> print total
 6
->>> 
+>>>
 
 ```
 
@@ -157,7 +157,7 @@ Secondly we do not need to wait until all the elements have been generated befor
 we start using them. This is similar to be benefits of iterators.
 
 An example to illustrate.
-using range and xrange. 
+using range and xrange.
 range() returns a list, while xrange() returns a generator.
 
 Here both can be used to do similar thing. Calculate the sum of consecutive numbers from 0 to 1000000000.
@@ -166,15 +166,15 @@ In the below case it hangs and is killed forcefully, while xrange returns succes
 
 ```
 >>> mysum = sum(range(1000000000
-(awsenv)SymMacToolkit-C02MC9VDFD57:designpatterns behzad_dastur$ 
+(awsenv)SymMacToolkit-C02MC9VDFD57:designpatterns behzad_dastur$
 (awsenv)SymMacToolkit-C02MC9VDFD57:designpatterns behzad_dastur$ bpython
 bpython version 0.15 on top of Python 2.7.10 /Users/behzad_dastur/pyenvironments/awsenv/bin/python
->>> 
+>>>
 >>> mysum = sum(xrange(1000000000))
 >>> print mysum
 499999999500000000
->>> 
- 
+>>>
+
 ```
 
 
@@ -214,7 +214,7 @@ logic and methods required to implement the operation.
 
 The advantage is:
 * Clients don't need to know how the command/operation is actually implemented.
-* If it makes sense, multiple commands can be grouped to allow the invoker 
+* If it makes sense, multiple commands can be grouped to allow the invoker
   to execute them in order.
 
 **Usecases:**
@@ -246,13 +246,13 @@ True
 ...     This is a test function docstring
 ...     '''
 ...     pass
-... 
+...
 >>> foo.__class__
 <type 'function'>
->>> 
+>>>
 >>> issubclass(foo.__class__, object)
 True
->>> 
+>>>
 
 ```
 
@@ -262,24 +262,24 @@ functions as return values.
 ```
 >>> def add(x, y):
 ...     return x + y
-... 
+...
 >>> def sub(x, y):
 ...     return x - y
-... 
+...
 >>> def operate(func, x, y):
 ...     return func(x, y)
-... 
+...
 >>> operate(add, 6, 3)
 9
 >>> operate(sub, 6, 3)
 3
->>> 
+>>>
 
 ```
 
 Now look at the case of a function returning another function.
 The function outer() returns a variable inner which happens to be a function label.
-Now we invoke the outer function like any normal function and set it's return 
+Now we invoke the outer function like any normal function and set it's return
 value to foo. Since the return value is of type function, we can then invoke
 foo(), and the inner() function is called.
 
@@ -290,16 +290,16 @@ foo(), and the inner() function is called.
 ...     def inner():
 ...         print "inner function"
 ...     return inner
-... 
->>> 
->>> 
+...
+>>>
+>>>
 >>> foo = outer()
 outer function
 >>> print foo
 <function inner at 0x10996df50>
 >>> foo()
 inner function
->>> 
+>>>
 
 ```
 
@@ -308,11 +308,11 @@ At this point let's take a step further. Modify the above outer() function to
 define a variable 'x = 1'. We can print this variable x in the inner function, which
 would work as expected according to the python namespace rules.
 
-But what about calling foo(). We can still see that the variable x is printed. 
+But what about calling foo(). We can still see that the variable x is printed.
 The variable x is local to the function outer, which means it would cease to exist
-once we exit outer. 
+once we exit outer.
 
-This is because Python supports a feature called **function closures** 
+This is because Python supports a feature called **function closures**
 which means that inner functions defined in non-global scope remember what
 their enclosing namespaces looked like at definition time.
 The func_closure attributed of the inner function shows it contains the variables
@@ -324,13 +324,13 @@ in the enclosing scopes.
 ...     def inner():
 ...         print "x: ", x
 ...     return inner
-... 
+...
 >>> foo = outer()
 >>> foo.func_closure
 (<cell at 0x109c49398: int object at 0x7fa689e054c8>,)
 >>> foo()
 x:  1
->>> 
+>>>
 
 ```
 
@@ -344,20 +344,20 @@ the correct value of x.
 ...     def inner():
 ...         print "x: ", x
 ...     return inner
-... 
+...
 >>> foo = outer()
 Traceback (most recent call last):
   File "<input>", line 1, in <module>
       foo = outer()
       TypeError: outer() takes exactly 1 argument (0 given)
-      >>> 
+      >>>
       >>> foo = outer(4)
       >>> foo()
       x:  4
       >>> foo = outer(2)
       >>> foo()
       x:  2
-      >>> 
+      >>>
 
 ```
 
@@ -372,16 +372,16 @@ a replacement function.
 ...         ret = func() + 1
 ...         return ret
 ...     return inner
-... 
+...
 >>> def foo():
 ...     return 1
-... 
->>> 
+...
+>>>
 >>> decorated = outer(foo)
 >>> decorated()
 Inner
 2
->>> 
+>>>
 
 ```
 
@@ -390,15 +390,15 @@ The @ symbol applies a decorator to a function.
 >>> @outer
 ... def foo():
 ...     return 1
-... 
+...
 >>> foo()
 Inner
 2
->>> 
+>>>
 
 ```
 
-More generic decorators can be written with take the *args and \*\*kwargs 
+More generic decorators can be written which take the *args and \*\*kwargs
 arguments to functions.
 
 ```
@@ -407,17 +407,17 @@ arguments to functions.
 ...         print "Arguments: %s, %s" % (args, kwargs)
 ...         return function(*args, **kwargs)
 ...     return inner
-... 
->>> 
+...
+>>>
 >>>  
 >>> @logger
 ... def foo(x, y):
 ...     return x + y
-... 
+...
 >>> foo(4, 5)
   Arguments: (4, 5), {}
   9
->>>** 
+>>>**
 
 ```
 
@@ -440,21 +440,21 @@ as a decorator must implement the __call__ method.
 ...         print "myDecorator.__call__"
 ...
 ...
-... 
+...
 >>> @myDecorator
 ... def foo():
 ...     print "inside foo"
 ...
-... 
+...
 myDecorator initialized
 inside foo
 >>> foo()
 myDecorator.__call__
- 
+
 ```
 
 When we run the above code, we see the decorator initialized and function invoked
-at the time of initializeation.
+at the time of initialization.
 
 On subsequent calls to foo(), the class myDecorator's __call__ method is invoked.
 
@@ -472,17 +472,17 @@ instead of the __init__. So that's what we will do.
 ...         print "myDecorator.__call__ end"
 ...
 ...
-... 
+...
 >>> @myDecorator
 ... def foo():
 ...     print "inside foo"
 ...
-... 
+...
 >>> foo()
 myDecorator.__call__ start
 inside foo
 myDecorator.__call__ end
->>> 
+>>>
 
 ```
 
@@ -496,7 +496,7 @@ You can accumulate decorators.
 ...         print "------- bread ----"
 ...         
 ...     return wrapper
-... 
+...
 >>> def ingredients(function):
 ...     def wrapper(*args, **kwargs):
 ...         print "#tomatoes#"
@@ -504,34 +504,34 @@ You can accumulate decorators.
 ...         print "#lettuce#"
 ...         
 ...     return wrapper
-... 
->>> def sandwich(food="--trukey--"):
+...
+>>> def sandwich(food="--turkey--"):
 ...     print food
 ...     
-... 
+...
 >>> sandwich()
---trukey--
+--turkey--
 >>> sandwich = bread(ingredients(sandwich))
 >>> sandwich()
 ------- bread ----
 #tomatoes#
---trukey--
+--turkey--
 #lettuce#
 ------- bread ----
->>> 
+>>>
 >>> @bread
 ... @ingredients
-... def sandwich(food="--trukey--"):
+... def sandwich(food="--turkey--"):
 ...     print food
 ...     
-... 
+...
 >>> sandwich()
 ------- bread ----
 #tomatoes#
---trukey--
+--turkey--
 #lettuce#
 ------- bread ----
->>> 
+>>>
 
 ```
 
@@ -550,8 +550,8 @@ You can accumulate decorators.
 ...             
 ...         return inner
 ...     return mydecorator
-... 
->>> 
+...
+>>>
 # Now we create a new decorator as below.
 
 >>> new_decorator = decorator_maker()
@@ -562,14 +562,14 @@ Decorator maker
 ... def myfunction(x, y):
 ...     print x, y
 ...     
-... 
+...
 myDecorator start
->>> 
+>>>
 >>> myfunction(4, 4)
 Inner start
 4 4
 Inner end
->>> 
+>>>
 
 ```
 
@@ -581,14 +581,14 @@ Notice how we are calling the decorator_maker '@decorator_maker()'
 ... def myfunction(x, y):
 ...     print x, y
 ...     
-... 
+...
 Decorator maker
 myDecorator start
 >>> myfunction(4, 4)
 Inner start
 4 4
 Inner end
->>> 
+>>>
 
 ```
 
@@ -611,16 +611,76 @@ it arguments as well.
 ... def myfunction(x, y):
 ...     print x, y
 ...     
-... 
+...
 Decorator maker, args: ('test', 'test2'), kwargs: {'key1': 'Value'}
 myDecorator start: ('test', 'test2'), {'key1': 'Value'}
 >>> myfunction(4, 4)
 Inner start
 4 4
 Inner end
->>> 
+>>>
 
 ```
+
+Using the same example as above we can add a simple example of using decorators
+to write a decorator that will keep track of how many times a function was
+invoked
+```
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+class Tracker(object):                                                           
+    FUNCTIONS = {}                                                               
+
+    def __init__(self):                                                          
+        self.tracker = {}                                                        
+
+    def update_count(self, func_name):                                           
+        if Tracker.FUNCTIONS.get(func_name, None) is None:                       
+            Tracker.FUNCTIONS[func_name] = 1                                     
+        else:                                                                    
+            Tracker.FUNCTIONS[func_name] += 1                                    
+
+
+def functracker(*args, **kwargs):                                                
+
+    def decorator(func):           
+        tracker = Tracker()   
+        
+        def inner(*args, **kwargs):
+            tracker.update_count(func.func_name)                                 
+            func(*args, **kwargs)                                                
+        return inner                                                             
+    return decorator                                                             
+
+
+@functracker('test', 'test2', key1="value")                                      
+def foo(x, y):                                                                   
+    print "foo: %s, %s" % (str(x), str(y))                                       
+
+
+@functracker()                                                                   
+def bar(x, y):                                                                   
+    print "%s %s" % (x, y)                                                       
+
+
+def main():                                                                                                                                                                                 
+    foo(34, 'test')                                                               
+    print "--------------------"                                                  
+    foo(9, 334)                                                                   
+    print "--------------------"                                                  
+    bar(9, 4)                                                                     
+
+    print "Tracker functions: ", Tracker.FUNCTIONS                               
+
+if __name__ == '__main__':                                                       
+    main()                                         
+
+
+```
+
+
+
 
 ## Structural Patterns:
 
@@ -634,7 +694,7 @@ A structural design pattern that helps make two incompatible interfaces
 compatible. There are several use cases for this pattern. If we have an old
 component and we want to use it in a new system, or vice a versa, the
 two systems could not communicate without needing to make code changes. But
-in many cases chaning the existing code is not possible. In this case we 
+in many cases chaning the existing code is not possible. In this case we
 write an extra layer tha makes all the required modifiations for enabling
 communciation between the two interfaces. This layer is called the Adapter.
 
@@ -657,7 +717,7 @@ Aimed at achieving loose coupling of components within an application.
 
 The components do not have to know each other directly.
 Components specify external dependencies using some kind of key.
-Some other instance resolves the dependencies once for each component and 
+Some other instance resolves the dependencies once for each component and
 therby wires the components together.
 
 If object A depends on object B, object A must not create or import i
@@ -675,15 +735,3 @@ Ways of how service can be injected into the client.
 * By passing it as __init__ argument (Constructor/ initializer injection)
 * By setting it as attribute's value (attribute injection)
 * By passing it as method's argument (method injection)
-
-
-
-
-
-
-
-
-
-
-
-
