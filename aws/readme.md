@@ -342,6 +342,64 @@ Use cases:
   a new volume from this snapshot with a different volume type like SSD.
 
 
+### Extending an EBS Volume:
+
+**Links:**
+http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-expand-volume.html#recognize-expanded-volume-linux
+
+How to modify the size, IOPS or Type of an AWS EBS Volume?
+
+* From the Console, select EC2 -> volumes.
+* Select the volume by VolumeId, and choose Actions -> modify volume
+* Modifying a volume size has no effect until you also extend the volume's
+  file system to make use of the new storage capacity.
+
+After increasing the volume size, log into the Instance:
+```
+# df -h
+Filesystem         Size  Used Avail Use% Mounted on
+/dev/xvda1          40G  8.6G   30G  23% /
+devtmpfs            32G     0   32G   0% /dev
+tmpfs               32G     0   32G   0% /dev/shm
+tmpfs               32G  121M   32G   1% /run
+tmpfs               32G     0   32G   0% /sys/fs/cgroup
+none                64K  4.0K   60K   7% /.subd/tmp
+/dev/mapper/vol5   2.0T  935G  945G  50% /data/vol5
+/dev/mapper/vol6   985G  788G  147G  85% /data/vol6
+:
+/dev/mapper/vol7   985G   77M  935G   1% /data/vol7
+/dev/mapper/vol2   985G  695G  241G  75% /data/vol2
+tmpfs              6.3G     0  6.3G   0% /run/user/0
+tmpfs              6.3G     0  6.3G   0% /run/user/10038
+tmpfs              6.3G     0  6.3G   0% /run/user/10807
+
+(Volume size of /dev/mapper/vol5 is increased to 2.0 TB)
+
+
+rahul_reddy]# lsblk
+NAME    MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
+xvda    202:0    0   40G  0 disk
+└─xvda1 202:1    0   40G  0 part  /
+xvdb    202:16   0 1000G  0 disk
+└─vol1  253:3    0 1000G  0 crypt /data/vol1
+xvdc    202:32   0 1000G  0 disk
+└─vol2  253:9    0 1000G  0 crypt /data/vol2
+xvdd    202:48   0 1000G  0 disk
+└─vol3  253:2    0 1000G  0 crypt /data/vol3
+xvde    202:64   0 1000G  0 disk
+└─vol4  253:5    0 1000G  0 crypt /data/vol4
+xvdf    202:80   0    2T  0 disk
+└─vol5  253:4    0    2T  0 crypt /data/vol5
+:
+xvdk    202:160  0 1000G  0 disk
+└─vol10 253:0    0 1000G  0 crypt /data/vol10
+
+(this operation worked as the volume is encrypted)
+# cryptsetup resize vol5 -v  resize2fs /dev/mapper/vol5
+
+```
+
+
 ### Lifecycle of instances
 
 
@@ -1940,7 +1998,8 @@ Three core concepts to understand CloudFront.
   * You can make a specific object publicly accessible using ACLs.
   * However you can still control access to this object with bucket policy.
     Like restricting access to the object from specific IP addresses.
-    ```
+
+```
     {
     "Version": "2012-10-17",
     "Statement": [
@@ -1962,7 +2021,7 @@ Three core concepts to understand CloudFront.
             }
         }]
      }
-    ```
+```
 
 
 ### Static Website hosting:
