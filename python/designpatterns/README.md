@@ -151,10 +151,10 @@ Generator expressions are surrounded by ()
 
 **Efficiency**
 The performance improvement from the use of generators is the result of the
-lazy (on demand) generation ait of values, which translates to lower memory usage.
+lazy (on demand) generation of values, which translates to lower memory usage.
 
 Secondly we do not need to wait until all the elements have been generated before
-we start using them. This is similar to be benefits of iterators.
+we start using them. This is similar to the benefits of iterators.
 
 An example to illustrate.
 using range and xrange.
@@ -646,7 +646,7 @@ def functracker(*args, **kwargs):
 
     def decorator(func):           
         tracker = Tracker()   
-        
+
         def inner(*args, **kwargs):
             tracker.update_count(func.func_name)                                 
             func(*args, **kwargs)                                                
