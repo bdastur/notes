@@ -679,6 +679,80 @@ if __name__ == '__main__':
 
 ```
 
+## Descriptor/Descriptor protocol:
+
+**Links**:
+https://docs.python.org/3/howto/descriptor.html
+
+* A descriptor is an object attribute with 'binding behavior', one whose
+  attribute access has been overridden by methods in the descriptor protocol.
+* Those methods are __get__(), __set__() and __delete__(). If any of Those
+  methods are defined for an object, it is said to be a descriptor.
+
+* here's an example code. It creates a class whose objects are data
+  descriptors which print a message for each get or set.
+```
+>>> class Access(object):
+...     def __init__(self, initval=None, name="var"):
+...         self.val = initval
+...         self.name = name
+...
+...     def __get__(self, obj, objtype):
+...         print "Retrieving ", self.name
+...         return self.val
+...
+...     def __set__(self, obj, val):
+...         print "Updating ", self.name
+...         self.val = val
+...
+...
+
+>>> class MyClass(object):
+...     x = Access(10, 'var "x"')
+...     y = 5
+...
+...
+>>>
+>>> myclass = MyClass()
+>>> myclass.x
+Retrieving  var "x"
+10
+>>> myclass.x = 40
+Updating  var "x"
+
+>>> myclass.x
+Retrieving  var "x"
+40
+>>>
+
+```
+
+## Property
+* The property() function returns a special descriptor object.
+
+```
+>>> property()
+<property object at 0x10b912050>
+
+
+```
+
+* It has the following methods:
+```
+>>> property().getter
+<built-in method getter of property object at 0x10b912a48>
+
+>>> property().setter
+<built-in method setter of property object at 0x10b912578>
+
+>>> property().deleter
+<built-in method deleter of property object at 0x10b912c58>
+>>>
+
+```
+
+### Examples:
+https://github.com/bdastur/notes/blob/master/python/designpatterns/property_test.py
 
 
 
