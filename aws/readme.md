@@ -702,6 +702,19 @@ http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
   VPN connection or AWS direct connect.
 * VPC endpoint currently supports S3.
 
+* You can use the describe-prefix-lists to list the CIDRs for your
+  endpoints in the vpc. This can be useful when opening specific CIDRs for
+  outbound access from your EC2 instances.
+
+```
+$ aws ec2 describe-prefix-lists --profile devaccount
+PREFIXLISTS	pl-6333400a	com.amazonaws.us-east-1.s3
+CIDRS	53.251.0.0/17
+CIDRS	51.116.0.0/15
+PREFIXLISTS	pl-04442c6b	com.amazonaws.us-east-1.dynamodb
+CIDRS	51.44.0.0/22
+CIDRS	54.159.224.0/21
+```
 
 
 
