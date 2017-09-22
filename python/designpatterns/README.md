@@ -233,6 +233,8 @@ The advantage is:
 * http://www.artima.com/weblogs/viewpost.jsp?thread=240808
 * https://stackoverflow.com/questions/739654/how-to-make-a-chain-of-function-decorators/1594484#1594484
 
+* https://wiki.python.org/moin/PythonDecoratorLibrary
+
 ### Notes:
 
 Functions in python are first class objects. Which means they have attributes
