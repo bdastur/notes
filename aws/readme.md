@@ -1,7 +1,17 @@
 # AWS Notes:
 
 
-## IAM
+## Identity and Authorization (IAM):
+
+### How to generate IAM credentials report.
+```
+#!/bin/bash
+aws iam generate-credential-report  --profile core-services-prod
+aws iam get-credential-report \
+    --query Content --output text \
+    --profile core-services-dev | base64 -D
+
+```
 
 ### Links:
 
