@@ -42,3 +42,11 @@ To run the compiled code.
 java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
 
 ```
+
+## Maven useful links:
+
+* Maven getting started:
+  https://maven.apache.org/guides/getting-started/index.html
+
+* POM file details:
+  https://maven.apache.org/ref/3.5.0/maven-model/maven.html
