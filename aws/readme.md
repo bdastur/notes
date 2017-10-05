@@ -2637,6 +2637,33 @@ AWS GLobal Infrastruture (Regions, AZs) Edge Locations
 ### AWS Cloud Service specific Security
 
 
+## AWS CLI:
+
+* You can use your AWS Roles and access CLI.
+Here is an example:
+1. Create a Role in AWS Account. EG TESTROLE.
+2. Create an IAM user that can assume the TESTROLE (it can be in a different account)
+3. Now you aws config and credentials file will look like below:
+```
+~/.aws/config:
+[profile myuser]
+output = text
+
+[profile role-testrole]
+role_arn = arn:aws:iam::644444444456:role/TESTROLE
+source_profile =  myuser
+
+~/.aws/credentials
+[myuser]
+aws_access_key_id = AFDFFSFSFSFS
+aws_secret_access_key = xxxxkduedo.....B+oelQ
+
+
+```
+
+This way you do not maintain multiple api keys. The user can assume multiple roles,
+and you can use the same api credentials to access all roles.
+
 
 ## Boto3:
 
