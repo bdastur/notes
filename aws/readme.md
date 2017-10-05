@@ -242,7 +242,7 @@ VPC SG         -- Control outgoing and incoming instance traffic.
   instance store of another instance.
 * If you create an AMI from the instance, the data on it's instance store
   volumes isn't preserved and isn't present on the instance store volumes of
-  the instances that you launched from the AMI.  
+  the instances that you launched from the AMI.
 * You cannot create a snapshot of an instance store like you can for an EBS
   volume.
 
@@ -506,7 +506,7 @@ xvdk    202:160  0 1000G  0 disk
 
 
 ## Autoscaling (ASG:)
-* Allows automatic scaling of EC2 instances based on criteria. Scaling in or  
+* Allows automatic scaling of EC2 instances based on criteria. Scaling in or
   scaling out.
 ### Autoscaling plans:
 **Maintain current levels:**
@@ -798,7 +798,7 @@ CIDRS	54.159.224.0/21
 
 
 **Ephemeral Ports**
-* To cover the different types of clients that might initiate traffic to   
+* To cover the different types of clients that might initiate traffic to
 public facing instances in your VPC, you can open ephemeral ports
 1025-65535. However you can also add rules to your ACL to deny traffic on
 any malicious ports within that range.
@@ -1388,7 +1388,7 @@ Supported record types:
   large number of records.
 * When loading data from S3, COPY command can read from multiple files at the
   same time.
-* After each bulk data load, you need to perform a VACUUM command to reorganize  
+* After each bulk data load, you need to perform a VACUUM command to reorganize
   your data and reclaim space after deletes.
 * Also recommended to run ANALYZE command to update table statistics.
 * UNLOAD command to export data out of Redshift.
@@ -1633,7 +1633,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
   ```
   (ReadCapacityUnits / 3000) +
      (WriteCapacityUnits/1000) = initial partitions (rounded up)
-  ```  
+  ```
   For example: say you create a table with 1000 read capacity units and 500
   write capacity units, the initial partitions would be
   ```
@@ -2640,6 +2640,10 @@ AWS GLobal Infrastruture (Regions, AZs) Edge Locations
 ## AWS CLI:
 
 * You can use your AWS Roles and access CLI.
+
+**Links**:
+http://docs.aws.amazon.com/cli/latest/userguide/cli-roles.html
+
 Here is an example:
 1. Create a Role in AWS Account. EG TESTROLE.
 2. Create an IAM user that can assume the TESTROLE (it can be in a different account)
