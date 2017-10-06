@@ -2557,7 +2557,7 @@ http://docs.aws.amazon.com/lambda/latest/dg/limits.html
 **Links**:
 https://d0.awsstatic.com/whitepapers/compliance/AWS_CIS_Foundations_Benchmark.pdf
 
-
+```
 +-----------------------------------------------------
 Customer data
 +-----------------------------------------------------
@@ -2572,6 +2572,7 @@ Compute, Storage, Database, Networking
 +-----------------------------------------------------      AWS Responsible
 AWS GLobal Infrastruture (Regions, AZs) Edge Locations
 +------------------------------------------------------
+```
 
 ### Physical and Environmental Security
 #### Fire detection and supression
