@@ -31,3 +31,11 @@ https://arduino-info.wikispaces.com/SmallSteppers
 
 315mHz Wireless:
 http://www.instructables.com/id/RF-315433-MHz-Transmitter-receiver-Module-and-Ardu/
+
+
+## Other useful links:
+Serial input basics:
+http://forum.arduino.cc/index.php?topic=396450
+
+Connecting Arduino to Raspberry pi:
+http://www.instructables.com/id/Connect-Your-Raspberry-Pi-and-Arduino-Uno/
