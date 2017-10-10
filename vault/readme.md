@@ -147,3 +147,7 @@ security_token  <nil>
 # vault revoke aws/creds/deploy/929e67b9-8f53-a729-4d44-7076833028e0
 Success! Revoked the secret with ID 'aws/creds/deploy/929e67b9-8f53-a729-4d44-7076833028e0', if it existed.
 ```
+
+
+## Vault Python client:
+https://github.com/ianunruh/hvac
