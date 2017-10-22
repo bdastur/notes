@@ -163,3 +163,8 @@ ldap_conn.search('DC=ACME,DC=ACME,DC=COM',
 print ldap_conn.entries[0].entry_to_json()
 
 ```
+
+## Python for Browsers:
+
+**links:**
+http://brython.info/tests/console.html?lang=en
