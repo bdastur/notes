@@ -22,7 +22,7 @@
         triggers:
           -
             type: "ConfigChange"
-        replicas: 1
+        replicas: 2
         selector:
           name: "pyapp"
         template:
@@ -51,4 +51,4 @@
   parameters:
     -
       name: "image_url"
-      value: "registry.abc.xyz.com/alpine:0.1"
+      value: "APP_DEFAULT_IMAGE"
