@@ -17,7 +17,7 @@ function usage {
     echo "./app build -i registry.abc.acme.com/alpine:1.0"
     echo ""
     echo "deploy a oc template:"
-    echo "./app deploy openshift/deploymentconfig.yaml"
+    echo "./app deploy -f openshift/deploymentconfig.yaml"
     echo ""    
     
     exit 1
@@ -47,11 +47,12 @@ function app_operation_build {
 }
 
 function app_operation_deploy {
+    local temp_deploymentconfig="/tmp/deploymentconfig.yaml"
     echo "dep config: $deploymentconfigfile"
     formatimage=$(echo $image | sed 's/\//\\\//g')
     echo "sed  's/APP_DEFAULT_IMAGE/${formatimage}/' $deploymentconfigfile"
-    cat $deploymentconfigfile | sed "s/APP_DEFAULT_IMAGE/${formatimage}/" > /tmp/tempdeployment.yaml
-    oc process -f /tmp/tempdeployment.yaml | oc apply -f - 
+    cat $deploymentconfigfile | sed "s/APP_DEFAULT_IMAGE/${formatimage}/" > ${temp_deploymentconfig} 
+    oc process -f ${temp_deploymentconfig} | oc apply -f - 
 }
 
 
