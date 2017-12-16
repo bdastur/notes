@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Skyline Aws Console Access (Alpha)</title>
+    <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.slate.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/statgrid.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/jquery.gridster.css') }}"
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  <div class="container">
+    <div class="well">
+      <h3>Single Stat Widget</h3>
+      <p>
+        <span id="last_update" style="display:none;" class="glyphicon glyphicon-warning-sign icon-warn"></span>
+        <!--add cluster fsid for informational purposes-->
+        <small id="cluster_fsid">8dudieie</small>
+      </p>
+    </div>
+    <div class="row" id="row1">
+        <div class="col-sm-4" id="col1">
+            <canvas id="can-row1col1"
+             width="220" height="220" style="border:none 2px #000000;">
+         </canvas>
+        </div>
+        <div class="col-sm-4" id="col2">
+            <canvas id="can-row1col2"
+             width="220" height="220" style="border:none 2px #000000;">
+            </canvas>
+        </div>
+        <div class="col-lg-2" id="col3">
+            <canvas id="can-row1col3"
+             width="220" height="220" style="border:none 1px #d3d3d3;">
+            </canvas>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="box a" id="box1">A</div>
+        <div class="box b">B</div>
+        <div class="box c">C</div>
+        <div class="box d">D</div>
+        <div class="box e">E</div>
+        <div class="box f">F</div>
+    </div>
+    <p></p>
+
+    <div class="gridster">
+      <ul>
+        <li data-row="1" data-col="1" data-sizex="2" data-sizey="1">
+            Hello
+        </li>
+
+        <li data-row="2" data-col="1" data-sizex="1" data-sizey="1">
+        </li>
+
+        <li data-row="3" data-col="1" data-sizex="1" data-sizey="2">
+        </li>
+
+        <li data-row="1" data-col="2" data-sizex="1" data-sizey="1">
+        </li>
+
+        <li data-row="2" data-col="2" data-sizex="2" data-sizey="1">
+        </li>
+      </ul>
+      <!-- <center><div style="font-size: 12px">Try this: curl -d '{ "auth_token": "YOUR_AUTH_TOKEN", "text": "Hey, Look what I can do!" }' \http://dashingdemo.herokuapp.com:80/widgets/welcome</div></center> -->
+    </div>
+
+    <p>another example of gridster</p>
+    <div class="gridster">
+        <ul>
+            <li data-sizey="2" data-sizex="2" data-col="4" data-row="1">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li data-sizey="1" data-sizex="1" data-col="1" data-row="3">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li data-sizey="1" data-sizex="1" data-col="2" data-row="3">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li data-sizey="2" data-sizex="2" data-col="1" data-row="1">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li data-sizey="1" data-sizex="1" data-col="3" data-row="1">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li data-sizey="1" data-sizex="1" data-col="3" data-row="3">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li data-sizey="1" data-sizex="1" data-col="4" data-row="3">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li data-sizey="1" data-sizex="1" data-col="6" data-row="1">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li data-sizey="1" data-sizex="1" data-col="5" data-row="3">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li data-sizey="1" data-sizex="1" data-col="3" data-row="2">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+            <li data-sizey="1" data-sizex="1" data-col="6" data-row="2">
+                <div class="gridster-box">
+                    <div class="handle-resize"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+
+  </div>
+  <script type="text/javascript"
+           src="{{ url_for('static', filename="js/hc/js/highcharts.js") }}">
+  </script>
+  <!-- <script type="text/javascript"
+           src="{{ url_for('static', filename="js/jquery-3.1.1.min.js") }}">
+  </script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <script type="text/javascript"
+          src= "{{ url_for('static', filename='js/gridster/jquery.gridster.min.js') }}"></script>
+  <script type="text/javascript"
+          src="{{ url_for('static', filename='js/utils.js') }}"></script>
+  <script type="text/javascript"
+          src="{{ url_for('static', filename='js/single_stat_widget.js') }}">
+  </script>
+  <script type="text/javascript">
+        var gridster = null;
+        $(document).ready(function () {
+            gridster = $(".gridster ul").gridster({
+                widget_base_dimensions: ['auto', 140],
+                autogenerate_stylesheet: true,
+                min_cols: 1,
+                max_cols: 6,
+                widget_margins: [5, 5],
+                resize: {
+                    enabled: true
+                }
+            }).data('gridster');
+            $('.gridster  ul').css({'padding': '0'});
+        });
+    </script>
+  <script type="text/javascript"
+          src= "{{ url_for('static', filename='js/example4.js') }}"></script>
+  </body>
+</html>

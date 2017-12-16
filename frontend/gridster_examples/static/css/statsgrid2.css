@@ -1,0 +1,160 @@
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-gap: 10px;
+  /*background-color: #fff;*/
+  color: #444;
+}
+
+.box {
+  background-color: #260c44;
+  color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  font-size: 150%;
+}
+
+.a {
+       grid-column: 1 / 3;
+       grid-row: 1;
+}
+.b {
+       grid-column: 3 ;
+       grid-row: 1 / 3;
+}
+.c {
+       grid-column: 1 ;
+       grid-row: 2 ;
+}
+.d {
+       grid-column: 2;
+       grid-row: 2;
+}
+
+#box1 {
+    grid-column: 1 / 3;
+    grid-row: 1;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+/* Gridster styles */
+/*
+.demo {
+    margin: 3em 0;
+    padding: 7.5em 0 5.5em;
+    background: #004756;
+}
+
+.demo:hover .gridster {
+    opacity: 1;
+}
+
+.gridster {
+    width: 940px;
+    margin: 0 auto;
+
+    opacity: .8;
+
+    -webkit-transition: opacity .6s;
+    -moz-transition: opacity .6s;
+    -o-transition: opacity .6s;
+    -ms-transition: opacity .6s;
+    transition: opacity .6s;
+}
+
+.gridster .gs_w {
+    background: #FFF;
+    cursor: pointer;
+    -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+*/
+
+
+/*! gridster.js - v0.6.10 - 2015-05-31
+* https://dsmorse.github.io/gridster.js/
+* Copyright (c) 2015 ducksboard; Licensed MIT */
+body {
+  background: #26941f;
+  font-size: 16px;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  color: #ffffff;
+  margin: 0;
+}
+h1,
+h2,
+h3,
+p {
+  margin: 10px;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.demo {
+  margin: 3em 0;
+  padding: 7.5em 0 5.5em;
+  background: #26941f;
+}
+.demo:hover .gridster {
+  margin: 0 auto;
+  opacity: .8;
+  -webkit-transition: opacity .6s;
+  -moz-transition: opacity .6s;
+  -o-transition: opacity .6s;
+  -ms-transition: opacity .6s;
+  transition: opacity .6s;
+}
+.content {
+  color: white;
+}
+.gridster .gs-w {
+  background: #61A9CF;
+  cursor: pointer;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.gridster .player {
+  -webkit-box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+  background: #BBB;
+}
+.gridster .gs-w.try {
+  background-image: url(../img/sprite.png);
+  background-repeat: no-repeat;
+  background-position: 37px -169px;
+}
+.gridster .preview-holder {
+  border: none !important;
+  border-radius: 0 !important;
+  background: red !important;
+}
+.gridster ul {
+  background-color: #EFEFEF;
+}
+.gridster li {
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
+  line-height: 100%;
+}
+ul {
+  list-style-type: none;
+}
+li {
+  list-style: none;
+  font-weight: bold;
+}
+.gridster-box {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.controls {
+  margin-bottom: 20px;
+}
+/*# sourceMappingURL=demos/assets/css/demo.css.map */
