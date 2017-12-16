@@ -6,7 +6,7 @@ Walkthrough of creating a simple web application.
 
 ### Code for simple application:
 
-[simple-web-app](/Users/behzad_dastur/CODE/notes_dec3/notes/kubernetes/simple-web-app)
+[simple-web-app](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app)
 
 ### Building and Pushing the image to registry:
 ```
@@ -19,6 +19,9 @@ docker push $REGISTRY/alpine:0.1
 
 ### Openshift/Kubernetes templates:
 
+[simple deployment config](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/deploymentconfig.yaml)
+
+[Example of liveness and readiness probe](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/dc_livenessprobe.yaml)
 
 
 ### Create a new Openshift project/namespace for a new app.
@@ -99,4 +102,34 @@ $ oc process -f deploymentconfig.yaml | oc apply -f -
 
 ```
 
-To get all the corresponding 
+To get all resources:
+```
+$ oc get all
+```
+
+
+### Liveness and Readiness probes:
+
+```
+# Liveness probe.
+livenessProbe:
+  exec:
+    command:
+      - cat
+      - /tmp/healthy
+  initialDelaySeconds: 25
+  periodSeconds: 10 
+  successThreshold: 1
+  failureThreshold: 3
+
+# Readiness probe.
+readinessProbe:
+  exec:
+    command:
+      - cat
+      - /tmp/ready
+  initialDelaySeconds: 25
+  periodSeconds: 10
+  failureThreshold: 1
+
+```

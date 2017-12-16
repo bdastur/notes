@@ -47,6 +47,26 @@
                     memory: "2048Mi"
                     cpu: "250m"
                 env:
+                # Liveness probe.
+                livenessProbe:
+                  exec:
+                    command:
+                      - cat
+                      - /tmp/healthy
+                  initialDelaySeconds: 25
+                  periodSeconds: 10 
+                  successThreshold: 1
+                  failureThreshold: 3
+                # Readiness probe.
+                readinessProbe:
+                  exec:
+                    command:
+                      - cat
+                      - /tmp/ready
+                  initialDelaySeconds: 25
+                  periodSeconds: 10
+                  failureThreshold: 1
+
             volumes:
   parameters:
     -
