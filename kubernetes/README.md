@@ -23,6 +23,8 @@ docker push $REGISTRY/alpine:0.1
 
 [Example of liveness and readiness probe](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/dc_livenessprobe.yaml)
 
+[Example of mouting secerts] (https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/dc_withsecrets.yaml)
+
 
 ### Create a new Openshift project/namespace for a new app.
 We will first create a new namespace/project with openshift client CLI.
@@ -110,6 +112,8 @@ $ oc get all
 
 ### Liveness and Readiness probes:
 
+[Kubernetes.io: liveness-readiness-probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/)
+
 ```
 # Liveness probe.
 livenessProbe:
@@ -133,3 +137,36 @@ readinessProbe:
   failureThreshold: 1
 
 ```
+
+### Creating Secrets:
+
+[Kubernets.io: secrets](https://kubernetes.io/docs/concepts/configuration/secret/)
+
+```
+$ export MY_SECRET="testing"
+
+$ oc create secret generic my-secret --from-literal=mysecret=$MY_SECRET
+secret "my-secret" created
+```
+
+#### Decoding a secret:
+```
+$ oc get secrets my-secret -o yaml
+apiVersion: v1
+data:
+  mysecret: dGVzdGluZw==
+kind: Secret
+metadata:
+  creationTimestamp: 2017-12-16T14:52:07Z
+  name: my-secret
+  namespace: pyapp
+  resourceVersion: "31531077"
+  selfLink: /api/v1/namespaces/pyapp/secrets/my-secret
+  uid: b002bb79-e270-11e7-bce0-126bbe2a1452
+type: Opaque
+
+$ echo dGVzdGluZw== | base64 --decode
+testing
+```
+
+
