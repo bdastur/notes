@@ -23,7 +23,7 @@ docker push $REGISTRY/alpine:0.1
 
 [Example of liveness and readiness probe](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/dc_livenessprobe.yaml)
 
-[Example of mouting secerts] (https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/dc_withsecrets.yaml)
+[Example of mouting secerts](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/dc_withsecrets.yaml)
 
 
 ### Create a new Openshift project/namespace for a new app.
