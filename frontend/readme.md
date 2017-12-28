@@ -8,3 +8,6 @@ Notes on anything that has to do with UI, HTML, CSS or related area.
 <td style="LINE-HEIGHT:50px;
   text-align:center; vertical-align:center; padding:5px">
 ```
+
+* [CSS Notes](https://github.com/bdastur/notes/tree/master/frontend/css.md)
+
