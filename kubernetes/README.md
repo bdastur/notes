@@ -25,6 +25,8 @@ docker push $REGISTRY/alpine:0.1
 
 [Example of mouting secerts](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/dc_withsecrets.yaml)
 
+[Example of secrets in ENV](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/dc_withsecrets_asenv.yaml)
+
 
 ### Create a new Openshift project/namespace for a new app.
 We will first create a new namespace/project with openshift client CLI.
