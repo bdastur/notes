@@ -5,6 +5,9 @@
 from flask import Flask
 from flask import request
 from flask import jsonify
+from flask import session
+from flask import g
+
 #from flask import abort
 #from flask import url_for
 from flask import render_template
@@ -123,12 +126,30 @@ def example7():
     return (render_template('example7.html'))
 
 
-@app.route("/rundeckstat")
+@app.route("/rundeckstat", methods=["GET", "POST"])
 def handle_rundeckstat():
-    print "Rundeck stat."
+    print "Rundeck stat. req: %s, args: %s data: %s , conttype: %s" % \
+        (request, request.args, request.data, request.content_type)
+
+    if request.method == 'POST':
+        print "POST REQUEST"
+        g.rundeck_status = int(request.args.get('stat', 0))
+    else:
+        print "GET REQUEST"
+
+    try:
+        print "BRD: status: ", g.rundeck_status
+    except AttributeError:
+        print "Could not get stat."
+        random_obj = random.Random()
+        g.rundeck_status = random_obj.randrange(0, 100)
+
+       
+    print "flask global status: ", g.rundeck_status
     status = {}
     random_obj = random.Random()
-    status['metric_value'] = random_obj.randrange(0, 100)
+    status['metric_value'] = g.rundeck_status
+
     if request.mimetype == "application/json":
         return jsonify(status)
     else:
@@ -149,7 +170,7 @@ def generate_token(account, role):
 
 
 def main():
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)
 
 if __name__ == '__main__':
     main()
