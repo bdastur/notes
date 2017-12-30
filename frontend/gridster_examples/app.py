@@ -18,6 +18,7 @@ from flask import render_template
 #import hashlib
 #import quotes
 import random
+import app_session
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Hello from the secret world of Flask! ;)'
@@ -133,22 +134,18 @@ def handle_rundeckstat():
 
     if request.method == 'POST':
         print "POST REQUEST"
-        g.rundeck_status = int(request.args.get('stat', 0))
+        data = {}
+        data['data'] = int(request.args.get('stat', 0))
+        app_session.set_data('rundeckstat', data['data'])
+        print "DATA: ", data
     else:
         print "GET REQUEST"
-
-    try:
-        print "BRD: status: ", g.rundeck_status
-    except AttributeError:
-        print "Could not get stat."
-        random_obj = random.Random()
-        g.rundeck_status = random_obj.randrange(0, 100)
-
-       
-    print "flask global status: ", g.rundeck_status
+        data = app_session.get_data('rundeckstat')
+        print "DATA get: ", data
+ 
     status = {}
     random_obj = random.Random()
-    status['metric_value'] = g.rundeck_status
+    status['metric_value'] = data['data'] 
 
     if request.mimetype == "application/json":
         return jsonify(status)
