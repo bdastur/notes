@@ -1,0 +1,11 @@
+// Your variable overrides
+
+.custom_body {
+    text-align: center;
+    color: red;
+}
+
+#custom_body {
+    background: #413535;
+    text-align: left;
+}
