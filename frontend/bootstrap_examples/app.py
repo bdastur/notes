@@ -15,7 +15,7 @@ app.config['SECRET_KEY'] = 'Hello from the secret world of Flask! ;)'
 
 
 @app.route("/starter")
-def example1():
+def handle_bootstrap_starter():
     print "Index invoked"
     print request
 
@@ -28,6 +28,15 @@ def example1():
         return jsonify(status)
     return (render_template('bootstrap_starter.html'))
 
+@app.route("/grids")
+def handle_grids():
+    print "Grids handler"
+    return (render_template('grids.html'))
+
+@app.route("/sample_layout")
+def handle_sample_layout():
+    print "Sample Layout"
+    return (render_template('sample_layout.html'))
 
 
 def main():
