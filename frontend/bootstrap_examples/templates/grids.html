@@ -4,41 +4,46 @@
 		<meta charset="utf-8"> 
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
     	<link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
     	<script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.3.2/holder.min.js" type="text/javascript"></script>
 
+        <link rel="stylesheet" href="static/css/custom.css">
         <link rel="stylesheet" href="../static/css/custom.css">
  
     <title>Bootstrap Grids</title>
    
 	</head>
 	<body>
-		<div class="container mycontainer" id="box1">
+		<h3> Grid #1 </h3>
+		<div class="container boxinternal" id="box1">
 			<div class="row align-items-start">
-				<div class="col-large boxinternal">
-					<h1> Template Header: First template</h1>
+				<div class="col-lg boxinternal">
+				    <div>
+					    <img data-src="holder.js/100%x60/white">
+				    </div>
 				</div>
 			</div>
 			
 			<div class="row align-items-start">
 				<div class="col-sm boxinternal">
-					<div>
-				    <img data-src="holder.js/100%x420/white">
+				    <div>
+				        <img data-src="holder.js/100%x140/red">
 					</div>
 				</div>	
 				<div class="col-sm boxinternal">
-				<img data-src="holder.js/100%x120/white">
+				    <img data-src="holder.js/100%x120/white">
 				</div>
 				<div class="col-sm boxinternal">
-				<img data-src="holder.js/100%x120/white">
+				    <img data-src="holder.js/100%x120/white">
 	    		</div>
 	  		</div>
 		
 		    <div class="row align-items-start">
-				<div class="col-md-3 boxinternal">
+				<div class="col-md-5 boxinternal">
 				<img data-src="holder.js/100%x120/white">
 				</div>	
-				<div class="col-sm boxinternal">
+				<div class="col-sm-3 boxinternal">
 				<img data-src="holder.js/100%x120/white">
 				</div>
 				<div class="col-sm boxinternal">
@@ -46,7 +51,76 @@
 	    		</div>
 	  		</div>
 		</div>		
-					
+				
+		<p>
+			<h3> Grid #2 </h3>
+		</p>
+		<div class="container boxinternal" id="box1">
+			<div class="row align-items-start">
+				<div class="col-lg boxinternal">
+				    <div>	
+					    <img data-src="holder.js/100%x60/white">
+				    </div>
+				</div>
+			</div>
+			
+			<div class="row align-items-start">
+				<div class="col-sm boxinternal">
+				    <div>
+				        <img data-src="holder.js/100%x140/red">
+					</div>
+				</div>	
+				<div class="col-sm boxinternal">
+				    <img data-src="holder.js/100%x140/white">
+				</div>
+				<div class="col-sm boxinternal">
+				    <img data-src="holder.js/100%x140/white">
+	    		</div>
+	  		</div>
+		
+		    <div class="row align-items-start">
+				<div class="col-sm boxinternal">
+				<img data-src="holder.js/100%x140/white">
+				</div>	
+				<div class="col-sm boxinternal">
+				<img data-src="holder.js/100%x140/white">
+				</div>
+				<div class="col-sm boxinternal">
+				<img data-src="holder.js/100%x140/white">
+	    		</div>
+	  		</div>
+		</div>				
+		
+		<p>
+			<h3> Grid #3 Left Bar - rounded corners.</h3>
+		</p>
+		<div class="container boxinternal" id="box1">
+			<div class="row align-items-start">
+				<div class="col-sm-4 boxinternal boxrounded">
+				    <div>
+				        <img data-src="holder.js/100%x422/white">
+					</div>
+				</div>	
+				<div class="col-sm">
+					<div class="row">
+						<div class="col-sm  boxinternal boxrounded">
+				            <img data-src="holder.js/100%x210/white">
+	    		        </div>
+						<div class="col-sm  boxinternal boxrounded">
+							<img data-src="holder.js/100%x210/white">
+				    	</div>
+				  	</div>
+				  	<div class="row">
+						<div class="col-sm boxinternal boxrounded">
+				            <img data-src="holder.js/100%x210/white">
+	    		        </div>
+						<div class="col-sm boxinternal boxrounded">
+							<img data-src="holder.js/100%x210/white">
+				    	</div>
+				  	</div>
+				</div>
+		</div>				
+
 
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"
          integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
@@ -54,7 +128,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"   
 	        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
 		        crossorigin="anonymous"></script>
-		<script src="static/bootstrap/js/bootstrap.bundle.min.js"></script>
-			</body>
+        <script src="static/bootstrap/js/bootstrap.bundle.min.js"></script>
+		<script src="../static/bootstrap/js/bootstrap.bundle.min.js"></script>
+	</body>
 </html>
 

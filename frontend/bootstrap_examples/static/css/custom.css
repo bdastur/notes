@@ -19,7 +19,12 @@
 */
 
 .boxinternal {
-	background: #f5e9e9;
-	border:5px solid #fcfcfd;
-	height: 100px;
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    
+}
+
+.boxinternal .boxrounded {
+	border-radius: 25px;
+	background: #ecc4c4;
 }
