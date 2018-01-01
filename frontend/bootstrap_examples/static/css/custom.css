@@ -1,11 +1,24 @@
-// Your variable overrides
+/* Custom styles to override what is default
+ provided by bootstrap
+*/
 
-.custom_body {
-    text-align: center;
-    color: red;
+/*
+
+.mycontainer {
+	width: 80px;
+	background: blue;
 }
 
-#custom_body {
-    background: #413535;
-    text-align: left;
+#box1 {
+	background: #f7f1f1;
+}
+
+#boxinternal1 {
+	border-right: 14px solid #edd8d8;
+}
+*/
+
+.boxinternal {
+	background: #f5e9e9;
+	border:5px solid #fcfcfd;
 }
