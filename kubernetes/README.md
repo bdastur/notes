@@ -269,5 +269,21 @@ Logged into "https://acme-kube-dev.us-east-1.acme.dev.aws.acmecorp.net:443" as "
 ```
 
 
+### Node selectors.
+https://docs.openshift.com/container-platform/3.4/admin_guide/managing_projects.html#setting-the-project-wide-node-selector
+
+```
+# Get labels for nodes.
+oc get nodes --show-labels
+
+# Edit the namespace to add node selector.
+oc edit namespace <namespacename>
+
+openshift.io/node-selector: tier=guaranteed
+
+```
+
+
+
 
 
