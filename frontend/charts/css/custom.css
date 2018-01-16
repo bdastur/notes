@@ -1,0 +1,45 @@
+/* Custom styles to override what is default
+ provided by bootstrap
+*/
+
+/*
+
+.mycontainer {
+	width: 80px;
+	background: blue;
+}
+
+#box1 {
+	background: #f7f1f1;
+}
+
+#boxinternal1 {
+	border-right: 14px solid #edd8d8;
+}
+*/
+
+.bodyoverride {
+	font-family: 'Roboto', sans-serif;
+    font-variant: normal;
+    font-style: normal;
+    font-weight: 100;
+	margin: 15px 15px 15px 15px;
+	-moz-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+.boxinternal {
+    border-right: 2px solid white;
+    border-bottom: 2px solid white;
+    
+}
+
+.boxinternal .boxrounded {
+	border-radius: 25px;
+	background: #ecc4c4;
+}
+
+.buttonoverride {
+	background: #5ef863;
+	border: 0px solid #5ef863;
+}
