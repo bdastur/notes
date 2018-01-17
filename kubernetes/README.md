@@ -270,7 +270,7 @@ Logged into "https://acme-kube-dev.us-east-1.acme.dev.aws.acmecorp.net:443" as "
 
 
 ### Node selectors.
-https://docs.openshift.com/container-platform/3.4/admin_guide/managing_projects.html#setting-the-project-wide-node-selector
+[oc document - node selectors](https://docs.openshift.com/container-platform/3.4/admin_guide/managing_projects.html#setting-the-project-wide-node-selector)
 
 ```
 # Get labels for nodes.
@@ -283,6 +283,13 @@ openshift.io/node-selector: tier=guaranteed
 
 ```
 
+Updating Node Labels:
+[oc document - node labels](https://docs.openshift.com/container-platform/3.4/admin_guide/manage_nodes.html#updating-labels-on-nodes)
+
+```
+$ oc label node ip-10-110-23-12.compute.internal product-line=esg --overwrite
+
+```
 
 
 
