@@ -300,4 +300,40 @@ https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-conta
 
 http://blog.kubernetes.io/2017/03/advanced-scheduling-in-kubernetes.html
 
+#### Creating a resource quota 
+
+```
+ more test_quota.yaml 
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: compute-resources
+spec:
+  hard:
+    pods: "4"
+    requests.cpu: "1"
+    requests.memory: 1Gi
+    limits.cpu: "2"
+    limits.memory: 2Gi
+
+```
+
+```
+oc project web-app
+oc create -f test_quota.yaml
+
+$ oc describe quota compute-resources
+Name:       compute-resources
+Namespace:  web-app
+Resource    Used    Hard
+--------    ----    ----
+limits.cpu  0   2
+limits.memory   0   2Gi
+pods        0   4
+requests.cpu    0   1
+requests.memory 0   1Gi
+
+```
+
+
 
