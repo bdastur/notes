@@ -293,4 +293,11 @@ $ oc label node ip-10-110-23-12.compute.internal product-line=esg --overwrite
 
 
 
+### Resource reqeusts and Scheduling.
+
+**Links**:
+https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/
+
+http://blog.kubernetes.io/2017/03/advanced-scheduling-in-kubernetes.html
+
 
