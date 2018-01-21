@@ -335,5 +335,33 @@ requests.memory 0   1Gi
 
 ```
 
+### Using Service accounts:
+
+You can include service account credentials in your deployment configuration.
+
+```
+---
+  kind: "Template"
+  apiVersion: "v1"
+  metadata:
+    name: "acu-usage"
+  objects:
+    -
+      kind: "DeploymentConfig"
+      apiVersion: "v1"
+:
+      spec:
+        strategy:
+          type: "Recreate"
+        triggers:
+:
+      serviceAccount: kube-utils-user
+      serviceAccountName: kube-utils-user
+
+```
+
+You can then reference the service account credentials in the container. The
+credentials/token are stored in /var/run/secrets/kubernetes.io/serviceaccount.
+
 
 
