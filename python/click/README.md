@@ -28,6 +28,7 @@ Options:
 
 clicktwo.py:
 command with options.
+http://click.pocoo.org/5/options/#choice-opts
 
 ```
 $ ./clicktwo.py
