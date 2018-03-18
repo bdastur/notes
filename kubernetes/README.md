@@ -1,4 +1,4 @@
-# Kubernetes and Openshift Notes:
+# Kubernetes and Openshift, gcloud Notes:
 
 ## Simple Web application workflow.
 Walkthrough of creating a simple web application.
@@ -364,4 +364,19 @@ You can then reference the service account credentials in the container. The
 credentials/token are stored in /var/run/secrets/kubernetes.io/serviceaccount.
 
 
+## Gcloud 
+
+### SDK Installation:
+
+```
+$ wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-193.0.0-darwin-x86_64.tar.gz
+$ gunzip google-cloud-sdk-193.0.0-darwin-x86_64.tar.gz 
+$ tar -xvf google-cloud-sdk-193.0.0-darwin-x86_64.tar 
+$ cd google-cloud-sdk
+$ ./install.sh 
+$
+$ source ~/.bash_profile
+$ glcoud --help
+
+```
 
