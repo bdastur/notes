@@ -380,3 +380,42 @@ $ glcoud --help
 
 ```
 
+### List projects.
+
+```
+$ gcloud projects list
+
+```
+
+
+### Set into a project
+
+```
+gcloud config set project test-project-kube-mar18
+
+```
+### List cloud sdk properties.
+
+```
+$ gcloud config list
+
+```
+
+### List credentialed accounts.
+
+```
+$ gcloud auth list
+
+```
+
+### Setup a Kubernetes cluster.
+
+The default Kubernetes version is available using the following
+```
+$ gcloud container get-server-config --zone us-east1-b
+
+```
+
+
+
+
