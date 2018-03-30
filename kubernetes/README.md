@@ -124,7 +124,7 @@ livenessProbe:
       - cat
       - /tmp/healthy
   initialDelaySeconds: 25
-  periodSeconds: 10 
+  periodSeconds: 10
   successThreshold: 1
   failureThreshold: 3
 
@@ -181,7 +181,7 @@ We are going to do the following:
 2. Create a new service account.
 3. Create a new Cluster role binding.
 
-This will enable us to use our service role to perform operations for which we 
+This will enable us to use our service role to perform operations for which we
 have given permissions based on the Role.
 e
 ### Create a new Cluster Role:
@@ -258,7 +258,7 @@ ca.crt:     712 bytes
 namespace:  7 bytes
 token:      eyJhbGciOiJ....._JkFWKmUxdUTWvqbc8kCLmKp3w43WSzdv3dY_BL_OGUf8RO5--Xx0T
 
-``` 
+```
 
 ### Login with the token:
 
@@ -300,10 +300,10 @@ https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-conta
 
 http://blog.kubernetes.io/2017/03/advanced-scheduling-in-kubernetes.html
 
-#### Creating a resource quota 
+#### Creating a resource quota
 
 ```
- more test_quota.yaml 
+ more test_quota.yaml
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -364,16 +364,60 @@ You can then reference the service account credentials in the container. The
 credentials/token are stored in /var/run/secrets/kubernetes.io/serviceaccount.
 
 
-## Gcloud 
+### Namespaces.
+
+Creating a namespace:
+```
+$ kubectl create -f ./templates/namespace.json
+namespace "development" created
+
+
+$ kubectl get namespaces
+NAME          STATUS    AGE
+default       Active    2h
+development   Active    17s
+kube-public   Active    2h
+kube-system   Active    2h
+```
+
+Deleting a namespace:
+```
+$ kubectl delete namespace development
+namespace "development" deleted
+
+```
+
+Switching to a new namespce:
+
+First add the new context into our ~/.kube/config file:
+
+```
+- context:
+    cluster: gke_test-project-kube-mar18_us-east1-b_testcluster-1
+    user: gke_test-project-kube-mar18_us-east1-b_testcluster-1
+  name: gke_test-project-kube-mar18_us-east1-b_testcluster-1-brd-test-1
+
+```
+
+Now switch to the new namespace:
+
+```
+ $ kubectl config use-context gke_test-project-kube-mar18_us-east1-b_testcluster-1-brd-test-1
+```
+
+
+
+
+## Gcloud
 
 ### SDK Installation:
 
 ```
 $ wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-193.0.0-darwin-x86_64.tar.gz
-$ gunzip google-cloud-sdk-193.0.0-darwin-x86_64.tar.gz 
-$ tar -xvf google-cloud-sdk-193.0.0-darwin-x86_64.tar 
+$ gunzip google-cloud-sdk-193.0.0-darwin-x86_64.tar.gz
+$ tar -xvf google-cloud-sdk-193.0.0-darwin-x86_64.tar
 $ cd google-cloud-sdk
-$ ./install.sh 
+$ ./install.sh
 $
 $ source ~/.bash_profile
 $ glcoud --help
@@ -416,6 +460,15 @@ $ gcloud container get-server-config --zone us-east1-b
 
 ```
 
-
-
-
+Create a kubernetes cluster called testcluster-1
+```
+gcloud container clusters create testcluster-1 \
+  --cluster-version=1.9.4-gke.1 \
+  --disk-size=50 \
+  --labels=tier=regular \
+  --max-nodes-per-pool=100 \
+  --node-labels=tier=regular \
+  --node-version=1.9.4-gke.1 \
+  --num-nodes=3 \
+  --tags=tag1
+```
