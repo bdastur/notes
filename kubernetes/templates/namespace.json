@@ -1,0 +1,11 @@
+{
+  "kind": "Namespace",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "brd-test-1",
+    "labels": {
+      "name": "brd-test-1"
+    }
+  }
+}
+
