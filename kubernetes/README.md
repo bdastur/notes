@@ -406,6 +406,53 @@ Now switch to the new namespace:
 ```
 
 
+### Static Pods
+https://kubernetes.io/docs/tasks/administer-cluster/static-pod/
+
+* static pods are managed directly by kubelet daemon.
+* They do not have any replication controller, and kubelet daemon watches it
+  and restarts if it crashes.
+* There is no health check.
+* Static pods are always bound to one kubelet daemon and always run on the same node.
+
+#### Creating a static pod:
+
+Create a deployment file . Eg below:
+let's say in /etc/kubernetes/manifests
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: kube-system
+  name: static-web
+  labels:
+    role: myrole
+    kubernetes.io/cluster-service: "true"
+
+spec:
+  hostNetwork: false
+  containers:
+    - name: web
+      image: nginx:latest
+      resources:
+        limits:
+          memory: 4Gi
+        requests:
+          memory: 4Gi
+      ports:
+        - name: web
+          containerPort: 80
+          hostPort: 9080
+          protocol: TCP
+
+```
+
+When running kubelet, specify the --pod-manifest-path as below:
+```
+kubelet --pod-manifest-path=/etc/kubernetes/mainfests
+
+```
+There is not need to restart kubelet if you update or add a new pod definition
 
 
 ## Gcloud
