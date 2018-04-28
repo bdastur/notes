@@ -455,6 +455,64 @@ kubelet --pod-manifest-path=/etc/kubernetes/mainfests
 There is not need to restart kubelet if you update or add a new pod definition
 
 
+## Daemonsets:
+https://v1-7.docs.kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+
+A sample template for a Daemonset (V1.7.8)
+
+```
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  namespace: kube-system
+  name: web-daemon
+  labels:
+    role: myrole
+    kubernetes.io/cluster-service: "true"
+
+spec:
+  template:
+    metadata:
+      labels:
+        name: web-daemon
+    spec:
+      containers:
+        - name: web
+          image: nginx:latest
+          resources:
+            limits:
+              memory: 2Gi
+            requests:
+              memory: 2Gi
+          ports:
+            - name: web
+              containerPort: 80
+              hostPort: 9083
+              protocol: TCP
+
+```
+
+Creating the daemonset is the same as creating a pod.
+
+```
+$ kubectl create -f  webdaemon.yaml
+```
+
+Listing daemonsets:
+```
+$ kubectl get daemonset
+NAME         DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+web-daemon   23        23        20        23           20          <none>          13m
+
+```
+
+Deleting a daemonset:
+```
+$ kubectl delete daemonset web-daemon
+```
+
+
+
 ## Gcloud
 
 ### SDK Installation:
