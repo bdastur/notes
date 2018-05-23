@@ -508,6 +508,11 @@ xvdk    202:160  0 1000G  0 disk
 ## Autoscaling (ASG:)
 * Allows automatic scaling of EC2 instances based on criteria. Scaling in or
   scaling out.
+**Links:**
+Controlling which ASG Instances terminate during scale in:
+https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html
+
+
 ### Autoscaling plans:
 **Maintain current levels:**
 * Maintain a minimum or specified number of running instances at all times.
