@@ -52,3 +52,34 @@ PASS
 ok  	commands	0.007s
 
 ```
+
+## Creating a Library.
+Example in ws_2 folder.
+
+```
+$ cd ws_2
+$ export GOPATH=$(pwd)
+$ mkdir src/github.com/bdastur/stringutil
+
+```
+Create a new stringutil.go file under that.
+
+Check that the package compiles
+```
+go build github.com/bdastur/stringutil
+```
+
+Execute go install to build the shared library.
+
+```
+go install github.com/bdastur/stringutil
+```
+
+The shared library will be created under
+
+```
+pkg/darwin_amd64/github.com/bdastur/stringutil.a 
+```
+
+Updated hello.go to use the stringutil library.
+
