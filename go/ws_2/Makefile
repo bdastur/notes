@@ -8,6 +8,9 @@ hello: src/github.com/bdastur/hello/hello.go
 examples: src/github.com/bdastur/examples/*.go
 	go install github.com/bdastur/examples
 
+sserver: src/github.com/bdastur/simpleserver/*.go
+	go install github.com/bdastur/simpleserver
+
 ex_1:  src/commands/ex_1.go
 	go build -o bin/ex_1 src/commands/ex_1.go
 
