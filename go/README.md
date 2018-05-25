@@ -147,3 +147,8 @@ Arguments:  [somecommand]
 
 ## A simple http server.
 ws_2/github.com/bdastur/simpleserver
+
+To test:
+```
+curl localhost:8080/test -d '{"id": 43, "name": "Bharat"}'
+```

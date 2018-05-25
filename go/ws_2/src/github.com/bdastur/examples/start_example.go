@@ -6,13 +6,16 @@ import (
 	"os"
 )
 
-func read_argument(args []string) {
+func build_cli(args []string) {
 	// Using Printf function
-	fmt.Printf("Arguments: %s %s", args, "\n")
-
-	// Using Println
+	//fmt.Printf("os arguments: %s %s", args, "\n")
 	fmt.Println("Arguments: ", args)
 
+	/*
+	 * Note: When using flags. The falgs should always be provided
+	 * first before any arguments.
+	 * Example $ ./bin/examples -dry-run=true <arg1> <arg2>
+	 */
 	// Get options (flags)
 	wordPtr := flag.String("word", "default-word", "A random string")
 	numPtr := flag.Int("count", 10, "A random number")
@@ -24,12 +27,11 @@ func read_argument(args []string) {
 	fmt.Println("numPtr: ", *numPtr)
 	fmt.Println("Bool ptr: ", *boolPtr)
 	fmt.Println("Arguments: ", flag.Args())
-
 }
 
 func main() {
 	fmt.Println("Test Basic!")
 
-	read_argument(os.Args)
+	build_cli(os.Args)
 
 }
