@@ -104,3 +104,4 @@ ENV/
 
 go/ws_1/bin/
 **pkg/
+go/ws_2/bin/
