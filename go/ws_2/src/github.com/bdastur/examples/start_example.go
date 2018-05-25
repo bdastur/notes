@@ -29,9 +29,88 @@ func build_cli(args []string) {
 	fmt.Println("Arguments: ", flag.Args())
 }
 
+func usage() {
+	usageMessage := "Usage: " + "\n" +
+		"./bin/examples <operation>" + "\n" +
+		"operations: " + "\n" +
+		"  testcmd" + "\n" +
+		"  string" + "\n"
+
+	fmt.Printf(usageMessage)
+}
+
+func Reverse(s string) string {
+	r := []rune(s)
+	for i, j := 0, len(r)-1; i < len(r)/2; i, j = i+1, j-1 {
+		r[i], r[j] = r[j], r[i]
+	}
+	return string(r)
+}
+
+func reverseString(str []string) []string {
+	var reverseStr []string
+	fmt.Println("String to reverse: ", str, "Len: ", len(str))
+	for i := 0; i < len(str)-1; i = i + 1 {
+		fmt.Println("str: ", str[i])
+	}
+
+	for i := len(str) - 1; i >= 0; i = i - 1 {
+		rstr := Reverse(str[i])
+		reverseStr = append(reverseStr, rstr)
+		fmt.Println("str:: ", str[i])
+	}
+	return reverseStr
+}
+
+func build_nested_cli(args []string) {
+	// Validate cmd line arguments.
+	if len(args) <= 1 {
+		fmt.Printf("Arguments not provided")
+		usage()
+		os.Exit(1)
+	}
+	// Operation: testcmd
+	testOperation := flag.NewFlagSet("testcmd", flag.ExitOnError)
+	messageOption := testOperation.String("message", "Test Message",
+		"A random String")
+
+	// Operation: string concatenation.
+	strOperation := flag.NewFlagSet("string", flag.ExitOnError)
+	reverseOption := strOperation.Bool("reverse", false,
+		"Whether to reverse string")
+	switch args[1] {
+	case "testcmd":
+		testOperation.Parse(args[2:])
+	case "string":
+		strOperation.Parse(args[2:])
+	default:
+		fmt.Printf("%q is not a valid command. \n", args[1])
+		os.Exit(2)
+	}
+
+	if testOperation.Parsed() {
+		if *messageOption == "" {
+			fmt.Printf("Option cannot be blank")
+		} else {
+			fmt.Printf("Message option: %s ", *messageOption)
+		}
+	} else if strOperation.Parsed() {
+		if *reverseOption == true {
+			fmt.Printf("Reverse option set. \n")
+			fmt.Println("Arguments: ", strOperation.Args())
+			rstr := reverseString(strOperation.Args())
+			fmt.Println("Reverse String: ", rstr)
+		} else {
+			fmt.Printf("Reverse option is false")
+		}
+	}
+
+}
+
 func main() {
 	fmt.Println("Test Basic!")
 
-	build_cli(os.Args)
+	//build_cli(os.Args)
+	build_nested_cli(os.Args)
 
 }
