@@ -4,6 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"os"
+
+	"github.com/bdastur/datatypes"
 )
 
 func build_cli(args []string) {
@@ -34,9 +36,10 @@ func usage() {
 		"./bin/examples <operation>" + "\n" +
 		"operations: " + "\n" +
 		"  testcmd" + "\n" +
-		"  string" + "\n"
+		"  string" + "\n" +
+		"  datatypes" + "\n"
 
-	fmt.Printf(usageMessage)
+	fmt.Println(usageMessage)
 }
 
 func Reverse(s string) string {
@@ -78,11 +81,20 @@ func build_nested_cli(args []string) {
 	strOperation := flag.NewFlagSet("string", flag.ExitOnError)
 	reverseOption := strOperation.Bool("reverse", false,
 		"Whether to reverse string")
+
+	// Datatypes.
+	datatypesOperation := flag.NewFlagSet("datatypes", flag.ExitOnError)
+	integerOption := datatypesOperation.Bool("integer", true, "Integer test")
+	vdOption := datatypesOperation.Bool("declaration", true,
+		"Variable Declaration")
+
 	switch args[1] {
 	case "testcmd":
 		testOperation.Parse(args[2:])
 	case "string":
 		strOperation.Parse(args[2:])
+	case "datatypes":
+		datatypesOperation.Parse(args[2:])
 	default:
 		fmt.Printf("%q is not a valid command. \n", args[1])
 		os.Exit(2)
@@ -103,12 +115,22 @@ func build_nested_cli(args []string) {
 		} else {
 			fmt.Printf("Reverse option is false")
 		}
+	} else if datatypesOperation.Parsed() {
+		if *vdOption == true {
+			datatypes.VariableDeclaration()
+		}
+		if *integerOption == true {
+			fmt.Println("Integer datatype")
+			datatypes.IntegerDatatype()
+		}
+		datatypes.IntegerDatatype()
+
 	}
 
 }
 
 func main() {
-	fmt.Println("Test Basic!")
+	fmt.Println("Examples !")
 
 	//build_cli(os.Args)
 	build_nested_cli(os.Args)
