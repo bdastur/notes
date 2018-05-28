@@ -2,6 +2,8 @@ package datatypes
 
 import (
 	"fmt"
+	"reflect"
+	"unsafe"
 )
 
 func VariableDeclaration() {
@@ -27,9 +29,36 @@ func VariableDeclaration() {
 
 	/*
 	 * Short variable declarations.
+	 * This is only available within a function scope.
 	 */
+
 	ui32Var4 := 3443
 	fmt.Println("ui32Var4: ", ui32Var4)
+
+	/*
+	 * typecasting.
+	 */
+	ui32Var4 = int(ui8Var1)
+	fmt.Println("ui32Var4: ", ui32Var4)
+
+	/*
+	 * The type rune is a synonym for int32 and indicates that the
+	 * value is a unicode code point.
+	 */
+	var i32Var5 int32 = rune(ui8Var1)
+	fmt.Println("Rune ui32Var4: ", i32Var5)
+
+	/*
+	 * Check sizeof a variable.
+	 */
+	size_int32 := unsafe.Sizeof(i32Var5)
+	fmt.Println("Size of i32Var5: ", size_int32)
+
+	/*
+	 * reflect library. typeof
+	 */
+	type_1 := reflect.TypeOf(i32Var5)
+	fmt.Println("Type of i32Var5: ", type_1)
 
 	fmt.Println("----------------------------------------------")
 }
