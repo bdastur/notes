@@ -88,6 +88,9 @@ func build_nested_cli(args []string) {
 	vdOption := datatypesOperation.Bool("declaration", true,
 		"Variable Declaration")
 
+	//Composite types.
+	compositesOperation := flag.NewFlagSet("composites", flag.ExitOnError)
+
 	switch args[1] {
 	case "testcmd":
 		testOperation.Parse(args[2:])
@@ -95,6 +98,8 @@ func build_nested_cli(args []string) {
 		strOperation.Parse(args[2:])
 	case "datatypes":
 		datatypesOperation.Parse(args[2:])
+	case "composites":
+		compositesOperation.Parse(args[2:])
 	default:
 		fmt.Printf("%q is not a valid command. \n", args[1])
 		os.Exit(2)
@@ -125,6 +130,9 @@ func build_nested_cli(args []string) {
 		}
 		datatypes.IntegerDatatype()
 
+	} else if compositesOperation.Parsed() {
+		fmt.Println("Test composites")
+		datatypes.CompositeTypes()
 	}
 
 }
