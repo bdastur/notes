@@ -512,6 +512,30 @@ $ kubectl delete daemonset web-daemon
 ```
 
 
+## Service mesh:
+To simply put, it is a dedicated infrastructure layer that handles
+service-to-service communication between pods/services running kubernetes.
+
+### Istio:
+https://istio.io/docs/setup/kubernetes/quick-start/
+https://github.com/dcberg/istio-workshop
+
+With Istio, this infrastructure layer is created by deploying a lightweight proxy
+alongside each application service. The application itself does not need to be
+aware of the proxy.
+
+The monitoring, management and security of communication can be handled outside of
+the application logic.
+
+Installing Istio:
+```
+$ curl -L https://git.io/getLatestIstio | sh -
+$ export PATH="$PATH:/Users/behzad.dastur/clusters/testenv/istio/istio-0.8.0/bin"
+$
+$ istioctl -h
+
+```
+
 
 ## Gcloud
 
