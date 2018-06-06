@@ -28,3 +28,11 @@ simple_string = "Test string"
 puts "Print simple string: #{simple_string"
 
 ```
+
+NOTE: You can substitute the value of any Ruby expression into a string 
+      using the sequence #{ expr }.
+```
+puts "Multiplication: #{2 * 4 * 4}"
+```
+
+

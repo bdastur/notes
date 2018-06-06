@@ -8,16 +8,20 @@ puts "Hello Ruby"
 simple_str = "This is a test string"
 simple_num = 434
 
+$var1 = 43400
+
 puts "Simple String: #{simple_str}, Number: #{simple_num}\n"
+puts "Global variable var1: #$var1"
 
 
-
+###########################################################
 # Defining a class.
 class Employee
     # Specifying an attr_reader or attr_accessor,
     # will create a getter for the given variable 'employee_id'
     attr_reader :employee_id
     @@employee_count = 0
+    @@company_name = "Acme Corp"
 
     def initialize (id, name)
         @employee_name = name
@@ -47,10 +51,57 @@ puts "Employee id: #{employee_1.employee_id}"
 emp_count = Employee.class_variable_get(:@@employee_count)
 puts "count: #{emp_count}"
 
+# Using the Double colon operator.
+# FIXME: company_name = ::Employee.company_name
 
 employee_2 = Employee.new(123, "John Doe")
 employee_3 = Employee.new(324, "David")
 
-
 employee_1.display_class_instance_variables()
+###########################################################
+
+# You can substitute the value of any Ruby expression into a string 
+# using the sequence #{ expr }.
+puts "Multiplication: #{2 * 4 * 4}"
+
+###########################################################
+# Arrays.
+
+simple_arr = [ 1, 3, 4, 5, 6]
+puts "array: #{simple_arr}, index 1: #{simple_arr[1]}"
+simple_arr.each do |i|
+    puts i
+end
+
+# If the array is not initalized, values will be nil.
+new_arr = Array.new(20)
+puts "array size: #{new_arr.size}, array len: #{new_arr.length}, arr: #{new_arr}"
+
+new_arr_1 = Array.new(20, "test")
+puts "array size: #{new_arr_1.size}, array len: #{new_arr_1.length}"
+
+############################################################
+# Hashes.
+
+simple_hash = {"employee_id" => 2424, "employee_name" => "behzad", "age" => 40}
+puts "Simple hash: #{simple_hash}"
+
+simple_hash.each do |key, value|
+    puts "key: #{key}, value: #{value}"
+end
+
+puts "Emp name: #{simple_hash['employee_name']}"
+
+
+
+
+
+
+
+
+
+
+
+
+
 
