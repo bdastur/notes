@@ -20,3 +20,11 @@
   * Preceded by a $ sign.
 
 
+NOTE: In ruby, you can access value of any variable or constant by putting a '#'
+      character before the variable or constant.
+
+```
+simple_string = "Test string"
+puts "Print simple string: #{simple_string"
+
+```
