@@ -1,12 +1,19 @@
 #!/usr/bin/ruby
 
-# A print statement
+# A print statement.
 puts "Hello Ruby"
+
+=begin
+This is a multiline
+comment, spanning multiple
+lines
+=end
+
 
 # Data types and variables.
 ## Declaring a variable.
-simple_str = "This is a test string"
-simple_num = 434
+simple_str = "This is a test string"  # A trailing comment.
+simple_num = 434                      # A trailing comment.
 
 $var1 = 43400
 
@@ -58,6 +65,32 @@ employee_2 = Employee.new(123, "John Doe")
 employee_3 = Employee.new(324, "David")
 
 employee_1.display_class_instance_variables()
+
+
+class Test
+    def get_some_value(id)
+        test_key = {
+            "EncryptedKey" => 3232,
+            "KEY_ID" => "some random arn"
+        }
+    rescue TypeError
+        puts "Typeerror"
+        retry
+
+        enable_something(test_key['KEY_ID'])
+        return test_key
+    end
+
+    def enable_something(key)
+        puts "enablethis #{key}"
+    end
+
+end
+
+testobj = Test.new()
+valobj = testobj.get_some_value(42)
+puts "value obj: #{valobj}"
+
 ###########################################################
 
 # You can substitute the value of any Ruby expression into a string 
@@ -93,7 +126,8 @@ end
 puts "Emp name: #{simple_hash['employee_name']}"
 
 
-
+############################################################
+# Methods.
 
 
 
