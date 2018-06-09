@@ -536,6 +536,12 @@ $ istioctl -h
 
 ```
 
+Installing Istio on kubernetes:
+```
+kubectl apply -f istio-0.8.0/install/kubernetes/istio-demo.yaml
+```
+
+
 
 ## Gcloud
 
