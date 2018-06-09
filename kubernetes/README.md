@@ -96,19 +96,19 @@ A simple deployment configuration looks like this.
 To create a new deployment config.
 ```
 
-$ oc create -f deploymentconfig.yaml
+$ kubectl create -f deploymentconfig.yaml
 
 ```
 
 To edit deployment config:
 ```
-$ oc process -f deploymentconfig.yaml | oc apply -f -
+$ kubectl process -f deploymentconfig.yaml | kubectl apply -f -
 
 ```
 
 To get all resources:
 ```
-$ oc get all
+$ kubectl get all
 ```
 
 
@@ -147,13 +147,13 @@ readinessProbe:
 ```
 $ export MY_SECRET="testing"
 
-$ oc create secret generic my-secret --from-literal=mysecret=$MY_SECRET
+$ kubectl create secret generic my-secret --from-literal=mysecret=$MY_SECRET
 secret "my-secret" created
 ```
 
 #### Decoding a secret:
 ```
-$ oc get secrets my-secret -o yaml
+$ kubectl get secrets my-secret -o yaml
 apiVersion: v1
 data:
   mysecret: dGVzdGluZw==
@@ -194,7 +194,7 @@ to all resources.
 [Cluster Role template](https://github.com/bdastur/notes/tree/master/kubernetes/cluster_role.yaml)
 
 ```
-$ oc create -f cluster_role.yaml
+$ kubectl create -f cluster_role.yaml
 
 ```
 
@@ -204,7 +204,7 @@ Example template for creating a service account:
 [Service account template](https://github.com/bdastur/notes/tree/master/kubernetes/service_account.yaml)
 
 ```
-$ oc create -f service_account.yaml
+$ kubectl create -f service_account.yaml
 ```
 
 ### Create a Cluster Role binding:t
@@ -215,7 +215,7 @@ service account as a subject.
 [Cluster Role binding template](https://github.com/bdastur/notes/tree/master/kubernetes/cluster_role_binding.yaml)
 
 ```
-$ oc create -f cluster_role_binding.yaml
+$ kubectl create -f cluster_role_binding.yaml
 ```
 
 ### How to login with our service account:
@@ -223,7 +223,7 @@ $ oc create -f cluster_role_binding.yaml
 #### Describe our service account:
 
 ```
-$ oc get serviceaccount readonly-user -o yaml
+$ kubectl get serviceaccount readonly-user -o yaml
 apiVersion: v1
 imagePullSecrets:
 - name: readonly-user-dockercfg-w091v
@@ -243,7 +243,7 @@ secrets:
 #### Describe the token:
 
 ```
-(awsenv)MFD57:web-app behzad_dastur$ oc describe secret readonly-user-token-cw7n7
+(awsenv)MFD57:web-app behzad_dastur$ kubectl describe secret readonly-user-token-cw7n7
 Name:       readonly-user-token-cw7n7
 Namespace:  default
 Labels:     <none>
@@ -274,10 +274,10 @@ Logged into "https://acme-kube-dev.us-east-1.acme.dev.aws.acmecorp.net:443" as "
 
 ```
 # Get labels for nodes.
-oc get nodes --show-labels
+kubectl get nodes --show-labels
 
 # Edit the namespace to add node selector.
-oc edit namespace <namespacename>
+kubectl edit namespace <namespacename>
 
 openshift.io/node-selector: tier=guaranteed
 
@@ -287,7 +287,7 @@ Updating Node Labels:
 [oc document - node labels](https://docs.openshift.com/container-platform/3.4/admin_guide/manage_nodes.html#updating-labels-on-nodes)
 
 ```
-$ oc label node ip-10-110-23-12.compute.internal product-line=esg --overwrite
+$ kubectl label node ip-10-110-23-12.compute.internal product-line=esg --overwrite
 
 ```
 
