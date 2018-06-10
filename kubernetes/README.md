@@ -537,6 +537,14 @@ $ istioctl -h
 ```
 
 Installing Istio on kubernetes:
+
+```
+kubectl create clusterrolebinding cluster-admin-binding  \
+   --clusterrole=cluster-admin \
+   --user=$(gcloud config get-value core/account)
+
+```
+
 ```
 kubectl apply -f istio-0.8.0/install/kubernetes/istio-demo.yaml
 ```
@@ -554,6 +562,12 @@ Install components via the manifest:
 ```
 kubectl create namespace istio-system
 kubectl create -f myistiotemplate.yaml
+```
+
+Istio manual side-car injection:
+
+```
+kubectl apply -f <(istioctl kube-inject -f istio-workshop/guestbook/helloworld-deployment.yaml)
 ```
 
 
