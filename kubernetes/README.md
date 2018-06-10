@@ -622,3 +622,9 @@ gcloud container clusters create testcluster-1 \
   --num-nodes=3 \
   --tags=tag1
 ```
+
+To refresh add credentials to a kube cluster:
+
+```
+ gcloud container clusters get-credentials testcluster-1 --zone us-east1-b
+```
