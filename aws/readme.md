@@ -2333,6 +2333,85 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
   available as context in AWS policy language for fine-grained policy based
   authentication.
 
+#### KMS Operations:
+
+- Creating a new KMS customer key:
+```
+aws kms create-key --profile dev1 --region us-west-2 --description "Customer test key"
+KEYMETADATA	111111111111	arn:aws:kms:us-west-2:111111111111:key/83111139-f111-4114-1411-022222222228	1222222409.9	Customer test key	True	83111111-f111-4114-a111-011111111118	CUSTOMER	Enabled	ENCRYPT_DECRYPT	AWS_KMS
+```
+
+- List key policies:
+```
+$ aws kms list-key-policies --key-id 81111139-1115-4114-1411-011111111111 --profile dev1 --region us-west-2
+POLICYNAMES	default
+
+```
+
+- Get Key policy:
+```
+$ aws kms get-key-policy --key-id 81111119-1115-1111-a111-111111111111 --policy-name default --profile dev1 --region us-west-2
+{
+  "Version" : "2012-10-17",
+  "Id" : "key-default-1",
+  "Statement" : [ {
+    "Sid" : "Enable IAM User Permissions",
+    "Effect" : "Allow",
+    "Principal" : {
+      "AWS" : "arn:aws:iam::111111111111:root"
+    },
+    "Action" : "kms:*",
+    "Resource" : "*"
+  } ]
+}
+
+```
+
+An alias makes it easy to identify the key. 
+- Create an alias.
+```
+$ aws kms create-alias --alias-name alias/brdtestkey --target-key-id 1xx1xx11-11b5-11a4-1111-111111  --profile dev1 --region us-west-2
+
+```
+
+Now let's use are new key to encrypt and decrypt data. We will use the alias created instead of the long convoluted key-id:
+
+- Encrypt user data.
+You can encrypt up to 4 kilobytes (4096 bytes) of arbitrary data such
+as an RSA key, a database password, or other sensitive information.
+
+The ciphertext that is returned by a successful  encrypt  command  is
+base64-encoded text. You must decode this text before you can use
+the AWS CLI to decrypt it.
+
+```
+$ aws kms encrypt \
+    --key-id alias/brdtestkey \
+    --plaintext fileb://testfile \
+    --query CiphertextBlob \
+    --profile dev1 --region us-west-2 \
+    --output text | base64 --decode > encrypted_data
+
+```
+
+- Decrypt data.
+```
+$ aws kms decrypt \
+    --ciphertext-blob fileb://encrypted_data \
+    --output text \
+    --query Plaintext \
+    --profile dev1 --region us-west-2 | base64 --decode > decodedfile
+
+$ cat decodedfile 
+THis is a test document
+THis is a second line in the document.
+{
+ "Somesecret": "Blah"
+}
+
+```
+
+
 ### AWS CloudHSM:
 * Service providing secure cryptographic key storage by making hardware
   security modules (HSM) in the cloud.
