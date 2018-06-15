@@ -2778,10 +2778,54 @@ except botocore.exceptions.ClientError as ce:
 
 ```
 
+## Credstash:
 
+https://github.com/fugue/credstash
 
+It is a simple yet useful way to manage secrets. It requires access to AWS.
+It uses AWS KMS key for encrypting/decrypting and DynamoDB for storage.
 
+Basic usage:
 
+*Create a new DynamoDB table to use for credstash*
+-
+You can create a credential-store table, which is the default name credstash uses, or something
+else, but will have to pass that in command line when saving/retrieving secrets.
+
+```
+$ credstash -p dev1 -t brdtesttable setup
+Creating table...
+Waiting for table to be created...
+Table has been created. Go read the README about how to create your KMS key
+
+```
+
+*Create a new KMS key*
+You can create a new KMS key with alias 'alias/credstash', or any other alias.
+
+*Put a new secret*
+
+```
+$ credstash -p dev1 -t brdtesttable put -k alias/brdtestkey my-secret "this is my value"
+my-secret has been stored
+
+```
+
+*List all secrets*
+
+```
+$ credstash -p dev1 -t brdtesttable list
+my-secret -- version 0000000000000000001
+
+```
+
+*Retrieve a secret*
+
+```
+$ credstash -p dev1 -t brdtesttable get  my-secret
+this is my value
+
+```
 
 
 
