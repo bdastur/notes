@@ -2337,20 +2337,27 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 
 - Creating a new KMS customer key:
 ```
-aws kms create-key --profile dev1 --region us-west-2 --description "Customer test key"
-KEYMETADATA	111111111111	arn:aws:kms:us-west-2:111111111111:key/83111139-f111-4114-1411-022222222228	1222222409.9	Customer test key	True	83111111-f111-4114-a111-011111111118	CUSTOMER	Enabled	ENCRYPT_DECRYPT	AWS_KMS
+aws kms create-key \
+    --profile dev1 --region us-west-2 \
+    --description "Customer test key"
+KEYMETADATA	111111111111	arn:aws:kms:us-west-2:1111111:key/839-f1114-1411-02222228	122409.9	Customer test key	True	83118	CUSTOMER	Enabled	ENCRYPT_DECRYPT	AWS_KMS
 ```
 
 - List key policies:
 ```
-$ aws kms list-key-policies --key-id 81111139-1115-4114-1411-011111111111 --profile dev1 --region us-west-2
+$ aws kms list-key-policies \
+    --key-id 81xx9-15-41-111011 \
+    --profile dev1 --region us-west-2
 POLICYNAMES	default
 
 ```
 
 - Get Key policy:
 ```
-$ aws kms get-key-policy --key-id 81111119-1115-1111-a111-111111111111 --policy-name default --profile dev1 --region us-west-2
+$ aws kms get-key-policy \
+    --key-id 811-15111a1-1111 \
+    --policy-name default \
+    --profile dev1 --region us-west-2
 {
   "Version" : "2012-10-17",
   "Id" : "key-default-1",
@@ -2370,7 +2377,10 @@ $ aws kms get-key-policy --key-id 81111119-1115-1111-a111-111111111111 --policy-
 An alias makes it easy to identify the key. 
 - Create an alias.
 ```
-$ aws kms create-alias --alias-name alias/brdtestkey --target-key-id 1xx1xx11-11b5-11a4-1111-111111  --profile dev1 --region us-west-2
+$ aws kms create-alias \
+    --alias-name alias/brdtestkey \
+    --target-key-id 1x11-15-1-1-11  \
+    --profile dev1 --region us-west-2
 
 ```
 
