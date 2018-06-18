@@ -570,6 +570,9 @@ Istio manual side-car injection:
 kubectl apply -f <(istioctl kube-inject -f istio-workshop/guestbook/helloworld-deployment.yaml)
 ```
 
+### Kubernetes client:
+https://github.com/kubernetes-client/python/blob/master/kubernetes/README.md
+https://github.com/kubernetes/website/pull/6836/files
 
 
 ## Gcloud
