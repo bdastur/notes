@@ -1,10 +1,21 @@
 #!/usr/bin/env python
 
+import sys
 from kubernetes import client, config, watch
 
 config.load_kube_config()
 
 v1 = client.CoreV1Api()
+
+api_instance = client.AdmissionregistrationApi()
+
+try:
+      //api_response = api_instance.get_api_group()
+      print "API response: ", api_response
+except client.rest.ApiException as e:
+      print "Exception %s" % e
+
+sys.exit()
 
 # watch on pods in all namespaces.
 w = watch.Watch()
