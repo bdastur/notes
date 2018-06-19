@@ -622,7 +622,7 @@ $ gcloud auth list
 
 ### Setup a Kubernetes cluster.
 
-The default Kubernetes version is available using the following
+To check which Kubernetes versions are default and available in a given zone
 ```
 $ gcloud container get-server-config --zone us-east1-b
 
@@ -645,4 +645,31 @@ To refresh add credentials to a kube cluster:
 
 ```
  gcloud container clusters get-credentials testcluster-1 --zone us-east1-b
+```
+
+Prerequisits for using RBAC in GKE.
+First grant your user the ability to create roles in Kubernetes.
+
+```
+$ kubectl create clusterrolebinding cluster-admin-binding --clusterrole cluster-admin --user behzad.dastur@gmail.com
+clusterrolebinding.rbac.authorization.k8s.io "cluster-admin-binding" created
+
+$ kubectl get clusterrolebinding cluster-admin-binding -o yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  creationTimestamp: 2018-06-19T01:07:07Z
+  name: cluster-admin-binding
+  resourceVersion: "3070"
+  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/cluster-admin-binding
+  uid: 160ae2aa-735d-11e8-8545-42010a8e013d
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: behzad.dastur@gmail.com
+
 ```
