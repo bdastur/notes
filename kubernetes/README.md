@@ -174,6 +174,7 @@ testing
 
 ## Kubernetes and RBAC 'Role-based Access Control'
 [kubernetes.io: RBAC](https://kubernetes.io/docs/admin/authorization/rbac/)
+[Bitnami blog RBAC](https://docs.bitnami.com/kubernetes/how-to/configure-rbac-in-your-kubernetes-cluster/)
 
 The document details creating Roles, service accounts and role bindings.
 We are going to do the following:
