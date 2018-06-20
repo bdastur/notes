@@ -576,6 +576,16 @@ https://github.com/kubernetes-client/python/blob/master/kubernetes/README.md
 https://github.com/kubernetes/website/pull/6836/files
 
 
+### How to start an interactive bash pod within Kubernetes cluster.
+https://gc-taylor.com/blog/2016/10/31/fire-up-an-interactive-bash-pod-within-a-kubernetes-cluster
+
+```
+$ kubectl run test-shell --rm -i --tty --image bdastur/simplepy:latest -- bash
+If you don't see a command prompt, try pressing enter.
+bash-4.4# 
+
+```
+
 ## Gcloud
 
 ### SDK Installation:
