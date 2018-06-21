@@ -27,12 +27,19 @@ spec:
         app: test
     spec:
       containers:
-      - image: simplepy:1.0
+      - image: bdastur/simplepy:1.0
         imagePullPolicy: Always
-        name: brdsimplepy
+        name: brdfirstcontainer
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+      - image: bdastur/simplepy:1.0
+        imagePullPolicy: Always
+        name: brdsecondcontainer
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler

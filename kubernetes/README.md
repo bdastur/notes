@@ -651,6 +651,11 @@ gcloud container clusters create testcluster-1 \
   --tags=tag1
 ```
 
+To resize existing cluster
+```
+ gcloud container clusters resize testcluster-1 --size=4
+```
+
 To refresh add credentials to a kube cluster:
 
 ```
