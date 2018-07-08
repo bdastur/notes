@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/bdastur/datatypes"
+	"github.com/bdastur/tfrenderer"
 )
 
 func build_cli(args []string) {
@@ -37,7 +38,8 @@ func usage() {
 		"operations: " + "\n" +
 		"  testcmd" + "\n" +
 		"  string" + "\n" +
-		"  datatypes" + "\n"
+		"  datatypes" + "\n" +
+		"  templates" + "\n"
 
 	fmt.Println(usageMessage)
 }
@@ -88,6 +90,11 @@ func build_nested_cli(args []string) {
 	vdOption := datatypesOperation.Bool("declaration", true,
 		"Variable Declaration")
 
+	//Operation: templates
+	templatesOperation := flag.NewFlagSet("templates", flag.ExitOnError)
+	templateOption := templatesOperation.String("filename", "",
+		"Filename")
+
 	//Composite types.
 	compositesOperation := flag.NewFlagSet("composites", flag.ExitOnError)
 
@@ -100,6 +107,8 @@ func build_nested_cli(args []string) {
 		datatypesOperation.Parse(args[2:])
 	case "composites":
 		compositesOperation.Parse(args[2:])
+	case "templates":
+		templatesOperation.Parse(args[2:])
 	default:
 		fmt.Printf("%q is not a valid command. \n", args[1])
 		os.Exit(2)
@@ -133,6 +142,14 @@ func build_nested_cli(args []string) {
 	} else if compositesOperation.Parsed() {
 		fmt.Println("Test composites")
 		datatypes.CompositeTypes()
+	} else if templatesOperation.Parsed() {
+		fmt.Println("Render file: ", *templateOption)
+		if *templateOption == "" {
+			tfrenderer.RenderTemplate()
+		} else {
+			tfrenderer.RenderTemplateFromFile(*templateOption)
+		}
+		tfrenderer.RenderTemplate()
 	}
 
 }
