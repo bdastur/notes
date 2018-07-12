@@ -39,7 +39,8 @@ func usage() {
 		"  testcmd" + "\n" +
 		"  string" + "\n" +
 		"  datatypes" + "\n" +
-		"  templates" + "\n"
+		"  templates" + "\n" +
+		"  json" + "\n"
 
 	fmt.Println(usageMessage)
 }
@@ -95,6 +96,10 @@ func build_nested_cli(args []string) {
 	templateOption := templatesOperation.String("filename", "",
 		"Filename")
 
+	// Operation: json
+	jsonOperation := flag.NewFlagSet("json", flag.ExitOnError)
+	jsonOption := jsonOperation.String("jsonfile", "", "Json Filename")
+
 	//Composite types.
 	compositesOperation := flag.NewFlagSet("composites", flag.ExitOnError)
 
@@ -109,6 +114,8 @@ func build_nested_cli(args []string) {
 		compositesOperation.Parse(args[2:])
 	case "templates":
 		templatesOperation.Parse(args[2:])
+	case "json":
+		jsonOperation.Parse(args[2:])
 	default:
 		fmt.Printf("%q is not a valid command. \n", args[1])
 		os.Exit(2)
@@ -149,7 +156,12 @@ func build_nested_cli(args []string) {
 		} else {
 			tfrenderer.RenderTemplateFromFile(*templateOption)
 		}
-		tfrenderer.RenderTemplate()
+	} else if jsonOperation.Parsed() {
+		fmt.Println("Parsed json operation")
+		if *jsonOption == "" {
+			tfrenderer.ParseJsonData()
+		}
+
 	}
 
 }
