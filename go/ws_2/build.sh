@@ -1,4 +1,7 @@
 #!/bin/bash
 
 export GOPATH=$(pwd)
+
+# Get required packages.
+go get gopkg.in/yaml.v2
 make

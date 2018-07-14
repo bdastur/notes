@@ -1,0 +1,2 @@
+cluster_name: "Test cluster"
+service_name: "KubernetesScaler"

@@ -40,7 +40,8 @@ func usage() {
 		"  string" + "\n" +
 		"  datatypes" + "\n" +
 		"  templates" + "\n" +
-		"  json" + "\n"
+		"  json" + "\n" +
+		"  yaml" + "\n"
 
 	fmt.Println(usageMessage)
 }
@@ -100,6 +101,10 @@ func build_nested_cli(args []string) {
 	jsonOperation := flag.NewFlagSet("json", flag.ExitOnError)
 	jsonOption := jsonOperation.String("jsonfile", "", "Json Filename")
 
+	// Operation: yaml
+	yamlOperation := flag.NewFlagSet("yaml", flag.ExitOnError)
+	yamlOption := yamlOperation.String("configfile", "", "Yaml config file")
+
 	//Composite types.
 	compositesOperation := flag.NewFlagSet("composites", flag.ExitOnError)
 
@@ -116,6 +121,8 @@ func build_nested_cli(args []string) {
 		templatesOperation.Parse(args[2:])
 	case "json":
 		jsonOperation.Parse(args[2:])
+	case "yaml":
+		yamlOperation.Parse(args[2:])
 	default:
 		fmt.Printf("%q is not a valid command. \n", args[1])
 		os.Exit(2)
@@ -145,7 +152,6 @@ func build_nested_cli(args []string) {
 			datatypes.IntegerDatatype()
 		}
 		datatypes.IntegerDatatype()
-
 	} else if compositesOperation.Parsed() {
 		fmt.Println("Test composites")
 		datatypes.CompositeTypes()
@@ -161,7 +167,13 @@ func build_nested_cli(args []string) {
 		if *jsonOption == "" {
 			tfrenderer.ParseJsonData()
 		}
-
+	} else if yamlOperation.Parsed() {
+		fmt.Println("Parse yaml file")
+		if *yamlOption == "" {
+			fmt.Println("Require a yaml file!")
+		} else {
+			tfrenderer.ParseYamlDataFile(*yamlOption)
+		}
 	}
 
 }
