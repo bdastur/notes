@@ -1,2 +1,9 @@
 {{ .Count}} items are made of {{.Material}}
 
+{{ .Properties}}
+
+
+{{range .Properties}}
+  Cost: {{.Cost}}
+  Vendor: {{.Vendor}}
+{{end}}
