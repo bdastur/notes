@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/bdastur/aws"
 	"github.com/bdastur/datatypes"
 	"github.com/bdastur/tfrenderer"
 )
@@ -40,7 +41,9 @@ func usage() {
 		"  string" + "\n" +
 		"  datatypes" + "\n" +
 		"  templates" + "\n" +
-		"  json" + "\n"
+		"  json" + "\n" +
+		"  yaml" + "\n" +
+		"  aws" + "\n"
 
 	fmt.Println(usageMessage)
 }
@@ -100,6 +103,13 @@ func build_nested_cli(args []string) {
 	jsonOperation := flag.NewFlagSet("json", flag.ExitOnError)
 	jsonOption := jsonOperation.String("jsonfile", "", "Json Filename")
 
+	// Operation: yaml
+	yamlOperation := flag.NewFlagSet("yaml", flag.ExitOnError)
+	yamlOption := yamlOperation.String("configfile", "", "Yaml config file")
+
+	// Operation: aws
+	awsOperation := flag.NewFlagSet("aws", flag.ExitOnError)
+
 	//Composite types.
 	compositesOperation := flag.NewFlagSet("composites", flag.ExitOnError)
 
@@ -116,6 +126,10 @@ func build_nested_cli(args []string) {
 		templatesOperation.Parse(args[2:])
 	case "json":
 		jsonOperation.Parse(args[2:])
+	case "yaml":
+		yamlOperation.Parse(args[2:])
+	case "aws":
+		awsOperation.Parse(args[2:])
 	default:
 		fmt.Printf("%q is not a valid command. \n", args[1])
 		os.Exit(2)
@@ -145,7 +159,6 @@ func build_nested_cli(args []string) {
 			datatypes.IntegerDatatype()
 		}
 		datatypes.IntegerDatatype()
-
 	} else if compositesOperation.Parsed() {
 		fmt.Println("Test composites")
 		datatypes.CompositeTypes()
@@ -160,6 +173,33 @@ func build_nested_cli(args []string) {
 		fmt.Println("Parsed json operation")
 		if *jsonOption == "" {
 			tfrenderer.ParseJsonData()
+		}
+	} else if yamlOperation.Parsed() {
+		fmt.Println("Parse yaml file")
+		if *yamlOption == "" {
+			fmt.Println("Require a yaml file!")
+		} else {
+			tfrenderer.ParseYamlDataFile(*yamlOption)
+		}
+	} else if awsOperation.Parsed() {
+		fmt.Println("AWS: ", args[2:])
+		switch args[2] {
+		case "s3":
+			fmt.Println("S3 operation")
+			listOperation := flag.NewFlagSet("list", flag.ExitOnError)
+			listOption := listOperation.Bool("all", false, "List all buckets")
+			switch args[3] {
+			case "list":
+				fmt.Println("List operation: ")
+				listOperation.Parse(args[4:])
+			}
+
+			if listOperation.Parsed() {
+				fmt.Println("Aws operation list ", args[1:])
+				fmt.Println("List option: ", *listOption)
+				aws.ListBuckets()
+
+			}
 		}
 
 	}

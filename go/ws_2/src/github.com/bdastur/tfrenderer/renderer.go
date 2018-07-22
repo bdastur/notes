@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"os"
 	"text/template"
+
+	"gopkg.in/yaml.v2"
 )
 
 type Inventory struct {
@@ -79,4 +81,21 @@ func ParseJsonData() {
 	fmt.Println("jsonbytes: ", jsonbytes)
 	json.Unmarshal(jsonbytes, &env)
 	fmt.Println("Env: ", env.ClusterName)
+}
+
+type configuration struct {
+	ClusterName string `yaml:"cluster_name"`
+	ServiceName string `yaml:"service_name"`
+}
+
+func ParseYamlDataFile(config_file string) {
+	fmt.Println("ParseYamlData")
+	yamlFile, err := ioutil.ReadFile(config_file)
+	check(err, "Could not read YAML file")
+
+	configVar := configuration{}
+	err = yaml.Unmarshal(yamlFile, &configVar)
+	fmt.Println("Config: ", "cluster name: ",
+		configVar.ClusterName, "Service: ", configVar.ServiceName)
+
 }

@@ -107,3 +107,5 @@ go/ws_1/bin/
 go/ws_2/bin/
 *.swp
 
+**gopkg.in/
+**/github.com/aws/
