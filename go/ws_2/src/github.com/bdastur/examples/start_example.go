@@ -192,6 +192,9 @@ func build_nested_cli(args []string) {
 			case "list":
 				fmt.Println("List operation: ")
 				listOperation.Parse(args[4:])
+
+			default:
+				fmt.Println("Default")
 			}
 
 			if listOperation.Parsed() {
