@@ -24,6 +24,7 @@ nm['10.10.10.6']
 
 ### Links:
 * https://www.logilab.org/blogentry/6883
+* https://docs.pytest.org/en/latest/index.html
 
 ### command sample:
 
