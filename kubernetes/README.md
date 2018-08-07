@@ -17,6 +17,12 @@ docker push $REGISTRY/alpine:0.1
 
 ```
 
+### Useful reading:
+
+[Almighty-pause-container](https://www.ianlewis.org/en/almighty-pause-container)
+[What are Kubernetes Pods](https://www.ianlewis.org/en/what-are-kubernetes-pods-anyway)
+
+
 ### Openshift/Kubernetes templates:
 
 [simple deployment config](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/deploymentconfig.yaml)
