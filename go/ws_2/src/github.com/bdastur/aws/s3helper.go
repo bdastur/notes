@@ -17,7 +17,7 @@ func ListBuckets() {
 		Profile: "okta2aws",
 	}))
 	creds := stscreds.NewCredentials(sess,
-		"arn:aws:iam::4xxxx9:role/SoeRolee")
+		"arn:aws:iam::461168169469:role/SSOAdmin1Role")
 
 	s3svc := s3.New(sess, &aws.Config{Credentials: creds})
 	result, err := s3svc.ListBuckets(nil)
@@ -26,9 +26,22 @@ func ListBuckets() {
 	}
 
 	for _, b := range result.Buckets {
-		fmt.Printf("* %s created on %s \n ",
+		fmt.Printf("Bucket %s created on %s \n ",
 			aws.StringValue(b.Name),
 			aws.TimeValue(b.CreationDate))
+
+		bucketname := aws.String(*b.Name)
+
+		// Get Bucket location.
+		input := &s3.GetBucketLocationInput{
+			Bucket: bucketname,
+		}
+		result, err := s3svc.GetBucketLocation(input)
+		if err != nil {
+			fmt.Println(err.Error())
+		}
+		fmt.Printf("Result: %s", aws.StringValue(result.LocationConstraint))
+
 	}
 
 }
