@@ -188,6 +188,8 @@ func build_nested_cli(args []string) {
 			fmt.Println("S3 operation")
 			listOperation := flag.NewFlagSet("list", flag.ExitOnError)
 			listOption := listOperation.Bool("all", false, "List all buckets")
+			awsroleOption := listOperation.String("role", "", "Role ARN")
+			awsbucketnameOption := listOperation.String("bucketname", "", "Bucket name")
 			switch args[3] {
 			case "list":
 				fmt.Println("List operation: ")
@@ -200,7 +202,7 @@ func build_nested_cli(args []string) {
 			if listOperation.Parsed() {
 				fmt.Println("Aws operation list ", args[1:])
 				fmt.Println("List option: ", *listOption)
-				aws.ListBuckets()
+				aws.ListBuckets(*awsroleOption, *awsbucketnameOption)
 
 			}
 		}
