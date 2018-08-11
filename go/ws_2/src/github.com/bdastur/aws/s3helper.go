@@ -1,7 +1,10 @@
 package aws
 
 import (
+	"bytes"
 	"fmt"
+	"io"
+	"io/ioutil"
 	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -26,8 +29,14 @@ func UploadFile(s3svc *s3.S3,
 	key string,
 	filepath string) {
 	// upload object.
+	data, err := ioutil.ReadFile(filepath)
+	if err != nil {
+		fmt.Println("Failed to read ", filepath)
+		return
+	}
+
 	input := &s3.PutObjectInput{
-		Body:                 aws.ReadSeekCloser(strings.NewReader(filepath)),
+		Body:                 aws.ReadSeekCloser(strings.NewReader(string(data))),
 		Bucket:               aws.String(bucketname),
 		Key:                  aws.String(key),
 		ServerSideEncryption: aws.String("AES256"),
@@ -39,6 +48,32 @@ func UploadFile(s3svc *s3.S3,
 	} else {
 		fmt.Println("Upload complete!", result)
 	}
+}
+
+func DownloadFile(s3svc *s3.S3, bucketname string, key string) {
+	fmt.Printf("Download File %s", key)
+
+	input := &s3.GetObjectInput{
+		Bucket: aws.String(bucketname),
+		Key:    aws.String(key),
+	}
+
+	result, err := s3svc.GetObject(input)
+	if err != nil {
+		fmt.Println("Error: ", err)
+		return
+	}
+
+	fmt.Println("Result: ", result)
+	buf := bytes.NewBuffer(nil)
+	bufresult, err := io.Copy(buf, result.Body)
+	if err != nil {
+		fmt.Println("Failed operation ", err)
+		return
+	}
+	fmt.Println("Result: ", bufresult)
+	fmt.Println("Body: ", buf.String())
+
 }
 
 func ListBuckets(roleArn string, bucketname string) {
