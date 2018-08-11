@@ -39,4 +39,7 @@ func TestS3PutObject(t *testing.T) {
 
 func TestS3GetObject(t *testing.T) {
 	fmt.Println("Testing Get Object")
+	s3svc := GetS3Client(*ssoRole, "us-west-2", "okta2aws")
+	DownloadFile(s3svc, *bucketname,
+		"TESTFOLDER/testfile.txt")
 }
