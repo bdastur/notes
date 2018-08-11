@@ -2,6 +2,7 @@ package aws
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials/stscreds"
@@ -9,15 +10,45 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
-func ListBuckets() {
+func GetS3Client(roleArn string, region string, profile string) *s3.S3 {
+	sess := session.Must(session.NewSessionWithOptions(session.Options{
+		Config: aws.Config{Region: aws.String(region)}, Profile: profile,
+	}))
+
+	creds := stscreds.NewCredentials(sess, roleArn)
+	s3svc := s3.New(sess, &aws.Config{Credentials: creds})
+
+	return s3svc
+}
+
+func UploadFile(s3svc *s3.S3,
+	bucketname string,
+	key string,
+	filepath string) {
+	// upload object.
+	input := &s3.PutObjectInput{
+		Body:                 aws.ReadSeekCloser(strings.NewReader(filepath)),
+		Bucket:               aws.String(bucketname),
+		Key:                  aws.String(key),
+		ServerSideEncryption: aws.String("AES256"),
+	}
+
+	result, err := s3svc.PutObject(input)
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println("Upload complete!", result)
+	}
+}
+
+func ListBuckets(roleArn string, bucketname string) {
 	fmt.Println("List buckets")
 	// Specify profile for config and region for requests
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		Config:  aws.Config{Region: aws.String("us-west-2")},
 		Profile: "okta2aws",
 	}))
-	creds := stscreds.NewCredentials(sess,
-		"arn:aws:iam::461168169469:role/SSOAdmin1Role")
+	creds := stscreds.NewCredentials(sess, roleArn)
 
 	s3svc := s3.New(sess, &aws.Config{Credentials: creds})
 	result, err := s3svc.ListBuckets(nil)
@@ -40,7 +71,34 @@ func ListBuckets() {
 		if err != nil {
 			fmt.Println(err.Error())
 		}
-		fmt.Printf("Result: %s", aws.StringValue(result.LocationConstraint))
+		fmt.Printf("Result: %s \n", aws.StringValue(result.LocationConstraint))
+
+		// Get Bucket policy
+		policyinput := &s3.GetBucketPolicyInput{
+			Bucket: bucketname,
+		}
+
+		policyresult, err := s3svc.GetBucketPolicy(policyinput)
+		if err != nil {
+			fmt.Println(err.Error())
+		} else {
+			fmt.Printf("Policy result: %s", policyresult)
+		}
+	}
+
+	// upload object.
+	input := &s3.PutObjectInput{
+		Body:                 aws.ReadSeekCloser(strings.NewReader("/tmp/upload.txt")),
+		Bucket:               aws.String(bucketname),
+		Key:                  aws.String("TESTFOLDER/testupload.txt"),
+		ServerSideEncryption: aws.String("AES256"),
+	}
+
+	putresult, err := s3svc.PutObject(input)
+	if err != nil {
+		fmt.Println(err.Error())
+	} else {
+		fmt.Println("Upload complete!", putresult)
 
 	}
 
