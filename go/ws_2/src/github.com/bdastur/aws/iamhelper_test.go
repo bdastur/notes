@@ -21,6 +21,16 @@ func TestIAMClientGet(t *testing.T) {
 
 	iamsvc := GetIAMClient(*ssoRole, "us-west-2", "okta2aws")
 	if iamsvc == nil {
-		t.Errorf("Failed to create a S3 session")
+		t.Errorf("Failed to create a IAM session")
 	}
+}
+
+func TestIAMListRoles(t *testing.T) {
+	iamsvc := GetIAMClient(*ssoRole, "us-west-2", "okta2aws")
+
+	roles := GetIAMRoles(iamsvc)
+	if roles == nil {
+		t.Errorf("Could not get IAM Roles")
+	}
+
 }
