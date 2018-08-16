@@ -13,6 +13,12 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
+const (
+	ERR_OK               = 0
+	ERR_INVALID_PARAMS   = 1
+	ERR_OPERATION_FAILED = 2
+)
+
 func GetS3Client(roleArn string, region string, profile string) *s3.S3 {
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
 		Config: aws.Config{Region: aws.String(region)}, Profile: profile,
@@ -27,12 +33,13 @@ func GetS3Client(roleArn string, region string, profile string) *s3.S3 {
 func UploadFile(s3svc *s3.S3,
 	bucketname string,
 	key string,
-	filepath string) {
+	filepath string) int {
+
 	// upload object.
 	data, err := ioutil.ReadFile(filepath)
 	if err != nil {
 		fmt.Println("Failed to read ", filepath)
-		return
+		return ERR_OPERATION_FAILED
 	}
 
 	input := &s3.PutObjectInput{
@@ -45,8 +52,10 @@ func UploadFile(s3svc *s3.S3,
 	result, err := s3svc.PutObject(input)
 	if err != nil {
 		fmt.Println(err.Error())
+		return ERR_OPERATION_FAILED
 	} else {
 		fmt.Println("Upload complete!", result)
+		return ERR_OK
 	}
 }
 
@@ -72,8 +81,23 @@ func DownloadFile(s3svc *s3.S3, bucketname string, key string) {
 		return
 	}
 	fmt.Println("Result: ", bufresult)
-	fmt.Println("Body: ", buf.String())
 
+}
+
+func DeleteFile(s3svc *s3.S3, bucketname string, key string) error {
+
+	params := &s3.DeleteObjectInput{
+		Bucket: aws.String(bucketname),
+		Key:    aws.String(key),
+	}
+
+	result, err := s3svc.DeleteObject(params)
+	if err != nil {
+		fmt.Println("Failed to delete ", key, " ERR: ", err)
+		return err
+	}
+	fmt.Println("Result: ", result)
+	return err
 }
 
 func ListBuckets(roleArn string, bucketname string) {
