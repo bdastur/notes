@@ -45,7 +45,6 @@ func GetIAMRoles(iamsvc *iam.IAM) *iam.ListRolesOutput {
 		}
 		markerstring = result.Marker
 	}
-	fmt.Println("Result roles; ", result.Roles)
 
 	return result
 
