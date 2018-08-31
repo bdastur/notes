@@ -2297,6 +2297,9 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 * Enables you to have control over who can use your keys and gain access to
   encrypted data.
 
+#### Useful links:
+* https://aws.amazon.com/blogs/security/new-aws-encryption-sdk-for-python-simplifies-multiple-master-key-encryption/
+
 #### Customer managed keys:
 * KMS uses a type of key called Customer Master Key to encrypt/decrypt data.
 * CMKs are the fundamental resource that KMS manages.
