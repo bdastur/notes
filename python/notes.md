@@ -26,6 +26,9 @@ nm['10.10.10.6']
 * https://www.logilab.org/blogentry/6883
 * https://docs.pytest.org/en/latest/index.html
 
+Python profiling:
+* https://github.com/benfred/py-spy
+
 ### command sample:
 
 help
