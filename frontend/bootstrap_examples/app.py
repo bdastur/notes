@@ -38,6 +38,10 @@ def handle_sample_layout():
     print "Sample Layout"
     return (render_template('sample_layout.html'))
 
+@app.route("/backbone")
+def handle_backbone_example():
+    print "Backbone"
+    return (render_template('backbone_todo.html'))
 
 def main():
     app.run(host='127.0.0.1', port=5001, debug=True)
