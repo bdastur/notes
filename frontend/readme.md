@@ -15,3 +15,6 @@ http://holderjs.com/
 
 * [CSS Notes](https://github.com/bdastur/notes/tree/master/frontend/css.md)
 
+* [BackboneJS Book](https://addyosmani.com/backbone-fundamentals/#backbone-basics)
+* [Flask BackboneJS tutorial](http://simplectic.com/blog/2014/flask-todomvc-part1/)
+
