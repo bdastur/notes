@@ -246,3 +246,7 @@ which the victing is logged in.
 To implement CSRF protection, Flask-WTF needs the application to configure
 an encryption key. Flask-WTF uses this key to generate encrypted tokens
 that are used to verify the authenticity of requests with form data.
+
+## Useful links:
+
+[Slides for flask](http://haifux.org/lectures/294/modern-web-applications.pdf)
