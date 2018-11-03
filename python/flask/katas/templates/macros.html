@@ -1,0 +1,6 @@
+{% macro build_table(dictobj) %}
+    {% for key, value in dictobj.iteritems() %}
+         {{ key }} : {{ value }}
+         <br>
+    {% endfor %}
+{% endmacro %}

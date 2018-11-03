@@ -29,13 +29,27 @@ def index_handler(name):
 
 class MyObj(object):
     def __init__(self, request):
+        self.attributes = {}
         self.user_agent = request.headers.get('User-Agent')
 
     def set_name(self, name):
         self.name = name
 
+    def set_attributes(self, name):
+        self.attributes = {
+            name: {
+                'age': 41,
+                'height': 156,
+                'location': "Fremont, California",
+                'married': True
+            }
+        }
+
     def get_name(self):
         return self.name
+
+    def get_attributes(self, name):
+        return self.attributes[name]
 
     def getRequestUserAgent(self):
         return self.user_agent
@@ -47,6 +61,7 @@ def newuser_handler(name):
     print "New User"
     newobj = MyObj(request)
     newobj.set_name(name)
+    newobj.set_attributes(name)
     return render_template("newuser.html", data=newobj)
 
 
