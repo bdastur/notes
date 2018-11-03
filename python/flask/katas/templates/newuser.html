@@ -1,2 +1,73 @@
+{# This is a Jinja2 comment #}
+
 <h2>New User: {{ data.get_name() }}</h2>
 <h2>User Agent: {{ data.getRequestUserAgent() }}</h2>
+
+New User (capitalize): {{ data.get_name()|capitalize}}
+<br>
+New User (title): {{ data.get_name() | title}}
+<br>
+New User (upper): {{ data.get_name() | upper}}
+<br>
+New default: (default):  {{ data.unknown| default("someval") }}
+
+<br>
+New user (safe): {{ data.get_name() | safe}}
+<br>
+
+<hr>
+<h3>Control statements:</h3>
+
+{# Conditional statements #}
+
+{% if data.get_name() %}
+   Hello {{ data.get_name() }}
+   <br>
+   {% if data.get_name() == "behzad.dastur" %}
+        Name is {{ data.get_name()}}
+   {% else %}
+        Name is other than behzad.dastur : {{ data.get_name() }}
+   {% endif %}
+{% endif %}
+
+<hr>
+<h4>Loops</h4>
+
+{% for attribute in data.get_attributes(data.get_name()) %}
+    Attribute: {{ attribute }}
+    <br>
+{% endfor %}
+
+{% for key, value in data.get_attributes(data.get_name()).iteritems() %}
+    key: {{ key }}  value: {{ value }}
+    <br>
+{% endfor %}
+
+<hr>
+<h4>Macros:</h4>
+
+{% macro build_table(dictobj) %}
+    {% for key, value in dictobj.iteritems() %}
+         {{ key }} : {{ value }}
+         <br>
+    {% endfor %}
+{% endmacro %}
+
+
+Table:
+{{ build_table(data.get_attributes(data.get_name())) }}
+
+<br>
+Get macros for another file:
+{% import 'macros.html' as macros %}
+
+{{ macros.build_table(data.get_attributes(data.get_name()))}}
+
+
+
+
+
+
+
+
+
