@@ -1,6 +1,12 @@
+{% macro print_row(key, value=value) %}
+    {{ key }} : {{ value }}
+    <br>
+{% endmacro %}
+
+{# Calling another macro from a macro #}
 {% macro build_table(dictobj) %}
     {% for key, value in dictobj.iteritems() %}
          {{ key }} : {{ value }}
-         <br>
+         {{ print_row(key, value=value) }}
     {% endfor %}
 {% endmacro %}
