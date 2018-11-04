@@ -4,12 +4,20 @@
 '''
 - Simple Rendering with a dict
 - Rendering from an object
+- Jinja2 filters, macros
+- Jinja2 template inheritance
+- Error handlers
+- Localization of dates and times with flask-moment
 '''
 
 from flask import (Flask, request, render_template)
+from flask_moment import Moment
+import datetime
+
 
 app = Flask(__name__)
-
+moment = Moment(app)
+now = datetime.datetime.utcnow()
 
 #########################################
 # Simple Rendering
@@ -46,6 +54,12 @@ class MyObj(object):
             }
         }
 
+    def set_utc_time(self):
+        self.utctime = datetime.datetime.utcnow()
+
+    def get_utc_time(self):
+        return self.utctime
+
     def get_name(self):
         return self.name
 
@@ -63,7 +77,43 @@ def newuser_handler(name):
     newobj = MyObj(request)
     newobj.set_name(name)
     newobj.set_attributes(name)
+    newobj.set_utc_time()
     return render_template("newuser.html", data=newobj)
+
+
+################################################
+# Error handlers.
+################################################
+@app.errorhandler(404)
+def page_not_found(e):
+    return "Page not found!"
+
+
+################################################
+# J2 template inheritance
+################################################
+@app.route("/base")
+def inherit_handler():
+    return render_template('head.html')
+
+
+################################################
+# Localication of dates and times with flask-moment
+# Server needs uniform time units that are independent of the location of
+# each user, so a typically coordinated UTC is used. For users however
+# seeing times expressed in UTC can be confusing, as a user always
+# expect to see dates and times presented in local time.
+# A solution that allows the server to work exclusively in UTC is to
+# send these time units to the web browser, where they can be converted
+# to local time and rendered.
+################################################
+@app.route("/moment")
+def moment_handler():
+    now = datetime.datetime.utcnow()
+    data = {}
+    data['name'] = "Behzad"
+    data['now'] = now
+    return render_template('head.html', data=data)
 
 
 
