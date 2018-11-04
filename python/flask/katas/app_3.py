@@ -3,6 +3,7 @@
 
 '''
 - Simple Rendering with a dict
+- Rendering from an object
 '''
 
 from flask import (Flask, request, render_template)
