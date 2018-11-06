@@ -25,6 +25,8 @@ docker push $REGISTRY/alpine:0.1
 ### Useful tools and projects:
 [Python client library for Kubernetes](https://github.com/kelproject/pykube)
 [Kubernetes webhook autoscaler](https://github.com/wbuchwalter/kubernetes-webhook-autoscaler)
+[Bulk port fowarding of kubernetes services for local development](https://github.com/txn2/kubefwd)
+
 
 
 ### Openshift/Kubernetes templates:
