@@ -101,3 +101,6 @@ output
 digital
 analog
 communication
+
+## Useful links:
+[Open source home automation](https://www.home-assistant.io/)

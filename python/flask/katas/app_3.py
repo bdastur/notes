@@ -17,6 +17,7 @@ import datetime
 
 app = Flask(__name__)
 moment = Moment(app)
+
 now = datetime.datetime.utcnow()
 
 #########################################
