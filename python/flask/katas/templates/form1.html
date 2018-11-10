@@ -6,9 +6,10 @@
 
     </head>
     <body>
-        <h3>My form:</h3>
+        <h3>My form -1:</h3>
         <form method="POST">
             {{ form.name.label }} {{ form.name() }}
+            <p></p>
             {{ form.submit() }}
         </form>
         {% for message in get_flashed_messages() %}
@@ -17,5 +18,9 @@
                 {{ message }}
             </div>
         {% endfor %}
+        <script type="text/javascript"
+        src="/static/js/jquery-3.2.0.min.js"></script>
+       <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+
     </body>
 </html>

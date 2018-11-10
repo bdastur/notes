@@ -35,7 +35,6 @@ def form_handler():
         print "Set session to %s" % form.name.data
         if form.name.data != "Behzad Dastur":
             print "Flash %s" % form.name.data
-            flash('Looks like you are here')
 
         session['name'] = form.name.data
         return redirect(url_for("user_handler", name=form.name.data))
@@ -49,7 +48,8 @@ def form_handler():
 
 @app.route("/user/<name>", methods=["GET"])
 def user_handler(name):
-    print "User handler!", session['name']
+    print "User handler!!", session['name']
+    flash('Looks like you are here %s' % session['name'])
     return render_template('form_user.html', name=name)
 
 
