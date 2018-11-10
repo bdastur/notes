@@ -1,8 +1,20 @@
 <html>
     <head>
         <title>This is the user page!</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/bootstrap.min.css") }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/style.css") }}">
+
     </head>
     <body>
         User: {{ name }}
+        {% for message in get_flashed_messages() %}
+            <div class="alert">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ message }}
+            </div>
+        {% endfor %}
+        <script type="text/javascript"
+        src="/static/js/jquery-3.2.0.min.js"></script>
+       <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
     </body>
 </html>

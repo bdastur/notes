@@ -17,8 +17,11 @@ db = SQLAlchemy(app)
 
 class DBHandler(object):
     def __init__(self):
+        if 'db' not in g:
+            print "G.DB set"
+            g.db = 'test'
 
-        if not g.dbInitiated:
+        if 'dbInitiated' not in g:
             print "Initialize DB!"
             g.dbInitiated = True
             db.create_all()
@@ -31,7 +34,7 @@ class Role(db.Model):
     def __repr__(self):
         return '<Role %r>' % self.name
 
-class Useer(db.Model):
+class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True, index=True)
@@ -43,7 +46,9 @@ class Useer(db.Model):
 @app.route("/", methods=["GET"])
 def index_handler():
     DBHandler()
+    print "G.DB: ", g.db
     return "Hello DB"
+
 
 
 
