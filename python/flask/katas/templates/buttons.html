@@ -8,13 +8,56 @@
 	<body>
 		
 		<div class="container" role="main">
-		   <p>Buttons!</p>
-		        <button type="button" onclick="ClickHandler('default')" class="btn btn-lg btn-default">Default</button>
+		    <div class="row">
+			    <div class="col-md-8" style="background-color: #9898fa">    
+		            <p>Buttons!</p>
+			    </div>
+			    <div class="col-md-8" style="background-color: gray">
+		            <button  id="defaultbutton" class="btn-default" type="button" 
+		             onclick="ClickHandler('default')"  class="btn btn-lg btn-default">Default</button>
+			    </div>
+			<div>
 		    <p></p>
-		    <div id="print">Print here</div>    
+		<div class="row">
+	        <div class="col-xs-12 col-sm-6 col-md-8">.col-xs-12 .col-sm-6 .col-md-8</div>
+	        <div class="col-xs-6 col-md-4">.col-xs-6 .col-md-4</div>
+	    </div>
+	    <div class="row">
+	        <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+	        <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+	        <!-- Optional: clear the XS cols if their content doesn't match in height -->
+	        <div class="clearfix visible-xs-block"></div>
+	        <div class="col-xs-6 col-sm-4">.col-xs-6 .col-sm-4</div>
+	    </div>
 
-        <div>
-		
+		<span>
+	    <div class="container">
+		        
+	        <div id="print">Print here</div>    
+            Another test1
+	    </div>
+		</span>
+		<p></p>
+		<textarea id="mytextarea" style="align-content: flex-start"
+		 oninput="EventHandler('textarea', 'mytextarea')" 
+		 onchange="EventHandler('textarea', 'mytextarea')">
+		</textarea>
+		<p></p>
+		<select id="mySelect">
+            <option value="apple">Apple</option>
+            <option value="orange">Orange</option>
+            <option value="pineapple">Pineapple</option>
+            <option value="banana">Banana</option>
+        </select>
+		<p></p>
+		<input list="browsers" name="browser">
+		    <datalist id="browsers">
+		        <option value="Internet Explorer">
+		        <option value="Firefox">
+    		    <option value="Chrome">
+	    	    <option value="Opera">
+		        <option value="Safari">
+		    </datalist>
 
 	        
 	        

@@ -19,6 +19,11 @@ aws iam get-credential-report \
 
 * https://github.com/duo-labs/cloudtracker
 
+* [Manage AWS IAM Roles with Tags](https://aws.amazon.com/blogs/security/add-tags-to-manage-your-aws-iam-users-and-roles/)
+
+* [Block S3 Public Access](https://aws.amazon.com/blogs/aws/amazon-s3-block-public-access-another-layer-of-protection-for-your-accounts-and-buckets/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+AmazonWebServicesBlog+%28Amazon+Web+Services+Blog%29)
+
+
 
 ## EC2:
 * Default maximum EC2 instance limit per region is 20.
