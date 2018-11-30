@@ -152,3 +152,54 @@ To test:
 ```
 curl localhost:8080/test -d '{"id": 43, "name": "Bharat"}'
 ```
+
+
+## Go templates.
+
+*Conditional check*
+
+```
+{{ if eq .ClusterType "dev" }}
+    security_groups = ["${data.aws_security_group.sg_worker.id}",
+        "${data.aws_security_group.sg_sshIngress.id}",
+        "${data.aws_security_group.sg_workerDev.id}"]
+{{ else }}
+    security_groups = ["${data.aws_security_group.sg_worker.id}",
+        "${data.aws_security_group.sg_sts.id}",
+        "${data.aws_security_group.sg_misc_egress.id}",
+{{ end }}
+```
+
+*Looping*
+```
+{{ range .AZs }}
+    variable is {{ . }}
+}
+{{ end }} 
+```
+
+*Looping over a list of structs*
+```
+ {{range .Volumes.SecondaryVolumes}}
+    {
+        name = "{{ .Device}}"
+        volume_type = "{{ .DiskType}}"
+        volume_size = "{{ .DiskSize}}"
+   },
+{{end}}
+```
+
+
+*Looping and getting an index.*
+```
+{{ $count := 0 }}
+{{ range .AZs }}
+variable "{{ . }}-{{ $count }}" {
+    description = "Availability zone -1"
+    type = "string"
+    default = "test"
+}
+{{ end }}
+
+
+```
