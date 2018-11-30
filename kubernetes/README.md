@@ -28,6 +28,9 @@ docker push $REGISTRY/alpine:0.1
 [Bulk port fowarding of kubernetes services for local development](https://github.com/txn2/kubefwd)
 [A tool for exploring each layer for docker image](https://github.com/wagoodman/dive)
 [Kubernetes operator to automate helm, daemonset, SS & Deployment updates](https://github.com/keel-hq/keel)
+[Multi pod logging for kubernetes](https://github.com/wercker/stern)
+[Multi pod logging for kubernetes - but this one is a simple bash script](https://github.com/johanhaleby/kubetail)
+
 
 
 
