@@ -203,3 +203,9 @@ variable "{{ . }}-{{ $count }}" {
 
 
 ```
+
+
+## Useful packages:
+
+[Package pretty](https://godoc.org/github.com/kr/pretty)
+
