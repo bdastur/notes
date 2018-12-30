@@ -6,6 +6,9 @@ image:
   repository: nginx
   tag: stable
   pullPolicy: IfNotPresent
+deployment:
+    enabled: false
+
 service:
   name: nginx
   type: ClusterIP

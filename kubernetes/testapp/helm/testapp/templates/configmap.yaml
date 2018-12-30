@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: {{ .Release.Name }}-configmap 
+data:
+    testvalue: "Hello World"
+    releaseName: {{ quote  .Release.Name }}
+    releaseTime: {{ quote  .Release.Time }}
+    releaseNamespace: {{ quote .Release.Namespace }}
+    releaseService: {{ quote .Release.Serviceee }}
+    releaseRevision: {{ quote .Release.Revision }}
+    releaseIsUpgrade: {{ quote .Release.IsUpgrade }}
+    releaseIsInstall:  "{{ .Release.IsInstall }}"
