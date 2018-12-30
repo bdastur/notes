@@ -67,6 +67,10 @@ namespace for this scope.
                 cluster supports.
 * Template: Contains information about the current template that is being executed.
 
+Note: Built-in values always begin with a capital letter, following Go's naming convention.
+      You could choose to use lower-case letters when defining your own values, to help
+      distinguish local names from the built-in ones. 
+
 This is an example of using them in our configmap template:
 ```
 data:
@@ -83,6 +87,47 @@ data:
 Note here that we need to put them in quotes. There are two ways to do that.
 1. Add thee {{ }} in " " as in the last field above or
 2. use the quote function.
+
+
+## Values file.
+Values is a built-in object. This object provides access to values passed
+to the chart.
+sources:
+ 1. values.yaml file in the chart.
+ 2. If this is a subchart, then values.yaml file for a parent chart.
+ 3. From CLI during helm install/upgrade with the -f flag.
+ 4. Individual parameters passed with --set. 
+
+The order is 4 --> 3 --> 2 --> 1. Meaning value passed using --set will override 
+a value passed in the values.yaml file
+
+Example to illustrate:
+
+values.yaml file has the following definition
+```
+$ cat testapp/values.yaml 
+:
+foodChoices:
+    drink: coke
+:
+```
+
+We override that using --set during helm upgrade.
+```
+$ helm upgrade testapp testapp/ --set foodChoices.drink=tea
+Release "testapp" has been upgraded. Happy Helming!
+```
+
+We can see the value overridden in the configmap after that.
+```
+$ kubectl get cm testapp-configmap -o yaml
+apiVersion: v1
+data:
+  drinkChoice: tea
+:
+:
+```
+
 
 
 

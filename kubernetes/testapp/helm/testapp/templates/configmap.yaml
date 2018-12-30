@@ -11,3 +11,4 @@ data:
     releaseRevision: {{ quote .Release.Revision }}
     releaseIsUpgrade: {{ quote .Release.IsUpgrade }}
     releaseIsInstall:  "{{ .Release.IsInstall }}"
+    drinkChoice: {{ quote .Values.foodChoices.drink }}
