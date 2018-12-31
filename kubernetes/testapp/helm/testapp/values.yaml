@@ -40,3 +40,4 @@ resources: {}
   #  memory: 128Mi
 foodChoices:
     drink: coke
+    food: Carrot

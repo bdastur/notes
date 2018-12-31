@@ -128,7 +128,105 @@ data:
 :
 ```
 
+## Template functions and pipelines:
+
+[Go package template](https://godoc.org/text/template)
+[Go sprig template library](https://godoc.org/github.com/Masterminds/sprig)
+
+### Text and Spaces:
+By default, all text betweeen actions is copied verbatim when thee template is
+executed.
+To aid in formatting template source code, 
+if an action's left delimiter is followed by minus sign and ascii space 
+character ("{{- "), all trailing white space is trimmed frrom the immediately preeceding text
+
+Similarly, if the right delimiter is preceded by a spacee and a minus character (" -}}"),
+all leding white space is trimmed from the immediately following text. 
+
+Note that in these trim markers, ASCII space must be present. 
+
+### Pipelines
+Pipelines: Using a concept from Unix, pipelines are a tool of chaining together 
+a series of template commands.
+
+Eg: We can use the quote template function like this.
+```
+data:
+  drink: {{ .Values.foodChoices.drink | quote }}
+```
+
+We can chain multiple functions using a pipeline.
+Eg:
+```
+data:
+  food: {{ .Values.foodChoices.food | upper | quote }}
+```
+
+### repeat function:
+echo the given string a given numbeer of times
+
+Eg:
+```
+data:
+    foodChoices: {{ .Values.foodChoices.food | repeat 4 | upper | quote }}
+
+```
+
+### Default function:
+Default function allows you to specify a default value in case the value is ommitted.
+
+Eg:
+```
+data:
+    desertChoice: {{ .Values.foodChoices.desert | default "cake" | quote }}
+```
 
 
+### Operators are functions too:
+
+eq, ne, lt, le, gt, ge, and, or, not 
+
+### Flow Control:
+
+Helm's template languagee provies the following control structures.
+* if/else
+* with: to specify scope
+* range
+
+Simple if example:
+```
+data:
+    {{ if .Values.foodChoices.drink | quote }}
+    glassProvided: "true"
+    {{ end }}
+
+```
+
+if/else examplee:
+```
+data:
+    {{ if .Values.foodChoices.desert | quote }}
+    desertPlateProvided: "true"
+    {{ else }}
+    sendBill: "true"
+    {{ end }}
+
+```
+
+boolean operators example:
+
+```
+data:
+    {{ if and (.Values.foodChoices.drink) (eq .Values.foodChoices.drink "tea") }}
+    mug: "provided"
+    {{end }}
+```
+
+### indent function:
+
+Example:
+```
+{{ indent 4 "testvalue2: A test of indent" }}                                                                                                                                                
+```
 
 

@@ -12,3 +12,19 @@ data:
     releaseIsUpgrade: {{ quote .Release.IsUpgrade }}
     releaseIsInstall:  "{{ .Release.IsInstall }}"
     drinkChoice: {{ quote .Values.foodChoices.drink }}
+    foodChoices: {{ .Values.foodChoices.food | repeat 4 | upper | quote }}
+    desertChoice: {{ .Values.foodChoices.desert | quote }}
+    desertAlways: {{ .Values.foodChoices.desert | default "cake" | quote }}
+    {{ if .Values.foodChoices.drink | quote }}
+    glassProvided: "true"
+    {{ end }}
+    {{ if and (.Values.foodChoices.drink) (eq .Values.foodChoices.drink "tea") }}
+    mug: "provided"
+    {{end }}
+    {{ if .Values.foodChoices.desert | quote }}
+    desertPlate: "provided"
+    {{ else }}
+    sendBill: "true"
+    desertPlate: "not provided"
+    {{ end }}
+{{ indent 4 "testvalue2: A test of indent" }}
