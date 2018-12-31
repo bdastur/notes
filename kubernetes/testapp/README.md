@@ -229,4 +229,80 @@ Example:
 {{ indent 4 "testvalue2: A test of indent" }}                                                                                                                                                
 ```
 
+### Modifying scope using with:
+
+with controls variable scoping. . is a reference to the current scope. So .Values
+tells the template to find the Values object in the current scope.
+
+The syntax for with is:
+```
+{{ with PIPELINEE }}
+  # restricted scope.
+{{ end }}
+```
+
+with can allow you to change the current scope to a particular object.
+Eg:
+```
+data:
+    {{ with .Values.foodChoices }}
+    scopedFood: {{ .food | quote }}
+    scopedDrink: {{ .drink | quote }}
+    {{ end }}
+```
+
+Note how we are able to use .food and .drink within the scope, by altering the
+current scope to .Values.foodChoices.
+
+Note: it is obvious though, but you will not bee able to access other objects
+from thee parent scope. For instance you cannot use {{ .Release.Name }} from within
+the restricted scope above.
+
+
+### Range:
+Similar to forech loops allows you to iterate over a list or collection of
+objects.
+
+Here's an example:
+```
+    beverages: |-
+    {{- range .Values.foodChoices.beverages }}
+        {{ . | quote }}
+    {{- end }}
+
+```
+
+will get:
+```
+$ kubectl get cm testapp-configmap -o yaml
+apiVersion: v1
+data:
+  beverages: |-
+    "Tea"
+    "Coffee"
+    "Hot Chocolate"
+    "Orange juice"
+```
+
+You can also make a list within the template using the tuple function.
+
+Example:
+```
+    {{- range tuple "small" "medium" "large" }}
+        {{ . }}
+    {{- end }}
+
+```
+
+will get:
+```
+  sizes: |-
+    small
+    medium
+    large
+```
+
+
+
+
 
