@@ -41,3 +41,8 @@ resources: {}
 foodChoices:
     drink: coke
     food: Carrot
+    beverages:
+      - Tea
+      - Coffee
+      - Hot Chocolate
+      - Orange juice

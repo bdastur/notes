@@ -27,4 +27,17 @@ data:
     sendBill: "true"
     desertPlate: "not provided"
     {{ end }}
+    {{ with .Values.foodChoices }}
+    scopedFood: {{ .food | quote }}
+    scopedDrink: {{ .drink | quote }}
+    {{ end }}
+    beverages: |-
+    {{- range .Values.foodChoices.beverages }}
+        {{ . | quote }}
+    {{- end }}
+    sizes: |-
+    {{- range tuple "small" "medium" "large" }}
+        {{ . }}
+    {{- end }}
+
 {{ indent 4 "testvalue2: A test of indent" }}
