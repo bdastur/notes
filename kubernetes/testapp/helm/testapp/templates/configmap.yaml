@@ -3,6 +3,8 @@ kind: ConfigMap
 metadata:
     name: {{ .Release.Name }}-configmap 
 data:
+    {{- $releaseName := .Release.Name }}
+    release: {{ $releaseName }}
     testvalue: "Hello World"
     releaseName: {{ quote  .Release.Name }}
     releaseTime: {{ quote  .Release.Time }}
@@ -38,6 +40,10 @@ data:
     sizes: |-
     {{- range tuple "small" "medium" "large" }}
         {{ . }}
+    {{- end }}
+    bevWithIndex: |-
+    {{- range $index, $beverage := .Values.foodChoices.beverages }}
+    {{ $index }}: {{ $beverage }}
     {{- end }}
 
 {{ indent 4 "testvalue2: A test of indent" }}

@@ -304,5 +304,34 @@ will get:
 
 
 
+## Variables:
+
+In helm templates, a variable is a named reference to another object. 
+
+Example usage:
+```
+    {{- $releaseName := .Release.Name }}
+    release: {{ $releaseName }}
+```
+
+Variables are also useful in range loops.
+
+
+## Notes.txt:
+At the end of a chart install or upgrade, Helm can print out a block of helpful
+information for users. 
+
+To add installation notes for your chart, simply create a templates/NOTES.txt file.
+The file is plain text but is processed as a template and has all the template functions
+and objects available.
+
+Eg:
+```
+Thank you for installing {{ .Chart.Name }}
+Release: {{ .Release.Name }}
+```
+
+
+
 
 
