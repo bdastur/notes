@@ -332,6 +332,92 @@ Release: {{ .Release.Name }}
 ```
 
 
+## Subcharts:
+Charts can have dependencies, called subcharts, that also have their own values
+and templates. 
+
+
+Some notes on subcharts:
+1. A subchart is considered "stand-alone", which means a subchart can never explicitly
+   depend on it's parent chart.
+2. A subchart cannot access values of it's parent.
+3. A parent chart can override values for subcharts
+4. Helm has a concept of global values that can be accessed by all charts.
+
+
+### Creating a subchart:
+
+```
+cd testapp
+mkdir charts
+cd charts
+helm chart testsubchart
+```
+
+This is what the tree looks like:
+```
+ALSONEWLYSTRONG:helm behzad.dastur$ tree testapp/
+testapp/
+├── Chart.yaml
+├── charts
+│   └── testsubchart
+│       ├── Chart.yaml
+│       ├── charts
+│       ├── templates
+│       │   ├── NOTES.txt
+│       │   ├── _helpers.tpl
+│       │   └── configmap.yaml
+│       └── values.yaml
+├── templates
+│   ├── NOTES.txt
+│   ├── _helpers.tpl
+│   ├── configmap.yaml
+│   ├── deployment.yaml
+│   ├── ingress.yaml
+│   └── service.yaml
+└── values.yaml
+
+5 directories, 13 files
+
+```
+
+### Overriding values from a parent chart:
+
+In testapp/values.yaml:
+You can have configuration pushed into the subchart as below.
+
+```
+testsubchart:
+    dessert: Sticky Rice
+
+```
+
+In testapp/charts/testsubchart/values.yaml:
+```
+dessert: ice cream
+```
+
+Now after executing  helm install or upgrade
+```
+helm upgrade testapp ./testapp/
+
+```
+
+You can see configuration overridden by the parent.
+```
+$ kubectl get cm testapp-cm2 -o yaml
+apiVersion: v1
+data:
+  dessert: Sticky Rice
+kind: ConfigMap
+:
+
+```
+
+
+
+
+
 
 
 

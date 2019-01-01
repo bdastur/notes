@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-cm2
+data:
+  dessert: {{ .Values.dessert }}
+
