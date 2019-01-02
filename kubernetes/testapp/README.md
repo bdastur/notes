@@ -414,10 +414,48 @@ kind: ConfigMap
 
 ```
 
+### Global chart values:
+
+Global values are values that can be accessed from any chart or subchart by exactly
+the same name.
+
+The Values data type has a reserved section called Values.global where global values
+can be set.
+
+Eg:
+in testapp/values.yaml:
+```
+global:
+    foodChoices:
+        food: Chicken Salad
+
+```
+
+Now we can use this value in our templates. You can use it the same way 
+in either the parent or subchart templates.
+```
+    globalfoodChoice: {{ .Values.global.foodChoices.food | quote }}
+```
 
 
+And the output from parent and subchart show the same value:
+```
+$ kubectl get cm testapp-cm2 -o yaml
+apiVersion: v1
+data:
+  dessert: Sticky Rice
+  globalfoodChoice: Chicken Salad
+:
+
+$ kubectl get cm testapp-configmap -o yaml
+apiVersion: v1
+data:
+:
+  globalfoodChoice: Chicken Salad
+:
 
 
+```
 
 
 
