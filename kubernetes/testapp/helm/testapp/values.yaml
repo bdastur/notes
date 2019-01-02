@@ -49,3 +49,8 @@ foodChoices:
 
 testsubchart:
     dessert: Sticky Rice 
+
+global:
+    foodChoices:
+        food: Chicken Salad
+

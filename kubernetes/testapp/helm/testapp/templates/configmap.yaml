@@ -15,6 +15,7 @@ data:
     releaseIsInstall:  "{{ .Release.IsInstall }}"
     drinkChoice: {{ quote .Values.foodChoices.drink }}
     foodChoices: {{ .Values.foodChoices.food | repeat 4 | upper | quote }}
+    globalfoodChoice: {{ .Values.global.foodChoices.food | quote }}
     desertChoice: {{ .Values.foodChoices.desert | quote }}
     desertAlways: {{ .Values.foodChoices.desert | default "cake" | quote }}
     {{ if .Values.foodChoices.drink | quote }}

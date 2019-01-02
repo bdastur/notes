@@ -711,6 +711,7 @@ subjects:
 
 ### Useful links:
 [Helm Documentation home](https://docs.helm.sh/)
+[Getting started with a chart template](https://docs.helm.sh/chart_template_guide/#getting-started-with-a-chart-template)
 
 
 

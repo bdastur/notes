@@ -4,4 +4,6 @@ metadata:
   name: {{ .Release.Name }}-cm2
 data:
   dessert: {{ .Values.dessert }}
+  globalfoodChoice: {{ .Values.global.foodChoices.food | quote }}
+
 
