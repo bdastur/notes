@@ -22,14 +22,18 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.internalPort }}
+          {{- if .Values.deployment.livenessProbe }}
           livenessProbe:
             httpGet:
               path: /
               port: {{ .Values.service.internalPort }}
+          {{- end }}
+          {{- if .Values.deployment.readinessProbe }}
           readinessProbe:
             httpGet:
               path: /
               port: {{ .Values.service.internalPort }}
+          {{- end }}
           resources:
 {{ toYaml .Values.resources | indent 12 }}
     {{- if .Values.nodeSelector }}
