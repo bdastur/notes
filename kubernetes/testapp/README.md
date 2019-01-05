@@ -458,4 +458,47 @@ data:
 ```
 
 
+## Hooks:
+[Hooks](https://docs.helm.sh/developing_charts/#hooks)
+Hooks are a way to intervene at certain points in a release's life cycle. 
+
+
+This is an example of a post-install, post-upgrade hook:
+```
+apiVersion: batch/v1
+kind: Job
+metadata:
+    name: {{ .Release.Name }}-job
+    annotations:
+        # This is what defines this resource as a hook.
+        "helm.sh/hook": post-upgrade,post-install
+        "helm.sh/hook-weight": "10"
+        #"helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: "{{.Release.Name}}"
+      labels:
+        app.kubernetes.io/managed-by: {{.Release.Service | quote }}
+        app.kubernetes.io/instance: {{.Release.Name | quote }}
+        helm.sh/chart: "{{.Chart.Name}}-{{.Chart.Version}}"
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: post-install-job
+        image: "alpine:3.3"
+        command: ["/bin/sleep","{{default "10" .Values.sleepyTime}}"]
+~
+```
+
+You can use any resource into a hook by adding the 
+```
+metadata:
+  annotations:
+    "helm.sh/hook": <hook>
+```
+
+
+
+
 
