@@ -6,7 +6,7 @@ metadata:
         # This is what defines this resource as a hook.
         "helm.sh/hook": post-upgrade,post-install
         "helm.sh/hook-weight": "10"
-        #"helm.sh/hook-delete-policy": hook-succeeded
+        "helm.sh/hook-delete-policy": hook-succeeded
 spec:
   template:
     metadata:
