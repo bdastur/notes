@@ -192,6 +192,7 @@ testing
 ## Kubernetes and RBAC 'Role-based Access Control'
 [kubernetes.io: RBAC](https://kubernetes.io/docs/admin/authorization/rbac/)
 [Bitnami blog RBAC](https://docs.bitnami.com/kubernetes/how-to/configure-rbac-in-your-kubernetes-cluster/)
+[Using RBAC Authorization](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-binding-examples)
 
 The document details creating Roles, service accounts and role bindings.
 We are going to do the following:
@@ -225,7 +226,7 @@ Example template for creating a service account:
 $ kubectl create -f service_account.yaml
 ```
 
-### Create a Cluster Role binding:t
+### Create a Cluster Role binding:
 
 Example of creating a cluster role binding for our Cluster Role and use our
 service account as a subject.

@@ -2,6 +2,10 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 replicaCount: 1
+namespaces:
+    - testns1
+    - testns2
+    - testns3 
 image:
   repository: bdastur/testapp
   tag: 0.1

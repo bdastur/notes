@@ -1,0 +1,16 @@
+{{ range .Values.namespaces }} 
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ . }} 
+  labels:
+      environment: "Development"
+      type: "custom"
+      project: "ebs"
+spec:
+  finalizers:
+  - kubernetes
+...
+{{ end }}
+
