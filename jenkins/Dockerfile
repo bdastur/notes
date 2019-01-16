@@ -35,6 +35,13 @@ ARG agent_port=50000
 RUN groupadd -g ${gid} ${group} \
     && useradd -d "$JENKINS_HOME" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 
+
+###########################################################
+# Jenkins home directory is a volume, so configuration and build history
+# can be persisted and survive image upgrades
+###########################################################
+VOLUME $JENKINS_HOME
+
 ###########################################################
 # Environment variables. 
 # These are used in the install-plugins.sh, jenkins-support
