@@ -77,6 +77,13 @@ COPY install-plugins.sh /usr/local/bin/install-plugins.sh
 RUN chmod +x /usr/local/bin/install-plugins.sh
 COPY jenkins-support /usr/local/bin/jenkins-support
 
+
+###########################################################
+# Avoiding initial password and setup wizard.
+###########################################################
+#COPY UpgradeWizard.state /var/lib/jenkins/jenkins.install.UpgradeWizard.state
+#COPY basic-security.groovy /var/lib/jenkins/init.groovy.d/basic-security.groovy
+
 ###########################################################
 # jenkins.sh is the startup script.
 ###########################################################
