@@ -66,6 +66,13 @@ RUN mkdir -p /usr/share/jenkins/ref
 RUN cp /usr/lib/jenkins/jenkins.war /usr/share/jenkins/jenkins.war
 
 ###########################################################
+# Run JNPL ito attach to slave agents.
+###########################################################
+RUN mkdir -p /usr/share/jenkins/ref/init.groovy.d
+COPY init.groovy /usr/share/jenkins/ref/init.groovy.d/tcp-slave-agent-port.groovy
+
+
+###########################################################
 # Copy the plugins.txt, install-plugins.sh, jenkins-support
 # to proper locations.
 # install-plugins.sh is used to install any
