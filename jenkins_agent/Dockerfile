@@ -17,6 +17,7 @@ RUN chmod +x /bin/tini
 RUN yum install -y glibc-common \
     java-1.8.0-openjdk-devel \
     wget \
+    docker \
     unzip git jq && \
     yum clean all
 
@@ -26,7 +27,7 @@ ADD https://repo.jenkins-ci.org/releases/org/jenkins-ci/plugins/swarm-client/2.2
 ADD scripts/start.sh /usr/bin/
 RUN chmod +x /usr/bin/start.sh
 
-#ENTRYPOINT ["/bin/tini", "--", "/usr/bin/start.sh"]
-ENTRYPOINT ["/bin/bash"]
+ENTRYPOINT ["/bin/tini", "--", "/usr/bin/start.sh"]
+#ENTRYPOINT ["/bin/bash"]
 
 
