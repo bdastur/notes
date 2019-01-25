@@ -189,6 +189,12 @@ curl localhost:8080/test -d '{"id": 43, "name": "Bharat"}'
 {{end}}
 ```
 
+*Looping over a list and handling empty list*
+
+```
+instance_types = [{{ range .InstanceTypes}}"{{ . }}", {{ else }} "{{ .InstanceType }}" {{ end }}]
+```
+
 
 *Looping and getting an index.*
 ```
