@@ -31,7 +31,8 @@ docker push $REGISTRY/alpine:0.1
 [Multi pod logging for kubernetes](https://github.com/wercker/stern)
 [Multi pod logging for kubernetes - but this one is a simple bash script](https://github.com/johanhaleby/kubetail)
 
-
+### Talks and Other links:
+[Container networking from scratch](https://www.youtube.com/watch?v=6v_BDHIgOY8)
 
 
 ### Openshift/Kubernetes templates:
