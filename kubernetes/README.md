@@ -33,6 +33,7 @@ docker push $REGISTRY/alpine:0.1
 
 ### Talks and Other links:
 [Container networking from scratch](https://www.youtube.com/watch?v=6v_BDHIgOY8)
+[Kubecon2018 schedule talks](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/schedule/)
 
 
 ### Openshift/Kubernetes templates:
