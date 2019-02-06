@@ -26,3 +26,32 @@ aws ec2 describe-security-groups \
     --filter  "Name=tag:ClusterStartedBy,Values=cathal.conroy" "Name=tag:aws:cloudformation:logical-id,Values=SecurityGroupEtcd" | jq -r '.SecurityGroups[]| [.GroupId,.VpcId,.Tags] '
 
 ```
+
+
+
+```
+aws ec2 describe-instances --region us-west-2 --filters="Name=tag:Name,Values=general" --output json| jq -r '.Reservations[].Instances[]| .InstanceId'
+
+```
+
+
+## Detach IAM managed policies from roles and delete them.
+```
+#!/bin/bash
+
+roles=$(aws iam list-roles --output text | grep ROLES| grep prod-env| awk -F" " '{print $6'})
+
+for role in $roles
+do
+    echo $role
+    policies=$(aws iam list-attached-role-policies --role-name $role  --output text | grep ATTACHEDPOLICIES | grep myenv- | awk -F" " '{print $2}')
+    for policy in $policies
+    do
+        echo "Role: $role, policY: $policy"
+        aws iam detach-role-policy --role-name $role --policy-arn $policy
+        sleep 1
+        aws iam delete-policy --policy-arn $policy
+    done
+done
+
+```
