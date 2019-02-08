@@ -15,9 +15,9 @@ kubectl get pods \
 
 ## Get volume id for a PVC attached to a POD:
 ```
-kubectl get pods esbi-0 -o jsonpath="{.metadata.name}: {range .spec.volumes[*]}  {.persistentVolumeClaim} {'\n'}{end}" | grep claimName
-kubectl get pvc esbivol-esbi-0 -o jsonpath="{.spec.volumeName} {'\n'}"
-kubectl get pv pvc-a5118d79-2592-11e9-8e5e-022184c7e3d4  -o jsonpath="{.spec.awsElasticBlockStore.volumeID} {'\n'}"
+kubectl get pods dummy-0 -o jsonpath="{.metadata.name}: {range .spec.volumes[*]}  {.persistentVolumeClaim} {'\n'}{end}" | grep claimName
+kubectl get pvc dummyvol-dum-0 -o jsonpath="{.spec.volumeName} {'\n'}"
+kubectl get pv pvc-axxxxe5e-0xxxx22184c7e3d4  -o jsonpath="{.spec.awsElasticBlockStore.volumeID} {'\n'}"
 
 ```
 
