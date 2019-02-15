@@ -3,6 +3,8 @@ MAINTAINER bdastur@gmail.com
 
 USER root
 
+RUN groupadd -g 4111 brd && useradd -u 2111 -g 4111 brd 
+
 ############################################################
 # Add Tini
 # https://github.com/krallin/tini
@@ -21,4 +23,23 @@ RUN yum install -y glibc-common \
     unzip git jq && \
     yum clean all
 
+ENV GOPATH "$HOME/projects"
+ENV GOBIN "$GOPATH/bin"
+ENV PATH=$PATH:$GOBIN:/usr/local/go/bin
 
+RUN mkdir -p ~/projects/{bin,pkg,src}
+
+
+RUN wget https://dl.google.com/go/go1.11.5.linux-amd64.tar.gz
+RUN tar -C /usr/local -xzf go1.11.5.linux-amd64.tar.gz
+
+#RUN wget https://github.com/golang/dep/releases/download/v0.5.0/dep-linux-amd64 -o dep && chmod +x dep
+RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh -o install.sh
+RUN bash install.sh
+
+RUN wget https://github.com/Masterminds/glide/releases/download/v0.13.2/glide-v0.13.2-linux-amd64.tar.gz
+
+
+RUN go get "github.com/fzipp/gocyclo" && \
+    go get -u "golang.org/x/lint/golint" && \
+    go get "github.com/client9/misspell/cmd/misspell"
