@@ -27,8 +27,8 @@ deps:
 		-e GLIDE_HOME=/go/src/$(PKG)/.glide"                               \
 		-e GOPATH=/go"                                                     \
 		-w go/src/$(PKG)                                                   \
-		--entrypointt /usr/local/bin/dep                                     \
-		$(BUILD_IMAGE)                                                      \
+		--entrypoint /usr/local/bin/dep                                     \
+		gobuildagent:0.1                                                      \
 		ensure
 
 

@@ -34,6 +34,16 @@ aws ec2 describe-instances --region us-west-2 --filters="Name=tag:Name,Values=ge
 
 ```
 
+*describe tags. Filter by resource-id*
+```
+aws ec2 describe-tags --filters="Name=resource-id, Values=vpc-016c3b71964c31ec1" --profile workdayscylladev1 
+```
+
+*describe tags. Filter by tag:Name*
+```
+$ aws ec2 describe-tags --filters="Name=tag:Name, Values=cathal28124" --profile workdayscylladev1 
+```
+
 
 ## Detach IAM managed policies from roles and delete them.
 ```
