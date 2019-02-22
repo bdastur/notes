@@ -7,6 +7,7 @@
 **links:**
 http://xael.org/pages/python-nmap-en.html
 
+
 ```
 apt-get install nmap
 pip install python-nmap
@@ -25,6 +26,8 @@ nm['10.10.10.6']
 ### Links:
 * https://www.logilab.org/blogentry/6883
 * https://docs.pytest.org/en/latest/index.html
+* https://github.com/vinta/awesome-python
+* https://awesome-python.com/
 
 Python profiling:
 * https://github.com/benfred/py-spy
