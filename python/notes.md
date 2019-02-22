@@ -28,6 +28,8 @@ nm['10.10.10.6']
 * https://docs.pytest.org/en/latest/index.html
 * https://github.com/vinta/awesome-python
 * https://awesome-python.com/
+* https://www.codementor.io/sumit12dec/python-tricks-for-beginners-du107t193
+
 
 Python profiling:
 * https://github.com/benfred/py-spy
