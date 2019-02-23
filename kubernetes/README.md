@@ -21,6 +21,8 @@ docker push $REGISTRY/alpine:0.1
 
 [Almighty-pause-container](https://www.ianlewis.org/en/almighty-pause-container)
 [What are Kubernetes Pods](https://www.ianlewis.org/en/what-are-kubernetes-pods-anyway)
+[Deep Dive into Kubeernetes controllers](https://engineering.bitnami.com/articles/a-deep-dive-into-kubernetes-controllers.html)
+
 
 ### Useful tools and projects:
 [Python client library for Kubernetes](https://github.com/kelproject/pykube)

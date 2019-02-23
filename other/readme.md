@@ -2,6 +2,7 @@
 
 [Application container security](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf)
 [Automatically get Docker security vulnerabilities posted to slack channel](http://rprakashg.io/blog/posts/post-docker-security-updates-to-slack/)
+[Kwalify is a parser, schema validator for yaml](http://www.kuwata-lab.com/kwalify/)
 
 
 
@@ -25,5 +26,4 @@ followed by control-Z suspends the connection;
 and followed by itself sends the escape character once. 
 Setting the character to ''none'' disables any escapes and makes the session fully transparent.
 ```
-
 
