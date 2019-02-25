@@ -29,7 +29,7 @@ nm['10.10.10.6']
 * https://github.com/vinta/awesome-python
 * https://awesome-python.com/
 * https://www.codementor.io/sumit12dec/python-tricks-for-beginners-du107t193
-
+* https://boltons.readthedocs.io/en/latest/
 
 Python profiling:
 * https://github.com/benfred/py-spy
