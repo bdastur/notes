@@ -3,7 +3,7 @@
 [Application container security](http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-190.pdf)
 [Automatically get Docker security vulnerabilities posted to slack channel](http://rprakashg.io/blog/posts/post-docker-security-updates-to-slack/)
 [Kwalify is a parser, schema validator for yaml](http://www.kuwata-lab.com/kwalify/)
-
+[Useful tmux config and other dot files](https://github.com/alghanmi/dotfiles/blob/master/.tmux.conf)
 
 
 # Linux tips:
