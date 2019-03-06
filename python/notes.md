@@ -177,3 +177,13 @@ print ldap_conn.entries[0].entry_to_json()
 
 **links:**
 http://brython.info/tests/console.html?lang=en
+
+
+## Installing Python3 and virtal env with Python3.
+
+```
+brew install python3
+python3 -m venv ~/pyenv/py3env
+source ~/pyenv/py3env/bin/activate
+
+```
