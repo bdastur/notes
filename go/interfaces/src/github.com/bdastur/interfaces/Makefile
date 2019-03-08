@@ -2,7 +2,7 @@ build:
 	go build -o bin/main src/github.com/bdastur/main/main.go
 
 
-BUILD_USER := 2111 
+BUILD_USER := 2111
 BUILD_GROUP := 4111
 
 ARCH := amd64
@@ -26,8 +26,8 @@ deps:
 		-v "$$(pwd)/.go/std/$(ARCH):/usr/local/go/pkg/linux_$(ARCH)_static" \
 		-e GLIDE_HOME=/go/src/$(PKG)/.glide"                               \
 		-e GOPATH=/go"                                                     \
-		-w go/src/$(PKG)                                                   \
-		--entrypoint /usr/local/bin/dep                                     \
+		-w /go/src/$(PKG)                                                   \
+		--entrypoint /projects/bin/dep                                     \
 		gobuildagent:0.1                                                      \
 		ensure
 
