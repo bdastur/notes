@@ -23,11 +23,13 @@ RUN yum install -y glibc-common \
     unzip git jq && \
     yum clean all
 
-ENV GOPATH "$HOME/projects"
-ENV GOBIN "$GOPATH/bin"
-ENV PATH=$PATH:$GOBIN:/usr/local/go/bin
+RUN mkdir -p /projects/{bin,pkg,src}
+RUN chmod -R 777 /projects/{bin,pkg,src}
 
-RUN mkdir -p ~/projects/{bin,pkg,src}
+ENV GOPROJPATH "$HOME/projects"
+ENV GOPATH "/go"
+ENV GOBIN "$GOPROJPATH/bin"
+ENV PATH=$PATH:$GOBIN:/usr/local/go/bin
 
 
 RUN wget https://dl.google.com/go/go1.11.5.linux-amd64.tar.gz
