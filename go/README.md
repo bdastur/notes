@@ -2,6 +2,10 @@
 
 ## Directory Layout.
 
+NOTE: Always create a new directory inside $GOPATH/src, when starting a Go project.
+* https://github.com/alco/gostart
+
+
 ```
 GOPATH=$(HOME)/CODE/ws_1
 

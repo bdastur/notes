@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"internal/measure"
+)
 
 func main() {
 	fmt.Println("vim-go")
+	measure.Measure()
 }
