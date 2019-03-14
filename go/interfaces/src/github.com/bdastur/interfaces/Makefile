@@ -1,19 +1,17 @@
-build: 
-	go build -o bin/main src/github.com/bdastur/main/main.go
-
-
 BUILD_USER := 2111
 BUILD_GROUP := 4111
 
 ARCH := amd64
 OS := $(shell uname -s | tr A-Z a-z)
-PKG := github.com/bdastur
+GOOS := $(OS)
+#PKG := github.com/bdastur
+PKG := $(shell echo $$PKG)
 
 BUILD_IMAGE ?= gobuildagent:0.1
 
 
 
-deps:
+deps: print-params
 	# dep ensure && dep prune
 	@echo "fetching deps: $@"
 	@docker run                                                             \
@@ -72,8 +70,8 @@ cyclo: vet
 
 
 
-build:
-	@echo "Building go code"
+build: print-params
+	@echo "Building go code $(PKG) $(BUILD_USER)"
 	@docker run   															\
 		-t              												    \
 		--rm                                                               \
@@ -90,4 +88,13 @@ build:
         --entrypoint /usr/local/go/bin/go                                   \
         $(BUILD_IMAGE)                                                      \
         build -o ./mainbin main/main.go
+
+
+print-params:
+	@echo "======================================="
+	@echo "Go make - build/lint/cyclomatic complexity"
+	@echo "Package: $(PKG)"
+	@echo "Build User: $(BUILD_USER):$(BUILD_GROUP)"
+	@echo "GO OS: $(GOOS)"
+	@echo "======================================="
 

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"internal/measure"
+	"github.com/bdastur/interfaces/internal/measure"
 )
 
 func main() {
