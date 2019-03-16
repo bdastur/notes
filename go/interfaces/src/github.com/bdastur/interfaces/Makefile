@@ -4,7 +4,6 @@ BUILD_GROUP := 4111
 ARCH := amd64
 OS := $(shell uname -s | tr A-Z a-z)
 GOOS := $(OS)
-#PKG := github.com/bdastur
 PKG := $(shell echo $$PKG)
 
 BUILD_IMAGE ?= gobuildagent:0.1
@@ -93,7 +92,7 @@ build: print-params
 print-params:
 	@echo "======================================="
 	@echo "Go make - build/lint/cyclomatic complexity"
-	@echo "Package: $(PKG)"
+	@echo "PKG: $(PKG)"
 	@echo "Build User: $(BUILD_USER):$(BUILD_GROUP)"
 	@echo "GO OS: $(GOOS)"
 	@echo "======================================="

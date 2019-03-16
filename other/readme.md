@@ -27,3 +27,12 @@ and followed by itself sends the escape character once.
 Setting the character to ''none'' disables any escapes and makes the session fully transparent.
 ```
 
+OOM Killer:
+https://www.oracle.com/technetwork/articles/servers-storage-dev/oom-killer-1911807.html
+
+OOM refers to a computing state where all available memory, including swap space, has been
+allocated. Normally this will cause the system to panic and stop functioning as expected. There
+is a switch that controls OOM behavior in /proc/sys/vm/panic_on_oom. When set to 1, the kernel
+will panic on OOM. A setting of 0 instructs the kerneel to call a function named oom_killer on an
+OOM. Usually OOM Killer will kill rogue processes to let the system survive.
+
