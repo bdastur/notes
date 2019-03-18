@@ -3,32 +3,56 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"strconv"
 	"time"
 )
 
 func main() {
-	a := 1
-	b := 2
+	a := 5
+	b := 5
+	threadCount := 30
+
+	rand.Seed(time.Now().UTC().UnixNano())
 
 	fmt.Println("Main Go!")
 
-	result := make(chan int, 2)
+	result := make(chan string, 1)
 
-	go calculate(a, b, result)
-	b = <-result
+	for i := 0; i < threadCount; i++ {
+		go calculateProduct(a, b, i, result)
+	}
 
-	a = b * b
+	for i := 0; i < threadCount; i++ {
+		val := <-result
+		fmt.Printf("[%d] Prod val: [%s] \n", i, val)
+	}
+
+	go calculateSum(a, b, 1, result)
+	val := <-result
+
+	fmt.Println("Prod result: ", val)
+	fmt.Println("Sum result: ", val)
+
 	fmt.Println("This is in main")
 	//fmt.Scanln()
 	fmt.Println("Done")
 	fmt.Printf("a = %d, b = %d \n", a, b)
 }
 
-func calculate(a int, b int, result chan<- int) {
-	fmt.Println("Calculate - go routine")
-	sleepDuration := time.Duration(rand.Intn(10))
-	fmt.Println("Sleep Duration: ", sleepDuration)
+func calculateProduct(a int, b int, idx int, result chan<- string) {
+	fmt.Printf("Calculate Product - go routine [%d]\n", idx)
+	sleepDuration := time.Duration(rand.Intn(10)) * time.Second
 
-	time.Sleep(time.Duration(rand.Intn(10)) * time.Second)
-	result <- (a * b)
+	time.Sleep(sleepDuration)
+	resval := "idx: " + strconv.Itoa(idx) + " prod: " + strconv.Itoa(a*b*idx)
+	result <- resval
+}
+
+func calculateSum(a int, b int, idx int, result chan<- string) {
+	fmt.Println("Calculate Sum - go routine")
+	sleepDuration := time.Duration(rand.Intn(5)) * time.Second
+	time.Sleep(sleepDuration)
+
+	resval := "idx: " + strconv.Itoa(idx) + " sum: " + strconv.Itoa(a+b+idx)
+	result <- resval
 }
