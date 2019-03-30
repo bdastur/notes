@@ -30,6 +30,7 @@ nm['10.10.10.6']
 * https://awesome-python.com/
 * https://www.codementor.io/sumit12dec/python-tricks-for-beginners-du107t193
 * https://boltons.readthedocs.io/en/latest/
+* [Python web hosting](https://www.pythonanywhere.com/)
 
 Python profiling:
 * https://github.com/benfred/py-spy
