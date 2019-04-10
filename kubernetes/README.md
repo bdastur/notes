@@ -33,6 +33,10 @@ docker push $REGISTRY/alpine:0.1
 [Kubernetes operator to automate helm, daemonset, SS & Deployment updates](https://github.com/keel-hq/keel)
 [Multi pod logging for kubernetes](https://github.com/wercker/stern)
 [Multi pod logging for kubernetes - but this one is a simple bash script](https://github.com/johanhaleby/kubetail)
+https://github.com/karmab/samplecontroller
+https://blog.openshift.com/writing-custom-controller-python/
+https://github.com/bazelbuild/rules_k8s
+https://github.com/kubernetes-client/python
 
 ### Talks and Other links:
 [Container networking from scratch](https://www.youtube.com/watch?v=6v_BDHIgOY8)
@@ -720,4 +724,20 @@ subjects:
 [Getting started with a chart template](https://docs.helm.sh/chart_template_guide/#getting-started-with-a-chart-template)
 
 
+## Minikube:
 
+### starting minikube:
+```
+#!/bin/bash
+
+echo "Starting minikube"
+MEMORY="1024"
+CPU="1"
+KUBE_VERSION="v1.10.0"
+VMDRIVER="virtualbox"
+
+minikube start --memory=$MEMORY --cpus=$CPU --kubernetes-version=$KUBE_VERSION \
+    --extra-config=controller-manager.cluster-signing-cert-file="/var/lib/localkube/certs/ca.crt" \
+    --extra-config=controller-manager.cluster-signing-key-file="/var/lib/localkube/certs/ca.key" \
+    --vm-driver=`$VMDRIVER`
+```
