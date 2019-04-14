@@ -20,3 +20,23 @@ http://holderjs.com/
 * [Website prototype tool](https://www.justinmind.com/examples)
 * [prototyping tools](https://www.shopify.com/partners/blog/62745923-5-of-the-best-prototyping-tools-to-test-out-your-web-and-mobile-designs)
 
+
+
+## Bootstrap 3:
+
+### Containers:
+Bootstrap requires a containing element to wrap site contents and house the grid system.
+Two container types:
+```
+<div class="container">
+</div>
+```
+
+```
+<div class="container-fluid">
+</div>
+```
+
+Note: Containers cannot be nested.
+
+
