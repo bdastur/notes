@@ -1,0 +1,137 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../thirdparty/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+		<style type="text/css">
+			.row > div{
+		        margin-bottom: 15px;
+		    }
+			.header{
+		        min-height: 90px;
+		    }
+		    .footer{
+		        min-height: 60px;
+		    }
+		    .header, .footer{
+		        background: #2f2f2f;
+		    }
+		    .content{
+		        background: #b4bac0;
+		        min-height: 300px;
+		    }
+		    .sidebar-top{
+		        min-height: 140px;
+		        background: #dbdfe7;
+		    }
+		    .sidebar-bottom{
+		        min-height: 145px;
+		        background: #7e8aa0;
+		        margin-bottom: -15px;
+		    }
+		    .sidebar {
+			    margin-top: 10px;
+			    min-height: 190px;
+			    background: #c09f9f;
+		    }
+		    .contentbar {
+			    margin-top: 10px;
+			    min-height: 190px;
+			    background: #d0b6f5;
+		    }
+		</style>
+	</head>
+	<body>
+	    <div class="container-fluid">
+		    <div id="app">
+		        {{ message }}
+		    </div>
+		    
+		    <div id="app2">
+		        <span v-bind:title="message">
+		        Hover your mouse over for a few seconds.
+		        </span>
+		    </div>	        
+		    
+		    <div id="app-3">
+			    <span v-if="seen">Now you see me</span>
+			</div>
+			
+			<!--  Comment!-->
+			<div id="app-4">
+				<ol>
+				    <li v-for="todo in todos">
+				      {{ todo.text }}
+				    </li>
+				</ol>
+		    </div>
+		    
+		    <div id="app-5">
+  			    <p>{{ message }}</p>
+			    <button v-on:click="reverseMessage">Reverse Message</button>
+			</div>
+		    
+		    <div id="app-6">
+			    <p>{{ message }}</p>
+			    <input v-model="message">
+			</div>
+		    
+		    
+        </div>
+		<script src="../thirdparty/jquery/jquery-3.3.1.min.js"></script>
+		<script src="../thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+		<script src="../thirdparty/vue/vue.js"></script>
+		<script src="holder/holder.js?v=1"></script>
+		<script>
+			var app = new Vue({
+              el: '#app',
+			  data: {
+			    message: 'Hello Vue!'
+			  }
+			})
+			
+			var app2 = new Vue({
+			  el: '#app2',
+			  data: {
+			    message: 'You loaded this page on ' + new Date().toLocaleString()
+			  }
+			})
+			
+			var app3 = new Vue({
+			  el: '#app-3',
+			  data: {
+			    seen: true
+			  }
+			})
+			
+			var app4 = new Vue({
+			  el: '#app-4',
+			  data: {
+			    todos: [
+			      { text: 'Learn JavaScript' },
+			      { text: 'Learn Vue' },
+			      { text: 'Build something awesome' }
+			    ]
+			  }
+			})
+			
+			var app5 = new Vue({
+			  el: '#app-5',
+			  data: {
+			    message: 'Hello Vue.js!'
+			  },
+			  methods: {
+			    reverseMessage: function () {
+			      this.message = this.message.split('').reverse().join('')
+			    }
+			  }
+			})
+			
+			var app6 = new Vue({
+			  el: '#app-6',
+			  data: {
+			    message: 'Hello Vue!'
+			  }
+			})
+			
+         </script>
+    </body>
+</html>
