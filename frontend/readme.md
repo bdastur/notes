@@ -16,6 +16,7 @@ http://holderjs.com/
 * [CSS Notes](https://github.com/bdastur/notes/tree/master/frontend/css.md)
 
 * [BackboneJS Book](https://addyosmani.com/backbone-fundamentals/#backbone-basics)
+* [BackboneJS templates](https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-grid-examples.php)
 * [Flask BackboneJS tutorial](http://simplectic.com/blog/2014/flask-todomvc-part1/)
 * [Website prototype tool](https://www.justinmind.com/examples)
 * [prototyping tools](https://www.shopify.com/partners/blog/62745923-5-of-the-best-prototyping-tools-to-test-out-your-web-and-mobile-designs)
