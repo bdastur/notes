@@ -21,6 +21,7 @@ http://holderjs.com/
 * [Website prototype tool](https://www.justinmind.com/examples)
 * [prototyping tools](https://www.shopify.com/partners/blog/62745923-5-of-the-best-prototyping-tools-to-test-out-your-web-and-mobile-designs)
 * [Vue.js](https://vuejs.org/v2/guide/index.html)
+* [Vue API Referencee](https://vuejs.org/v2/api/#Instance-Properties)
 
 
 
