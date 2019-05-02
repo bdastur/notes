@@ -41,23 +41,72 @@
 	</head>
 	<body>
 	    <div class="container-fluid">
-        <span id="app1">{{ visitCount }}</span>
+            <span id="app1">Visit count: {{ visitCount }}-{{ name }}</span>
+
+            <span id="app2">Name: {{ name }}</span>
+
+            <div id="app3">
+			    <p>Name: {{ name }}, Pin: {{ pin }}</p>
+	    		<input v-model="name">
+	    		<input v-model="pin">
+	    	</div>
 
         </div>
+
 		<script src="../thirdparty/jquery/jquery-3.3.1.min.js"></script>
 		<script src="../thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 		<script src="../thirdparty/vue/vue.js"></script>
 		<script src="holder/holder.js?v=1"></script>
 		<script>
+			var obj = {
+				visitCount: "foo",
+				name: "dummy"
+			}
 			var val = {a: 1}
 
 			var vm = new Vue({
 				el: "#app1",
-				data: {
-					visitCount: val
+				data: obj,
+				beforeCreate: function() {
+					console.log("Before Create!")
+				},
+				created: function() {
+					// 'this' points to the vm instance.
+					console.log("Created. VisitCount: " + this.visitCount + " " + this.name)
+				},
+				beforeMount: function() {
+					console.log("Before Mount")
+				},
+				mounted: function() {
+					console.log("mounted")
+				},
+				beforeDestroy: function() {
+					console.log("Before destroy!")
+				},
+				destroyed: function() {
+					console.log("destroyed!")
 				}
 			})
 
+			var vm2 = new Vue({
+				el: "#app2",
+				data: {
+					name: 'app2dummy'
+				}
+			})
+
+			var vm3 = new Vue({
+				el: "#app3",
+				data: {
+					name: 'app3dummy',
+					age: 43,
+					pin: 4344
+				}
+			})
+			vm2.$data.name = vm3.$data.name
+
+
+            vm.$destroy()
 
          </script>
     </body>
