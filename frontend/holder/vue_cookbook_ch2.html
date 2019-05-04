@@ -1,0 +1,166 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../thirdparty/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+		<style type="text/css">
+			.row > div{
+		        margin-bottom: 15px;
+		    }
+			.header{
+		        min-height: 90px;
+		    }
+		    .footer{
+		        min-height: 60px;
+		    }
+		    .header, .footer{
+		        background: #2f2f2f;
+		    }
+		    .content{
+		        background: #b4bac0;
+		        min-height: 300px;
+		    }
+		    .sidebar-top{
+		        min-height: 140px;
+		        background: #dbdfe7;
+		    }
+		    .sidebar-bottom{
+		        min-height: 145px;
+		        background: #7e8aa0;
+		        margin-bottom: -15px;
+		    }
+		    .sidebar {
+			    margin-top: 10px;
+			    min-height: 190px;
+			    background: #c09f9f;
+		    }
+		    .contentbar {
+			    margin-top: 10px;
+			    min-height: 190px;
+			    background: #d0b6f5;
+		    }
+		</style>
+	</head>
+	<body>
+	    <div class="container-fluid">
+		    <div id="app1">
+			  <h2>
+			  Dynamic and animated list
+			  </h2>
+			  <ul>
+			    <li v-for="n in countdown">{{ n }}</li>
+			    <li>{{ countdown.length == 10 ? 'launch missile' : '...'}}</li>
+			  </ul>
+			</div>
+
+			<br>
+			<div id="app2">
+			<h2>
+			Reacting to events.
+			</h2>
+			  <button v-on:click="toast">
+			  Toast Bread
+			  </button>
+			</div>
+
+			<br>
+			<div id="app3">
+			<h2>
+			Two-way data binding.
+			</h2>
+			  <button v-on:click="toast">
+			  Toast Bread
+			  </button>
+			  <input v-model="toastedBreads"/>
+			  Quantity to put in the oven: {{ toastedBreads }}
+			</div>
+
+			<br>
+			<div id="app4">
+			<h2>
+			More interactive worlds.
+			</h2>
+			  <ul>
+			    <li v-for="world,i in worlds">
+			    <button v-on:click="worlds.splice(i, 1, 'destroyed')">
+			        {{ world }} --> click to destroy</button>
+			    </li>
+			  </ul>
+			  <input v-model="newWorld"/>
+			  <button v-on:click="worlds.push(newWorld)">
+			  Discover
+			  </button>
+			</div>
+
+
+        </div>
+		<script src="../thirdparty/jquery/jquery-3.3.1.min.js"></script>
+		<script src="../thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+		<script src="../thirdparty/vue/vue.js"></script>
+		<script src="holder/holder.js?v=1"></script>
+		<script>
+			/*--------------------------------------------*/
+			var counter = 10;
+			 var index = 0;
+
+			 var vm = new Vue({
+			   el: "#app1",
+			   data: {
+			     countdown: []
+			   }
+			 })
+
+			 setInterval(function () {
+			   if (counter > 0) {
+			   /*
+			    * Note that we cannot do this. `vm.countdown[counter] = counter--`
+			    * The array will get updated, however this way of assignment
+			    * will skip Vue's reactive system due to how java script is implemented.
+			    */
+			     vm.countdown.push(counter--);
+			     if (index > 2) {
+			         vm.countdown.splice(index, 1, 'updated value');
+			     }
+			     index++;
+			   }
+			 }, 1000)
+
+			/*--------------------------------------------*/
+			new Vue({
+			  el: "#app2",
+			  methods:{
+			    toast() {
+			      alert('Toasted!')
+			    }
+			  }
+			})
+
+
+			/*--------------------------------------------*/
+			new Vue({
+			  el: "#app3",
+			  data: {
+			    toastedBreads: 0
+			  },
+			  methods:{
+			    toast() {
+			      this.toastedBreads++
+			    }
+			  }
+			})
+
+			/*--------------------------------------------*/
+			new Vue({
+			  el: "#app4",
+			  data: {
+			    worlds: ['Asgard', 'Earth', 'Vestra', 'Sebek'],
+			    newWorld: ""
+			  },
+			  methods:{
+			    toast() {
+			      alert('Toasted!')
+			    }
+			  }
+			})
+
+         </script>
+    </body>
+</html>
