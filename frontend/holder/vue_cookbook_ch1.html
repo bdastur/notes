@@ -41,77 +41,81 @@
 	</head>
 	<body>
 	    <div class="container-fluid">
-            <h3>App1</h3>
-            <span id="app1">Visit count: {{ visitCount }}-{{ name }}</span>
-
-            <h3>App2</h3>
-            <span id="app2">Name: {{ name }}</span>
-
-            <h3>app3</h3>
-            <div id="app3">
-			    <p>Name: {{ name }}, Pin: {{ pin }}</p>
-	    		<input v-model="name">
-	    		<input v-model="pin">
-	    	</div>
-
-
-
+		    <div id="app1">
+			   <h2>
+			      First example - simple
+			  </h2>
+			   Hello {{ 5 + 4 }} Worlds
+			   <p>
+			       Count: {{ countWorlds }}
+			   </p>
+			</div>
+			<br>
+			<div id="app2">
+			  <h2>
+			      Range of numbers
+			  </h2>
+			  <ul>
+			      <li v-for="n in countDown">Hello {{ n }}</li>
+			  </ul>
+			</div>
+			<br>
+			<div id="app3">
+			  <h2>
+			      Array with index notation.
+			  </h2>
+			  <ul>
+			      <li v-for="animal,idx in animals">{{ animal }} goes {{ sounds[idx] }} </li>
+			  </ul>
+			</div>
+			<br>
+			<div id="app4">
+			  <h2>
+			      Objects.
+			  </h2>
+			  <ul>
+			      <li v-for="sound,animal in animals">{{ animal }} goes {{ sound }} </li>
+			  </ul>
+			</div>
         </div>
-
 		<script src="../thirdparty/jquery/jquery-3.3.1.min.js"></script>
 		<script src="../thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 		<script src="../thirdparty/vue/vue.js"></script>
 		<script src="holder/holder.js?v=1"></script>
 		<script>
-			var obj = {
-				visitCount: "foo",
-				name: "dummy"
-			}
-			var val = {a: 1}
 
-			var vm = new Vue({
-				el: "#app1",
-				data: obj,
-				beforeCreate: function() {
-					console.log("Before Create!")
-				},
-				created: function() {
-					// 'this' points to the vm instance.
-					console.log("Created. VisitCount: " + this.visitCount + " " + this.name)
-				},
-				beforeMount: function() {
-					console.log("Before Mount")
-				},
-				mounted: function() {
-					console.log("mounted")
-				},
-				beforeDestroy: function() {
-					console.log("Before destroy!")
-				},
-				destroyed: function() {
-					console.log("destroyed!")
-				}
+			new Vue({
+			    el: "#app1",
+			    data: {
+			        countWorlds: 5 + 5
+			    }
 			})
 
-			var vm2 = new Vue({
-				el: "#app2",
-				data: {
-					name: 'app2dummy'
-				}
+			new Vue({
+			    el: "#app2",
+			    data: {
+			       countDown: [10, 9, 8, 7, 6, 5]
+			    }
 			})
 
-			var vm3 = new Vue({
-				el: "#app3",
-				data: {
-					name: 'app3dummy',
-					age: 43,
-					pin: 4344
-				}
+			new Vue({
+			    el: "#app3",
+			    data: {
+			        animals: ['dog', 'cat', 'cow'],
+			        sounds: ['woof', 'meow', 'moo']
+			    }
 			})
-			vm2.$data.name = vm3.$data.name
 
-
-            vm.$destroy()
+			new Vue({
+			    el: "#app4",
+			    data: {
+			        animals: {
+			            dog: "woof",
+			            cat: "meow",
+			            cow: "moo"
+			        }
+			    }
+			})
 
          </script>
     </body>
