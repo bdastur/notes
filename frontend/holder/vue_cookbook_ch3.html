@@ -1,0 +1,70 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../thirdparty/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+		<style type="text/css">
+			.row > div{
+		        margin-bottom: 15px;
+		    }
+			.header{
+		        min-height: 90px;
+		    }
+		    .footer{
+		        min-height: 60px;
+		    }
+		    .header, .footer{
+		        background: #2f2f2f;
+		    }
+		    .content{
+		        background: #b4bac0;
+		        min-height: 300px;
+		    }
+		    .sidebar-top{
+		        min-height: 140px;
+		        background: #dbdfe7;
+		    }
+		    .sidebar-bottom{
+		        min-height: 145px;
+		        background: #7e8aa0;
+		        margin-bottom: -15px;
+		    }
+		    .sidebar {
+			    margin-top: 10px;
+			    min-height: 190px;
+			    background: #c09f9f;
+		    }
+		    .contentbar {
+			    margin-top: 10px;
+			    min-height: 190px;
+			    background: #d0b6f5;
+		    }
+		</style>
+	</head>
+	<body>
+	    <div class="container-fluid">
+          <div id="app1">
+            {{ 'hello' | capitalize }}
+          </div>
+
+        </div>
+		<script src="../thirdparty/jquery/jquery-3.3.1.min.js"></script>
+		<script src="../thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+		<script src="../thirdparty/vue/vue.js"></script>
+		<script src="holder/holder.js?v=1"></script>
+		<script>
+
+			/* Creating a new Vue filter. Define a filter before instantiation
+		     * of a Vue instance, otherwise Vue will not find it.
+		     */
+			Vue.filter('capitalize', function(string) {
+				var capitalFirst = string.charAt(0).toUpperCase()
+				var noCasetail = string.slice(1, string.length)
+				return capitalFirst + noCasetail
+			})
+
+			new Vue({
+				el: "#app1"
+
+			})
+         </script>
+    </body>
+</html>
