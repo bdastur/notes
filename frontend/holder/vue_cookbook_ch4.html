@@ -1,0 +1,207 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../thirdparty/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+		<style type="text/css">
+			.row > div{
+		        margin-bottom: 15px;
+		    }
+			.header{
+		        min-height: 90px;
+		    }
+		    .footer{
+		        min-height: 60px;
+		    }
+		    .header, .footer{
+		        background: #2f2f2f;
+		    }
+		    .content{
+		        background: #b4bac0;
+		        min-height: 300px;
+		    }
+		    .sidebar-top{
+		        min-height: 140px;
+		        background: #dbdfe7;
+		    }
+		    .sidebar-bottom{
+		        min-height: 145px;
+		        background: #7e8aa0;
+		        margin-bottom: -15px;
+		    }
+		    .sidebar {
+			    margin-top: 10px;
+			    min-height: 190px;
+			    background: #c09f9f;
+		    }
+		    .contentbar {
+			    margin-top: 10px;
+			    min-height: 190px;
+			    background: #d0b6f5;
+		    }
+		</style>
+	</head>
+	<body>
+	    <div class="container-fluid">
+            <div id="app1">
+                cat object: {{ cat }}, {{ cat.sound }}
+            </div>
+            <br>
+			<div id="app2">
+			    <h2>
+    			Computed property.
+	    		</h2>
+		    	<input type="text" v-model="name" />
+		    	<input type="text" id="surname" value="Snow" />
+    			<button v-on:click="saveSurname">
+	    		Save Surname
+		    	</button>
+			    <output>{{ computedFullName }}</output>
+		    </div>
+            <br>
+		    <div id="app3">
+			    <h2>
+	    		Computed setters.
+		    	</h2>
+	     		<label>Legs: <input v-model="legCount" type="range"></label><br>
+	    		<label>Tops: <input v-on:input="update" :value="tableCount"></label><br>
+	    		<output>
+		    	  We are going to build {{ legCount }} legs
+			      and asssemble {{ tableCount }} tables.
+			    </output>
+		    </div>
+		    <br>
+		    <div id="app4">
+		        <h2>
+			        Filtering a list with a computed property
+		        </h2>
+		        <ul>
+			        <li v-for="experiment in experiments">
+			            <span>{{ experiment.name }}</span>
+			            <span>{{ experiment.field }}</span>
+			        </li>
+		        </ul>
+                <h4>
+	                Filter non physics experiments
+                </h4>
+                <ul>
+			        <li v-for="experiment in nonPhysics">
+			            <span>{{ experiment.name }}</span>
+			            <span>{{ experiment.field }}</span>
+			        </li>
+		        </ul>
+		        <h4>
+			        Take filter as input
+		        </h4>
+		        <label>Filter by: </label><input v-model="field"/>
+		        <label>Cost: <input v-model="cost" data-slider-orientation="vertical"
+		          type="range" min="0" max="500000" step="1"></label><br>
+		        <li v-for="experiment in dynamicFilter">
+		            {{ experiment.name }} {{ experiment.field }}
+		        </li>
+		        <b>
+		    </div>
+        </div>
+		<script src="../thirdparty/jquery/jquery-3.3.1.min.js"></script>
+		<script src="../thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+		<script src="../thirdparty/vue/vue.js"></script>
+		<script src="holder/holder.js?v=1"></script>
+		<script>
+			new Vue({
+				el: "#app1",
+                data: {
+	                cat: {
+		                sound: 'meow'
+	                }
+                }
+			})
+
+			/*----------------------------------*/
+			/*
+			 * An example that shows a reactive variable 'name' and
+			 * surname that is external to the Vue instance. In this example you
+			 * will notice that when you change the surname in the textbox and click
+			 * saveSurname button the computed name will not show any change. However
+			 * If you update name, you will see that both the new name and the saved Surname
+			 * will be shown. So we see that the surname variable infact is changed but
+			 * the effect is now shown in your html.
+			 */
+			let surname = "Snow"
+			new Vue({
+			  el: "#app2",
+			  data: {
+			    name: "John"
+			  },
+			  computed: {
+			    computedFullName () {
+			      return this.name + " " + surname
+			    }
+			  },
+			  methods: {
+			    saveSurname () {
+			      surname = this.$el.querySelector('#surname').value
+			    }
+			  }
+			})
+			/*----------------------------------*/
+            /* app3 */
+            new Vue({
+	            el: "#app3",
+	            data: {
+		            legCount: 0
+	            },
+	            computed: {
+		            tableCount: {
+			            get() {
+				            return this.legCount / 4
+			            },
+			            set (newValue) {
+				            this.legCount = newValue * 4
+			            }
+		            }
+	            },
+	            methods: {
+		            update (e) {
+			            console.log("update " + e)
+			            this.tableCount = e.target.value
+		            }
+	            }
+            })
+            /*----------------------------------*/
+			            /* app3 */
+            new Vue({
+	            el: "#app4",
+	            data: {
+		            field: '',
+		            cost: 0,
+		            experiments: [
+			            {name: 'Ion Colider', cost: 500, field: 'physics'},
+			            {name: 'Fuel consmption', cost: 320, field: 'mechanics'},
+			            {name: 'Dynamic battery converter', cost: 5300, field: 'electromagnets'},
+			            {name: 'Partical accelaration', cost: 54500, field: 'physics'},
+			            {name: 'Systemic AIR filter', cost: 5400, field: 'physics'},
+			            {name: 'Identifying WBC count', cost: 3500, field: 'Biology'}
+		            ]
+	            },
+	            computed: {
+		            nonPhysics () {
+			            return this.experiments.filter(exp => exp.field != 'physics')
+		            },
+		            dynamicFilter () {
+			            var filteredList = [];
+			            for (var exp of this.experiments) {
+				            console.log("exp: " + exp.name + " " +
+				            exp.cost + "/" + this.cost)
+				            if (exp.field == this.field && exp.cost <= this.cost) {
+					            console.log("YAY. exp is good: " + exp)
+					            filteredList.push(exp)
+				            }
+			            }
+			            //return this.experiments.filter(exp => exp.field == this.field)
+		                return filteredList
+		            }
+	            }
+            })
+
+
+         </script>
+    </body>
+</html>
