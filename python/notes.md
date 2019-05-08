@@ -35,8 +35,9 @@ nm['10.10.10.6']
 Python profiling:
 * https://github.com/benfred/py-spy
 
-Python formatting:
+Python tools:
 * https://github.com/python/black/
+* [Yaml validator](https://github.com/23andMe/Yamale)
 
 ### command sample:
 
