@@ -35,6 +35,9 @@ nm['10.10.10.6']
 Python profiling:
 * https://github.com/benfred/py-spy
 
+Python formatting:
+* https://github.com/python/black/
+
 ### command sample:
 
 help
