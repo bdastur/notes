@@ -1,4 +1,5 @@
-# AWS Notes:
+
+ AWS Notes:
 
 
 ## Identity and Authorization (IAM):
@@ -2572,6 +2573,7 @@ THis is a second line in the document.
 ## Trusted Advisor:
 * Trusted Advisor provides 4 checks at no cost:
 **Cost optimization**
+[AWS Cost Optimization Playbook](https://d1.awsstatic.com/pricing/AWS_CO_Playbook_Final.pdf)
 
 **Security**
 
@@ -2600,6 +2602,11 @@ THis is a second line in the document.
   * Troubleshooting
   * Security and Incident analysis
 
+
+## AWS WAF (web application firewall)
+* AWS WAF lets you monitor the HTTP and HTTPS requests that are forwarded to
+  API gateway, Cloudfront or ALB.
+* It also lets you control access to your content.
 
 
 
