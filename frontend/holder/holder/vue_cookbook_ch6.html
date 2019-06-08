@@ -1,0 +1,126 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="../thirdparty/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+		<style type="text/css">
+			.row > div{
+		        margin-bottom: 15px;
+		    }
+			.header{
+		        min-height: 90px;
+		    }
+		    .footer{
+		        min-height: 60px;
+		    }
+		    .header, .footer{
+		        background: #2f2f2f;
+		    }
+		    .content{
+		        background: #b4bac0;
+		        min-height: 300px;
+		    }
+		    .sidebar-top{
+		        min-height: 140px;
+		        background: #dbdfe7;
+		    }
+		    .sidebar-bottom{
+		        min-height: 145px;
+		        background: #7e8aa0;
+		        margin-bottom: -15px;
+		    }
+		    .sidebar {
+			    margin-top: 10px;
+			    min-height: 190px;
+			    background: #c09f9f;
+		    }
+		    .contentbar {
+			    margin-top: 10px;
+			    min-height: 190px;
+			    background: #d0b6f5;
+		    }
+		    .ascending {
+			    content: "25B2";
+			    color: blue;
+		    }
+		    .descending {
+			    content: "25Bc";
+			    color: red;
+			    font-size: 14px;
+		    }
+		</style>
+	</head>
+	<body>
+	    <div class="container-fluid">
+		    <div id="app1">
+		        <table>
+			        <thead>
+				        <tr>
+					        <th>Name</th>
+					        <th>Country</th>
+					        <th v-bind:class="order == 1 ? `ascending`: `descending`"
+						        v-on:click="sort">Electricity</th>
+				        </tr>
+			        </thead>
+			        <tbody>
+				        <tr v-for="dam in sortByElectricity">
+				            <td>{{ dam.name }}</td>
+				            <td>{{ dam.country }}</td>
+				            <td>{{ dam.electricity }}</td>
+				        </tr>
+			        </tbody>
+
+		        </table>
+		    </div>
+		    <div id="app2">
+		        <div v-show="isNight">
+		            I am a ghost!
+		        </div>
+		        <div v-show="isNightComputed">
+			        I am a computed ghost!
+		        </div>
+		    </div>
+        </div>
+		<script src="../thirdparty/jquery/jquery-3.3.1.min.js"></script>
+		<script src="../thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+		<script src="../thirdparty/vue/vue.js"></script>
+		<script src="holder/holder.js?v=1"></script>
+		<script>
+		    new Vue({
+			    el: "#app1",
+			    data: {
+				    order: 1,        //means ascending
+				    dams: [
+					    {name: 'Nurek dam', country: 'Tajikistan', electricity: 4333},
+					    {name: 'Hover dam', country: 'USA', electricity: 45000},
+					    {name: 'Guri dam', country: 'Venezuela', electricity: 40388}
+				    ]
+			    },
+			    computed: {
+				    sortByElectricity() {
+					    return this.dams.sort((d1, d2) => (d2.electricity - d1.electricity) * this.order)
+				    }
+			    },
+			    methods: {
+				    sort() {
+					    this.order = this.order * -1
+				    }
+			    }
+
+		    })
+
+		    new Vue({
+			    el: "#app2",
+			    data: {
+				    isNight: false
+			    },
+			    computed : {
+				    isNightComputed() {
+					    var hours = new Date().getHours();
+					    console.log("hours: " + hours);
+					    return(hours < 7)
+				    }
+			    }
+		    })
+
+         </script>
+    </body>
+</html>
