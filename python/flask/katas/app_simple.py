@@ -18,7 +18,7 @@ app = Flask(__name__)
 app_ctx = app.app_context()
 app_ctx.push()
 
-print "Current App: ", current_app.name
+print("Current App: ", current_app.name)
 
 
 ####################################################
@@ -27,24 +27,24 @@ print "Current App: ", current_app.name
 
 @app.before_first_request
 def handle_first_request_setup():
-    print "Before First request!"
+    print( "Before First request!")
 
 @app.before_request
 def handle_request_setup():
-    print "Before request!"
+    print("Before request!")
     g.user = "Behzad Dastur"
 
 
 
 @app.after_request
 def handle_after_request(response):
-    print "After request: ", response
+    print("After request: ", response)
     return response
 
 
 @app.teardown_request
 def handle_teardown_request(response):
-    print "Teardown request: "
+    print( "Teardown request: ")
     return
 
 
@@ -55,14 +55,14 @@ def handle_teardown_request(response):
 @app.route("/", methods=["GET"])
 @app.route("/test", methods=["GET"])
 def index_handler():
-    print "Index Handler!"
+    print("Index Handler!")
     return "Hello Flask! %s" % g.user
 
 
 # Dynamic routes
 @app.route("/user/<name>", methods=["GET"])
 def user_get_handler(name):
-    print "Name passed: ", name
+    print("Name passed: ", name)
     return "Hello %s" % name
 
 
@@ -73,7 +73,7 @@ def user_get_handler(name):
 @app.route("/requestobj")
 def requestobj_test_handler():
     user_agent = request.headers.get('User-Agent')
-    print "headers: ", request.headers.keys()
+    print("headers: ", request.headers.keys())
     return "User agent: %s" % user_agent
 
 
@@ -87,8 +87,8 @@ app.add_url_rule('/newrule', 'index', index_handler)
 #####################################################
 @app.route("/responses")
 def responses_handler():
-    print "Responses!"
-    response = make_response("<h2>This is a Responsee</h2>")
+    print("Responses!")
+    response = make_response("<h2>This is a Response</h2>")
     response.set_cookie('answer', '42')
     return response
 
@@ -98,7 +98,7 @@ def responses_handler():
 #####################################################
 @app.route("/redirect")
 def redirect_handler():
-    print "Redirect"
+    print("Redirect")
     return redirect("/")
 
 
@@ -107,7 +107,7 @@ def redirect_handler():
 #####################################################
 @app.route("/abort")
 def abort_handler():
-    print "Abort!"
+    print( "Abort!")
     abort(404, "This is an abort")
 
 

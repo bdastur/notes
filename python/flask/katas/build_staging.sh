@@ -12,7 +12,7 @@ fi
 
 # Create staging.
 APPNAME=$1
-STAGING_ROOT="/tmp/flask_kata/"
+STAGING_ROOT="/tmp/flask_kata"
 STAGING_STATIC="${STAGING_ROOT}/static"
 STAGING_TEMPLATES="${STAGING_ROOT}/templates"
 STAGING_THIRDPARTY="${STAGING_STATIC}/thirdparty"
