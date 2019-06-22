@@ -61,3 +61,57 @@ new Vue({
 		soundLevel: 0
 	}
 })
+
+
+/*
+ * Making components talk to each other.
+ */
+
+var line = 0
+
+Vue.component("blabber", {
+	template: "<p>{{ dialogue[currentLine]}}</p>",
+	data () {
+		return {
+			currentLine: 0,
+			dialogue: [
+				"hello",
+				"how are you?",
+				"fine thank-you."
+			]
+
+		}
+	},
+	mounted () {
+		setInterval(() => {
+			this.currentLine = line % this.dialogue.length
+			line += 1
+		}, 2000)
+
+	}
+})
+
+
+new Vue({
+	el: "#app4"
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
