@@ -2,7 +2,7 @@
   <head>
     <title>Flask Vue Example-1</title>
     <link href="static/thirdparty/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="static/css/style.css" rel="stylesheet">
     We are in block head. {% raw %}{{ hello }}{% endraw %}
   </head>
   <body>
@@ -36,11 +36,17 @@
 		        I am a computed ghost!
 	        </div>
 	    </div>
+	    <div id="app3">
+		    <h2>users:</h2>
+		    <p>{{ users }}</p>
+
+	    </div>
        </div>
        {% endraw %}
        <script src="static/thirdparty/jquery/jquery-3.3.1.min.js"></script>
 	<script src="static/thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 	<script src="static/thirdparty/vue/vue.js"></script>
+	<script src="static/thirdparty/axios/axios.min.js"></script>
 	<script src="static/thirdparty/holder/holder.js?v=1"></script>
 	<script src="static/js/vue_examples.js"></script>
   </body>
