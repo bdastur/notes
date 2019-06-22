@@ -33,6 +33,8 @@ docker push $REGISTRY/alpine:0.1
 [Kubernetes operator to automate helm, daemonset, SS & Deployment updates](https://github.com/keel-hq/keel)
 [Multi pod logging for kubernetes](https://github.com/wercker/stern)
 [Multi pod logging for kubernetes - but this one is a simple bash script](https://github.com/johanhaleby/kubetail)
+[Python framework to write Kubernetes Operators](https://github.com/zalando-incubator/kopf)
+
 https://github.com/karmab/samplecontroller
 https://blog.openshift.com/writing-custom-controller-python/
 https://github.com/bazelbuild/rules_k8s

@@ -7,8 +7,41 @@
   </head>
   <body>
     In Body!
-    {% block body %}
-     We are in block body.
-    {% endblock %}
+    {% raw %}
+    <div class="container-fluid">
+	    <div id="app1">
+	        <table>
+		        <thead>
+			        <tr>
+				        <th>Name</th>
+				        <th>Country</th>
+				        <th v-bind:class="order == 1 ? `ascending`: `descending`"
+					        v-on:click="sort">Electricity</th>
+			        </tr>
+		        </thead>
+		        <tbody>
+			        <tr v-for="dam in sortByElectricity">
+			            <td>{{ dam.name }}</td>
+			            <td>{{ dam.country }}</td>
+			            <td>{{ dam.electricity }}</td>
+			        </tr>
+		        </tbody>
+	        </table>
+	    </div>
+	    <div id="app2">
+	        <div v-show="isNight">
+	            I am a ghost!
+	        </div>
+	        <div v-show="isNightComputed">
+		        I am a computed ghost!
+	        </div>
+	    </div>
+       </div>
+       {% endraw %}
+       <script src="static/thirdparty/jquery/jquery-3.3.1.min.js"></script>
+	<script src="static/thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	<script src="static/thirdparty/vue/vue.js"></script>
+	<script src="static/thirdparty/holder/holder.js?v=1"></script>
+	<script src="static/js/vue_examples.js"></script>
   </body>
 </html>
