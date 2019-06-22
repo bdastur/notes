@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>Flask Vue Example-1</title>
+        <link href="static/thirdparty/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="static/css/style.css" rel="stylesheet">
+        We are in block head. {% raw %}{{ hello }}{% endraw %}
+    </head>
+    <body>
+        In Body!
+        {% raw %}
+        <div class="container-fluid">
+	        <div id="app1">
+	            <light-bulb></light-bulb>
+	            <light-bulb>test</light-bulb>
+	        </div>
+	        <div id="app2">
+		        <h2>App 2</h2>
+	            <light-bulb></light-bulb>
+	            <light-bulb>test</light-bulb>
+	        </div>
+	        <div id="app3">
+	            <label>Sound Level</label>
+	            <input type="number" v-model.number="soundLevel">
+	            <sound-icon :level="soundLevel"></sound-icon>
+	        </div>
+	    </div>
+        {% endraw %}
+        <script src="static/thirdparty/jquery/jquery-3.3.1.min.js"></script>
+	    <script src="static/thirdparty/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+	    <script src="static/thirdparty/vue/vue.js"></script>
+        <script src="static/thirdparty/axios/axios.min.js"></script>
+	    <script src="static/thirdparty/holder/holder.js?v=1"></script>
+	    <script src="static/thirdparty/chartjs/chartjs.min.js?v=1"></script>
+        <script src="static/thirdparty/chartjs/vue-chartjs.min.js?v=1"></script>
+	    <script src="static/js/vue_components.js"></script>
+    </body>
+</html>

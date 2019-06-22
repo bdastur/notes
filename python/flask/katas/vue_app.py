@@ -17,6 +17,7 @@ def index_handler():
     print("Vue App")
     return render_template("vue_base.html")
 
+
 @app.route("/users", methods=["GET"])
 def get_users_handler():
     print("Get Users")
@@ -29,6 +30,12 @@ def get_users_handler():
         }
     }
     return(jsonify(users))
+
+
+@app.route("/components", methods=["GET"])
+def components_handler():
+    print("Components")
+    return render_template("vue_component.html")
 
 
 def main():
