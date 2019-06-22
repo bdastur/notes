@@ -1,4 +1,10 @@
-body {
-    margin: 0 auto;
-    max-width: 10em;
-  }
+.ascending {
+    content: "25B2";
+    color: blue;
+}
+.descending {
+    content: "25Bc";
+    color: red;
+    font-size: 14px;
+}
+

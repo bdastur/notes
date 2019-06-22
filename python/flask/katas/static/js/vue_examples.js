@@ -20,3 +20,36 @@ new Vue({
     }
 })
 
+
+new Vue({
+    el: "#app2",
+    data: {
+	    isNight: false
+    },
+    computed : {
+	    isNightComputed() {
+		    var hours = new Date().getHours();
+		    console.log("hours: " + hours);
+		    return(hours < 7)
+	    }
+    }
+})
+
+new Vue({
+    el: "#app3",
+    data: {
+	    users: "... loading"
+    },
+    created () {
+	    axios.get("http://localhost:5000/users")
+	    .then(response => {
+		    console.log("ressponse" + response)
+		    this.users = response.data
+		    console.log("User: " + this.users['jake']['age'])
+	    })
+	    .catch(error => {
+		    console.log("Errror: " + error.message)
+		    this.users = "Therer was an errrorr in getting users" + error.message
+	    })
+    }
+})
