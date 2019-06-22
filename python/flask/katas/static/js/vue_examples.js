@@ -38,7 +38,13 @@ new Vue({
 new Vue({
     el: "#app3",
     data: {
-	    users: "... loading"
+	    users: "... loading",
+	    users1: ["rick", "pink", "Coors"],
+	    users2: {
+		    "rick": {
+			    "age": 43
+		    }
+	    }
     },
     created () {
 	    axios.get("http://localhost:5000/users")
@@ -51,5 +57,11 @@ new Vue({
 		    console.log("Errror: " + error.message)
 		    this.users = "Therer was an errrorr in getting users" + error.message
 	    })
+    },
+    computed: {
+	    getUsers() {
+		    console.log("GetUsers: " + this.users1)
+		    return this.users1
+	    }
     }
 })
