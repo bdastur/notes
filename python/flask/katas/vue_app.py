@@ -38,6 +38,21 @@ def components_handler():
     return render_template("vue_component.html")
 
 
+@app.route("/charts", methods=["GET"])
+def charts_handler():
+    print("Charts")
+    return render_template("charts_example.html")
+
+
+@app.route("/costs", methods=["GET"])
+def get_costs_handler():
+    print("Get Users")
+    cost = [32, 23, 21, 10, 9, 55]
+    return(jsonify(cost))
+
+
+
+
 def main():
     app.run(host="0.0.0.0", port=5000, debug=True)
 

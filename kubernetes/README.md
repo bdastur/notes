@@ -34,6 +34,8 @@ docker push $REGISTRY/alpine:0.1
 [Multi pod logging for kubernetes](https://github.com/wercker/stern)
 [Multi pod logging for kubernetes - but this one is a simple bash script](https://github.com/johanhaleby/kubetail)
 [Python framework to write Kubernetes Operators](https://github.com/zalando-incubator/kopf)
+[Kubernetes network policy recepies](https://github.com/ahmetb/kubernetes-network-policy-recipes)
+
 
 https://github.com/karmab/samplecontroller
 https://blog.openshift.com/writing-custom-controller-python/
