@@ -1,6 +1,9 @@
 
  AWS Notes:
 
+## Links:
+[AWS Learning Library](https://www.aws.training/LearningLibrary)
+
 
 ## Identity and Authorization (IAM):
 
