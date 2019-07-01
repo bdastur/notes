@@ -109,6 +109,11 @@ D2:
   latency and less jitter.
 * Enhanced networking is available only for instances launched in Amazon VPC.
 
+**Benchmarking**:
+[Tool for benchmarking EC2/S3 throughput](https://github.com/dvassallo/s3-benchmark)
+[EC2 instance connect](https://github.com/glassechidna/ec2connect)
+[EC2 instance connect - AWS documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html)
+
 
 ### AMIs
 * AMIs define the initial software that will be on an instance when launched.
