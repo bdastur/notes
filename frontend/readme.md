@@ -23,6 +23,7 @@ http://holderjs.com/
 * [Vue.js](https://vuejs.org/v2/guide/index.html)
 * [Vue API Referencee](https://vuejs.org/v2/api/#Instance-Properties)
 * [Web Events](https://developer.mozilla.org/en-US/docs/Web/Events)
+* [ionic framework](https://ionicframework.com/docs/v1/components/)
 
 
 
