@@ -3,6 +3,7 @@
 
 import sys
 import datetime
+import time
 import boto3
 import botocore
 
@@ -12,6 +13,7 @@ class CloudTrailHelper(object):
         # Use okta2aws role.
         session = boto3.Session(profile_name="okta2aws")
         sts_client = session.client('sts')
+        self.cl_client = None
         try:
             role_arn = "arn:aws:iam::" + account_id + ":role/" + role
             assumed_role_creds = sts_client.assume_role(RoleArn=role_arn, RoleSessionName="test")
@@ -40,10 +42,16 @@ class CloudTrailHelper(object):
             events_obj[event_name]['EventDetails'].append(event_detail)
 
     def lookup_events(self, start_time, end_time, event_source="iam.amazonaws.com"):
+        print("Lookup events: ", start_time, end_time)
+        if self.cl_client is None:
+            print("Boto client is not set!")
+            return
+
         next_token = None
         events_obj = {}
         lookup_attributes = [{'AttributeKey': 'EventSource', 'AttributeValue': event_source}]
         while True:
+            print(".", end="", flush=True)
             if next_token is None:
                 output = self.cl_client.lookup_events(
                         StartTime=start_time,
@@ -60,13 +68,18 @@ class CloudTrailHelper(object):
             self.parse_events(events_obj, output['Events'])
 
             if 'NextToken' in output:
-                print("Next token: ", output['NextToken'])
                 next_token = output['NextToken']
             else:
                 break
+        print("")
 
+        total_count = 0
+        print("{:^20} {:^18}".format("Events", "Count"))
+        print("-"*50)
         for event in events_obj:
-            print("Event: ", event, "   Count: ", events_obj[event]['Count'])
+            print("{:<30} {:>4}".format(event,events_obj[event]['Count']))
+            total_count += events_obj[event]['Count']
+        print("Total Count {:>30}".format(total_count))
 
 
 
@@ -87,8 +100,8 @@ def main():
     start_time = datetime.datetime(2019, 7, 8, 10, 9)
     end_time = datetime.datetime(2019, 7, 8, 10, 16)
     event_source = "iam.amazonaws.com"
-
     cloudtrail_helper.lookup_events(start_time, end_time, event_source=event_source)
+
 
 
 
