@@ -2194,6 +2194,36 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
   send log data to cloudwatch logs. Install it on an EC2 instance. It stays
   running until you disable it.
 * Cloudwatch metrics provide hypervisor visible metrics.
+* Services it can monitor:
+  * Compute
+    . Autoscaling groups, EC2, ELBs, Route53 health checks.
+  * Storage and Content Delivery
+    . EBS volumes, Storage gateways, CLoudfrront
+  * Databases and Analytics
+   . DynamoDB, Elasticache nodes, RDS instances, Elastic Mapreduce job flows, Redshift
+  * SNS, SQS, OpsWorks, Cloudwatch logs, Estimated AWS billing
+* By default it monitors Host level metrics.
+  - CPU
+  - Network
+  - Disk
+  - Status check.
+* Other things are custom metrics - like RAM utilization.
+### Cloudwatch Concepts:
+*Namespaces:* 
+* Is a container for cloudwatch metrics.
+* Metrics in different namespaces are isolated from each other.
+* There is no default namespace. You must specify a namespace for each 
+  data point you publish to cloudwatch.
+* Names must contain valid XML characters and must be < 265 characters in length. 
+*Metrics:*
+* Metrics are the fundamental concept in cloudwatch. It represents a time-ordered
+  set of data points that are published to cloudwatch.
+* Think of metrics as a variable to monitor, and data points as representing the values
+  of that variable over time.
+* Metrics exist in the region they were created.
+* Metrics cannot be deleted, but they automatically expire after 15 months if no new data
+  is published to them. Data points older than 15 months expirre on a rolling basis, as
+  new data points come in.
 
 
 ## Storage Gateway:
