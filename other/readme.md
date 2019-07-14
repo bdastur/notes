@@ -7,6 +7,7 @@
 [Open Sensus - OpenCensus is a single distribution of libraries that collect metrics and distributed traces from your services ](https://opencensus.io/)
 [A free certificate authority](https://letsencrypt.org/)
 [Everything curl - ebook](https://ec.haxx.se/)
+[Precommit hooks](https://github.com/pre-commit/pre-commit-hooks/tree/master/pre_commit_hooks)
 
 
 # Linux tips:
