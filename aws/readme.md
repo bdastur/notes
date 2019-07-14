@@ -2224,6 +2224,24 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 * Metrics cannot be deleted, but they automatically expire after 15 months if no new data
   is published to them. Data points older than 15 months expirre on a rolling basis, as
   new data points come in.
+*Timestamps:*
+* Each metric data point must be associated with a timestamp.
+* Timestamp can be 2 weeks in the past or upto two hours in the future. 
+* If you do not provide a timestamp, Cloudwatch creates it for you based on the time
+  the data point was received.
+*Metrics Retention:*
+* Data points with a period of < 60 secods are available for 3 hours. These are high
+  resolution custom metrics.
+* Data points with a period of 60 seconds (1 min) are available for 15 days
+* Data points with a period of 300 seconds (5 min) are available for 63 days
+* Data points with a period of 3600 seconds (1 hour) are available for 455 days (15 months)
+*Dimensions:*
+* A dimension is a name/value pair that is part of the identity of a metric.
+* You can assign upto 10 dimensions to a metric.
+* Cloudwatch treats each unique combination of dimensions as a separate metric, even if 
+  the metric have the same metric name.
+*Statistics:*
+
 
 
 ## Storage Gateway:
