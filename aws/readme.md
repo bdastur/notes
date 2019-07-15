@@ -3,6 +3,8 @@
 
 ## Links:
 [AWS Learning Library](https://www.aws.training/LearningLibrary)
+[E2connect - a way of authenticating SSh sessions using IAM](https://github.com/glassechidna/ec2connect)
+[S3 Benchmark](https://github.com/dvassallo/s3-benchmark)
 
 
 ## Identity and Authorization (IAM):
@@ -2835,6 +2837,28 @@ aws_secret_access_key = xxxxkduedo.....B+oelQ
 
 This way you do not maintain multiple api keys. The user can assume multiple roles,
 and you can use the same api credentials to access all roles.
+
+
+## AWS Limits:
+[Service limits](https://docs.aws.amazon.com/general/latest/gr/aws_service_limits.html)
+
+### Cloudwatch
+[limits](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_limits.html)
+
+### Cloudtrail
+[limits](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/WhatIsCloudTrail-Limits.html)
+
+## AWS Pricing
+[pricing](https://aws.amazon.com/pricing/)
+
+
+## AWS Offer file
+
+### AWS offer index file
+[AWS Price list api](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/price-changes.html)
+[offer index](https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/index.json)
+[EC2 offer file](https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonEC2/current/index.json)
+
 
 
 ## Boto3:
