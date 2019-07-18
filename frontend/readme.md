@@ -24,6 +24,8 @@ http://holderjs.com/
 * [Vue API Referencee](https://vuejs.org/v2/api/#Instance-Properties)
 * [Web Events](https://developer.mozilla.org/en-US/docs/Web/Events)
 * [ionic framework](https://ionicframework.com/docs/v1/components/)
+* [d3 tutorials](https://github.com/d3/d3/wiki/Tutorials)
+* [Google fonts](https://developers.google.com/fonts/docs/getting_started)
 
 
 
