@@ -41,6 +41,9 @@ Python tools:
 * [Google Cloud APIs with Python - slides](https://www.slideshare.net/slideshow/embed_code/147353536)
 * [Python keylogger](pip install pynput)
 * [Python web framework](https://falconframework.org/)
+* [pybuilder](https://pybuilder.github.io/)
+* [pyinstaller](https://www.pyinstaller.org/)
+
 
 ### command sample:
 
