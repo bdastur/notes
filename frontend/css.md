@@ -10,6 +10,41 @@ example:
 
 ```
 
+
+## CSS Box Model:
+All HTML elements can be considered as boxes. In CSS, the term "box modeel" is used
+when talking about design and layout.
+
+The CSS box model is essentially a box that wraps around every HTML element. It
+consist of: (Margin (Border (Padding (content)))).
+
++----------------------------------------+
+|                 Margin                 |
+| +------------------------------------+ |
+| |               Border               | |
+| |   +------------------------------+ | |
+| |   |           Padding            | | |
+| |   |  +-------------------------+ | | |
+| |   |  |        content          | | | |
+| |   |  +-------------------------+ | | |
+| |   |                              | | |
+| |   +------------------------------+ | |
+| +------------------------------------+ |
++----------------------------------------+
+
+
+An example of the box model:
+```
+div {
+  width: 300px;
+  border: 15px solid green;
+  padding: 50px;
+  margin: 20px;
+}
+```
+
+
+
 --------------------------------------------------
 
 ## Element selector: 
