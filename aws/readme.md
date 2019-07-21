@@ -604,7 +604,8 @@ https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.ht
 ## Virtual Private Cloud (VPC:):
 
 **Links**
-http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html
+[VPC Introduction](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html)
+[VPC Documentation](https://docs.aws.amazon.com/vpc/index.html)
 
 * VPCs do not span regions, they can span availability zones.
 * VPC lets you provision a logically isolated section of AWS cloud where you
