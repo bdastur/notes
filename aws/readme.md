@@ -782,6 +782,23 @@ CIDRS	54.159.224.0/21
 * You cannot have more than one peering connection between same two VPCs at
   the same time.
 
+### AWS PrivateLink:
+
+* AWS Privatelink enables cutomers to access services hosted on AWS securely
+  by keeping all the n/w traffic within the AWS network.
+* You can use this capability to privately access services supported by AWS
+  privatelink from your VPC, without using public IPs, on Amazon n/w.
+* When you create endpoints for services that are available on AWS privatelink,
+  these service endpoints will appear as ENIs with private IPs in your vpc.
+* PrivateLink also offers AWS partners, ability to offer services that look and
+  feel like services that are hosted directly on a customer's private network.
+
+
+
+
+
+
+
 ### Security groups:
 * A virtual firewall that controls inbound and outbound traffic to AWS
   resources and EC2 instances.
