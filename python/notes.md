@@ -198,3 +198,25 @@ python3 -m venv ~/pyenv/py3env
 source ~/pyenv/py3env/bin/activate
 
 ```
+
+
+## Python3 Asyncio
+* A function that you introduce with assync def is a coroutine.
+  It may use await, return or yield, but all of these are optional.
+  Declaring async def noop():  pass is valid.
+
+* Using await and/or return creates a coroutine function. To call a
+  coroutine function you must await it to get it's results.
+
+* The keyword await passes function control back to the event loop.
+   (It suspends the execution of the surrounding coroutine.) If Python
+   encounters an await f() expression in the scope of g():
+   It suspends execution of g() until the result of f() is returned.
+
+* A coroutine
+```
+    async def foo():
+        await z()
+        return
+```
+
