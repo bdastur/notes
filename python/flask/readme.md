@@ -250,3 +250,4 @@ that are used to verify the authenticity of requests with form data.
 ## Useful links:
 
 [Slides for flask](http://haifux.org/lectures/294/modern-web-applications.pdf)
+[Flask Restful](https://flask-restful.readthedocs.io/en/latest/quickstart.html)
