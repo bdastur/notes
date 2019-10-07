@@ -251,3 +251,5 @@ that are used to verify the authenticity of requests with form data.
 
 [Slides for flask](http://haifux.org/lectures/294/modern-web-applications.pdf)
 [Flask Restful](https://flask-restful.readthedocs.io/en/latest/quickstart.html)
+[Flask application factories](https://flask.palletsprojects.com/en/1.0.x/patterns/appfactories/)
+[Flask-graphql-mysql-starter-kit](https://medium.com/free-code-camp/how-to-develop-a-flask-graphql-graphene-mysql-and-docker-starter-kit-4d475f24ee76)
