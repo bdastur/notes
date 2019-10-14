@@ -157,6 +157,50 @@ SRE vs DevOps
   a low rate of errors and other negative operational signals and get back
   to your project work.
 
+- For SLOs to work, all parts of the business must agree that they are an
+  accurate measure of user experience and to use them as the primary driver
+  for decision-making.
+- Being out of SLO must have concrete, well-documented consequences that
+  redirect engineerin effort within the organization towards making
+  reliability improvements. 
+- Creating a sense of shared ownership where developers feel they have a 
+  shared responsibility to make the service reliable and the operations team
+  feel that they have a responsibility to help new features reach users as
+  quickly as possible is crucial.
+
+### Three principles we use to measure desired reliability of a service.
+- First, figuring out what you want to promise and to whom.
+- Second, figuring out the metrics you care about that make your service
+  for reliability good.
+- Finally, deciding how much reliability is good enough.
+
+
+
+## SLOs vs SLAsi
+
+- Service Level agreements or SLAs are you agreements that you make with your
+  customers about the reliability of your services.
+- An SLA has to have consequences if it's violated, otherwise there is no
+  point in making one.
+- If your customers are paying for something and you violate an SLA, there
+  needs to be consequences, such as giving your customers partial refunds
+  or extra service credits.
+- Now if you are only alerted of issues after they have violated your SLA,
+  that could be a very costly service to run.
+- Therefor it is in your best interest to catch issues before they breach 
+  your SLA so that you have time to fix it. These thresholds are your SLOs,
+  Service Level Objectives.
+- They should always be stronger than your SLAs because customers are usually
+  impacted before the SLA is actually breached. And violating SLAs require
+  costly compensation.
+
+- So in summary an SLA is an external promise that comes with consequences,
+  often monetary, while an SLO is effectively an internal promise to meet
+  customer expectations.
+
+
+
+
 
 
 
