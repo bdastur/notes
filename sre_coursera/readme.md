@@ -31,7 +31,7 @@ SRE vs DevOps
   create good SLOs.
 - Break down barriers between Platform/Cloudprovider and Customer.
 - Think about how to make failure a normal accepted thing.
-- SLOs and error budges are defined so people dont panic when there is a 
+- SLOs and error budgets are defined so people dont panic when there is a 
   down time.
 - Visibility into the system.
 - How platform is perforrming and platform can see how customer service level
@@ -198,6 +198,66 @@ SRE vs DevOps
   often monetary, while an SLO is effectively an internal promise to meet
   customer expectations.
 
+- So what do we promise our customers? Deciding how reliable you want your
+  service to be depends on what your customers expect. For eg you promise that
+  every HTTP request on your service returns a response in 300 milliseconds
+  or less. In general the minimum it takes for a customer to not be repelled
+  by your service is a good starting point.
+- In this case perhaps your SLOs should have 200 milliseconds as the response
+  time.
+- When you breach the SLO, it suddenly becomes really important to no longer
+  have any more outages. That means slowing down the rate of change to the
+  system and eliminating risks. Either by doing fewer pushes, devoting
+  engineering and automation efforts to reduce and eliminate areas of risk etc.
+
+## happiness test
+- A good rule of thumb to help set SLO targets is what is called the
+  'happiness test'. The test states that services need target SLOs that 
+  capture the performance and availability levels that if barely met would keep
+  a typical customer happy.
+- Simply put, if your service is performing exactly at it's target SLOs, your
+  average user would be happy with that performance. If it were any less
+  reliable, you would no longer be meeting their expectations and they would
+  be unhappy. 
+- The challenge is quantifying and measuring happiness of your customers. It's
+  bad if customers are unhappy despite the fact that you appear to be meeting
+  all of your SLOs. 
+- Make sure you arre thinking about all the groups of customers.
+
+
+## How do we measure reliability
+
+- How do we measure the metrics that we care about for a reliable service.
+- What are some characteristics for a service when we consider the service
+  working or good enough.
+- We refer to any metrics that measure the level of service provided as
+  Service Level Indicators or SLIs.
+- SLIs like request latency are quantitative measurement or metric of user
+  experience.
+
+- When selecting which metrics to choose think about the tradeoffs between
+  different ways of measuring a specific metrics.
+- One note about SLIs is that they are best expressed as a proportion of all
+  valid events that were good. For eg: the proportion of requests served
+  successfully or proportion of requests served within x milliseconds.
+
+- How do we set SLOs for our SLIs? An SLO is a target that you get to pick,
+  once you have decided on that target you measure the performance of the SLIs
+  against it over a period of time (such as 28 days, last quarter, etc). 
+  Depending on what our target SLO is, our SLI will tell us whether or not
+  a certain point in time was good or bad.
+
+
+
+### Error Budgets
+- If you SLO says 99.9% of requests should be successful in a given quarter,
+  your error budgeet allows 0.1% of requests to fail. 
+- This translates to:
+```
+0.1% x 28 x 24 x 60 = 40.32 minutes of downtime per month.
+```
+This is just about enough time for your monitoring systems to surface an
+issue, and for a human to investigate and fix it.
 
 
 
