@@ -47,3 +47,8 @@ OOM. Usually OOM Killer will kill rogue processes to let the system survive.
 Followups:
 http://flaws.cloud/hint1.html
 https://tutorialedge.net/python/concurrency/asyncio-event-loops-tutorial/
+
+Vulnerability database
+https://www.cvedetails.com/
+
+
