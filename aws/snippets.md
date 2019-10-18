@@ -70,3 +70,17 @@ do
 done
 
 ```
+
+### Ec2 get spot price history
+
+*by instance type, az, filter product description, start/end time*
+```
+aws ec2 --output json \
+  describe-spot-price-history --instance-types r4.8xlarge \
+  --availability-zone us-west-2a \
+  --filters Name=product-description,Values=Linux/UNIX \
+  --start-time 2019-10-01 --end-time 2019-10-12 
+```
+
+
+

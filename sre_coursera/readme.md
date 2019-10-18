@@ -261,6 +261,124 @@ issue, and for a human to investigate and fix it.
 
 
 
+## Measuring SLIs
+- The main challenge of specifying SLIs in the real world is service complexity.
+  A service may be composed of tens of microservices and have hundredes of
+  http or rpc endpoins. But having hundred of SLIs can lead to operational
+  paralysis and important signals may be lost in a sea of noise.
+
+### User happiness in metrics form
+- Measure the user's experience as closely as possible, which means you must
+  think about service's reliability from the perspective of those users. It 
+  doesn't matter if it's your database being down or your load balancers
+  sending requests to bad backends. From a user's perspective, these conditions
+  all collapse to the website does not load and now I am sad.
+- Similarly it does not matter which component of your service is overloaded.
+  The users complaint is the website is slow and now I am sad.
+- If we can find a way to quantify the website does not load or that it is
+  too slow from our monitoring data, we can use this data to approximate how
+  happy or unhappy our users are in aggregate. These quantifiable metrics
+  become our SLIs.
+- Ideally you want to define SLIs that have a predictable, mostly linear
+  relationship with happiness of your users.
+
+### Propertiess of good SLI meetrics
+
+### Ways of measuring SLIs
+
+## Commonly used SLIs
+
+### The SLI menu
+
+- When thinking about the reliability of the service from a user perspective,
+  we usually find that any number of specific root causes collapse down to
+  a small set of observable symptoms.
+- Measuring how fast a service responds to user requests. Identifying how often
+  mechanisms to alleviate excess load in the system is triggered can be useful.
+- If there is expectation of ssome data, it should be without errors, within
+  a reasonable time.
+
+
+### SLI Equation
+
+```
+   SLI = { Good Events / All valid events }
+
+```
+- SLIs should be expressed as a ratio of good events divided by valid events.
+- This way your SLIs fall between 0% and 100%, where 0 means nothing works
+  and 100% means nothing is broken.
+- The scale dirrectly translates to % reliability SLO targets and Error 
+  budgets.
+- Gives SLIs a consistent format. Consistency allows common tooling to be
+  built around your SLIs.
+- Alerting Logic, Error budgets and calculations and SLO analysis, and
+  rreporting tools can all be written to expect the same inputs. Good events,
+  valid events and your SLO threshold.
+- What do valid events mean and why not all events in the SLI equation?
+  Sometimes you man need to completely exclude some events recorded by
+  your underlying monitoring metricss from being included in your SLI, so
+  that it does not consume your eerror budget.  
+
+
+### Request/Response latency thresholds
+
+- availability:
+  If your system is not responding to requests successfully, it is safe to
+  assume that it is not meeting your users expectations of it's reliability.
+  ```
+  Availability SLI = { requests served successfully/ valid requests }
+  ```
+ * Sometimes complex logic is required to determine whether a system is 
+   functioning as a user would expect. In this case write the logic as code
+   and export a boolean availability measure to your SLO monitoring system.
+
+- latency:
+  It is an important reliability measure. A system is not perceived as
+  interactive if the requests are not responded to in timely fasshion.
+  ```
+  Latency SLI = { valid requests served faster than threshold/ valid requests }
+  ```
+  Requires making two choices:
+  - which of the requests are valid for tthe SLI
+  - When the timer for measuring latency starts and stops?
+  Systems can be engineered to prioritize the perception of speed via techniques
+  like prrefetching or caching. Requests may be made in the background by
+  applications and thus have no user waiting for the response.
+
+- quality:
+  ```
+  quality = { valid requests served without degradation / valid requests }
+  ```
+  - If your system has mechanisms to trade off quality of a ressponse with
+    something else, like CPU or memory utilization you should track this
+    graceful deegradation of service with a quality SLI. 
+  Requires making two choices:
+  -  Which requests the system serves are valid for the SLI
+  - How do you determine whether the response was served with degrading
+    quality?
+  In most cases, the mechanism used by the system to degrade response
+  quality shsould also be able to mark responses as degraded and increment
+  meetrics to count them
+
+  It is therefor much easier to expresss this SSLI in terms of bad events rrather
+  than good events. Similar to measuring latency, if the quality degradation
+  falls along a spectrum, it can be useful to set the SLO targets at more
+  than one point from the spectrum. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
