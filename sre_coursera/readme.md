@@ -367,11 +367,78 @@ issue, and for a human to investigate and fix it.
   than one point from the spectrum. 
 
 
+### Data processing SLIs:
+
+- Freshness
+  The proportion of valid data updated more recently than a threshold.
+  Freshness is time since completion
+
+- correctness
+- coverage
+  The portion of valid data processed successfully
+
+- throughput
+  The proportion of time where the data processing rate is faster than
+  a threshold.
+  Requires:
+  - What you unit to use for data processing rate. (eg bytes/sec)
+
+
+## Managing complexity
+
+
+## Setting reliable targets
+ - User expectations are strongly tied to past performance
+
+### Achieveable SLOs:
+  - We call SLOs that are set based on historical data achievable SLOs,
+    since you have enough information to set the target such that you can 
+    expect to meet it most of the time.
+
+
+### Aspirational SLOs:
+- SLOs based on business requirements are aspirational SLOs
+
+
+## Four step process
+1. Choose an SLI specification from SLI menu
+
+SLI specifications are high-level descriptions of a dimension of reliability that we would like to measure about our service, ideally taking the form "the proportion of valid events that were good".
+
+SLI implementations have concrete definitions of what the events are, what makes them valid for inclusion into the SLI, what makes them good, and how/where they are measured.
 
 
 
+2. Refine the specification into a detailed SLI implementation
+3. Walk through the user journey and look for coverage gapss
+4. Set aspirational SLO targets based on business needs
+
+Where is SLI measured
+What does SLI measurre
+What metrics shsould bee included or excluded
+Is there enough deetail tto implement this SLI
+
+availability SLI
+The proportion of HTTP GET requests for /profile/{user} or
+/profile/{user}/avatar that have 2xx, 3xx or 4xx response codes, measured
+at the loadbalancer
+
+latency SLI
+The proportion of HTTP GET requestss for /profile/{user}  that send their
+entire response within x ms measured at the loadbalancer.
 
 
+User Journey:
+1. List in-app items to buy
+HTTP GET /api/getSKUs
+HTTP GET /api/getSKUs/{sku id}
+
+
+2. Buying selected item.
+HTTP POST /api/completePurchase/{sku id}
+
+
+Quality, Availability and latency
 
 
 
