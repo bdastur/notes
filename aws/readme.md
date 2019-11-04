@@ -2945,6 +2945,21 @@ this is my value
 ```
 
 
+## Cost optimization:
+[Foundations for Cost optimization](https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-laying-the-foundation/introduction.html)
+
+### Cost optimization pillars:
+* Right size
+* Increase elasticity
+* Leverage the right pricing model
+* Optimize storage
+* Measurre, monitor and improve
+
+
+
+
+
+
 
 
 ....
