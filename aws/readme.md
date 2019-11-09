@@ -37,6 +37,10 @@ aws iam get-credential-report \
 * Within each family of instance type, there are several choices that scale
   up linearly in size. The hourly price for each size scales linearly as well.
 
+### Useful links
+
+[Automated Draining of spot instance nodes](https://aws.amazon.com/about-aws/whats-new/2019/11/aws-supports-automated-draining-for-spot-instance-nodes-on-kubernetes/)
+
 ### Instance types
 
 **General Purpose:**
