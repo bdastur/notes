@@ -1247,6 +1247,9 @@ Supported record types:
       instances.
     * You can locate your Aurora replicas in multiple AZs to increate DB availability.
 
+[Introducing Aurora engine](https://aws.amazon.com/blogs/database/introducing-the-aurora-storage-engine/)
+[Under the hood](https://aws.amazon.com/blogs/database/amazon-aurora-under-the-hood-quorum-and-correlated-failure/)
+
 #### Storage Options:
 * Can scale up to 4 to 6 TB in provisioned storage and upto 30,000 IOPS.
 * Three types:

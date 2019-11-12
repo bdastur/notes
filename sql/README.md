@@ -20,3 +20,7 @@ or
 DROP table products
 ```
 
+
+### Indexing
+
+[sqlite indeex](https://www.sqlitetutorial.net/sqlite-index/)
