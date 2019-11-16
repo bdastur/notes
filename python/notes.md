@@ -223,3 +223,18 @@ source ~/pyenv/py3env/bin/activate
 * An object is an awaitable object if it can be used in an await expression.
   Many asyncio APIs are designed to accept awaitables.
 * Three main types of awaitable objects: coroutines, Tasks and Futures.
+
+
+
+
+## General tips.
+When using logging on my own modules, and setting log level to INFO, it
+turns on that log level on imported modules. This is how I reset the log level
+to for imported modules.
+
+```
+logging.getLogger('boto3').setLevel(logging.ERROR)
+logging.getLogger('botocore').setLevel(logging.ERROR)
+```
+
+
