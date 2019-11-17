@@ -12,6 +12,8 @@
 [Terraform vs CF](https://medium.com/@endofcake/terraform-vs-cloudformation-1d9716122623)
 [Glitch](https://glitch.com/)
 [Bonnie++ filesystem benchmarking](https://www.linux.com/news/using-bonnie-filesystem-performance-benchmarking/)
+[Atlantis - terraform pull request automation](https://www.runatlantis.io/)
+[Teerraform compliance](https://terraform-compliance.com/)
 
 
 # Linux tips:
@@ -44,7 +46,7 @@ is a switch that controls OOM behavior in /proc/sys/vm/panic_on_oom. When set to
 will panic on OOM. A setting of 0 instructs the kerneel to call a function named oom_killer on an
 OOM. Usually OOM Killer will kill rogue processes to let the system survive.
 
-Followups:
+## Followups:
 http://flaws.cloud/hint1.html
 https://tutorialedge.net/python/concurrency/asyncio-event-loops-tutorial/
 
