@@ -223,6 +223,12 @@ VPC SG         -- Control outgoing and incoming instance traffic.
   free.
 * If you terminate your spot instance, you pay for the hour.
 
+[spot instance advisor](https://aws.amazon.com/ec2/spot/instance-advisor/)
+[spot instance pricing](https://aws.amazon.com/ec2/spot/pricing/#Spot_Instance_Prices)
+[spot fleet](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet.html)
+[New spot pricing](https://aws.amazon.com/blogs/compute/new-amazon-ec2-spot-pricing/)
+
+
 ### Tenancy Options:
 
 **Shared Tenancy:**
