@@ -37,6 +37,8 @@ docker push $REGISTRY/alpine:0.1
 [Kubernetes network policy recepies](https://github.com/ahmetb/kubernetes-network-policy-recipes)
 [Troubleshooting networking](https://github.com/nicolaka/netshoot)
 [Web visualization of a cluster](https://github.com/vmware/octant)
+[Kubernetes failure stories](https://k8s.af/)
+
 
 
 https://github.com/karmab/samplecontroller
