@@ -26,6 +26,7 @@ http://holderjs.com/
 * [ionic framework](https://ionicframework.com/docs/v1/components/)
 * [d3 tutorials](https://github.com/d3/d3/wiki/Tutorials)
 * [Google fonts](https://developers.google.com/fonts/docs/getting_started)
+* [css properties list](https://htmldog.com/references/css/properties/)
 
 
 

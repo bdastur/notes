@@ -110,3 +110,5 @@ go/interfaces/bin/
 
 **gopkg.in/
 **/github.com/aws/
+
+frontend/d3examples/static/thirdparty/*
