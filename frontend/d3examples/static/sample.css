@@ -1,0 +1,15 @@
+.container {
+	width: 100%;
+}
+
+
+.row {
+	padding: 20px;
+	border: 3px solid black;
+}
+
+.col {
+	border: 3px solid blue;
+	padding: 0px;
+}
+

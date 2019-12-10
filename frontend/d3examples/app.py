@@ -13,6 +13,11 @@ def handle_sample_1():
     print("Sample Invoked")
     return (render_template('sample_1.html'))
 
+@app.route("/2")
+def handle_sample_2():
+    print("Sample 2 invoked")
+    return (render_template('sample_2.html'))
+
 
 def main():
     app.run(host='127.0.0.1', port=5001, debug=True)
