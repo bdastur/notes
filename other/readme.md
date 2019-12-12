@@ -53,4 +53,21 @@ https://tutorialedge.net/python/concurrency/asyncio-event-loops-tutorial/
 Vulnerability database
 https://www.cvedetails.com/
 
+## Setting up AWS blog feeds in slack
+
+```
+Title: AWS Blog
+URL: http://feeds.feedburner.com/AmazonWebServicesBlog
+Title: What's New
+URL: http://aws.amazon.com/rss/whats-new.rss?nc1=f_so_rs
+Title: AWS Security Blog
+URL: http://blogs.aws.amazon.com/security/blog/feed/recentPosts.rss
+Title: AWS Compute Blog
+URL: http://feeds.feedburner.com/AwsComputeBlog
+Title: AWS Big Data Blog
+URL: http://blogs.aws.amazon.com/bigdata/blog/feed/recentPosts.rss
+
+/feed subscribe <ur>
+/feed list
+```
 
