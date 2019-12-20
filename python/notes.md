@@ -31,6 +31,7 @@ nm['10.10.10.6']
 * https://www.codementor.io/sumit12dec/python-tricks-for-beginners-du107t193
 * https://boltons.readthedocs.io/en/latest/
 * [Python web hosting](https://www.pythonanywhere.com/)
+* [Python antipatterns book](https://docs.quantifiedcode.com/python-anti-patterns/index.html)
 
 Python profiling:
 * https://github.com/benfred/py-spy
