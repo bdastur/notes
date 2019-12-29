@@ -13,6 +13,23 @@
 	padding: 0px;
 }
 
-#myrect {
+#bluerect {
 	color: blue;
+}
+
+/*
+ This is how we can override styles that are specified in parent
+ css. For instance - to override styles for element body we can define
+ css as below. Add id to the body element tag in your html.
+*/
+body#override {
+	margin: 50px;
+	background-color: #cecce7;
+
+}
+
+.container {
+	padding-left: 15px;
+	padding-right: 15px;
+	background-color: green;
 }

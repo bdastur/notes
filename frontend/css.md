@@ -241,6 +241,56 @@ Three ways to do that:
 > in different style sheets, the value from the last read style sheet
 > will be used.
 
+--------------------------------------------------
+
+## CSS Pseudo class selector (:not())
+
+:not() is a CSS negation pseudo-class selector. It is a functional 
+pseudo-class selector that will take a regular selecto as an argument,
+and then match any elements that are not represented by the argument.
+
+:not() takes as an argument any of the following:
+* Element selector (eg: p, span, div, etc.)
+* Class selector (eg: .sidebar, .col_m1, etc.)
+* ID selector (eg: #custom)
+* Attribute selector (eg [type="checkbox"])
+* Universal selector ```(*)```
+
+**Note:** The argument passed to :not() cannot be a pseudo-element selector
+such as (::before and ::after) or any other pseudo-class selector.
+
+Example Usages:
+
+```
+li:not(.new) {
+    /* Style all list elements except the ones that have class 'new' */
+}
+```
+
+The :not() selector is chainable with more :not() selectors.
+Example:
+
+```
+li:not(#feature):not(.tutorial) {
+    /* Style all list elements that do not have feature flag, and that
+       do not have class tutorial
+    */
+}
+```
+
+You can also use the :not() selector globally, without applying it to 
+any elment, thus selecting all elements in a document that are not represented
+in the argument.
+
+```
+:not(a) {
+    color: #333;
+}
+```
+
+The specificity of :not() pseudo-class is the specificity of it's argument.
+:not() does not add to the selector specificity unlike other pseudo-classes.
+
 
 --------------------------------------------------
 
@@ -255,6 +305,35 @@ We say the styles will "cascade" into a new "virtual" style sheet by folling rul
   1. Inline style (inside the HTML element)
   2. External and internal style sheets (in head section)
   3. Browser default
+
+--------------------------------------------------
+
+## CSS Specificity:
+
+Another import concept to learn in css is different selectors have different
+specificity values.
+
+This is an important concept when you are trying to figure out which style
+will be picked when you are trying to override.
+
+Here is the list from most specificity value to least specifity value:
+
+* Style attribute - If the element has inline styling, that automatically wins.
+  (1,0,0,0 points)
+* ID - For each ID value, apply (0,1,0,0 points)
+* Class, pseudo-class or attribute selector - add (0,0,1,0 points)
+* For each element reference apply (0,0,0,1 point)
+
+You can read the values as numbers, however these are not base 10 system.
+
+Examples:
+
+ul#nav li.active a - (Style attribute, ID, class, Elements)
+    Points:          (      0,          1,   1,      3    )
+
+
+body.ie7 .col_3 h2 ~ h2 - (Style attribute, ID, class, Elements)
+    Points:               (   0,            0,    2,     3     )
 
 
 --------------------------------------------------
