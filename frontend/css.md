@@ -1,5 +1,9 @@
 # CSS Concepts:
 
+## Links:
+[W3C Css validation service](https://jigsaw.w3.org/css-validator/)
+[Mozilla Web Docs: CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+
 Cascading Style Sheets:
 A CSS rule-set consist of a selector and a declaration block
 
@@ -243,6 +247,25 @@ Three ways to do that:
 
 --------------------------------------------------
 
+## CSS Pseudo classes:
+
+[pseudo-classes](https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes)
+
+A CSS pseudo-class is a keyword added to a selector that specifies a special
+state of the selected elements. 
+
+For example :hover can be used to change a buttons color when user's pointer
+hovers over it.
+
+```
+button:hover {
+  color: blue;
+}
+
+```
+
+--------------------------------------------------
+
 ## CSS Pseudo class selector (:not())
 
 :not() is a CSS negation pseudo-class selector. It is a functional 
@@ -292,6 +315,35 @@ The specificity of :not() pseudo-class is the specificity of it's argument.
 :not() does not add to the selector specificity unlike other pseudo-classes.
 
 
+-------------------------------------------------- 
+
+## Pseudo-class selector :empty
+
+An element counts as empty if it doees not have any child elements (nodes)
+or text content. 
+
+Examples::
+```
+<div><!-- Comment heree --></div>
+
+```
+
+The above div has no text or element and hence is empty.
+
+
+```
+<p> </p>
+```
+
+Above p element is not empty, as white spaces are considered content.
+
+```
+<hr />, <br />, <img />
+```
+Above self-closing elements are considered empty.
+
+
+
 --------------------------------------------------
 
 ## Cascading order:
@@ -334,6 +386,74 @@ ul#nav li.active a - (Style attribute, ID, class, Elements)
 
 body.ie7 .col_3 h2 ~ h2 - (Style attribute, ID, class, Elements)
     Points:               (   0,            0,    2,     3     )
+
+
+--------------------------------------------------
+
+## CSS Custom properties:
+
+[Mozilla.org custom properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
+Often times we want to specify the same property values to multiple 
+elements in an html page. 
+
+CSS Custom properties are a way to achive that. These values can be defined and
+reused throught the document. They are set using custom property notation.
+eg: (--body-bg-color: green), and are accessed using the var() function.
+eg: ( color: var(--body-bg-color).
+
+Custom properties are subject to the cascade and inherit their value from their parent.
+
+
+```
+:root {
+	--body-bg-color: #e8edda;
+	--textarea-bg-color: #c6c1bb;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	background-color: var(--body-bg-color);
+}
+
+textarea {
+	font-family: sans-serif;
+	resize: none;
+	background-color: var(--textarea-bg-color);
+}
+
+```
+
+### Fallback values.
+Using the var() function, you can define multiple fallback values when the
+given variable is not yet defined.
+
+*Note*: Fallback values aren't used to fix browser compatibility. If the browser
+does not support CSS custom properties, the fallback values will not help.
+
+The first argument to the function is the name of the custom property, the
+second argument if provided is the fallback value. The var() function accepts
+only two parameters, assiging everything following the first comma as the
+second parameter.
+
+Example:
+here the --textarea-bg-color is not defined, so the fallback is 'grey'
+
+```
+:root {
+	--body-bg-color: #e8edda;
+}
+
+textarea {
+	font-family: sans-serif;
+	resize: none;
+	background-color: var(--textarea-bg-color, grey);
+}
+```
+
+
+--------------------------------------------------
+
+## CSS Animation and Transitions
 
 
 --------------------------------------------------

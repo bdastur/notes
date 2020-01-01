@@ -8,9 +8,21 @@
 	border: 3px solid black;
 }
 
+/*
+The :hoever pseudo-class is applied when we move the mouse over the .row class
+*/
+
+.row:hover {
+	background-color: #eaffbf;
+}
+
 .col {
 	border: 3px solid blue;
 	padding: 0px;
+}
+
+.col:hover {
+	background-color: #f68c8c;
 }
 
 #bluerect {
@@ -24,12 +36,12 @@
 */
 body#override {
 	margin: 50px;
-	background-color: #cecce7;
+	background-color: #e0deff;
 
 }
 
 .container {
 	padding-left: 15px;
 	padding-right: 15px;
-	background-color: green;
+	background-color: #99fa99;
 }

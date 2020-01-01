@@ -18,6 +18,12 @@ def handle_sample_2():
     print("Sample 2 invoked")
     return (render_template('sample_2.html'))
 
+@app.route("/css1")
+def handle_css1():
+    print("Css Example 1")
+    return(render_template("css_example_1.html"))
+
+
 
 def main():
     app.run(host='127.0.0.1', port=5001, debug=True)
