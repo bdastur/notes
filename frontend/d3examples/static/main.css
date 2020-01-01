@@ -1,11 +1,14 @@
 :root {
-	--body-bg-color: #e8edda;
+	--body-bg-color: #eeedeb;
+	--textarea-bg-color: #dfd8dd;
 }
 
 body {
 	font-family: 'Roboto', sans-serif;
 	background-color: var(--body-bg-color);
+	margin-left: 15px;
 }
+
 
 textarea {
 	font-family: sans-serif;
@@ -13,3 +16,23 @@ textarea {
 	background-color: var(--textarea-bg-color, #b69db0);
 }
 
+
+h1 {
+    color: red;
+}
+
+.blue-header {
+	color: blue;
+}
+
+button {
+	background-color: #b274f5;
+	color: #080202;
+	border-color: #090632;
+}
+
+[disabled] {
+	background-color: #242620;
+	color: #ffffff;
+	border-color: black;
+}
