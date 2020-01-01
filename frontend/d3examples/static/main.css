@@ -1,0 +1,15 @@
+:root {
+	--body-bg-color: #e8edda;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	background-color: var(--body-bg-color);
+}
+
+textarea {
+	font-family: sans-serif;
+	resize: none;
+	background-color: var(--textarea-bg-color, #b69db0);
+}
+
