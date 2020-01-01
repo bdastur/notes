@@ -88,6 +88,31 @@ The class selector selects elements with a specific class attribute.
              color: red;
           }
 ```
+
+--------------------------------------------------
+
+## Attribute selector:
+
+With attribute selector you can select all elements that have a specific
+attribute.
+
+For example:
+```
+<button>Enabled</button>
+<button disabled="true">Disabled</button>
+```
+
+Here we define an attribute selector target, putting it within []. In this case
+all elements with disabled attribute will get the properties.
+
+```
+[disabled] {
+	background-color: #242620;
+	color: #ffffff;
+	border-color: black;
+}
+```
+
 --------------------------------------------------
 
 ## Class and Element selector:

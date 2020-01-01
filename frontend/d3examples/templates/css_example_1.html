@@ -15,23 +15,33 @@
 
    <body>
 	   <section>
-           Example 1:
+
+           <u><b>Example 1:</b></u>
            You can use the element as the selector to apply style to all
-           like below:
-           <br>
-           <textarea cols="60" rows="20" disabled>
-               h1 {
-	               color: red;
-               }
+           like below, or you can specify a class selector. Note here that due to the
+           specificity rules the class selector takes precedence:
+           <br><br>
+
+           <textarea cols="64" rows="12" disabled>
+            h1 {
+                color: red;
+            }
+
+			.blue-header {
+				color: blue;
+			}
 
            </textarea>
+	       <h1>CSS Example 1</h1> - Here style is applied through element selector
+           <h1 class="blue-header">CSS Example (with style)</h1> style applied through class
+           selector
+	   </section>
+	   <br><hr>
+	   <section>
+	   Attribute selector
+       <button>Enabled</button>
+       <button disabled="true">Disabled</button>
 	   </section>
 
-	   <h1>CSS Example 1</h1>
-       <br>
-       <h1>CSS Example (with style)</h1>
-       <h2>
-           CSS Example
-       </h2>
-   </body>
+	    </body>
 </html>
