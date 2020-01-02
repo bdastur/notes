@@ -228,23 +228,37 @@ Consider below example:
 
 Consider the below html snippet.
 ```
-<div>
-  <h2>Child 1</h2>
-  <p>This is a child 1</p>
-  <h2>Child 2</h2>
-  <p>This is a second child</p>
+<div class="section3">
+   <h2>Child 1</h2>
+   <p>This is a child 1</p>
+   <h2>Child 2</h2>
+   <p>This is a second child</p>
+   <span>This is a span</span>
+   <p>Paragraph after span</p>
 </div>
+
 ```
 
 If I wanted to select all the 'p' paragraph elements here, I can use a
-target selector as below. Which tells is to select all <p> elements 
-immediately follwoing <h2> element. 
+target selector as below. Which tells is to select all 'p' elements 
+immediately follwoing 'h2' element. It will not select the last 'p' element 
+following the 'span'
 
 ```
 h2 + p {
 	color: green;
 }
 ```
+
+We can get even more specific and say select only 'p' elements which are 
+immediately follwed by 'h', and are a within our 'div section' as below:
+
+```
+.section3 > h2 + p {
+	color: green;
+}
+```
+
 
 ### General sibling combinator
 
