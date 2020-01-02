@@ -41,3 +41,8 @@ button {
 .section3 > h2 + p {
 	color: green;
 }
+
+.section4 > h2 ~ p {
+	color: red;
+}
+

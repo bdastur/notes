@@ -262,9 +262,47 @@ immediately follwed by 'h', and are a within our 'div section' as below:
 
 ### General sibling combinator
 
+Consider the same html example as above.
+But the difference is we want to select any 'p' element following 'h2', it
+does not have to be immediately following 'h2'.
+
+Rule:
+- Element share the same parent
+- second element comes after first element
+
+```
+<div class="section4">
+   <p>There is a child with no style</p>
+   <h2>Child 11</h2>
+   <p>This is a child 11</p>
+   <p>This is a second child2</p>
+   <span>This is a span</span>
+   <p>Paragraph after span - </p>
+</div>
+
+```
+We can write a target selector as below:
+
+```
+.section4 > h2 ~ p {
+    color: red;
+}
+```
+
+In this case all 'p' elements after 'h2' will be color red. The first p element
+before 'h2' will not be.
+
 
 ### Child combinator
 
+We looked at the example of child combinator just above. It allows you to select
+direct children of an element.
+
+```
+```
+
+```
+```
 
 --------------------------------------------------
 
