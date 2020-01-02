@@ -22,6 +22,7 @@ when talking about design and layout.
 The CSS box model is essentially a box that wraps around every HTML element. It
 consist of: (Margin (Border (Padding (content)))).
 
+```
 +----------------------------------------+
 |                 Margin                 |
 | +------------------------------------+ |
@@ -35,6 +36,7 @@ consist of: (Margin (Border (Padding (content)))).
 | |   +------------------------------+ | |
 | +------------------------------------+ |
 +----------------------------------------+
+```
 
 
 An example of the box model:
@@ -198,7 +200,10 @@ Consider two  elements as below:
 ```
 
 
-### Selecting element from specific parent.
+### Selecting element from specific parent. (Descendant combinator)
+*Note:* This is also called a descendant combinator.
+In this case .test1 is a descendant of .test0, it does not have to be a direct
+child.
 
 Consider below example:
 
@@ -219,6 +224,32 @@ Consider below example:
 
 ```
 
+### Adjacent sibling combinator
+
+Consider the below html snippet.
+```
+<div>
+  <h2>Child 1</h2>
+  <p>This is a child 1</p>
+  <h2>Child 2</h2>
+  <p>This is a second child</p>
+</div>
+```
+
+If I wanted to select all the 'p' paragraph elements here, I can use a
+target selector as below. Which tells is to select all <p> elements 
+immediately follwoing <h2> element. 
+
+```
+h2 + p {
+	color: green;
+}
+```
+
+### General sibling combinator
+
+
+### Child combinator
 
 
 --------------------------------------------------
@@ -475,6 +506,44 @@ textarea {
 }
 ```
 
+--------------------------------------------------
+
+## CSS inheritence
+
+
+When no value for an inherited property has been specified on an element, 
+the element gets the computed value of that property on its parent element. 
+Only the root element of the document gets the initial value given in the
+property's summary.
+
+When no value for a non-inherited property has been specified on an element, 
+the element gets the initial value of that property (as specified in the 
+property's summary).
+
+In this example, the first 'h1' element will inherit font-family from the body,
+since it is not specified in the h1 target selector, while the second h1 elemeent 
+will get the font sans-serif as it is defined in it's class selector
+
+```
+body {
+	font-family: 'Roboto', sans-serif;
+	background-color: var(--body-bg-color);
+	margin-left: 15px;
+}
+
+h1 {
+    color: red;
+}
+
+.blue-header {
+	color: blue;
+	font-family: sans-serif;
+}
+
+<h1>CSS Example 1</h1>
+<h1 class="blue-header">CSS Example (with style)</h1> 
+
+```
 
 --------------------------------------------------
 
