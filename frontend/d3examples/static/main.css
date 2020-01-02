@@ -1,6 +1,6 @@
 :root {
 	--body-bg-color: #eeedeb;
-	--textarea-bg-color: #dfd8dd;
+	--textarea-bg-color: #d4ccd2;
 }
 
 body {
@@ -13,7 +13,7 @@ body {
 textarea {
 	font-family: sans-serif;
 	resize: none;
-	background-color: var(--textarea-bg-color, #b69db0);
+	background-color: var(--textarea-bg-color, #f9e3db);
 }
 
 
@@ -23,6 +23,7 @@ h1 {
 
 .blue-header {
 	color: blue;
+	font-family: sans-serif;
 }
 
 button {
@@ -35,4 +36,8 @@ button {
 	background-color: #242620;
 	color: #ffffff;
 	border-color: black;
+}
+
+h2 + p {
+	color: green;
 }
