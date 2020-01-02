@@ -228,17 +228,21 @@ Consider below example:
 
 Consider the below html snippet.
 ```
-<div>
-  <h2>Child 1</h2>
-  <p>This is a child 1</p>
-  <h2>Child 2</h2>
-  <p>This is a second child</p>
+<div class="section3">
+   <h2>Child 1</h2>
+   <p>This is a child 1</p>
+   <h2>Child 2</h2>
+   <p>This is a second child</p>
+   <span>This is a span</span>
+   <p>Paragraph after span</p>
 </div>
+
 ```
 
 If I wanted to select all the 'p' paragraph elements here, I can use a
-target selector as below. Which tells is to select all <p> elements 
-immediately follwoing <h2> element. 
+target selector as below. Which tells is to select all 'p' elements 
+immediately follwoing 'h2' element. It will not select the last 'p' element 
+following the 'span'
 
 ```
 h2 + p {
@@ -246,11 +250,59 @@ h2 + p {
 }
 ```
 
+We can get even more specific and say select only 'p' elements which are 
+immediately follwed by 'h', and are a within our 'div section' as below:
+
+```
+.section3 > h2 + p {
+	color: green;
+}
+```
+
+
 ### General sibling combinator
+
+Consider the same html example as above.
+But the difference is we want to select any 'p' element following 'h2', it
+does not have to be immediately following 'h2'.
+
+Rule:
+- Element share the same parent
+- second element comes after first element
+
+```
+<div class="section4">
+   <p>There is a child with no style</p>
+   <h2>Child 11</h2>
+   <p>This is a child 11</p>
+   <p>This is a second child2</p>
+   <span>This is a span</span>
+   <p>Paragraph after span - </p>
+</div>
+
+```
+We can write a target selector as below:
+
+```
+.section4 > h2 ~ p {
+    color: red;
+}
+```
+
+In this case all 'p' elements after 'h2' will be color red. The first p element
+before 'h2' will not be.
 
 
 ### Child combinator
 
+We looked at the example of child combinator just above. It allows you to select
+direct children of an element.
+
+```
+```
+
+```
+```
 
 --------------------------------------------------
 

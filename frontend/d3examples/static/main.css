@@ -38,6 +38,11 @@ button {
 	border-color: black;
 }
 
-h2 + p {
+.section3 > h2 + p {
 	color: green;
 }
+
+.section4 > h2 ~ p {
+	color: red;
+}
+
