@@ -299,6 +299,7 @@ We looked at the example of child combinator just above. It allows you to select
 direct children of an element.
 
 ```
+
 ```
 
 ```
