@@ -49,6 +49,44 @@ div {
 }
 ```
 
+### Margin collapsing
+
+When working with margins you can get unexpected results.
+The top and bottom margins of blocks are sometimes combined (collapsed) into a single
+margin whose size is the largest of the individual margins. This behavior is called
+margin collapsing.
+
+Some cases where margin collapsing can occur:
+
+1. Adjacent siblings which both have margins.
+2. A parent which holds one ore more child elements where the first and/or last 
+   child has margins.
+3. An element without content, padding, border and height.
+
+
+
+## HTML Block level vs Inline elements
+
+[html block and inline elements](https://www.w3schools.com/html/html_blocks.asp)
+
+A block-level element always starts on a new line and takes up the full width
+available. eg <div>
+
+An inline does not start on a new line and only takes up as much width as necessary.
+eg: <span>
+
+
+## CSS box-sizing:
+Defines how the width and height of an element are calculated. Should they include
+padding and border or not.
+
+Default value for this property is content-box.
+
+```
+.element {
+    box-sizing: border-box;	
+}
+```
 
 
 --------------------------------------------------
@@ -621,4 +659,6 @@ http://keithclark.co.uk/articles/creating-3d-worlds-with-html-and-css/
 --------------------------------------------------
 
 
+
+* For inline elements changing the width has no impact.
 
