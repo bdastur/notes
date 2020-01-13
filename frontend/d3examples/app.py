@@ -23,6 +23,11 @@ def handle_css1():
     print("Css Example 1")
     return(render_template("css_example_1.html"))
 
+@app.route("/css2")
+def handle_css2():
+    print("CSS Example 2")
+    return(render_template("position.html"))
+
 
 
 def main():
