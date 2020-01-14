@@ -28,6 +28,12 @@ def handle_css2():
     print("CSS Example 2")
     return(render_template("position.html"))
 
+@app.route("/project")
+def handle_project():
+    print("Main project")
+    return(render_template("project.html"))
+
+
 
 
 def main():
