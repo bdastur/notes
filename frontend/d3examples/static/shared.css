@@ -1,0 +1,125 @@
+/*
+ * Main header styles.
+*/
+
+
+.main-header {
+    background: #2ddf5c;
+    width: 100%;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.main-header__brand {
+	color: #435f42;
+	font-weight: bold;
+	font-size: 20px;
+	text-decoration: none; //Removes any underscores.
+}
+
+.main-header > div {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.main-nav {
+    display: inline-block;
+    text-align: right;
+    width: calc(100% - 85px);
+    vertical-align: middle;
+}
+
+.main-nav__item {
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+ }
+
+.main-nav__item a {
+	text-decoration: none;
+	color: #3e5528;
+	font-weight: bold;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+
+.main-nav__item a:hover,
+.main-nav__item a:active {
+	color: #ffffff;
+	border-bottom: 5px solid white;
+}
+
+.main-nav__item--cta a {
+	color: white;
+	background: -webkit-linear-gradient(#3e643e 0%, #ffffff 100%);
+	padding: 8px 16px;
+	border-radius: 8px;
+}
+
+.main-nav__item--cta a:hover {
+	color: red;
+	background: gray;
+	border: none;
+}
+
+
+p::first-letter {
+	color: red;
+	font-size: 20px;
+}
+
+
+/*
+ * Button styles.
+ */
+
+.action-button {
+	background: #445610;
+	color: white;
+	font: inherit;
+	border: 1.5px solid green;
+	border-radius: 8px;
+	font-weight: bold;
+	cursor: pointer;
+	padding: 3px;
+	margin-top: 20px;
+}
+
+.action-button:hover,
+.action-button:active {
+	background: #f8f9f6;
+	color: green;
+	outline: none;
+}
+
+
+
+
+.main-footer {
+    background: black;
+    padding: 32px;
+    margin-top: 48px;
+}
+
+.main-footer__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.main-footer__link {
+	display: inline-block;
+	margin-top: 0;
+	margin-bottom: 0;
+	margin-left: 16px;
+	margin-right: 16px;
+}
+
+.main-footer__link a {
+	color: white;
+	text-decoration: none;
+}
