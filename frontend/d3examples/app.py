@@ -33,6 +33,11 @@ def handle_project():
     print("Main project")
     return(render_template("project.html"))
 
+@app.route("/packages")
+def handle_packages():
+    print("Packagesproject")
+    return(render_template("packages.html"))
+
 
 
 

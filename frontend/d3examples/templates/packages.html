@@ -8,21 +8,24 @@
     <link rel="shortcut icon" href="favicon.png">
     <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
-      <link rel="stylesheet" type="text/css" href="{{ url_for('static',
-	      filename="project.css") }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',
+	      filename="shared.css") }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',
+	      filename="packages.css") }}">
 </head>
 
 <body>
+	<div class="background"></div>
 	 <header class="main-header">
         <div>
-            <a href="index.html" class="main-header__brand">
+            <a href="/project" class="main-header__brand">
                 uHost
             </a>
         </div>
         <nav class="main-nav">
             <ul class="main-nav__items">
                 <li class="main-nav__item">
-                    <a href="packages/index.html">Packages</a>
+                    <a href="/packages">Packages</a>
                 </li>
                 <li class="main-nav__item">
                     <a href="customers/index.html">Customers</a>
@@ -34,6 +37,33 @@
         </nav>
     </header>
     <main>
+	    <section class="plus-section">
+            <a href="#" class="plus-section__link">
+                <h1 class="package__title">Our PLUS Plan</h1>
+                <h2 class="package__badge">Recommended<h2>
+                <h2 class="package__subtitle">The most popular choice of our customers.</h2>
+                <p class="package__info">Benefit from increased storage and faster support to
+	                ensure that your mission-critical data and applications are always
+	            available!</p>
+            </a>
+        </section>
+        <section class="free-section">
+            <a href="#" class="free-section__link">
+                <h1 class="package__title">Our FREE Plan</h1>
+                <h2 class="package__subtitle">An extremely solid start into our hosting world.</h2>
+                <p class="package__info">Get started immediately at zero cost!</p>
+            </a>
+        </section>
+        <div class="clear"></div>
+        <section class="premium-section">
+            <a href="#" class="premium-section__link">
+                <h1 class="package__title">Our PREMIUM Plan</h1>
+                <h2 class="package__subtitle">All your enterprise needs. Instant support,
+	                guaranteed uptime. </h2>
+                <p class="package__info">The best solution for small to large enterprises. Because
+	                hosting shouldn't be in the way!</p>
+            </a>
+        </section>
     </main>
     <footer class="main-footer">
         <nav>
