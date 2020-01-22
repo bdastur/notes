@@ -21,6 +21,7 @@ body {
     padding-left: 5px;
     padding-right: 5px;
     position: fixed;
+    top: 0px;
     z-index: 1;
 }
 
@@ -28,8 +29,36 @@ body {
 	color: #435f42;
 	font-weight: bold;
 	font-size: 20px;
-	text-decoration: none; //Removes any underscores.
+	//Removes any underscores.
+	text-decoration: none;
 }
+
+.main-header__brand img {
+	height: 20px;
+}
+
+.toggle-button {
+	width: 3rem;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	padding-top: 0;
+	padding-bottom: 0;
+	vertical-align: middle;
+}
+
+.toggle-button:focus {
+	outline: none;
+}
+
+.toggle-button__bar {
+	width: 100%;
+	height: 0.2rem;
+	background: black;
+	display: block;
+	margin: 0.6rem 0;
+}
+
 
 .main-header > div {
 	display: inline-block;
@@ -49,7 +78,8 @@ body {
     margin-right: 5px;
  }
 
-.main-nav__item a {
+.main-nav__item a,
+.mobile-nav__item a {
 	text-decoration: none;
 	color: #3e5528;
 	font-weight: bold;
@@ -64,14 +94,16 @@ body {
 	border-bottom: 5px solid white;
 }
 
-.main-nav__item--cta a {
+.main-nav__item--cta a,
+.mobile-nav__item--cta a {
 	color: white;
 	background: -webkit-linear-gradient(#3e643e 0%, #ffffff 100%);
 	padding: 8px 16px;
 	border-radius: 8px;
 }
 
-.main-nav__item--cta a:hover {
+.main-nav__item--cta a:hover,
+.mobile-nav__item--cta a {
 	color: red;
 	background: gray;
 	border: none;
@@ -130,3 +162,33 @@ body {
 	color: white;
 	text-decoration: none;
 }
+
+
+.mobile-nav {
+  display: none;
+  position: fixed;
+  z-index: 101;
+  top: 0;
+  left: 0;
+  background: white;
+  width: 80%;
+  height: 100vh;
+}
+
+.mobile-nav__items {
+  width: 90%;
+  height: 100%;
+  list-style: none;
+  margin: 10% auto;
+  padding: 0;
+  text-align: center;
+}
+
+.mobile-nav__item {
+  margin: 1rem 0;
+}
+
+.mobile-nav__item a {
+  font-size: 1.5rem;
+}
+

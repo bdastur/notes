@@ -38,7 +38,11 @@ def handle_packages():
     print("Packagesproject")
     return(render_template("packages.html"))
 
-
+@app.route("/customers")
+def handle_customers():
+    print("Customers page")
+    return(render_template("customers.html"))
+                                              
 
 
 def main():
