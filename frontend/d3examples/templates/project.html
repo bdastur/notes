@@ -15,10 +15,22 @@
 </head>
 
 <body>
+	<div class="modal">
+        <h1 class="modal__title">Do you want to continue?</h1>
+        <div class="modal__actions">
+            <a href="start-hosting/index.html" class="modal__action">Yes!</a>
+            <button class="modal__action modal__action--negative" type="button">No!</button>
+        </div>
+    </div>
 	 <header class="main-header">
         <div>
+	        <button class="toggle-button">
+	          <span class="toggle-button__bar"></span>
+	          <span class="toggle-button__bar"></span>
+	          <span class="toggle-button__bar"></span>
+	        </button>
             <a href="/project" class="main-header__brand">
-                uHost
+                <img src="/static/images/uhost-icon.png" alt="uHost - Your favourite hosting">
             </a>
         </div>
         <nav class="main-nav">
@@ -27,7 +39,7 @@
                      <a href="/packages">Packages</a>
                 </li>
                 <li class="main-nav__item">
-                    <a href="customers/index.html">Customers</a>
+                    <a href="/customers">Customers</a>
                 </li>
                 <li class="main-nav__item main-nav__item--cta">
                     <a href="start-hosting/index.html">Start Hosting</a>
@@ -35,6 +47,19 @@
             </ul>
         </nav>
     </header>
+    <nav class="mobile-nav">
+        <ul class="mobile-nav__items">
+            <li class="mobile-nav__item">
+                <a href="packages/index.html">Packages</a>
+            </li>
+            <li class="mobile-nav__item">
+                <a href="customers/index.html">Customers</a>
+            </li>
+            <li class="mobile-nav__item mobile-nav__item--cta">
+                <a href="start-hosting/index.html">Start Hosting</a>
+            </li>
+        </ul>
+    </nav>
     <main>
         <section id="product-overview">
             <h1>Get the freedom you deserve.</h1>
@@ -123,6 +148,7 @@
             </ul>
         </nav>
     </footer>
+    <script src="/static/js/shared.js"></script>
 </body>
 
 </html>
