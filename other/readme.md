@@ -14,7 +14,9 @@
 [Bonnie++ filesystem benchmarking](https://www.linux.com/news/using-bonnie-filesystem-performance-benchmarking/)
 [Atlantis - terraform pull request automation](https://www.runatlantis.io/)
 [Teerraform compliance](https://terraform-compliance.com/)
-
+[Jsonnet](https://jsonnet.org/learning/tutorial.html)
+[codepen](https://codepen.io/bdastur/pen/MWYwXjG)
+[High performance browser networking](https://hpbn.co/introduction-to-wireless-networks/)
 
 # Linux tips:
 

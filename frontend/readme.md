@@ -27,7 +27,7 @@ http://holderjs.com/
 * [d3 tutorials](https://github.com/d3/d3/wiki/Tutorials)
 * [Google fonts](https://developers.google.com/fonts/docs/getting_started)
 * [css properties list](https://htmldog.com/references/css/properties/)
-
+* [css loading widgets](https://loading.io/css/)
 
 
 ## Bootstrap 3:

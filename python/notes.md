@@ -33,6 +33,7 @@ nm['10.10.10.6']
 * [Python web hosting](https://www.pythonanywhere.com/)
 * [Python antipatterns book](https://docs.quantifiedcode.com/python-anti-patterns/index.html)
 * [Plotly Dash - Build data visualizations apps](https://dash.plot.ly/)
+* [Making python programs fast](https://martinheinz.dev/blog/13)
 
 Python profiling:
 * https://github.com/benfred/py-spy
@@ -45,6 +46,7 @@ Python tools:
 * [Python web framework](https://falconframework.org/)
 * [pybuilder](https://pybuilder.github.io/)
 * [pyinstaller](https://www.pyinstaller.org/)
+* [Python uncompile - cross version decompiler](https://github.com/rocky/python-uncompyle6)
 
 
 ### command sample:
