@@ -38,6 +38,10 @@ docker push $REGISTRY/alpine:0.1
 [Troubleshooting networking](https://github.com/nicolaka/netshoot)
 [Web visualization of a cluster](https://github.com/vmware/octant)
 [Kubernetes failure stories](https://k8s.af/)
+[Kubernetes troubleshooting workflow](https://learnk8s.io/troubleshooting-deployments)
+[Kube cost tool](https://github.com/kubecost/cost-model)
+[kube grafiti](https://github.com/HotelsDotCom/kube-graffiti)
+[Dockerfile linter](https://github.com/hadolint/hadolint)
 
 
 
