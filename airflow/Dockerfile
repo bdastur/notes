@@ -12,8 +12,9 @@ RUN pip install --upgrade setuptools
 
 RUN pip install apache-airflow
 
-RUN export AIRFLOW_HOME=~/airflow
+USER root
 
+RUN export AIRFLOW_HOME=/root/airflow
 
 
 
