@@ -75,4 +75,13 @@ t3 = BashOperator(
     dag=dag,
 )
 
+t4 = BashOperator(
+    task_id="test2",
+    depends_on_past=True,
+    bash_command="sleep 6",
+    dag=dag)
+
+
+t4.set_upstream(t2)
+
 t1 >> [t2, t3]
