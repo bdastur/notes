@@ -47,7 +47,7 @@ Python tools:
 * [pybuilder](https://pybuilder.github.io/)
 * [pyinstaller](https://www.pyinstaller.org/)
 * [Python uncompile - cross version decompiler](https://github.com/rocky/python-uncompyle6)
-
+* [pipenv - a better python package manager](https://pipenv-fork.readthedocs.io/en/latest/install.html#installing-pipenv)
 
 ### command sample:
 

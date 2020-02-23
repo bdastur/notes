@@ -1,6 +1,4 @@
-FROM centos
-
-ADD scripts/* /airflow/scripts/
+FROM centos as base
 
 RUN yum install -y epel-release && \
     yum install -y gcc && \
@@ -9,14 +7,13 @@ RUN yum install -y epel-release && \
 
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
-
 RUN pip install apache-airflow
 
+
+FROM base as airflow
 USER root
-
+ADD scripts/* /airflow/scripts/ 
 RUN export AIRFLOW_HOME=/root/airflow
-
-
 
 CMD ["/bin/bash"]
 
