@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import datetime as dt
 
+import time
+import datetime as dt
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.python_operator import PythonOperator
@@ -13,7 +14,9 @@ def greet():
     print('Writing in file')
     with open('/tmp/greet.txt', 'a+') as f:
         now = dt.datetime.now()
-        msg = "Greet : %s" % str(now.strftime("%Y-%m-%d %H:%M:%S"))
+        # Do something.
+        time.sleep(180)
+        msg = "Greet 180 : %s" % str(now.strftime("%Y-%m-%d %H:%M:%S"))
         t = now.strftime("%Y-%m-%d %H:%M:%S")
         f.write(msg + '\n')
     return 'Greeted'
@@ -22,6 +25,8 @@ def respond():
     print('Respond Writing in file')
     with open('/tmp/greet.txt', 'a+') as f:
         now = dt.datetime.now()
+        # Do something.
+        time.sleep(180)
         msg = "Respond : %s" % str(now.strftime("%Y-%m-%d %H:%M:%S"))
         t = now.strftime("%Y-%m-%d %H:%M:%S")
         f.write(msg + '\n')
@@ -31,6 +36,8 @@ def argue():
     print('Writing in file')
     with open('/tmp/greet.txt', 'a+') as f:
         now = dt.datetime.now()
+        # Do something.
+        time.sleep(180)
         msg = "Argue : %s" % str(now.strftime("%Y-%m-%d %H:%M:%S"))
         t = now.strftime("%Y-%m-%d %H:%M:%S")
         f.write(msg + '\n')
@@ -79,4 +86,4 @@ t4 = PythonOperator(
 )
 
 
-t1 >> [t2, t3] >> t4
+t1 >> [t2, t3, t4] 
