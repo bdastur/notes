@@ -19,51 +19,48 @@ docker push $REGISTRY/alpine:0.1
 
 ### Useful reading:
 
-[Almighty-pause-container](https://www.ianlewis.org/en/almighty-pause-container)
-[What are Kubernetes Pods](https://www.ianlewis.org/en/what-are-kubernetes-pods-anyway)
-[Deep Dive into Kubeernetes controllers](https://engineering.bitnami.com/articles/a-deep-dive-into-kubernetes-controllers.html)
-[Custom controllers with Python](https://blog.openshift.com/writing-custom-controller-python/)
+* [Almighty-pause-container](https://www.ianlewis.org/en/almighty-pause-container)
+* [What are Kubernetes Pods](https://www.ianlewis.org/en/what-are-kubernetes-pods-anyway)
+* [Deep Dive into Kubeernetes controllers](https://engineering.bitnami.com/articles/a-deep-dive-into-kubernetes-controllers.html)
+* [Custom controllers with Python](https://blog.openshift.com/writing-custom-controller-python/)
 
 
 ### Useful tools and projects:
-[Python client library for Kubernetes](https://github.com/kelproject/pykube)
-[Kubernetes webhook autoscaler](https://github.com/wbuchwalter/kubernetes-webhook-autoscaler)
-[Bulk port fowarding of kubernetes services for local development](https://github.com/txn2/kubefwd)
-[A tool for exploring each layer for docker image](https://github.com/wagoodman/dive)
-[Kubernetes operator to automate helm, daemonset, SS & Deployment updates](https://github.com/keel-hq/keel)
-[Multi pod logging for kubernetes](https://github.com/wercker/stern)
-[Multi pod logging for kubernetes - but this one is a simple bash script](https://github.com/johanhaleby/kubetail)
-[Python framework to write Kubernetes Operators](https://github.com/zalando-incubator/kopf)
-[Kubernetes network policy recepies](https://github.com/ahmetb/kubernetes-network-policy-recipes)
-[Troubleshooting networking](https://github.com/nicolaka/netshoot)
-[Web visualization of a cluster](https://github.com/vmware/octant)
-[Kubernetes failure stories](https://k8s.af/)
-[Kubernetes troubleshooting workflow](https://learnk8s.io/troubleshooting-deployments)
-[Kube cost tool](https://github.com/kubecost/cost-model)
-[kube grafiti](https://github.com/HotelsDotCom/kube-graffiti)
-[Dockerfile linter](https://github.com/hadolint/hadolint)
+* [Python client library for Kubernetes](https://github.com/kelproject/pykube)
+* [Kubernetes webhook autoscaler](https://github.com/wbuchwalter/kubernetes-webhook-autoscaler)
+* [Bulk port fowarding of kubernetes services for local development](https://github.com/txn2/kubefwd)
+* [A tool for exploring each layer for docker image](https://github.com/wagoodman/dive)
+* [Kubernetes operator to automate helm, daemonset, SS & Deployment updates](https://github.com/keel-hq/keel)
+* [Multi pod logging for kubernetes](https://github.com/wercker/stern)
+* [Multi pod logging for kubernetes - but this one is a simple bash script](https://github.com/johanhaleby/kubetail)
+* [Python framework to write Kubernetes Operators](https://github.com/zalando-incubator/kopf)
+* [Kubernetes network policy recepies](https://github.com/ahmetb/kubernetes-network-policy-recipes)
+* [Troubleshooting networking](https://github.com/nicolaka/netshoot)
+* [Web visualization of a cluster](https://github.com/vmware/octant)
+* [Kubernetes failure stories](https://k8s.af/)
+* [Kubernetes troubleshooting workflow](https://learnk8s.io/troubleshooting-deployments)
+* [Kube cost tool](https://github.com/kubecost/cost-model)
+* [kube grafiti](https://github.com/HotelsDotCom/kube-graffiti)
+* [Dockerfile linter](https://github.com/hadolint/hadolint)
 
 
 
-https://github.com/karmab/samplecontroller
-https://blog.openshift.com/writing-custom-controller-python/
-https://github.com/bazelbuild/rules_k8s
-https://github.com/kubernetes-client/python
+* https://github.com/karmab/samplecontroller
+* https://blog.openshift.com/writing-custom-controller-python/
+* https://github.com/bazelbuild/rules_k8s
+* https://github.com/kubernetes-client/python
 
 ### Talks and Other links:
-[Container networking from scratch](https://www.youtube.com/watch?v=6v_BDHIgOY8)
-[Kubecon2018 schedule talks](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/schedule/)
+* [Container networking from scratch](https://www.youtube.com/watch?v=6v_BDHIgOY8)
+* [Kubecon2018 schedule talks](https://events.linuxfoundation.org/events/kubecon-cloudnativecon-north-america-2018/schedule/)
 
 
 ### Openshift/Kubernetes templates:
 
-[simple deployment config](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/deploymentconfig.yaml)
-
-[Example of liveness and readiness probe](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/dc_livenessprobe.yaml)
-
-[Example of mouting secerts](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/dc_withsecrets.yaml)
-
-[Example of secrets in ENV](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/dc_withsecrets_asenv.yaml)
+* [simple deployment config](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/deploymentconfig.yaml)
+* [Example of liveness and readiness probe](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/dc_livenessprobe.yaml)
+* [Example of mouting secerts](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/dc_withsecrets.yaml)
+* [Example of secrets in ENV](https://github.com/bdastur/notes/tree/master/kubernetes/simple-web-app/dc_withsecrets_asenv.yaml)
 
 
 ### Create a new Openshift project/namespace for a new app.
