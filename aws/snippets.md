@@ -82,5 +82,13 @@ aws ec2 --output json \
   --start-time 2019-10-01 --end-time 2019-10-12 
 ```
 
+### DynamoDB scan with filter
+
+```
+aws dynamodb scan --table-name TestData \
+--filter-expression "build_status = :bs or build_status = :bs2" \
+--expression-attribute-values '{":bs": {"S": "SUCCESS"}, ":bs2": {"S": "FAILURE"}}' \
+--profile dev --output json --max-items 5000
+```
 
 

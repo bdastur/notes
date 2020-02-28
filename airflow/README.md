@@ -1,10 +1,13 @@
 # Airflow
 
+Airflow is a tool for describing, executing and monitoring workflows            
+
 *Links:*
-[Airflow Project](https://airflow.apache.org/docs/stable/project.html)
+* [Airflow Project](https://airflow.apache.org/docs/stable/project.html)
+* [Developing workflows with Airflow](http://michal.karzynski.pl/blog/2017/03/19/developing-workflows-with-apache-airflow/)
+* [Stackoverflow - airflow mysql connection](https://stackoverflow.com/questions/50632598/running-airflow-tasks-in-parallel-nothing-gets-scheduled)
+* [Airflow db init fails with mysql](https://stackoverflow.com/questions/55223423/airflow-fail-to-initialize-db)
 
-
-Airflow is a tool for describing, executing and monitoring workflows
 
 
 ## Concepts:
@@ -34,3 +37,18 @@ organized in a way that reflects their relationships and dependencies.
 * This allows task instances to process data for the desired logical date
   and time.
 
+
+
+## Commands:
+
+Unpause a DAG:
+
+```
+docker exec -t airflow /usr/bin/airflow unpause mysimpledag
+```
+
+Trigger a DAG Run:
+
+```
+$ docker exec -t airflow /usr/bin/airflow trigger_dag mysimpledag
+```
