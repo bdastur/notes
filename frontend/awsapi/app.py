@@ -15,8 +15,7 @@ def handle_index():
 
 @app.route("/credentials")
 def handle_credentials():
-    print("Get Credentials");
-
+    print("Get Credentials")
 
     creds = {
         'access_key_id': "ASIxxxxxxx6UH",
@@ -26,6 +25,10 @@ def handle_credentials():
 
     return jsonify(creds)
 
+@app.route("/test")
+def handle_test():
+    print("Testing js rendering")
+    return(render_template("test.html"))
 
 def main():
     app.run(host='127.0.0.1', port=5001, debug=True)

@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Anton|Montserrat:400,700" rel="stylesheet">
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.628.0.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/common.css") }}">
+    </head>
+    <body onload=initiate_test()>
+        TEST JS Render operations
+        <hr>
+        <div id="container-1">
+        </div>
+
+        <script type="text/javascript"
+           src="{{ url_for('static', filename="js/jquery-3.3.1.min.js") }}">
+        </script>
+        <script type="text/javascript"
+           src="{{ url_for('static', filename="js/renderer.js") }}">
+        </script>
+        <script type="text/javascript"
+           src="{{ url_for('static', filename="js/test.js") }}">
+        </script>
+    </body>
+</html>
