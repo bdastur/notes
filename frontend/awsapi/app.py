@@ -17,10 +17,11 @@ def handle_index():
 def handle_credentials():
     print("Get Credentials");
 
+
     creds = {
-        'access_key_id': "AS6TDULEBQK",
-        'secret_access_key': "Kxxx"
-        'session_token': "FwoGZxxx"
+        'access_key_id': "ASIxxxxxxx6UH",
+        'secret_access_key': "zkFI5VOQ",
+        'session_token': "Fwxxxxxxx"
     }
 
     return jsonify(creds)

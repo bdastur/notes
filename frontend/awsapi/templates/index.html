@@ -1,10 +1,22 @@
 <html>
     <head>
-        HEAD.1
+        <link href="https://fonts.googleapis.com/css?family=Anton|Montserrat:400,700" rel="stylesheet">
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.628.0.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/common.css") }}">
     </head>
     <body onload=create_credentials()>
-        BODY
+        <div id="container">
+            <table id="instance_table">
+                <tr>
+                    <th>Instance Id</th>
+                    <th>Instance type</th>
+                </tr>
+                <tr>
+                    <td>abc</td>
+                    <td>abc</td>
+                </tr>
+            </table>
+        </div>
         <script type="text/javascript"
            src="{{ url_for('static', filename="js/jquery-3.3.1.min.js") }}">
         </script>
