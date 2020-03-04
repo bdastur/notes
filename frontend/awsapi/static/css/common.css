@@ -1,0 +1,23 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+	margin: 16px 11px 0px 11px;
+}
+
+
+
+#container {
+	margin: 10px 10px 10px 10px;
+}
+
+
+table {
+	border: 1px solid #dee2e6;
+	margin-bottom: 20px;
+}
+
+table th,
+table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
