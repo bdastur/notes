@@ -98,8 +98,11 @@ class Table {
 	 * usage: new_table = new Table([{"id": "table-1"}], "container-1");
 	 */
 	constructor(attributes, container_id) {
+		this.rows = [];
 		this.attributes = attributes;
-		this.table = document.createElement("table")
+		this.table = document.createElement("table");
+		this.header_on = false;
+
 		attributes.forEach((attribute) => {
 			var key = Object.keys(attribute);
 			var value = attribute[key];
@@ -119,8 +122,10 @@ class Table {
 	 * headers - list (optional) - to set the table header.
 	 */
 	insert_rows(rows, headers) {
+
 	    if (headers != undefined) {
 		    // Create a table header.
+		    this.header_on = true;
             var thead = this.table.createTHead();
             var thead_row = this.table.insertRow();
             headers.forEach((element) => {
@@ -131,15 +136,50 @@ class Table {
         }
 
         rows.forEach((row) => {
+	        this.rows.push(row);
 	        rowobj = this.table.insertRow();
 
 	        row.forEach((item) => {
 	            var cell = rowobj.insertCell();
 	            cell.innerHTML = item;
 	        });
-
         });
+
+        console.log("Rows: --> " + this.rows[1]);
 	}
+
+
+    sort_by_column(column_idx) {
+        if (column_idx == undefined) {
+	        column_idx = 0;
+        }
+        console.log("Before This rows: : : " + this.rows[2] + " len: " + this.rows.length);
+
+        this.rows.sort(function(a, b) {
+	        var valueA = a[column_idx];
+	        var valueB = b[column_idx];
+	        if (valueA < valueB) {
+		        return -1;
+	        } else if (valueA > valueB) {
+		        return 1;
+	        } else {
+		        return 0;
+	        }
+        });
+
+        var start_idx = 0;
+        if (this.header_on == true) {
+	        start_idx = 1;
+        }
+        var row_count = 0;
+        console.log("Ater This rows: : : " + this.rows + " len: " + this.rows.length);
+        for (var idx = start_idx, row; row = this.table.rows[idx]; idx++, row_count++) {
+	        for(var j = 0, col; col = row.cells[j]; j++) {
+	            console.log("COL: " + col);
+	            col.innerHTML = this.rows[row_count][j];
+	        }
+        }
+    }
 }
 
 
