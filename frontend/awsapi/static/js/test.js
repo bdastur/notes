@@ -13,13 +13,6 @@ function initiate_test() {
         ["Alice", "Doe"],
         ["Raj", "Pandya"]
     ];
-    render_table(["Last name", "First name"], rows, "container-1", test_table_id);
-
-    var data = ["David", "Smith"];
-
-    render_table_insert_row(data, test_table_id);
-
-
 
 
     var attributes = [{
@@ -44,6 +37,28 @@ function initiate_test() {
     var arr3 = [2,  4];
     newarr.push(arr3);
     console.log("NEW ARR: " + newarr[2]);
+
+
+    /*
+    * Button rendering tests
+    */
+    var button_attributes = [{
+        "id": "mybutton-1"
+    }];
+
+    console.log("NEW ARR: " + newarr[0]);
+    var new_button = new Button(button_attributes, "Test Button", test_container_id);
+
+    var button_listener = {
+        'event': 'click',
+        'callback': function() {
+            console.log("Button clicked!");
+        }
+    };
+    new_button.add_event_listener(button_listener);
+
+
+
 
 
     /*

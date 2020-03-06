@@ -1,83 +1,29 @@
 
-/*
- * Render a new table.
- *
- * Arguments:
- * headers: list - A list of strings identifying the table headers.
- * rows:    list - A list of rows with elements to insert in cells in the table.
- * container_id: string - A dom element identifier for the container of the table.
- * table_id: string - A dom element identifier to give the table.
- *
-*/
-function render_table(headers, rows, container_id, table_id) {
-	div_obj = document.getElementById(container_id);
-	table = document.createElement("table");
-	console.log("Table id: " + table_id);
-	if (table_id == undefined) {
-		table_id = "table" + Math.round((Math.random() * 10000));
-	}
+class Button {
+    constructor(attributes, html_text, container_id) {
+        this.button = document.createElement("button");
+        this.button.innerHTML = html_text;
 
-	console.log("Table id: " + table_id);
+        attributes.forEach((attribute) => {
+            var key = Object.keys(attribute);
+            var value = attribute[key];
+            this.button.setAttribute(key, value);
+        });
 
-	table.setAttribute("id", table_id);
-
-
-    // Create a table header.
-    var thead = table.createTHead();
-    var thead_row = table.insertRow();
-    headers.forEach((element) => {
-	    var th = document.createElement("th");
-	    th.innerHTML = element;
-	    thead_row.appendChild(th);
-    });
-
-
-    rows.forEach((row) => {
-	    rowobj = table.insertRow();
-
-	    row.forEach((item) => {
-	        var cell = rowobj.insertCell();
-	        cell.innerHTML = item;
-	    });
-
-    });
-
-	div_obj.appendChild(table);
-}
-
-
-/*
- * Insert a new row to an existing table.
- *
- * Arguments:
- * row - list - A list of elements of the row
- * table_id - string - A dom element identifier for the table.
- */
-function render_table_insert_row(row, table_id) {
-	table = document.getElementById(table_id);
-	var rowobj = table.insertRow();
-	row.forEach((item) => {
-		var cell = rowobj.insertCell();
-		cell.innerHTML = item;
-	});
-
-}
-
-
-
-function render_button(container_id, button_id, event_listener) {
-	var container_obj = document.getElementById(container_id);
-	var button = document.createElement("button");
-	button.innerHTML = "Submit";
-	button.setAttribute("id", button_id);
-
-	// Add event listener.
-	if (event_listener != undefined) {
-        button.addEventListener(event_listener['event'], event_listener['callback']);
+        var container = document.getElementById(container_id);
+        container.appendChild(this.button);
     }
 
-	container_obj.appendChild(button);
+    add_event_listener(event_listener) {
+        if (event_listener == undefined) {
+            console.log("Event listener is undefined, Do nothing!");
+            return;
+        }
+        this.button.addEventListener(event_listener['event'], event_listener['callback']);
+    }
+
 }
+
 
 
 
@@ -106,7 +52,7 @@ class Table {
 		attributes.forEach((attribute) => {
 			var key = Object.keys(attribute);
 			var value = attribute[key];
-			table.setAttribute(key, value);
+			this.table.setAttribute(key, value);
 		});
 
 		var container = document.getElementById(container_id);
@@ -137,7 +83,7 @@ class Table {
 
         rows.forEach((row) => {
 	        this.rows.push(row);
-	        rowobj = this.table.insertRow();
+	        var rowobj = this.table.insertRow();
 
 	        row.forEach((item) => {
 	            var cell = rowobj.insertCell();
