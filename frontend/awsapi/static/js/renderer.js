@@ -1,4 +1,6 @@
 
+
+
 class Button {
     constructor(attributes, html_text, container_id) {
         this.button = document.createElement("button");
@@ -24,6 +26,9 @@ class Button {
 
 }
 
+function cell_event_handler() {
+	console.log("Clicked!");
+}
 
 
 
@@ -53,6 +58,7 @@ class Table {
 			var key = Object.keys(attribute);
 			var value = attribute[key];
 			this.table.setAttribute(key, value);
+
 		});
 
 		var container = document.getElementById(container_id);
@@ -68,16 +74,35 @@ class Table {
 	 * headers - list (optional) - to set the table header.
 	 */
 	insert_rows(rows, headers) {
-
 	    if (headers != undefined) {
 		    // Create a table header.
 		    this.header_on = true;
             var thead = this.table.createTHead();
             var thead_row = this.table.insertRow();
+
+            /*
+             * what's the purpose of const $this = this.
+             * https://stackoverflow.com/questions/43642729/calling-a-method-from-another-method-in-the-same-class
+             */
+            const $this = this;
+
+            var col_idx = 0;
             headers.forEach((element) => {
 	            var th = document.createElement("th");
+	            th.onclick = sortTable(col_idx.toString(2), $this.table.id);
+	            th.setAttribute("id", $this.table.id + "_th__" + col_idx);
+
+
+	            th.addEventListener("click", function(ev) {
+                    //console.log("EV: " + ev.target.id);
+                    var cellidx = ev.target.id.split("__")[1];
+                    sortTable(cellidx, $this.table.id);
+	            });
+
+
 	            th.innerHTML = element;
 	            thead_row.appendChild(th);
+	            col_idx++;
             });
         }
 
@@ -93,7 +118,6 @@ class Table {
 
         console.log("Rows: --> " + this.rows[1]);
 	}
-
 
     sort_by_column(column_idx) {
         if (column_idx == undefined) {
@@ -127,6 +151,68 @@ class Table {
         }
     }
 }
+
+
+function sortTable(n, table_id) {
+  console.log("sortTable: col: " + n + "Table id: " + table_id);
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById(table_id);
+  if (table == null) {
+	  return;
+  }
+  switching = true;
+  // Set the sorting direction to ascending:
+  dir = "asc";
+  /* Make a loop that will continue until
+  no switching has been done: */
+  while (switching) {
+    // Start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /* Loop through all table rows (except the
+    first, which contains table headers): */
+    for (i = 1; i < (rows.length - 1); i++) {
+      // Start by saying there should be no switching:
+      shouldSwitch = false;
+      /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          // If so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      // Each time a switch is done, increase this count by 1:
+      switchcount ++;
+    } else {
+      /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
+
 
 
 
