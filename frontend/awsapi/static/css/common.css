@@ -3,21 +3,48 @@ body {
 	margin: 16px 11px 0px 11px;
 }
 
+.grid-container {
+	display: grid;
+	grid-template-columns: 30% 30% 1fr;
+	grid-template-rows:inherit;
+    border: 2px solid black;
+    margin: 15px;
+}
 
 
-#container {
+
+#container-1 {
 	margin: 10px 10px 10px 10px;
 }
 
 
-table {
+.simple {
 	border: 1px solid #dee2e6;
 	margin-bottom: 20px;
+	text-align: center;
+	vertical-align: middle;
+	padding: 10px;
 }
 
-table th,
-table td {
-    padding: 0.75rem;
-    vertical-align: top;
-    border-top: 1px solid #dee2e6;
+
+
+.simple td {
+	border-top: 1px solid #dee2e6;
 }
+
+
+th {
+	cursor: pointer;
+}
+
+
+
+/*
+.grid-container {
+	display: grid;
+	grid-template-columns: 50% 50% 1fr;
+    grid-template-rows: fit-content;
+    border: 12px solid black;
+    margin: 15px;
+}
+*/
