@@ -1,7 +1,7 @@
 /***************************************************************
  * DIV.
  * Manage DOM element div.
- *
+ * HTML Block level element. (Grouping element)
  ***************************************************************/
 class Div {
 	constructor(attributes, container_id) {
@@ -16,6 +16,39 @@ class Div {
         var container = document.getElementById(container_id);
         container.appendChild(this.div);
 	}
+
+	remove_child(child_id) {
+		var child = document.getElementById(child_id);
+		this.div.removeChild(child);
+	}
+
+}
+
+
+/***************************************************************
+ * Heading.
+ * Manage DOM element h1..h6
+ *
+ ***************************************************************/
+class Heading {
+	constructor(attributes, container_id, heading_level, heading_text) {
+		this.heading = document.createElement(heading_level);
+
+		attributes.forEach((attribute) => {
+            var key = Object.keys(attribute);
+            var value = attribute[key];
+            this.heading.setAttribute(key, value);
+        });
+        this.heading.innerHTML = heading_text;
+
+        var container = document.getElementById(container_id);
+        container.appendChild(this.heading);
+	}
+
+	set_heading_text(heading_text) {
+		this.heading.innerHTML = heading_text;
+	}
+
 
 }
 

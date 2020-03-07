@@ -30,6 +30,13 @@ function initiate_test() {
 
 
 
+    var heading_attributes = [
+	    {"id": "page-heading"}
+    ];
+    var page_heading = new Heading(heading_attributes, test_container_id, 'h2', "This is a heading");
+
+
+
 
     /*
     * Button rendering tests
@@ -45,6 +52,7 @@ function initiate_test() {
         'callback': function() {
             console.log("Button clicked!");
             new_table.sort_by_column(0);
+            page_heading.set_heading_text("This is a new heading now!");
             //sortTable(0, "table-1");
         }
     };
@@ -81,7 +89,9 @@ function initiate_test() {
     item_arr = new_list.get_list_items();
     console.log("Item arrr: " + item_arr);
 
-    new_list.delete_list_item_by_idx(30);
+    new_list.delete_list_item_by_idx(2);
+
+
 
     /*
 	 * test sorting
