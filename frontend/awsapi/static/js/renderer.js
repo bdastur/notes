@@ -1,7 +1,97 @@
+/***************************************************************
+ * DIV.
+ * Manage DOM element div.
+ *
+ ***************************************************************/
+class Div {
+	constructor(attributes, container_id) {
+		this.div = document.createElement("div");
+
+		attributes.forEach((attribute) => {
+            var key = Object.keys(attribute);
+            var value = attribute[key];
+            this.div.setAttribute(key, value);
+        });
+
+        var container = document.getElementById(container_id);
+        container.appendChild(this.div);
+	}
+
+}
+
+
+/***************************************************************
+ * List.
+ * Manage DOM element ol or ul (Ordered or Unordered list).
+ *
+ ***************************************************************/
+class List {
+	constructor(attributes, container_id, ordered=true) {
+		this.ordered = ordered;
+		if (ordered == true) {
+			this.list = document.createElement("ol");
+		} else {
+			this.list = document.createElement("ul");
+		}
+
+		attributes.forEach((attribute) => {
+            var key = Object.keys(attribute);
+            var value = attribute[key];
+            this.list.setAttribute(key, value);
+        });
+
+        var container = document.getElementById(container_id);
+        container.appendChild(this.list);
+	}
+
+	add_list_items(items) {
+		items.forEach((item) => {
+			var item_obj = document.createElement("li");
+			item_obj.innerHTML = item;
+			this.list.appendChild(item_obj);
+		});
+	}
+
+	get_list_items() {
+		var item_array = []
+		// This returns an HTMLCollection object
+		var items = this.list.getElementsByTagName("li");
+
+
+        // This is how to iterate an HTMLCollection object
+		for (var item of items) {
+			item_array.push(item.innerHTML);
+		}
+
+		return item_array;
+	}
+
+    delete_list_item_by_idx(item_idx) {
+	    var item = this.list.getElementsByTagName("li")[item_idx];
+	    this.list.removeChild(item);
+    }
+
+}
 
 
 
+
+
+/***************************************************************
+ * Button.
+ * Manage DOM element button.
+ *
+ ***************************************************************/
 class Button {
+	/*
+     * Construct
+     * Construct a new Button object.
+     *
+     * Arguments:
+     * attributes - hash - A key/value pair of attributes to set to the table
+     * html_text - string - Button text
+     * container_id- string - DOM ID of the container to put the table element in.
+	 */
     constructor(attributes, html_text, container_id) {
         this.button = document.createElement("button");
         this.button.innerHTML = html_text;
@@ -26,17 +116,13 @@ class Button {
 
 }
 
-function cell_event_handler() {
-	console.log("Clicked!");
-}
 
 
 
-
-/*
+/****************************************************************
  * Table class.
  * Manage DOM element table.
- */
+ ****************************************************************/
 class Table {
     /*
 	 * Constructor.
@@ -57,6 +143,7 @@ class Table {
 		attributes.forEach((attribute) => {
 			var key = Object.keys(attribute);
 			var value = attribute[key];
+			console.log("Attribute key: " + key + ", value: " + value);
 			this.table.setAttribute(key, value);
 
 		});

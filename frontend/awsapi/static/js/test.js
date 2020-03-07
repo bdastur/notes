@@ -15,9 +15,11 @@ function initiate_test() {
     ];
 
 
-    var attributes = [{
-	    "id": "table-1"
-    }];
+    var attributes = [
+        {"id": "table-1"},
+        {"class": "simple sorted"}
+    ];
+
     headers = ["Last Name", "First Name"];
 
     new_table = new Table(attributes, test_container_id);
@@ -27,16 +29,6 @@ function initiate_test() {
     new_table.sort_by_column(0);
 
 
-    var newarr = [
-	    [1, 2],
-	    [3, 4]
-    ];
-
-    console.log("NEW ARR: " + newarr[0]);
-
-    var arr3 = [2,  4];
-    newarr.push(arr3);
-    console.log("NEW ARR: " + newarr[2]);
 
 
     /*
@@ -46,20 +38,50 @@ function initiate_test() {
         "id": "mybutton-1"
     }];
 
-    console.log("NEW ARR: " + newarr[0]);
     var new_button = new Button(button_attributes, "Test Button", test_container_id);
 
     var button_listener = {
         'event': 'click',
         'callback': function() {
             console.log("Button clicked!");
+            new_table.sort_by_column(0);
+            //sortTable(0, "table-1");
         }
     };
     new_button.add_event_listener(button_listener);
+    console.log("Set Button onclick listener!");
 
 
+    /*
+	 * Div test
+	*/
+	var div_attributes = [
+	    {"id": "div-1"},
+        {"class": "gelm-1"}
+	];
+	new_div = new Div(div_attributes, test_container_id);
 
 
+    /*
+	 * List
+	*/
+	var list_attributes = [
+		{"id": "list-1"},
+		{"class": "simple_list"}
+	];
+
+	var new_list = new List(list_attributes, test_container_id, ordered=true);
+
+	items = [
+		"Keeper of the lost cities",
+		"Wings of Fire",
+		"Magic treehouse"
+	]
+    new_list.add_list_items(items);
+    item_arr = new_list.get_list_items();
+    console.log("Item arrr: " + item_arr);
+
+    new_list.delete_list_item_by_idx(30);
 
     /*
 	 * test sorting
@@ -98,6 +120,23 @@ function initiate_test() {
 	    }
 
     });
+
+
+
+    var newarr = [
+	    [1, 2],
+	    [3, 4]
+    ];
+
+    console.log("NEW ARR: " + newarr[0]);
+
+    var arr3 = [2,  4];
+    newarr.push(arr3);
+    console.log("NEW ARR: " + newarr[2]);
+
+    console.log("NEW ARR: " + newarr[0]);
+
+
 */
 
 
