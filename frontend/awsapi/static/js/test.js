@@ -10,7 +10,19 @@ function initiate_test_bs_render() {
 	};
 	navbar.add_nav_link_item(item_info);
 	navbar.add_nav_dropdown_item(null);
-	navbar.add_nav_dropdown_menu("Files");
+	dropdown_menu = navbar.add_nav_dropdown_menu("Files");
+
+	item_info = {
+		"href": "#",
+		"text": "New"
+	};
+	navbar.add_nav_dropdown_menu_item(dropdown_menu, item_info);
+
+	item_info = {
+		"href": "#",
+		"text": "Open"
+	};
+	navbar.add_nav_dropdown_menu_item(dropdown_menu, item_info);
 
 }
 

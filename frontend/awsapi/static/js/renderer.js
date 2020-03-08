@@ -69,9 +69,18 @@ class NavBar {
 		nav_item.appendChild(dropdown_menu);
 
 		this.ul.appendChild(nav_item);
+
+		return dropdown_menu;
     }
 
+    add_nav_dropdown_menu_item(dropdown_menu, item_info) {
+        var ddmenu_item = document.createElement("a");
+        ddmenu_item.setAttribute("class", "dropdown-item");
+        ddmenu_item.href = item_info["href"];
+        ddmenu_item.innerHTML = item_info["text"];
 
+        dropdown_menu.appendChild(ddmenu_item);
+    }
 
 	add_nav_dropdown_item(item_info) {
 		var nav_item = document.createElement("li");
