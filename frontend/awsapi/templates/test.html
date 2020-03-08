@@ -2,9 +2,84 @@
     <head>
         <link href="https://fonts.googleapis.com/css?family=Anton|Montserrat:400,700" rel="stylesheet">
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.628.0.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="css/common.css") }}">
     </head>
-    <body onload=initiate_test()>
+    <body id="body" onload=initiate_test()>
+	    <h2>Static rendering</h2>
+	    <div class="mycontainer">
+		    <div class="el1">
+			    Element 1.
+			    <p> THi sis a test of a paragramph. What it is wortth</p>
+			    <button type="button" class="custom-btn">Primary</button>
+			    <h4>Example heading <span class="badge badge-secondary">New</span></h4>
+			    <p> And anotther thislskdjjflksjdlkfjlskjdflkjl slkdjflksjdlfkj </p>
+			    <h3> lksjdlfjlskdj</h3>
+			    <p>lksjdflkjslkdj lskdjflkjsdlkfj lskdjflkjsdlkfj lskdjflkjsdlkfj lskdjflksdjflk
+				    lskjdflkjsdlfkj lskdjflkjsdlfkj lskdjfl
+			    </p>
+			    <h4>Example heading <span class="badge badge-secondary">New</span></h4>
+
+		    </div>
+		    <div class="el2">Element 2</div>
+		    <div class="el3">Element 3</div>
+		    <div class="el4">Element 4</div>
+
+	    <ul class="nav smooth-nav">
+		  <li class="nav-item">
+		    <a class="nav-link active" href="#">Active</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#">Link</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#">Link</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link disabled" href="#">Disabled</a>
+		  </li>
+		</ul>
+
+	    </div>
+	    <div class="container-fluid">
+	        <div class="row">
+	            <div class="col">
+		            Row 1 Col 1
+	            </div>
+	            <div class="col">
+		            Row 1 Col 2
+	            </div>
+	        </div>
+	        <div class="row">
+	            <div class="col">
+		            Row 2 Col 1
+	            </div>
+	            <div class="col">
+		            Row 2 Col 2
+	            </div>
+	        </div>
+
+	        <ul class="nav smooth-nav">
+			  <li class="nav-item">
+			    <a class="nav-link active" href="#">Active</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="#">Link</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="#">Link</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link disabled" href="#">Disabled</a>
+			  </li>
+		    </ul>
+
+	    </div>
+
+	    <h2>Dynamic rendering</h2>
+
+
         TEST JS Render operations
         <hr>
         <div id="container-1" class="grid-container">
@@ -25,6 +100,18 @@
         <script type="text/javascript"
            src="{{ url_for('static', filename="js/jquery-3.3.1.min.js") }}">
         </script>
+
+        <!-- Optional JavaScript -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		 crossorigin="anonymous">
+		</script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		     crossorigin="anonymous">
+		</script>
 
         <script type="text/javascript"
            src="{{ url_for('static', filename="js/renderer.js") }}">

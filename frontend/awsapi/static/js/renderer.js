@@ -1,4 +1,113 @@
 /***************************************************************
+ * Bootstrap Navbar manager class.
+ *
+ ***************************************************************/
+class NavBar {
+	constructor(attributes, container_id) {
+	    this.navbar = document.createElement("nav");
+
+		//Set attributes.
+		this.navbar.setAttribute("class", "navbar navbar-expand-lg navbar-dark bg-dark");
+
+        // Navbar Brand.
+        var brand = document.createElement("a");
+        brand.setAttribute("class", "navbar-brand");
+        brand.href = "#";
+        brand.innerHTML = "MyNavBar";
+
+        this.navbar.appendChild(brand);
+
+        //Div.
+        var nav_div = document.createElement("div");
+        nav_div.setAttribute("class", "collapse navbar-collapse");
+        nav_div.setAttribute("id", "navbarNav");
+
+        var ul = document.createElement("ul");
+        ul.setAttribute("class", "navbar-nav");
+
+        this.ul = ul;
+
+        nav_div.appendChild(ul);
+        this.navbar.appendChild(nav_div);
+
+        var container = document.getElementById(container_id);
+        container.appendChild(this.navbar);
+	}
+
+	add_nav_link_item(item_info) {
+        var nav_item = document.createElement("li");
+        nav_item.setAttribute("class", "nav-item active");
+
+        var element = document.createElement("a");
+        element.setAttribute("class", "nav-link");
+        element.href = item_info['href'];
+        element.innerHTML = item_info['text'];
+        nav_item.appendChild(element);
+
+        this.ul.appendChild(nav_item);
+	}
+
+    add_nav_dropdown_menu(menu_heading) {
+	    var nav_item = document.createElement("li");
+		nav_item.setAttribute("class", "nav-item dropdown");
+
+		var dropdown_toggle = document.createElement("a");
+		dropdown_toggle.setAttribute("class", "nav-link dropdown-toggle");
+		dropdown_toggle.setAttribute("role", "button");
+		dropdown_toggle.setAttribute("data-toggle", "dropdown");
+		dropdown_toggle.setAttribute("aria-haspopup", "true");
+		dropdown_toggle.setAttribute("aria-expanded", "false");
+		dropdown_toggle.href = "#";
+		dropdown_toggle.innerHTML = menu_heading;
+
+		nav_item.appendChild(dropdown_toggle);
+
+		var dropdown_menu = document.createElement("div");
+		dropdown_menu.setAttribute("class", "dropdown-menu");
+		dropdown_menu.setAttribute("aria-labelledby", "navbarDropdown");
+
+		nav_item.appendChild(dropdown_menu);
+
+		this.ul.appendChild(nav_item);
+    }
+
+
+
+	add_nav_dropdown_item(item_info) {
+		var nav_item = document.createElement("li");
+		nav_item.setAttribute("class", "nav-item dropdown");
+
+		var dropdown_toggle = document.createElement("a");
+		dropdown_toggle.setAttribute("class", "nav-link dropdown-toggle");
+		dropdown_toggle.setAttribute("role", "button");
+		dropdown_toggle.setAttribute("data-toggle", "dropdown");
+		dropdown_toggle.setAttribute("aria-haspopup", "true");
+		dropdown_toggle.setAttribute("aria-expanded", "false");
+		dropdown_toggle.href = "#";
+		dropdown_toggle.innerHTML = "Dropdown Menu";
+
+		nav_item.appendChild(dropdown_toggle);
+
+		var dropdown_menu = document.createElement("div");
+		dropdown_menu.setAttribute("class", "dropdown-menu");
+		dropdown_menu.setAttribute("aria-labelledby", "navbarDropdown");
+
+		nav_item.appendChild(dropdown_menu);
+
+        var ddmenu_item = document.createElement("a");
+        ddmenu_item.setAttribute("class", "dropdown-item");
+        ddmenu_item.href = "#";
+        ddmenu_item.innerHTML = "Menu item";
+
+        dropdown_menu.appendChild(ddmenu_item);
+
+        this.ul.appendChild(nav_item);
+	}
+ }
+
+
+
+/***************************************************************
  * DIV.
  * Manage DOM element div.
  * HTML Block level element. (Grouping element)
@@ -16,6 +125,10 @@ class Div {
         var container = document.getElementById(container_id);
         container.appendChild(this.div);
 	}
+
+    add_text(text) {
+	    this.div.innerHTML = text;
+    }
 
 	remove_child(child_id) {
 		var child = document.getElementById(child_id);

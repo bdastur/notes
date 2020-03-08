@@ -1,3 +1,19 @@
+function initiate_test_bs_render() {
+	console.log("Test suite start");
+	body_id = "body";
+	var attributes = [];
+	var navbar = new NavBar(attributes, body_id);
+
+	var item_info = {
+		"href": "#",
+		"text": "Home"
+	};
+	navbar.add_nav_link_item(item_info);
+	navbar.add_nav_dropdown_item(null);
+	navbar.add_nav_dropdown_menu("Files");
+
+}
+
 
 function initiate_test() {
     console.log("Test suite start!");
@@ -10,7 +26,7 @@ function initiate_test() {
     var test_container_id = "container-1";
     var rows = [
         ["Jacob", "Dan"],
-        ["Alice", "Doe"],
+        ["Alice", " Doe"],
         ["Raj", "Pandya"]
     ];
 
