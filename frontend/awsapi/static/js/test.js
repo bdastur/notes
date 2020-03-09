@@ -2,7 +2,7 @@ function initiate_test_bs_render() {
 	console.log("Test suite start");
 	body_id = "body";
 	var attributes = [];
-	var navbar = new NavBar(attributes, body_id);
+	var navbar = new NavBar(attributes, body_id, "MyNavBar");
 
 	var item_info = {
 		"href": "#",
@@ -23,6 +23,25 @@ function initiate_test_bs_render() {
 		"text": "Open"
 	};
 	navbar.add_nav_dropdown_menu_item(dropdown_menu, item_info);
+
+	var accordion = new Accordion("testaccordian", body_id);
+    var card_header = {
+	    "text": "My collapsible item"
+    };
+    var card_body = {
+	    "id": "collapse1",
+	    "text": "This is a test of collapsible item"
+    }
+    accordion.add_accordion_card("testaccordian", card_header, card_body);
+
+    card_header = {
+	    "text": "My another collapsible item"
+    };
+    var card_body = {
+	    "id": "item2",
+	    "text": "And here we go again. Yet another test of collapsible item"
+    }
+    accordion.add_accordion_card("testaccordian", card_header, card_body);
 
 }
 
