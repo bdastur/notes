@@ -1,9 +1,67 @@
 /***************************************************************
+ * Bootstrap accordion manager class.
+ *
+ ***************************************************************/
+class Accordion {
+	constructor(accordion_id, container_id) {
+		this.accordion = document.createElement("div");
+		this.accordion.setAttribute("id", accordion_id); //0
+//         console.dir(this.accordion);
+
+		var container = document.getElementById(container_id);
+		container.appendChild(this.accordion);
+	}
+
+	add_accordion_card(accordion_id, card_header_info, card_body_info) {
+        var card = document.createElement("div");
+        card.setAttribute("class", "card");
+
+        // Card header
+        var card_header = document.createElement("div");
+        card_header.setAttribute("class", "card-header");
+        card_header.setAttribute("id", "heading1");  //
+        card.appendChild(card_header);
+
+        var card_header_h5 = document.createElement("h5");
+        card_header_h5.setAttribute("class", "mb-0");
+        card_header.appendChild(card_header_h5);
+
+        var card_header_btn = document.createElement("button");
+        card_header_btn.setAttribute("class", "btn btn-link");
+        card_header_btn.setAttribute("data-toggle", "collapse");
+        card_header_btn.setAttribute("data-target", "#" + card_body_info["id"]); //1
+        card_header_btn.setAttribute("aria-expanded", "true");
+        card_header_btn.setAttribute("aria-controls", card_body_info["id"]); //1
+        card_header_btn.innerHTML = card_header_info["text"]; //
+        card_header_h5.appendChild(card_header_btn);
+
+        // Card body
+        var collapse_show_div = document.createElement("div");
+        collapse_show_div.setAttribute("id", card_body_info["id"]);    //1
+        collapse_show_div.setAttribute("class", "collapse show");
+        collapse_show_div.setAttribute("aria-labelledby", card_body_info["id"]); //1
+        collapse_show_div.setAttribute("data-parent", accordion_id); //0
+        card.appendChild(collapse_show_div);
+
+        var card_body = document.createElement("div");
+        card_body.setAttribute("class", "card-body");
+        card_body.innerHTML = card_body_info["text"]; //user
+        collapse_show_div.appendChild(card_body);
+
+
+        this.accordion.appendChild(card);
+	}
+}
+
+
+
+
+/***************************************************************
  * Bootstrap Navbar manager class.
  *
  ***************************************************************/
 class NavBar {
-	constructor(attributes, container_id) {
+	constructor(attributes, container_id, banner) {
 	    this.navbar = document.createElement("nav");
 
 		//Set attributes.
@@ -13,7 +71,7 @@ class NavBar {
         var brand = document.createElement("a");
         brand.setAttribute("class", "navbar-brand");
         brand.href = "#";
-        brand.innerHTML = "MyNavBar";
+        brand.innerHTML = banner;
 
         this.navbar.appendChild(brand);
 
