@@ -43,6 +43,22 @@ function initiate_test_bs_render() {
     }
     accordion.add_accordion_card("testaccordian", card_header, card_body);
 
+
+
+
+    card_header = {
+	    "id": "newheader",
+ 	    "text": "My very another collapsible item"
+    };
+    var card_body = {
+	    "id": "item3",
+	    "text": "And here we go again. Yet another test of collapsible item Blah Blah"
+    }
+
+    var card = accordion.add_new_accordian_card();
+    accordion.add_new_accordion_card_header(card, "testaccordian1", card_header, card_body);
+    accordion.add_new_accordion_card_body(card, "testaccordian1", card_body);
+
 }
 
 
