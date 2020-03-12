@@ -12,6 +12,52 @@ class Accordion {
 		container.appendChild(this.accordion);
 	}
 
+    add_new_accordian_card() {
+        var card = document.createElement("div");
+        card.setAttribute("class", "card");
+
+        this.accordion.appendChild(card);
+        return card
+    }
+
+    add_new_accordion_card_header(card, accordion_id, card_header_info, card_body_info) {
+	    // Card header
+        var card_header = document.createElement("div");
+        card_header.setAttribute("class", "card-header");
+        card_header.setAttribute("id", card_header_info["id"]);  //
+        card.appendChild(card_header);
+
+        var card_header_h5 = document.createElement("h5");
+        card_header_h5.setAttribute("class", "mb-0");
+        card_header.appendChild(card_header_h5);
+
+        var card_header_btn = document.createElement("button");
+        card_header_btn.setAttribute("class", "btn btn-link");
+        card_header_btn.setAttribute("data-toggle", "collapse");
+        card_header_btn.setAttribute("data-target", "#" + card_body_info["id"]);
+        card_header_btn.setAttribute("aria-expanded", "true");
+        card_header_btn.setAttribute("aria-controls", card_body_info["id"]);
+        card_header_btn.innerHTML = card_header_info["text"]; //
+        card_header_h5.appendChild(card_header_btn);
+
+    }
+
+    add_new_accordion_card_body(card, accordion_id, card_body_info) {
+        // Card body
+        var collapse_show_div = document.createElement("div");
+        collapse_show_div.setAttribute("id", card_body_info["id"]);
+        collapse_show_div.setAttribute("class", "collapse show");
+        collapse_show_div.setAttribute("aria-labelledby", card_body_info["id"]);
+        collapse_show_div.setAttribute("data-parent", accordion_id);
+        card.appendChild(collapse_show_div);
+
+        var card_body = document.createElement("div");
+        card_body.setAttribute("class", "card-body");
+        card_body.innerHTML = card_body_info["text"]; //user
+        collapse_show_div.appendChild(card_body);
+
+    }
+
 	add_accordion_card(accordion_id, card_header_info, card_body_info) {
         var card = document.createElement("div");
         card.setAttribute("class", "card");
@@ -29,18 +75,18 @@ class Accordion {
         var card_header_btn = document.createElement("button");
         card_header_btn.setAttribute("class", "btn btn-link");
         card_header_btn.setAttribute("data-toggle", "collapse");
-        card_header_btn.setAttribute("data-target", "#" + card_body_info["id"]); //1
+        card_header_btn.setAttribute("data-target", "#" + card_body_info["id"]);
         card_header_btn.setAttribute("aria-expanded", "true");
-        card_header_btn.setAttribute("aria-controls", card_body_info["id"]); //1
+        card_header_btn.setAttribute("aria-controls", card_body_info["id"]);
         card_header_btn.innerHTML = card_header_info["text"]; //
         card_header_h5.appendChild(card_header_btn);
 
         // Card body
         var collapse_show_div = document.createElement("div");
-        collapse_show_div.setAttribute("id", card_body_info["id"]);    //1
+        collapse_show_div.setAttribute("id", card_body_info["id"]);
         collapse_show_div.setAttribute("class", "collapse show");
-        collapse_show_div.setAttribute("aria-labelledby", card_body_info["id"]); //1
-        collapse_show_div.setAttribute("data-parent", accordion_id); //0
+        collapse_show_div.setAttribute("aria-labelledby", card_body_info["id"]);
+        collapse_show_div.setAttribute("data-parent", accordion_id);
         card.appendChild(collapse_show_div);
 
         var card_body = document.createElement("div");
