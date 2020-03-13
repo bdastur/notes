@@ -1,6 +1,51 @@
 /***************************************************************
+ * Common HTMLElement()
+ *
+ ***************************************************************/
+class HTMLElement {
+	constructor(element_type, attributes) {
+	    this.element = document.createElement(element_type);
+
+		attributes.forEach((attribute) => {
+            var key = Object.keys(attribute);
+            var value = attribute[key];
+            this.div.setAttribute(key, value);
+        });
+
+	 }
+
+	get_dom_element() {
+		return this.element;
+	}
+
+	add_element_to_parent(parent_element) {
+		parent_element.appendChild(this.element);
+	}
+}
+
+
+/***************************************************************
  * Bootstrap accordion manager class.
  *
+ * Usage:
+    var accordion = new Accordion("testaccordian", body_id);
+    card_header = {
+	    "id": "newheader",
+ 	    "text": "My very another collapsible item"
+    };
+    var card_body = {
+	    "id": "item3",
+	    "text": "And here we go again. Yet another test of collapsible item Blah Blah"
+    }
+
+    var card = accordion.add_new_accordian_card();
+    accordion.add_new_accordion_card_header(card, "testaccordian1", card_header, card_body);
+    var card_body = accordion.add_new_accordion_card_body(card, "testaccordian1", card_body);
+    accordion.add_new_accordian_card_menu_item(card_body, "      New menu title");
+    accordion.add_new_accordian_card_menu_item(card_body, "      CIS Benchmark - Password check");
+    accordion.add_new_accordian_card_menu_item(card_body, "      CIS Benchmark - IAM Policy check");
+    accordion.add_new_accordian_card_menu_item(card_body, "      CIS Benchmark - Roles check");
+
  ***************************************************************/
 class Accordion {
 	constructor(accordion_id, container_id) {
@@ -55,6 +100,19 @@ class Accordion {
         card_body.setAttribute("class", "card-body");
         card_body.innerHTML = card_body_info["text"]; //user
         collapse_show_div.appendChild(card_body);
+
+        return card_body;
+    }
+
+    add_new_accordian_card_menu_item(card_body, menu_title) {
+	    var menu_item = document.createElement("div");
+	    menu_item.setAttribute("class", "accordian-item");
+	    var span_item = document.createElement("span");
+	    var hr_item = document.createElement("hr")
+	    span_item.innerHTML = menu_title;
+	    menu_item.appendChild(span_item);
+	    menu_item.appendChild(hr_item);
+	    card_body.appendChild(menu_item);
 
     }
 
