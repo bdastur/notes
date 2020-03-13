@@ -57,7 +57,12 @@ function initiate_test_bs_render() {
 
     var card = accordion.add_new_accordian_card();
     accordion.add_new_accordion_card_header(card, "testaccordian1", card_header, card_body);
-    accordion.add_new_accordion_card_body(card, "testaccordian1", card_body);
+    var card_body = accordion.add_new_accordion_card_body(card, "testaccordian1", card_body);
+    accordion.add_new_accordian_card_menu_item(card_body, "      New menu title");
+    accordion.add_new_accordian_card_menu_item(card_body, "      CIS Benchmark - Password check");
+    accordion.add_new_accordian_card_menu_item(card_body, "      CIS Benchmark - IAM Policy check");
+    accordion.add_new_accordian_card_menu_item(card_body, "      CIS Benchmark - Roles check");
+
 
 }
 

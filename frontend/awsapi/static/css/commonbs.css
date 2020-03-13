@@ -71,6 +71,7 @@ body {
 .accordian-item {
 	cursor: pointer;
 	font-size: 14px;
+	margin-left: 40px;
 }
 
 
