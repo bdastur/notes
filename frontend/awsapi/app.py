@@ -35,6 +35,10 @@ def handle_test2():
     print("Testing JS rendering with bootstrap css")
     return(render_template("test_bs_js_render.html"))
 
+@app.route("/test3")
+def handle_test3():
+    return(render_template("test_new_render.html"))
+
 
 def main():
     app.run(host='127.0.0.1', port=5001, debug=True)

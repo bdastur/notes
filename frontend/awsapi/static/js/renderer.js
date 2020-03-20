@@ -6,19 +6,28 @@ class HTMLElement {
 	constructor(element_type, attributes) {
 	    this.element = document.createElement(element_type);
 
-		attributes.forEach((attribute) => {
-            var key = Object.keys(attribute);
-            var value = attribute[key];
-            this.div.setAttribute(key, value);
-        });
+        if (attributes != undefined) {
+		    attributes.forEach((attribute) => {
+                var key = Object.keys(attribute);
+                var value = attribute[key];
+                this.div.setAttribute(key, value);
+            });
+        }
+    }
 
-	 }
+	set_text(text) {
+		this.element.innerHTML = text;
+	}
+
+	set_attributes(attribute_key, attribute_value) {
+		this.element.setAttribute(attribute_key, attribute_value);
+	}
 
 	get_dom_element() {
 		return this.element;
 	}
 
-	add_element_to_parent(parent_element) {
+	set_parent(parent_element) {
 		parent_element.appendChild(this.element);
 	}
 }

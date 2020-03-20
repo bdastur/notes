@@ -750,3 +750,31 @@ minikube start --memory=$MEMORY --cpus=$CPU --kubernetes-version=$KUBE_VERSION \
     --extra-config=controller-manager.cluster-signing-key-file="/var/lib/localkube/certs/ca.key" \
     --vm-driver=`$VMDRIVER`
 ```
+
+
+
+
+## CKA:
+Key components:
+
+Master nodes:
+etcd
+Controller Manager (10252)
+Kube Scheduler (10251)
+Kube apiserver (443)
+
+
+Worker nodes:
+docker, containerd or rocket
+kube-proxy
+kubelet
+
+
+### etcd:
+
+
+
+
+
+
+

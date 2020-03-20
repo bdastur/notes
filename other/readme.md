@@ -75,3 +75,157 @@ URL: http://blogs.aws.amazon.com/bigdata/blog/feed/recentPosts.rss
 /feed list
 ```
 
+
+## How to:
+
+### grep:
+
+##### Search for a string in a file (basic).
+
+```
+$ grep multipart aws/readme.md 
+  to use multipart upload.
+* For objects larger than 100 MB you should use multipart upload.
+* For larger objects use multipart Upload
+* Always complete or abort a multipart upload - else the individual chunks
+(py3env) ALSONEWLYSTRONG:notes behzad.dastur$ 
+```
+
+#### search for string with spaces in a file (basic)
+
+```
+$ grep "multipart upload" aws/readme.md 
+  to use multipart upload.
+* For objects larger than 100 MB you should use multipart upload.
+* Always complete or abort a multipart upload - else the individual chunks
+```
+
+#### Ignore case (case insensitive)
+
+```
+$ grep -i "multipart upload" aws/readme.md 
+  to use multipart upload.
+* For objects larger than 100 MB you should use multipart upload.
+### Multipart Upload:
+* For larger objects use multipart Upload
+* Always complete or abort a multipart upload - else the individual chunks
+
+```
+
+#### Show context for your searches.
+
+```
+ -A num, --after-context=num
+     Print num lines of trailing context after each match.  See also the -B and -C options.
+
+-B num, --before-context=num
+    Print num lines of leading context before each match.  See also the -A and -C options.
+
+-C[num, --context=num]
+    Print num lines of leading and trailing context surrounding each match.  The default is 2 and is equivalent to -A 2 -B 2.  Note: no whitespace may be given
+    between the option and its argument.
+```
+
+Example:
+```
+$ grep -C 2  "multipart upload" aws/readme.md 
+* Durability : 99. 11 9s and Availability: 99.99%
+* Largest file size you can use to PUT an object: 5GB. After that you have
+  to use multipart upload.
+* For objects larger than 100 MB you should use multipart upload.
+* Minimum file size: 0 bytes
+* Maximum file/object size: 5TB.
+--
+--
+* For larger objects use multipart Upload
+* Each chunk should be minimum 5MB size.
+* Always complete or abort a multipart upload - else the individual chunks
+  upload will not be cleaned up and will cost.
+
+```
+
+#### Invert match (-v)
+
+
+```
+$ grep -v  "multipart upload" aws/readme.md 
+ AWS Notes:
+
+## Links:
+[AWS Learning Library](https://www.aws.training/LearningLibrary)
+[E2connect - a way of authenticating SSh sessions using IAM](https://github.com/glassechidna/ec2connect)
+[S3 Benchmark](https://github.com/dvassallo/s3-benchmark)
+:
+```
+
+##### How to ignore blank lines (-v)
+
+```
+$ grep -v  "^$" aws/readme.md |more
+ AWS Notes:
+## Links:
+[AWS Learning Library](https://www.aws.training/LearningLibrary)
+[E2connect - a way of authenticating SSh sessions using IAM](https://github.com/glassechidna/ec2connect)
+[S3 Benchmark](https://github.com/dvassallo/s3-benchmark)
+[Open Guides AWS](https://github.com/open-guides/og-aws)
+:
+
+```
+
+#### How to recursively search files within a directory.  (-r)
+
+```
+-R, -r, --recursive
+    Recursively search subdirectories listed.
+
+-S      If -R is specified, all symbolic links are followed.  The default is not to follow symbolic links.
+```
+
+Example:
+
+```
+$ grep -r "multipart upload" aws/
+aws//s3_multipart.py:A very simple example of using boto3 client APIs for multipart upload.
+aws//s3_multipart.py:Some key things to consider when performing the multipart upload.
+aws//s3_multipart.py:    Upload a large file using multipart upload.
+aws//s3_multipart.py:    1. Initiate a multipart upload. Get the upload id which will be used in
+aws//s3_multipart.py:    # Initiate multipart upload.
+aws//s3_multipart.py:        print "Exception occured initiating multipart upload: %s" % err
+aws//readme.md:  to use multipart upload.
+aws//readme.md:* For objects larger than 100 MB you should use multipart upload.
+aws//readme.md:* Always complete or abort a multipart upload - else the individual chunks
+
+```
+
+#### Only include specific files while searching for a pattern. (--include)
+
+
+```
+$ grep -r "multipart upload" aws/ --include "*.md"
+aws//readme.md:  to use multipart upload.
+aws//readme.md:* For objects larger than 100 MB you should use multipart upload.
+aws//readme.md:* Always complete or abort a multipart upload - else the individual chunks
+(py3env) ALSONEWLYSTRONG:notes behzad.dastur$ 
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
