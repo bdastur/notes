@@ -5,12 +5,14 @@
 class HTMLElement {
 	constructor(element_type, attributes) {
 	    this.element = document.createElement(element_type);
+	    this.children = [];
+        this.attributes = {};
 
         if (attributes != undefined) {
 		    attributes.forEach((attribute) => {
                 var key = Object.keys(attribute);
                 var value = attribute[key];
-                this.div.setAttribute(key, value);
+                this.element.setAttribute(key, value);
             });
         }
     }
@@ -19,8 +21,82 @@ class HTMLElement {
 		this.element.innerHTML = text;
 	}
 
+    /*
+	 * Set a specific attribute value.
+	 * You can invoke this function multiple times to append new values
+	 * to the attributes.
+	 * Example:
+	 * This will result in setting class to "list-group-item active bold".
+	 *   list_item2.set_attributes("class", "list-group-item");
+     *   list_item2.set_attributes("class", "active");
+     *   list_item2.set_attributes("class", "bold");
+     *   list_item2.set_attributes("class", "active");
+     *
+     * Note: Duplicate attribute values will be discarded.
+	 */
 	set_attributes(attribute_key, attribute_value) {
-		this.element.setAttribute(attribute_key, attribute_value);
+
+        var found = false;
+        var attr_list = attribute_value.split(" ");
+
+		const distinct = (value, index, self) => {
+			return self.indexOf(value) == index;
+		}
+
+        for (var key in this.attributes) {
+	        if (key == attribute_key) {
+		        found = true;
+		        break;
+	        }
+        }
+        if (!found) {
+	        this.attributes[attribute_key] = attr_list;
+        } else {
+	        for (var item in attr_list) {
+		        this.attributes[attribute_key].push(attr_list[item]);
+	        }
+        }
+
+        this.attributes[attribute_key] = this.attributes[attribute_key].filter(distinct);
+
+		var updated_attribute_value = ""
+		for (var item in this.attributes[attribute_key]) {
+			updated_attribute_value += this.attributes[attribute_key][item] + " ";
+		}
+		this.element.setAttribute(attribute_key, updated_attribute_value);
+	}
+
+    /*
+	 * Remove a specific attribute value.
+	 * You can invoke this function multiple times to remove values for a specific attribute.
+	 * Example:
+	 * This will result in setting class to "list-group-item active bold".
+	 *   list_item2.remove_attribute("class", "brave");
+     *   list_item2.remove_attribute("class", "active");
+     *
+	 */
+	remove_attribute(attr_key, attr_value) {
+		var found = false;
+		for (var key in this.attributes) {
+			if (key == attr_key) {
+				found = true;
+				break;
+			}
+		}
+
+		if (found) {
+		    for (var idx in this.attributes[attr_key]) {
+			    if (this.attributes[attr_key][idx] == attr_value) {
+				    this.attributes[attr_key].splice(idx, 1);
+			    }
+		    }
+		}
+		console.log(this.attributes[attr_key]);
+		var updated_attribute_value = ""
+		for (var item in this.attributes[attr_key]) {
+			updated_attribute_value += this.attributes[attr_key][item] + " ";
+		}
+		this.element.setAttribute(attr_key, updated_attribute_value);
 	}
 
 	get_dom_element() {
@@ -29,6 +105,11 @@ class HTMLElement {
 
 	set_parent(parent_element) {
 		parent_element.appendChild(this.element);
+	}
+
+	add_child(child_element) {
+		this.element.appendChild(child_element.element);
+		this.children.push(child_element);
 	}
 }
 
@@ -175,17 +256,18 @@ class Accordion {
  ***************************************************************/
 class NavBar {
 	constructor(attributes, container_id, banner) {
-	    this.navbar = document.createElement("nav");
+		this.navbar_obj = new HTMLElement("nav");
+		this.navbar = this.navbar_obj.get_dom_element();
 
 		//Set attributes.
-		this.navbar.setAttribute("class", "navbar navbar-expand-lg navbar-dark bg-dark");
+        this.navbar_obj.set_attributes("class", "navbar navbar-expand-lg navbar-dark bg-dark");
+
 
         // Navbar Brand.
         var brand = document.createElement("a");
         brand.setAttribute("class", "navbar-brand");
         brand.href = "#";
         brand.innerHTML = banner;
-
         this.navbar.appendChild(brand);
 
         //Div.
