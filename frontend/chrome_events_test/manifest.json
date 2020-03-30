@@ -1,0 +1,39 @@
+{
+    "name": "First Extension",
+    "version": "1.0",
+    "description": "This is  a test extension",
+    "manifest_version": 2,
+    "background": {
+        "scripts": [
+            "background.js",
+            "background_messaging.js",
+            "notifications.js"
+        ],
+        "persistent": false
+    },
+    "content_scripts": [
+        {
+            "js":  [
+                "content.js",
+                "content_messaging.js"
+            ],
+            "matches": ["https://*.com/*"],
+            "exclude_matches": ["https://*.youtube.com/watch*"],
+            "run_at": "document_end"
+
+        }
+    ],
+    "permissions": ["bookmarks", "storage",
+                    "tabs", "alarms",  "notifications",
+                    "system.cpu"],
+    "icons": {
+	    "16": "icon.png",
+	    "48": "icon.png",
+	    "128": "icon.png"
+	},
+	"browser_action": {
+		"default_title":  "Created. by Behzad!",
+		"default_popup": "popup.html"
+	}
+
+}

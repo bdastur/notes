@@ -8,8 +8,7 @@ chrome.runtime.onMessage.addListener((request,  sender,  resp) => {
 });
 
 function print_sender_details(sender) {
-	console.log("Sender url: " + sender.url);
-
+    console.log("Sender url: " + sender.url);
 }
 
 var query_info = {
