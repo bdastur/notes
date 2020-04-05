@@ -1,0 +1,355 @@
+{
+	// Place your snippets for html here. Each snippet is defined under a snippet name and has a prefix, body and
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+"HTML Comment": {
+	"prefix": "hcomment",
+	"body": [
+		"<!-- $1","-->"
+	],
+	"description": "Html comment"
+},
+"BS Alert": {
+	"prefix": "bs-alert",
+	"body": [
+		"<div class='alert alert-${1:primary|secondary|success|danger|warning|info|light|dark}' role='alert'>",
+		"    ${2:Alert message!}",
+		"</div>"
+	],
+	"description": "Bootstrap Alert"
+},
+"BS Dismissable Alert": {
+	"prefix": "bs-alert-dismissible",
+	"body": [
+		"<div class='alert alert-${1:primary|secondary|success|danger|warning|info|light|dark} alert-dismissible fade show' role='alert'>",
+		"    ${2:Alert message!}",
+		"    <button type='button' class='close' data-dismiss='alert' ari-label='Close'>",
+		"        <span aria-hidden='true'>&times;</span",
+		"    </button>",
+		"</div>"
+	],
+	"description": "Bootstrap Alert"
+},
+"BS Alert Link": {
+	"prefix": "bs-alert-link",
+	"body": [
+		"<a href='${1:#}' class='alert-link'>${2:Example link}</a>"
+	],
+	"description": "Bootstrap Alert Link"
+},
+"BS Alert Heading": {
+	"prefix": "bs-alert-heading",
+	"body": [
+		"<h${1:4} class='alert-heading'>${2:Alert Heading Message}</h>"
+	],
+	"description": "Bootstrap Alert Heading"
+},
+"BS Badge": {
+	"prefix": "bs-badge",
+	"body": [
+		"<span class='badge badge-${1:primary|secondary|success|danger|warning|info|light|dark} ${2:badge-pill}'>${3:Badge text}</span>"
+	],
+	"description": "Bootstrap Badge"
+},
+"BS Badge Link": {
+	"prefix": "bs-badge-link",
+	"body": [
+		"<a href='${1:#}' class='badge badge-${2:primary|secondary|success|danger|warning|info|light|dark} ${3:badge-pill}'>${4:Badge text}</a>"
+	],
+	"description": "Bootstrap Badge link"
+},
+"BS Button": {
+	"prefix": "bs-button",
+	"body": [
+		"<button type='button' class='btn btn-${1:outline-}${2:primary|secondary|success|danger|warning|info|light|dark}",
+		" ${3:btn-lg} ${4:disabled} ${5:btn-block}'>${6:submit}</button>"
+	],
+	"description": "Bootstrap Button"
+},
+"BS Card": {
+	"prefix": "bs-card",
+	"body": [
+		"<div class='card ${1:text-center|text-right}' style='width: ${2:18rem}'>",
+		"    ${3:<div class='card-header'>Header</div>}",
+		"    ${4:<img class='card-img-top' src='...'' alt='Card image cap'>}",
+		"    <div class='card-body'>",
+		"        ${5:<h5 class='card-title'>Card title</h5>}",
+		"        ${6:<h6 class='card-subtitle mb-2 text-muted'>Card subtitle</h6>}",
+		"        ${7:card-content}",
+		"        ${8:<a href='#'' class='card-link'>Card link</a>}",
+		"        ${9:<div class='card-footer text-muted'>Footer</div>}",
+		"    </div>",
+		"</div>"
+	],
+	"description": "Bootstrap card"
+},
+"BS Card Listgroup": {
+	"prefix": "bs-card-listgroup",
+	"body": [
+		"<div class='card ${1:text-center|text-right}' style='width: ${2:18rem}'>",
+		"    ${3:<div class='card-header'>Header</div>}",
+		"    ${4:<img class='card-img-top' src='...'' alt='Card image cap'>}",
+		"    <div class='card-body'>",
+		"        ${5:<h5 class='card-title'>Card title</h5>}",
+		"        ${6:<h6 class='card-subtitle mb-2 text-muted'>Card subtitle</h6>}",
+		"        ${7:card-content}",
+		"        ${8:<a href='#'' class='card-link'>Card link</a>}",
+		"    </div>",
+		"    <ul class='list-group list-group-flush'>",
+		"       <li class='list-group-item'>List Item</li>",
+		"    </ul>",
+		"    <div class='card-body'>",
+		"        ${9:<div class='card-footer text-muted'>Footer</div>}",
+		"    </div>",
+		"</div>"
+	],
+	"description": "Bootstrap card listgroup"
+},
+"BS Card group": {
+	"prefix": "bs-card-group",
+	"body": [
+		"<div class='card-group'>",
+		"    ${1:bs-card}",
+		"</div>"
+	],
+	"description": "Bootstrap card group"
+},
+"BS Card deck": {
+	"prefix": "bs-card-deck",
+	"body": [
+		"<div class='card-deck'>",
+		"    ${1:bs-card}",
+		"</div>"
+	],
+	"description": "Bootstrap card deck"
+},
+"BS Card Columns": {
+	"prefix": "bs-card-columns",
+	"body": [
+		"<div class='card-columns'>",
+		"    ${1:bs-card}",
+		"</div>"
+	],
+	"description": "Bootstrap card columns"
+},
+"BS Carousel": {
+	"prefix": "bs-carousel",
+	"body": [
+		"<div id='${1:carouselID}' class='carousel slide'",
+		" data-interval='${2:5000}' data-ride='carousel'>",
+		"    <div class='carousel-inner'>",
+		"        <div class='carousel-item active'>",
+		"            ${3:item}",
+		"            ${4:<img class='d-block w-100' src='...' alt='First slide'>}",
+		"        </div>",
+		"    ${5:<div class='carousel-item'>${6:item}</div>}",
+		"    </div>",
+		"</div>"
+	],
+	"description": "Bootstrap carousel"
+},
+"BS collapse href": {
+	"prefix": "bs-collapse-href",
+	"body": [
+		"<a class='btn btn-${1:primary}' data-toggle='collapse'",
+		 "href='${2:#cardID}' role='button'",
+		 "aria-expanded='false' aria-controls='collapseExample'> ",
+		 "${3:Link with href}</a>"
+	],
+    "description": "Bootstrap collapse - using a link with href attributes"
+},
+"BS collapse cardbody": {
+	"prefix": "bs-collapse-cardbody",
+	"body": [
+		"<div class='collapse ${1:multi-collapse}' id='${2:cardID}'>",
+		"    <div class='card card-body'>",
+		"        ${3:card content}",
+		"    </div>",
+		"</div>"
+	],
+	"description": "Bootstrap collapse -  card body"
+},
+"BS collapse button": {
+	"prefix": "bs-collapse-button",
+	"body": [
+		"<button class='btn btn-${1:primary} buttonoverride' type='buttton'",
+		"data-toggle='collapse' data-target='#${2:cardID}' aria-expanded:'${3:false}'",
+		"aria-controls='${4:cardID}'>",
+		"${5:Button wiith data target}",
+		"</button>"
+	],
+	"description": "Bootstrap collapse - using a button"
+},
+"BS collapse Multi-target button": {
+	"prefix": "bs-collapse-multi-target button",
+	"body": [
+		"<button class='btn btn-${1:primary}' type='button' ",
+		" data-toggle='collapse' data-target='.multi-collapse' ",
+		" aria-expanded='false' aria-controls='${2:card-1-id} ${3:card-2-id}'>",
+		" ${4:Toggle both elements}",
+		"</button>"
+	],
+	"description": "Bootstrap collapse - multi target button"
+},
+"BS accordian": {
+	"prefix": "bs-accordian",
+	"body": [
+		"<div id='${1:accordion-id}'>",
+		"  <div class='card'>",
+		"    <div class='card-header' id='${2:heading-id}'>",
+		"      <h5 class='mb-0'>",
+		"        <button class='btn btn-${3:link}' data-toggle='collapse'",
+		"         data-target='#${4:card-body-id}' aria-expanded='true' aria-controls='${4:card-body-id}'>",
+		"          ${5: Heading Group Item }",
+		"        </button>",
+		"      </h5>",
+		"    </div>",
+		"    <div id='${4:card-body-id}' class='collapse show' ",
+		"     aria-labelledby='${2:heading-id}' data-parent='#${1:accordion-id}'>",
+		"      <div class='card-body'>",
+		"         ${6:card body content 1}",
+		"      </div>",
+		"    </div>",
+		"  </div>",
+		"</div>"
+	],
+	"description": "Bootstrap accordian"
+},
+"BS accordian card": {
+	"prefix": "bs-accordian-card",
+	"body": [
+		"  <div class='card'>",
+		"    <div class='card-header' id='${1:heading-id}'>",
+		"      <h5 class='mb-0'>",
+		"        <button class='btn btn-${2:link}' data-toggle='collapse'",
+		"         data-target='#${3:card-body-id}' aria-expanded='true' aria-controls='${3:card-body-id}'>",
+		"          ${5:Heading Group Item}",
+		"        </button>",
+		"      </h5>",
+		"    </div>",
+		"    <div id='${3:card-body-id}' class='collapse' ",
+		"     aria-labelledby='${1:heading-id}' data-parent='#${4:accordion-id}'>",
+		"      <div class='card-body'>",
+		"         ${6:card body content}",
+		"      </div>",
+		"    </div>",
+		"  </div>"
+	],
+	"description": "Bootstrap accordian card"
+},
+
+
+"BS accordian tablist": {
+	"prefix": "bs-accordian-tablist",
+	"body": [
+		"<div id='accordian' role='tablist'>",
+		"    <div class='card'>",
+		"        <div class='card-header' role='tab' id='${1:headingOne}'>",
+		"            <h5 class='mb-0'>",
+		"                <a data-toggle='collapse' href='#${2:one}'",
+		"                 role='button' aria-expanded='true' aria-controls='${2:one}'>",
+		"                ${3:Group Item heading}",
+		"                </a>",
+		"            </h5>",
+		"        </div>",
+		"        <div id='${2:one}' class='collapse show' role='tabpanel'",
+		"         aria-labelledby='${1:headingOne}' data-parent='#accordian'>",
+		"            <div class='card-body'>",
+		"                card body details!",
+		"            </div>",
+		"        </div>",
+		"    </div>",
+		"</div>"
+
+	],
+	"description": "Bootstrap collapse - tablist"
+},
+"BS accordian tablist card": {
+	"prefix": "bs-accordian-tablist-card",
+	"body": [
+		"    <div class='card'>",
+		"        <div class='card-header' role='tab' id='${1:headingOne}'>",
+		"            <h5 class='mb-0'>",
+		"                <a data-toggle='collapse' href='#${2:one}'",
+		"                 role='button' aria-expanded='true' aria-controls='${2:one}'>",
+		"                ${3:Group Item heading}",
+		"                </a>",
+		"            </h5>",
+		"        </div>",
+		"        <div id='${2:one}' class='collapse show' role='tabpanel'",
+		"         aria-labelledby='${1:headingOne}' data-parent='#accordian'>",
+		"            <div class='card-body'>",
+		"                card body details!",
+		"            </div>",
+		"        </div>",
+		"    </div>",
+
+	],
+	"description": "Bootstrap collapse - tablist card"
+},
+"BS NavBar ": {
+	"prefix": "bs-navbar",
+	"body": [
+		"<nav class='navbar navbar-expand-lg ${1:navbar-dark bg-dark} ${2:navbar-light bg-light}",
+		" ${3:fixed-top} ${4:stick-top}'>",
+		"       <a class='navbar-brand' href='#'>",
+		"       ${50:<img src='..' width='30' height='30' ",
+		"         class='d-inline-block align-top' alt=''>",
+		"        Navbar",
+		"       </a>}",
+		"       <button class='navbar-toggler' type='button' data-toggle='collapse' ",
+		"        data-target='#navbarNavDropdown' aria-controls='navbarNavDropdown' ",
+		"        aria-expanded='false' aria-label='Toggle navigation'>",
+		"           <span class='navbar-toggler-icon'></span>",
+		"       </button>",
+		"       <div class='collapse navbar-collapse' id='navbarNavDropdown'>",
+		"               <ul class='navbar-nav'>",
+		"               <li class='nav-item active'>",
+		"                       <a class='nav-link' href='#'>",
+		"                          Home <span class='sr-only'>(current)</span></a>",
+		"               </li>",
+		"               <li class='nav-item'>",
+		"                       <a class='nav-link' href='#'>Features</a>",
+		"               </li>",
+		"               <li class='nav-item'>",
+		"                       <a class='nav-link' href='#'>Pricing</a>",
+		"               </li>",
+		"               <li class='nav-item dropdown'>",
+		"                       <a class='nav-link dropdown-toggle' href='#' id='navbarDropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>",
+		"                       Dropdown link",
+		"                       </a>",
+		"                       <div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>",
+		"                       <a class='dropdown-item' href='#'>Action</a>",
+		"                       <a class='dropdown-item' href='#'>Another action</a>",
+		"                       <a class='dropdown-item' href='#'>Something else here</a>",
+		"                       </div>",
+		"               </li>",
+		"               <li class='nav-item'>",
+        "                   <a class='nav-link disabled' href='#''>Disabled</a>",
+        "               </li>",
+		"               </ul>",
+		"               <form class='form-inline'>",
+		"				<input class='form-control mr-sm-2' type='search' placeholder='Search'",
+		"                aria-label='Search'>",
+		"				<button class='btn btn-outline-success my-2 my-sm-0' type='submit'>",
+		"                <i class='fa fa-fw fa-search'></i>Search</button>",
+		"			  </form>",
+		"       </div>",
+		"       </nav>"
+	],
+	"description": "Bootstrap collapse - tablist card"
+},
+
+
+
+}
