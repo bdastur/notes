@@ -1,0 +1,27 @@
+body {
+    font-size: 14px;
+    font-style: normal;
+    min-height: 280px;
+    width: 450px;
+}
+
+.main-heading {
+    font-family: 'Menlo', monospace;
+    font-size: 18px;
+    font-weight: 300;
+    margin: 0;
+    color: blue;
+}
+
+
+.bookmarker-container1 {
+    display: grid;
+    grid-template-columns: 20% 80%;
+}
+
+.el11 {
+    margin: 3px;
+    grid-row-start: 1;
+    grid-row-end: 2;
+}
+

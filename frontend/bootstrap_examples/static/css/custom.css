@@ -18,28 +18,51 @@
 }
 */
 
-.bodyoverride {
-	font-family: 'Roboto', sans-serif;
-    font-variant: normal;
-    font-style: normal;
-    font-weight: 100;
-	margin: 15px 15px 15px 15px;
-	-moz-font-smoothing: grayscale;
-    -webkit-font-smoothing: antialiased;
-}
 
-.boxinternal {
-    border-right: 2px solid white;
-    border-bottom: 2px solid white;
-    
-}
+body {font-family: Arial, Helvetica, sans-serif;}
 
-.boxinternal .boxrounded {
-	border-radius: 25px;
-	background: #ecc4c4;
-}
 
-.buttonoverride {
-	background: #5ef863;
-	border: 0px solid #5ef863;
-}
+/* Style the navigation bar */
+.custom-navbar-1 {
+	width: 100%;
+	background-color: rgb(27, 26, 26);
+	overflow: auto;
+  }
+
+  /* Navbar links */
+  .custom-navbar-1 a {
+	float: left;
+	text-align: center;
+	padding: 12px;
+	color: white;
+	text-decoration: none;
+	font-size: 17px;
+  }
+
+  /* Navbar links on mouse-over */
+  .custom-navbar-1 a:hover {
+	background-color: rgb(77, 77, 77);
+  }
+
+  /* Current/active navbar link */
+.custom-active {
+	background-color: rgb(91, 175, 94);
+  }
+
+  /* Style the search box inside the navigation bar */
+.custom-navbar-1 input[type=text] {
+	float: right;
+	padding: 4px;
+	border: none;
+	margin-top: 8px;
+	margin-right:86px;
+	font-size: 17px;
+  }
+
+  /* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
+  @media screen and (max-width: 500px) {
+	.custom-navbar-1 a {
+	  float: none;
+	  display: block;
+	}
+  }

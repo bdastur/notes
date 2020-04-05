@@ -16,8 +16,8 @@ app.config['SECRET_KEY'] = 'Hello from the secret world of Flask! ;)'
 
 @app.route("/starter")
 def handle_bootstrap_starter():
-    print "Index invoked"
-    print request
+    print("Index invoked")
+    print(request)
 
 
     status = {}
@@ -30,17 +30,21 @@ def handle_bootstrap_starter():
 
 @app.route("/grids")
 def handle_grids():
-    print "Grids handler"
+    print("Grids handler")
     return (render_template('grids.html'))
 
 @app.route("/sample_layout")
 def handle_sample_layout():
-    print "Sample Layout"
-    return (render_template('sample_layout.html'))
+    print("Sample Layout")
+    return(render_template('sample_layout.html'))
+
+@app.route("/test1")
+def handle_test():
+    return(render_template('accordians.html'))
 
 @app.route("/backbone")
 def handle_backbone_example():
-    print "Backbone"
+    print("Backbone")
     return (render_template('backbone_todo.html'))
 
 def main():

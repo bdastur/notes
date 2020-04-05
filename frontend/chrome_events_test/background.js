@@ -5,7 +5,9 @@ chrome.runtime.onInstalled.addListener(()=> {
     console.log("Chrome extension Installed");
     query_for_tabs();
     create_basic_notification();
-    getCPUInfo();
+    //getCPUInfo();
+    //search_all_bookmarks();
+    get_bookmark_tree();
 });
 
 
