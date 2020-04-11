@@ -23,32 +23,123 @@
 	<body>
 
 
+		<div class="custom-navbar-1">
+			<a class="custom-active" href="#"><i class="fa fa-fw fa-home"></i> Home</a>
+			<a href="#"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+			<a href="#"><i class="fa fa-fw fa-user"></i> Login</a>
+			<a href="#"><i class="fa fa-fw fa-search"></i> Search</a>
+		</div>
+		<br><br>
 
+		<nav class='navbar navbar-expand-lg navbar-dark bg-dark
+		 stick-top'>
+			   <a class='navbar-brand' href='#'>
+			   <img src='..' width='30' height='30'
+				 class='d-inline-block align-top' alt=''>
+				Navbar
+			   </a>
+			   <button class='navbar-toggler' type='button' data-toggle='collapse'
+				data-target='#navbarNavDropdown' aria-controls='navbarNavDropdown'
+				aria-expanded='false' aria-label='Toggle navigation'>
+				   <span class='navbar-toggler-icon'></span>
+			   </button>
+			   <div class='collapse navbar-collapse' id='navbarNavDropdown'>
+					   <ul class='navbar-nav'>
+					   <li class='nav-item active'>
+							   <a class='nav-link' href='#'>
+								  Home <span class='sr-only'>(current)</span></a>
+					   </li>
+					   <li class='nav-item'>
+							   <a class='nav-link' href='#'>Features</a>
+					   </li>
+					   <li class='nav-item'>
+							   <a class='nav-link' href='#'>Pricing</a>
+					   </li>
+					   <li class='nav-item dropdown'>
+							   <a class='nav-link dropdown-toggle' href='#' id='navbarDropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+							   Dropdown link
+							   </a>
+							   <div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLink'>
+							   <a class='dropdown-item' href='#'>Action</a>
+							   <a class='dropdown-item' href='#'>Another action</a>
+							   <a class='dropdown-item' href='#'>Something else here</a>
+							   </div>
+					   </li>
+					   <li class='nav-item'>
+						   <a class='nav-link disabled' href='#''>Disabled</a>
+					   </li>
+					   </ul>
+					   <form class='form-inline'>
+						<input class='form-control mr-sm-2' type='search' placeholder='Search'
+						aria-label='Search'>
+						<button class='btn btn-outline-success my-2 my-sm-0' type='submit'>
+						<i class='fa fa-fw fa-search'></i>Search</button>
+					  </form>
+			   </div>
+			</nav>
 
-
-
-
+			<div class="dropdown">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  Dropdown
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+				    <button type='button' class='btn btn-dark btn-block'>submit</button>
+					<button class="dropdown-item" type="button">Action</button>
+				  <button class="dropdown-item" type="button">Another action</button>
+				  <button class="dropdown-item" type="button">Something else here</button>
+			    </div>
+			</div>
+			<br><br>
+			<button class='btn btn-primary buttonoverride' type='buttton'
+			data-toggle='collapse' data-target='#card1' aria-expanded:'false'
+			aria-controls='card1'>
+			Button wiith data target
+			</button>
+			<a class='btn btn-secondary' data-toggle='collapse'
+			href='#card2' role='button'
+			aria-expanded='false' aria-controls='collapseExample'>
+			Link with href</a>
+			<button class='btn btn-primary' type='button'
+			 data-toggle='collapse' data-target='.multi-collapse'
+			 aria-expanded='false' aria-controls='card1 card2'>
+			 Toggle both elements
+			</button>
+			<div class='collapse multi-collapse' id='card1'>
+				<div class='card card-body'>
+					content
+				</div>
+			</div>
+			<div class='collapse multi-collapse' id='card2'>
+				<div class='card card-body'>
+					content 2
+				</div>
+			</div>
 			<br>
 			<br>
-			<button class="custom-accordion-1">Section 1</button>
-				<div class="custom-accordion-panel-1">
+			<button class="custom-accordian-1">Section 1</button>
+				<div class="custom-accordian-panel-1">
 				<p>Lorem ipsum...</p>
 				</div>
 
-				<button class="custom-accordion-1">Section 2</button>
-				<div class="custom-accordion-panel-1">
+				<button class="custom-accordian-1">Section 2</button>
+				<div class="custom-accordian-panel-1">
 				<p>Lorem ipsum...</p>
 				</div>
 
-				<button class="custom-accordion-1">Section 3</button>
-				<div class="custom-accordion-panel-1">
+				<button class="custom-accordian-1">Section 3</button>
+				<div class="custom-accordian-panel-1">
 				<p>Lorem ipsum...</p>
 			</div>
 
 
 			<br>
 			<!-- You need font awesome, and custom.css files -->
-
+			<div class='custom-navbar-1'>
+				<a class='custom-active' href='#'><i class='fa fa-fw fa-home'></i> Home</a>
+				<a href='#'><i class='fa fa-fw fa-envelope'></i> Contact</a>
+				<a href='#'><i class='fa fa-fw fa-user'></i> Login</a>
+				<a href='#'><i class='fa fa-fw fa-search'></i> Search</a>
+			</div>
 			<h4>Font Awesome fonts</h4>
 			<p> https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css </p>
 			<br>
