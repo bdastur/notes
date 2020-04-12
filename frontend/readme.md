@@ -28,7 +28,7 @@ http://holderjs.com/
 * [Google fonts](https://developers.google.com/fonts/docs/getting_started)
 * [css properties list](https://htmldog.com/references/css/properties/)
 * [css loading widgets](https://loading.io/css/)
-
+* [html and css Menus and navbars](https://www.w3schools.com/howto/howto_css_icon_bar.asp)
 
 ## Bootstrap 3:
 
