@@ -421,7 +421,7 @@ and then match any elements that are not represented by the argument.
 
 :not() takes as an argument any of the following:
 * Element selector (eg: p, span, div, etc.)
-* Class selector (eg: .sidebar, .col_m1, etc.)
+* Class selector (eg: .sidebar, .col.m1, etc.)
 * ID selector (eg: #custom)
 * Attribute selector (eg [type="checkbox"])
 * Universal selector ```(*)```
@@ -635,6 +635,22 @@ h1 {
 <h1 class="blue-header">CSS Example (with style)</h1> 
 
 ```
+
+--------------------------------------------------
+
+## CSS Useful functions
+
+### repeat()
+This function allows you to put a recurring pattern.
+[mdn doc](https://developer.mozilla.org/en-US/docs/Web/CSS/repeat)
+
+Examples:
+
+```
+grid-template-columns: repeat(4, 1fr);
+
+```
+
 
 --------------------------------------------------
 
