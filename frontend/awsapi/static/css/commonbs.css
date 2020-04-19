@@ -36,6 +36,7 @@ body {
 .container-custom {
 	display: grid;
 	grid-template-columns: 30% 70%;
+	border: 1px double black;
 }
 
 .el1 {
@@ -97,5 +98,6 @@ body {
 	text-decoration: none;
     background: blue;
     font-size: 24px;
+    border: 1px solid black;
 }
 
