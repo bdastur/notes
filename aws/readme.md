@@ -2103,6 +2103,7 @@ Three core concepts to understand CloudFront.
 ```
 
 * [AWS Doc on blocking S3 traffic by VPC or IP](https://aws.amazon.com/premiumsupport/knowledge-center/block-s3-traffic-vpc-ip/)
+* [S3 VPC Endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-s3.html)
 
 ### Static Website hosting:
 * Create a bucket, upload static files, make them public (world readable)
