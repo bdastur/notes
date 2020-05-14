@@ -255,3 +255,4 @@ that are used to verify the authenticity of requests with form data.
 [Flask-graphql-mysql-starter-kit](https://medium.com/free-code-camp/how-to-develop-a-flask-graphql-graphene-mysql-and-docker-starter-kit-4d475f24ee76)
 [flask-login](https://scotch.io/tutorials/authentication-and-authorization-with-flask-login)
 [fullstack python flask](https://www.fullstackpython.com/flask.html)
+[How to serve static files with python](https://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask)
