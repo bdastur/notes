@@ -33,7 +33,7 @@ http://holderjs.com/
 * [Slick - carousel library](https://kenwheeler.github.io/slick/)
 * [Waypoints - trigger even when you scroll](http://imakewebthings.com/waypoints/guides/getting-started/)
 * [Parallax Engine - reacts to the orientation of a smart device](https://github.com/wagerfield/parallax)
-* [Packery - drraggable grid layouts](https://packery.metafizzy.co/)
+* [Packery - draggable grid layouts](https://packery.metafizzy.co/)
 * [Photoswipe - js image gallery for mobile and desktops](https://github.com/dimsemenov/photoswipe)
 * [Google code prettify - Makes source snippets in HTML prettier](https://github.com/googlearchive/code-prettify)
 * [Good JS libraries](https://getflywheel.com/layout/best-javascript-libraries-frameworks-2020/)

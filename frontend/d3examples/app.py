@@ -2,7 +2,11 @@
 # -*- coding: utf-8 -*-
 
 
-from flask import (Flask, request, jsonify, session, render_template)
+import os
+from flask import (Flask, request,
+                   jsonify, session,
+                   render_template, send_from_directory)
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Hello from the secret world of Flask! ;)'
@@ -17,6 +21,23 @@ def handle_sample_1():
 def handle_sample_2():
     print("Sample 2 invoked")
     return (render_template('sample_2.html'))
+
+@app.route("/d3_1")
+def handle_d31():
+    print("D3 Sample 1")
+    return (render_template('d3_1.html'))
+
+
+@app.route("/data/<path:data_file>")
+def handle_data(data_file):
+    data_path = "./data"
+    file_path = os.path.join(data_path, data_file)
+    if not os.path.exists(file_path):
+        print("File %s not found" % file_path)
+        return("file, not found")
+
+    return send_from_directory(data_path, data_file)
+
 
 @app.route("/css1")
 def handle_css1():
@@ -42,7 +63,7 @@ def handle_packages():
 def handle_customers():
     print("Customers page")
     return(render_template("customers.html"))
-                                              
+
 
 
 def main():
