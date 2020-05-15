@@ -34,6 +34,7 @@ nm['10.10.10.6']
 * [Python antipatterns book](https://docs.quantifiedcode.com/python-anti-patterns/index.html)
 * [Plotly Dash - Build data visualizations apps](https://dash.plot.ly/)
 * [Making python programs fast](https://martinheinz.dev/blog/13)
+* [Python visualization cheat sheet](https://medium.com/analytics-vidhya/your-ultimate-python-visualization-cheat-sheet-663318470db)
 
 Python profiling:
 * https://github.com/benfred/py-spy
