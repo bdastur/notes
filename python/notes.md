@@ -24,6 +24,7 @@ nm['10.10.10.6']
 ```
 
 ### Links:
+* [A collection of resources for general CS topics](https://teachyourselfcs.com/)
 * https://www.logilab.org/blogentry/6883
 * https://docs.pytest.org/en/latest/index.html
 * https://github.com/vinta/awesome-python
