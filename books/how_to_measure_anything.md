@@ -223,6 +223,119 @@ on one ore more observations.
 
 **The methhods of measurementt**
 
+* It is easy to measure something that you have direct access to the 
+  entire object of measurement, like the time spent to resolve a particular
+  client problem at a call center, or length of a table.
+
+* However most of the apparently difficult measurements, involve indirect
+  deductions and inferences. We need to infer something "unseen" from
+  something "seen".
+
+Methods:
+
+* Measuring with very small random samples of a very large population: 
+  You can learn something about the distribution of a population from a 
+  small sample of potential customers, employees, and so on—especially 
+  when there is currently a great deal of uncertainty.
+
+* Measuring the size of a mostly unseen population.
+
+* Measuring when many other, even unknown, variables are involved
+
+* Measuring the risk of a rare events.
+
+* Measuring the subjective preferences and values: value of art, free time or 
+  reducing risk to your life, by assessing how much people actually pay for
+  these things both in terms of their money and their time.
+
+
+**The power of small samples: The rule of five**
+
+Rule of Five: There is a 93.7% change that the median of a population is
+between the smallest and largest values in a random sample of five from
+that population.
+
+* The above rule seems impossible. How can you be so certain about anything
+  based on a random sample of just five.
+
+* Important to note that Rule of Five estimates only the median of a 
+  population. Remember median is a poiint where half the population is above
+  it and half is below it.
+
+* If we picked 5 values that were all above the median or all below it, then
+  the median would be outside our range. But what is the chance of that? The
+  chance of randomly picking a value above the median by definition is 50%, 
+  same as a coin flip resulting in heads. The change of that happening five
+  times in a row is 1 in 32 or 3.125%, same is true for getting all tails.
+  Therefore the chance of not getting all heads or all tails is 
+  100% - 3.125% x 2 = 93.75%.
+
+
+**Even smaller samples: The Urn of Mystery**
+
+The single Sample Majority Rule:
+Given maximum uncertainty about a population proportion-such that you believe
+the proportion could be anything between 0% and 100% with all values being
+equally likely - there is a 75% chance that a single randomly selected
+sample is from the majority of the population.
+
+
+* What makes a measurement of high value is a lott of uncertainty combined
+  with a high cost of being wrong.
+
+
+**Economic objections to measurement**
+* The only valid reasson to say something shouldn't be measured is that the
+  cost of the measurement exceeeds it's benefits.
+
+Usually, only a few things matter - but they matter a lot:
+In most business cases, most of the variiables hae an "information value" at
+or near 0. But usualy at least some variiables have an information value
+that is so high that some deliberate measurement effort is easiily justified.
+
+* When someone says a variable is "too expensive" to measure we have to ask
+  compared to what? If the information value of the measurement is literally
+  or virtually zoero, ofcourse no measurement is justified. But if the
+  measurement has any significant value, we must ask: "Is there any measurement
+  method at all thatt can rreduce uncertainty enought to justify the
+  cost of measurement?" Once we recognize the value of even partial uncertainty
+  reduction, the answer is usually "yes".
+
+
+
+**Four useful measurement assumptions**
+1. It has been measured before.
+2. You have far more datta than you think.
+3. Youneedd far less data than you think.
+4. Useful, new observations are more accessible than you thiink.
+
+
+
+
+## Chapter 4: Clarifying the Measurement Problem
+
+* What is the decision this measurement supposed to support?
+* What is the definition of the thing being measured in terms of observable
+  consequences and how exactly does this thing matter to the decision being
+  asked?
+* How much do you know about it now?
+* How does uncertainty about this variable create risk for the decision?
+* What is the value of additional information?
+
+* The answers to these quesstions often completely change not just how 
+  we sshould measure something but what we should measure.
+
+* The first two questions define what this measurement means within the 
+  framework of the decisions which depend on it. If a measurement matters at all,
+  it is because it must have some conceivable effect on decisions and behavior.
+  If you cant identify a decision that could be affected by a proposed
+  measurement and how it could change those decisions, then the measurement
+  simply has no value.
+
+
+
+
+
 
 
 
