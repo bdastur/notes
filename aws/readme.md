@@ -7,6 +7,7 @@
 [S3 Benchmark](https://github.com/dvassallo/s3-benchmark)
 [Open Guides AWS](https://github.com/open-guides/og-aws)
 [AWS Builder's library](https://aws.amazon.com/builders-library/?cards-body.sort-by=item.additionalFields.customSort&cards-body.sort-order=asc)
+[Tagging best practices](https://www.flexera.com/blog/cloud/2018/01/tagging-best-practices-for-cloud-governance-and-cost-management/)
 
 
 ## Identity and Authorization (IAM):
