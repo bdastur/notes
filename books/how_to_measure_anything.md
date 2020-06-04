@@ -333,7 +333,42 @@ that is so high that some deliberate measurement effort is easiily justified.
   simply has no value.
 
 
+**Toward a universal approach to measurementt**
 
+1. Define a decision problem and the relevant uncertainties. The first question
+   should be "What is your delimma?" Then we can define all the variables
+   relevant to tthe delimma and determine what we really mean by ambiguous
+   ideas like "training quality" or "economic opportunity".
+
+2. Determine what you know now. We need to quantify our uncertainty about
+   unknown quantitties in the identified decision. This is done by learning
+   how to describe our uncertaiinty in terms of ranges and probabilities. 
+   Defining the relevant decision and how much uncertainty we have about it
+   helps us determine the risk involved.
+
+3. Compute the value of additional information. Information has value because
+   it reduces risk in decisions. Knowing the "information value" of a 
+   measurement allows us to both identify what to measure as well as
+   informing us about how to measure it.
+   If there are no variables with information values that justify the cost of
+   any measurement approaches, skip to step 5.
+
+4. Apply the relevant measurement instruments to high-value measurements. We
+   cover some of the basic measurement instruments, such as random sampling,
+   controlled experiments and some more obscure variations on these. We also
+   talk about methods that allow us to squeeze more out of limited data, 
+   how to isolate the effects of one variable, how to quantify "soft" preferrences,
+   how new technologies can be exploited for measurement, and how to make 
+   better use of human experts.
+
+    (Repeat step 3)
+
+5. Make a decision and act on it. When the economically justifiable amount of
+   uncertainty has been removed, decision makers face a risk versus return
+   decision. Any rremaining uncertainty is part of this choice. To optimize
+   this decision, the risk aversion of the decision maker can be quantified.
+   An optimum choice can be calculated even in situations where there are
+   enormous combinations of possible choices. 
 
 
 
