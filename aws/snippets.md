@@ -10,14 +10,14 @@ aws ec2 describe-security-groups \
     --filter  "Name=tag:ClusterStartedBy,Values=john.doe" "Name=tag:aws:cloudformation:logical-id,Values=SecurityGroupEtcd"
 ```
 
-*Find sg tag have tag Name=httpsg and tag Stack=dev*
+**Find sg tag have tag Name=httpsg and tag Stack=dev**
 ```
 aws ec2 describe-security-groups \
     --region ca-central-1 \
     --filter "Name=tag:Name,Values=httpsg" "Name=tag:Stack,Values=dev" | jq -r '.SecurityGroups[].GroupId'
 ```
 
-*use jq to parse json outtput*
+**use jq to parse json outtput**
 ```
 aws ec2 describe-security-groups \
     --profile dev1 \
@@ -34,17 +34,17 @@ aws ec2 describe-instances --region us-west-2 --filters="Name=tag:Name,Values=ge
 
 ```
 
-*describe tags. Filter by resource-id*
+**describe tags. Filter by resource-id**
 ```
 aws ec2 describe-tags --filters="Name=resource-id, Values=vpc-016xxxxxec1" --profile dev1 
 ```
 
-*describe tags. Filter by tag:Name*
+**describe tags. Filter by tag:Name**
 ```
 $ aws ec2 describe-tags --filters="Name=tag:Name, Values=ctest" --profile dev1 
 ```
 
-*Create a new tag.*
+**Create a new tag.**
 ```
 aws ec2 create-tags  --resources vpc-01xxxxxxxxxxc1 --tags="Key=Protected,Value=true" --profile dev1
 ```
@@ -71,7 +71,7 @@ done
 
 ```
 
-### Ec2 get spot price history
+## Ec2 get spot price history
 
 *by instance type, az, filter product description, start/end time*
 ```
@@ -82,7 +82,17 @@ aws ec2 --output json \
   --start-time 2019-10-01 --end-time 2019-10-12 
 ```
 
-### DynamoDB scan with filter
+## EC2 - describe instances created after certain launch time.
+This example was given in [https://github.com/aws/aws-cli/issues/1209](https://github.com/aws/aws-cli/issues/1209)
+Using [JMESPatch query language](https://jmespath.org/tutorial.html)
+
+```
+aws ec2 describe-instances \
+  --query 'Reservations[].Instances[?LaunchTime>=`2020-06-04`][].{id: InstanceId, type: InstanceType, launched: LaunchTime}'
+```
+
+
+## DynamoDB scan with filter
 
 ```
 aws dynamodb scan --table-name TestData \
