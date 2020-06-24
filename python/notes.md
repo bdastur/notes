@@ -1,4 +1,5 @@
-# Python notes:
+
+ Python notes:
 
 ## Generating UML diagrams with pyreverse.
 
@@ -36,6 +37,7 @@ nm['10.10.10.6']
 * [Plotly Dash - Build data visualizations apps](https://dash.plot.ly/)
 * [Making python programs fast](https://martinheinz.dev/blog/13)
 * [Python visualization cheat sheet](https://medium.com/analytics-vidhya/your-ultimate-python-visualization-cheat-sheet-663318470db)
+* [Good python packages](https://medium.com/tech-explained/top-15-python-packages-you-must-try-c6a877ed3cd0)
 
 Python profiling:
 * https://github.com/benfred/py-spy
