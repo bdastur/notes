@@ -78,6 +78,37 @@ URL: http://blogs.aws.amazon.com/bigdata/blog/feed/recentPosts.rss
 
 ## How to:
 
+### ps:
+
+##### Display environment variables for a process with ps command
+
+```
+ps eww $PID | tr ' ' '\n' | grep =
+
+```
+
+##### Repeat informational header on every page of ps output
+
+```
+ps -h
+```
+
+##### Get additional information with ps keywords
+
+Include the process state in the output:
+
+```
+ps -efh  -o state
+```
+
+Include the cpu and mem consumption:
+
+```
+ps -ef -o mem -o cpu
+
+```
+
+
 ### grep:
 
 ##### Search for a string in a file (basic).
