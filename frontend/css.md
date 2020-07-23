@@ -1,9 +1,10 @@
 # CSS Concepts:
 
 ## Links:
-[W3C Css validation service](https://jigsaw.w3.org/css-validator/)
-[Mozilla Web Docs: CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[MVP CSS](https://andybrewer.github.io/mvp/#docs)
+- [W3C Css validation service](https://jigsaw.w3.org/css-validator/)
+- [Mozilla Web Docs: CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [MVP CSS](https://andybrewer.github.io/mvp/#docs)
+- [Accordian Rows](https://meyerweb.com/eric/thoughts/2020/07/01/accordion-rows-in-css-grid/)
 
 Cascading Style Sheets:
 A CSS rule-set consist of a selector and a declaration block
