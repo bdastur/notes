@@ -2220,7 +2220,9 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
   * Data transfer pricing
   * Transfer acceleration
 
-
+### S3 cross-account access:
+[Managing cross account access](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-walkthroughs-managing-access-example2.html)
+[cross account access](https://aws.amazon.com/premiumsupport/knowledge-center/cross-account-access-s3/)
 
 ## Cloudwatch:
 * Two plans: basic and detailed
