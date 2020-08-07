@@ -621,6 +621,7 @@ https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.ht
 **Links**
 [VPC Introduction](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html)
 [VPC Documentation](https://docs.aws.amazon.com/vpc/index.html)
+[VPC Invalid peering configs](https://docs.aws.amazon.com/vpc/latest/peering/invalid-peering-configurations.html#transitive-peering)
 
 * VPCs do not span regions, they can span availability zones.
 * VPC lets you provision a logically isolated section of AWS cloud where you
