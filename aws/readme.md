@@ -621,6 +621,7 @@ https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.ht
 **Links**
 [VPC Introduction](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html)
 [VPC Documentation](https://docs.aws.amazon.com/vpc/index.html)
+[VPC Invalid peering configs](https://docs.aws.amazon.com/vpc/latest/peering/invalid-peering-configurations.html#transitive-peering)
 
 * VPCs do not span regions, they can span availability zones.
 * VPC lets you provision a logically isolated section of AWS cloud where you
@@ -2220,7 +2221,9 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
   * Data transfer pricing
   * Transfer acceleration
 
-
+### S3 cross-account access:
+[Managing cross account access](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-walkthroughs-managing-access-example2.html)
+[cross account access](https://aws.amazon.com/premiumsupport/knowledge-center/cross-account-access-s3/)
 
 ## Cloudwatch:
 * Two plans: basic and detailed
