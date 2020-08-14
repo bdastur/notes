@@ -84,6 +84,92 @@
 * The ENI is a virtual network adapter that allows us to connect operating
   systems, containers and other components to a VPC.
 
+* When an EC2 instance is created a special kind of ENI is created and 
+  permanently attached to it. This ENI is also called the primary network
+  interface.
+* A primary network interface has all the characteristics of an ENI, except
+  it cannot be detached from the instance.
+
+* An ENI can be created independently of an EC2 instance and arbitarily 
+  assign it's characteristics.
+* When created separately, the ENI is created with a persistent MAC address.
+* Oncee attached to an instance, this adapter will show up as a secondary
+  network interface and the MAC address will be visible in the operating
+  system.
+* This ENI is completely idependent of the EC2 instance it is connected to
+  and it's characteristics will persist through stops and starts, and will
+  remain unchanged even when the instance is terminated.
+
+* ENI can be detached and attached to another instance. This is useful when
+  we use licensing that is tied to a MAC address. Instead of tying the
+  licensse to the primary network interface and hoping that the instance
+  never fails, we can assign the licensse to a separately created secondary
+  ENI.
+
+* By default you can assign up to 5 security groups to each ENI. But this is
+  a soft limit. Absolute max is 16 security groups per ENI.
+* However the absolute max number of rules per ENI is 300.
+
+* When troubleshooting network flow issues, we can enable VPC flow logs
+  for each ENI separately.
+
+
+
+### Routing, nat and internet access
+
+#### Connecting public subnets to the internet
+
+* For IPv4 we will be connecting an IGW to public-subnet, which will allow
+  us to assing public and Elastic IPs through 1:1 NAT to our instances.
+* This means that any traffic coming into the public or Elastic IP will be
+  directed by the IGW to the internal IP address of the instance.
+* When using IPv6, the addresses are assigned directly to the instances in
+  the public subnet, and by connecting an IGGW, we allow the traffic to
+  flow in and out of those instances.
+
+* To allow the traffic from the instances to flow to and from the internet,
+  we will also need to create a default route in the routing table of each
+  public subnet that has an IGW attached to it.
+* For IPv4 will need a route for 0.0.0.0/0, whereas for IPv6 will have a
+  destination of ::/0. Both routes will define target as the id of the IGW
+  that is connected to the subnet.
+
+
+#### Connecting private subnets to the internet
+
+* To connect an IPv4 subnet to the internet, we can use NAT gateway. The NAT
+  gateway will allow all outgoing traffic to pass to the internet and is used
+  when we require instances in private subnet to access the internet.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
