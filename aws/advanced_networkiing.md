@@ -1,5 +1,16 @@
 # AWS Advanced Networking:
 
+## Links
+- [Amazon VPC Limits](https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html)
+
+## Refresher on some basic concepts.
+
+### IP Addressing and Subnets:
+
+- [Cisco IP Addressing/Subnetting Tutorial](https://www.cisco.com/c/en/us/support/docs/ip/routing-information-protocol-rip/13788-3.html)
+ - [Decimal to Binary converter](https://www.rapidtables.com/convert/number/decimal-to-binary.html)
+
+
 
 ## Networking with VPC:
 
@@ -84,13 +95,13 @@
 * The ENI is a virtual network adapter that allows us to connect operating
   systems, containers and other components to a VPC.
 
-* When an EC2 instance is created a special kind of ENI is created and 
+* When an EC2 instance is created a special kind of ENI is created and
   permanently attached to it. This ENI is also called the primary network
   interface.
 * A primary network interface has all the characteristics of an ENI, except
   it cannot be detached from the instance.
 
-* An ENI can be created independently of an EC2 instance and arbitarily 
+* An ENI can be created independently of an EC2 instance and arbitarily
   assign it's characteristics.
 * When created separately, the ENI is created with a persistent MAC address.
 * Oncee attached to an instance, this adapter will show up as a secondary
@@ -140,6 +151,47 @@
 * To connect an IPv4 subnet to the internet, we can use NAT gateway. The NAT
   gateway will allow all outgoing traffic to pass to the internet and is used
   when we require instances in private subnet to access the internet.
+
+* A NAT gateway has the following features:
+  - Supports 5 GBps of bandwidth and automatically scales up to 45 GBps
+  - Supports up to 55,000 simultaneous TCP, UDP and ICPM connections to each unique
+    destination.
+  - Can associate exactly one EIP address with a NAT gateway - once created it
+    cannot be dissociated.
+  - Cannot associate a SG with a NAT gateway, but access can be controlled at EC2
+    using SGs.
+  - NAT gateway has an automatically assigned private IP in your subnet that can be
+    viewed in AWS console.
+
+* In case of IPv6, an egress-only internet gateway is needed.
+* The egress only gateway has all the characteristics of an internet gateway,
+  with the difference being that it blocks all incoming traffic to IPv6 address
+  space.
+
+
+### VPC endpoints and PrivateLink
+* To allow access to AWS services like S3, SQS, KMS and DynamoDB from a private subnet,
+  which does not have access to internet.
+
+* A VPC endpoint can connect to the VPC and allow for communication to the service within
+  a private IP space.
+
+* VPC endpoint connections come in two different types:
+  - Gateway endpoints
+  - Interface endpoints
+
+#### Gateway endpoint
+
+#### Interface endpoint
+* An interface endpoint is essentially a service-level ENI. The service is attached
+  straight to the VPC subnet through the ENI.
+* This allows us to assign a private IP address from the subnet pool directly to the
+  service.
+
+### VPC peering
+* A VPC peering connection is a networking connection between two VPCs that allow
+  you to route traffic between tem privately and have the ability to connect
+  instances in private subnets.
 
 
 
