@@ -55,6 +55,7 @@ Python tools:
 * [Python uncompile - cross version decompiler](https://github.com/rocky/python-uncompyle6)
 * [pipenv - a better python package manager](https://pipenv-fork.readthedocs.io/en/latest/install.html#installing-pipenv)
 * [Diagrams - diagrams as code](https://diagrams.mingrammer.com/)
+* [Convert any python CLI to a GUI](https://github.com/chriskiehl/Gooey)
 
 ### command sample:
 
