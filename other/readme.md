@@ -19,7 +19,7 @@
 * [codepen](https://codepen.io/bdastur/pen/MWYwXjG)
 * [High performance browser networking](https://hpbn.co/introduction-to-wireless-networks/)
 * [How to write a changelog](https://keepachangelog.com/en/0.3.0)
-
+* [c4 model for visualizing software architecture](https://c4model.com/)
 # Linux tips:
 
 ## How to terminate a unresponsive ssh connection.
