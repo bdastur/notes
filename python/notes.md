@@ -56,6 +56,8 @@ Python tools:
 * [pipenv - a better python package manager](https://pipenv-fork.readthedocs.io/en/latest/install.html#installing-pipenv)
 * [Diagrams - diagrams as code](https://diagrams.mingrammer.com/)
 * [Convert any python CLI to a GUI](https://github.com/chriskiehl/Gooey)
+* [Penty Desktop Assistant - GUI with python](https://github.com/JeswinSunsi/PentyDesktopAssistant)
+* [Eel - Python library for GUI](https://github.com/samuelhwilliams/Eel/)
 
 ### command sample:
 

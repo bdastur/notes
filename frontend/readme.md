@@ -38,7 +38,8 @@ http://holderjs.com/
 * [Google code prettify - Makes source snippets in HTML prettier](https://github.com/googlearchive/code-prettify)
 * [Good JS libraries](https://getflywheel.com/layout/best-javascript-libraries-frameworks-2020/)
 * [A design system for building faithful recreations of old UIs.](https://botoxparty.github.io/XP.css/)
-
+* [Penty Desktop Assistant - GUI with python](https://github.com/JeswinSunsi/PentyDesktopAssistant)
+* [Eel - Python library for GUI](https://github.com/samuelhwilliams/Eel/)
 
 
 ## Bootstrap 3:
