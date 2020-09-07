@@ -112,3 +112,6 @@ go/interfaces/bin/
 **/github.com/aws/
 
 frontend/d3examples/static/thirdparty/*
+python/diagram/web_service.ps
+python/diagram/webservice.png
+
