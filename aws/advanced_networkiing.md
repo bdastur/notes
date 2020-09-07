@@ -24,18 +24,18 @@
   the VPC if required.
 
 * Provisioning in VPC is irreversible - once provisioned it cannot be changed.
-* Also consider that there will be some services running in the VPC reserved
-  by AWS - eg: IP address will be consumedd by internet gateway, DHCP service,
-  NAT gateway, and reserved addresses AWS keeps unused for future services.
+* Considerations - some services running in the VPC are reserved by AWS - eg:
+  IP address will be consumedd by internet gateway, DHCP service, NAT gateway,
+  and reserved addresses AWS keeps unused for future services.
 
 ### Private and public subnets:
 
 * Two types of subnets within a VPC - public and private.
-* The only difference that makes a subnet public rather than private is that
-  instances running in a public network will be able to access the internet
-  by default also be made public by attaching a public or Elastic IPs to them.
-* The public subnet would also be identified easily as it will have an IGW
-  attached to it and route for all addresses pointing to the IGW.
+* The only difference that makes a subnet public rather than private -
+  instances running in a public network are  able to access the internet
+  by default and  also be made public by attaching a public or Elastic IPs to them.
+* The public subnet - has an IGW attached to it and a route for all addresses
+  pointing to the IGW.
 * public subnet is sort of a DMZ in classical n/w terms. The subnet is hidden,
   from public view via a router (IGW) with 1:1 DNAT rules attached that map
   public or Elastic IPs of instances running in the subnet.
@@ -46,14 +46,11 @@
 * We can also control traffic between all subnets through the VPC's NACLs and
   define rules that will prevent certain subnets from communicating from
   each other.
-* private subnets are also able to connect to other networks via a NAT gw that
-  will allow outbound traffic as well as through a VPN gateway or direct
-  connect connection that will allow private subnets to communicate without
-  on-premise systems.
-
-* IPV6 addresses are global unicast addresses. This meanss that the only way
-  to allow an IPV6 subnet to communicate with the internet is to attach an
-  IGW to the subnet.
+* private subnets - can connect to other networks via NAT gateway that allows
+  outbound traffic, or through a VPN gateway or direct connect - to connect
+  to on-premise systems.
+* IPV6 addresses are global unicast addresses. -  only way to allow an IPV6
+  subnet to communicate with the internet is to attach an IGW to the subnet.
 * All IPV6 addresses in a subnet with an IGW attached are inherently able to
   access the internet and instantly become accessible from the internet. But
   what if we want to keep our instances private and still communicate with
