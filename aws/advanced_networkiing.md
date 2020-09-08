@@ -83,6 +83,7 @@
   that can be increased.
 * However we are limited to only one IPv6 CIDR block per vpc - This is a hard
   limit.
+  * A VPC can only have one DHCP options set attached at any time
 
 
 
@@ -93,7 +94,7 @@
   systems, containers and other components to a VPC.
 
 * When an EC2 instance is created a special kind of ENI is created and
-  permanently attached to it. This ENI is also called the primary network
+  **permanently** attached to it. This ENI is also called the primary network
   interface.
 * A primary network interface has all the characteristics of an ENI, except
   it cannot be detached from the instance.
@@ -101,7 +102,7 @@
 * An ENI can be created independently of an EC2 instance and arbitarily
   assign it's characteristics.
 * When created separately, the ENI is created with a persistent MAC address.
-* Oncee attached to an instance, this adapter will show up as a secondary
+* Once attached to an instance, this adapter will show up as a secondary
   network interface and the MAC address will be visible in the operating
   system.
 * This ENI is completely idependent of the EC2 instance it is connected to
@@ -129,10 +130,10 @@
 
 * For IPv4 we will be connecting an IGW to public-subnet, which will allow
   us to assing public and Elastic IPs through 1:1 NAT to our instances.
-* This means that any traffic coming into the public or Elastic IP will be
+* This means - any traffic coming into the public or Elastic IP will be
   directed by the IGW to the internal IP address of the instance.
 * When using IPv6, the addresses are assigned directly to the instances in
-  the public subnet, and by connecting an IGGW, we allow the traffic to
+  the public subnet, and by connecting an IGW, we allow the traffic to
   flow in and out of those instances.
 
 * To allow the traffic from the instances to flow to and from the internet,
@@ -145,12 +146,12 @@
 
 #### Connecting private subnets to the internet
 
-* To connect an IPv4 subnet to the internet, we can use NAT gateway. The NAT
-  gateway will allow all outgoing traffic to pass to the internet and is used
-  when we require instances in private subnet to access the internet.
+* For IPV4 subneet - use a NAT gateway. The NAT gateway will allow all outgoing
+  traffic to pass to the internet.
+
 
 * A NAT gateway has the following features:
-  - Supports 5 GBps of bandwidth and automatically scales up to 45 GBps
+  - Supports 5 GBps of bandwidth - scales up to 45 GBps
   - Supports up to 55,000 simultaneous TCP, UDP and ICPM connections to each unique
     destination.
   - Can associate exactly one EIP address with a NAT gateway - once created it
@@ -160,35 +161,51 @@
   - NAT gateway has an automatically assigned private IP in your subnet that can be
     viewed in AWS console.
 
+* Can create multiple NAT gateways for performance.
+
 * In case of IPv6, an egress-only internet gateway is needed.
 * The egress only gateway has all the characteristics of an internet gateway,
-  with the difference being that it blocks all incoming traffic to IPv6 address
-  space.
+  with the difference being that it blocks all incoming traffic to IPv6 addres space.
+* You can manage your own EC2 instance as a NAT instance - allows any custom
+  trafffic shaping and security checks, with packket inspection and firewalling
+  software.
 
 
 ### VPC endpoints and PrivateLink
-* To allow access to AWS services like S3, SQS, KMS and DynamoDB from a private subnet,
-  which does not have access to internet.
+* To allow access to AWS services like S3, SQS, KMS and DynamoDB from a private subnet, which does not have access to internet.
 
-* A VPC endpoint can connect to the VPC and allow for communication to the service within
-  a private IP space.
+* A VPC endpoint can connect to the VPC and allow for communication to the service within a private IP space.
 
 * VPC endpoint connections come in two different types:
   - Gateway endpoints
   - Interface endpoints
 
 #### Gateway endpoint
+* S3 and DynamoDB support gateway endpoints.
+* Instance running within the VPC can consult the routing table to access the AWS
+  service.
 
 #### Interface endpoint
-* An interface endpoint is essentially a service-level ENI. The service is attached
+* An interface endpoint - essentially a service-level ENI. The service is attached
   straight to the VPC subnet through the ENI.
-* This allows us to assign a private IP address from the subnet pool directly to the
+* Enables assigning a private IP address from the subnet pool directly to th
   service.
+* Can communicate with the service on prrivate network.
 
 ### VPC peering
 * A VPC peering connection is a networking connection between two VPCs that allow
   you to route traffic between tem privately and have the ability to connect
   instances in private subnets.
+* Standard inter-region charges apply for VPC peering between regions. No charges
+  to traffic within a region.
+
+#### Limitations of VPC peering
+* [VPC Invalid peering configs](https://docs.aws.amazon.com/vpc/latest/peering/invalid-peering-configurations.html#transitive-peering)
+
+* No overlapping IPV4 or IPV6 CIDR blocs.
+* Transitive peering is not supported.
+* Unicast reverse path forwarding in VPC peering connections is not supported.
+
 
 
 
