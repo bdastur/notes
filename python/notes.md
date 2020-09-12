@@ -39,6 +39,8 @@ nm['10.10.10.6']
 * [Python visualization cheat sheet](https://medium.com/analytics-vidhya/your-ultimate-python-visualization-cheat-sheet-663318470db)
 * [Good python packages](https://medium.com/tech-explained/top-15-python-packages-you-must-try-c6a877ed3cd0)
 * [Python crash course](https://ehmatthes.github.io/pcc_2e/regular_index/)
+* [Miguel Grinbergs blog - Asyncio](https://blog.miguelgrinberg.com/post/sync-vs-async-python-what-is-the-difference)
+* [Asyncio for Beginners - youtube](https://www.youtube.com/watch?v=iG6fr81xHKA)
 
 
 Python profiling:
@@ -215,7 +217,7 @@ source ~/pyenv/py3env/bin/activate
 
 
 ## Python3 Asyncio
-* A function that you introduce with assync def is a coroutine.
+* A function that you introduce with async def is a coroutine.
   It may use await, return or yield, but all of these are optional.
   Declaring async def noop():  pass is valid.
 
