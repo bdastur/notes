@@ -143,6 +143,16 @@
   destination of ::/0. Both routes will define target as the id of the IGW
   that is connected to the subnet.
 
+**Enabling Internet Access:**
+* Attach and IGW to your VPC
+* Add a route to the routing table that directs internet-bound traffic to
+  the IGW.(A subnet that has this route is a public subnet)
+* Ensure - instances in the subnet have a globally unique IP addr.
+* Ensure NACL and security group rules allow relevant traffic to flow to and from
+  your instance.
+
+* To provide your instances internet access without assigning public IP address, you
+  can use a NAT device instead.
 
 #### Connecting private subnets to the internet
 
@@ -202,25 +212,147 @@
 #### Limitations of VPC peering
 * [VPC Invalid peering configs](https://docs.aws.amazon.com/vpc/latest/peering/invalid-peering-configurations.html#transitive-peering)
 
-* No overlapping IPV4 or IPV6 CIDR blocs.
+* No overlapping IPV4 or IPV6 CIDR blocks.
 * Transitive peering is not supported.
 * Unicast reverse path forwarding in VPC peering connections is not supported.
 
+* Additionally inter-region VPC peering has following Limitations:
+  - peer VPC's security groups cannot be referenced in security groups created
+    in the other VPC.
+  - DNS resolution of hostnames that have both public and private IPS, will only
+    resolve public IPs when queried from peer VPC.
+  - Communication over IPV6 is not supported
+  - Communication over ClassicLink for EC2-classic instances is not supported
+  - Jumbo frames are not supported across inter region VPC peering connection.
+
+
+
+## VPC Network security
+Network security is a small part of an overall strategy in securing our applications.
+
+### Network security vulnerabilities
+
+#### Network layer attacks
+some n/w layer attacks:
+* Automated port scanning: Attempt to discover open ports to compromise
+* Spoofing: Attacker sets up his own server with an IP address of the server being
+  attacked and intercept traffic intended of the legitimate IP.
+* DoS: Attack and application entry point with traffic designed to overwhelm the
+  system, either with volume or packets that will cause errors to accumulate.
+
+* AWS inherently prevents IP spoofing and port scanning within EC2 networks. An
+  attempt to do so will result in violation of AWS terms and immediately blocked.
+
+* AWS services WAF and Shield help with preventing these attacks.
+
+
+#### Service layer attacks
+* Attacks are designed to attack a service that an application relies on to
+  function correctly.
+* Most commonly used attacks is DNS and domain hijacking. Intercept DNS traffic -
+  inject incorrect DNS information - requests from the application will be sent
+  to attackers DNS instead of the legitimate one.
+
+#### Exploiting vulnerabilities
+
+#### application layer attacks
+
+
+### Security in the OSI model
+
+#### Layer 2
+* AWS Config allows us to detect any changes (creation of instances and network
+  interfaces) that could be connected to the VPC.
+
+#### Layer 3
+* Stateless firewalls - NACLs are good at stopping layer 3 attacks. Stopping attack
+  at the perimeter of the network.
+
+#### Layer 4
+* firewalling at the transport layer.
+* Stateful firewall.
+* Security groups, operating system firewalling, AWS Shield and WAF all play a role
+  in stopping layer 4 attacks.
+
+#### Layer 7
+* Application firewalls is perhaps the most difficult and wide-ranging subject.
+* There are many ways to approach it.
+* AWS offers WAF which can help in securing web applications.
+
+
+### WAN to LAN access patterns
+* Any time an application is internet facing, it will need to be protected with as many mechanisms as possible.
+
+* Focus on minimizing the footprint of the attack - should disable any
+  unnecessary access and limit the incoming traffic only to the legitimate sources
+* For eg: when using an ELB, create a SG that only allows access to the ELB IP instead of both the ELB and the instances it load balances traffic to. The instances should only be accessible from the ELB itself.
 
 
 
 
 
 
+### Securing EC2
+
+### operating systmes
+
+
+### Threats to modern applications
+
+AWS outlines several aspects of how to be prepared and mitigate DDoS attacks:
+* **Scaling:** An expensive way to mitigate an attack and maintain SLA.
+* **Minimizing attack surface:** Remove any unnecessary or unused entry points to
+  the application. Also identify all possible mitigation strategies for any
+  entry points that are crucial for the operation of the application.
+* **Identify traffic patterns:** Understand typical traffic patterns of the
+  application. Also monitor to identify pattern and anomalies - can be automated using CloudWatch alarms.
+* **Resiliency:** Building applications that are resilient to attacks.
+
+mitigation:
+* AWS WAF
+* AWS Shield
+
+
+
+## AWS WAF (Web Application Firewall)
+Lets you monitor and filter traffic thats intended for:
+* HTTP/HTTPS web servers behind ALB in EC2
+* AWS API gateway
+* AWS Cloudfront distributions.
+
+
+### How WAF Works:
+[How WAF Works](https://docs.aws.amazon.com/waf/latest/developerguide/how-aws-waf-works.html)
+
+**Web ACLs**:
+* You use Web ACLs to protect a set of AWS resources.
+* Create a Web ACL and define it's protection strategy by adding rules.
+* Rules define criteria for inspectin web requests and how to handle requests
+  that match the criteria.
+* Set a default action for the web ACL that indicates whether to allow or
+  block those requests that pass the rules inspection.
+
+**Rules:**
+* Each rule contains a statement that defines the inspection criteria, and
+  and action if the request meets criteria.
+* When a web requests meets the criteria, that's a match.
+* You can block, allow or simply count matching requests.
+
+**Rules groups:**
+* You can use rules individually or in a reusable rules group.
+* You can define your own rule groups, get them from AWS managed rules or
+  marketplace as well.
 
 
 
 
+## Connecting On-premise and AWS
 
+AWS provides layer2 and layer3 connectivity options for connecting your private
+AWS subnet to on-prem.
 
-
-
-
+* **Direct connect:** low latency layer 2 connection on dedicated private links
+*** VPN with virtual gateway:** layer3 IPSec-encrypted connection over public internet.
 
 
 
