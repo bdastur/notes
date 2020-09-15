@@ -11,7 +11,7 @@ import boto3
 
 def get_instances():
     print("Get instances...")
-    session = boto3.Session(profile_name="workdayscylladev1", region_name="us-west-2")
+    session = boto3.Session(profile_name="dev1", region_name="us-west-2")
     ec2_client = session.client("ec2")
     data = ec2_client.describe_instances()
     #print(data)
