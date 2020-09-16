@@ -14,7 +14,15 @@ def get_instances():
     session = boto3.Session(profile_name="dev1", region_name="us-west-2")
     ec2_client = session.client("ec2")
     data = ec2_client.describe_instances()
-    #print(data)
+    print("Get instances done")
+    return data
+
+def get_volumes():
+    print("Get Volumes..")
+    session = boto3.Session(profile_name="dev1", region_name="us-west-2")
+    ec2_client = session.client("ec2")
+    data = ec2_client.describe_volumes()
+    print("Get volumes done")
     return data
 
 def blocking_task(id, delay):
@@ -36,12 +44,12 @@ async def non_blocking(executor, id_suffix):
     if executor:
         executor.shutdown()
 
+async def non_blocking_aws(executor, func):
+    print("Non blocking aws: ", func)
+    loop = asyncio.get_running_loop()
+    data = loop.run_in_executor(executor, func)
+    print(data)
 
-# async def main(loop, executor):
-#     print("In async main")
-#     data = await loop.run_in_executor(executor, get_instances())
-#     print("Got instances")
-#     print("Data: ", data)
 
 async def main():
     # Using the default loop's executor.
@@ -55,13 +63,16 @@ async def main():
     executor = concurrent.futures.ProcessPoolExecutor(max_workers=3)
     await non_blocking(executor, "process")
 
+    # call get instances.
+    await non_blocking_aws(None, get_instances)
+
+    await non_blocking_aws(None, get_volumes)
+
+
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
-    #executor = concurrent.futures.ThreadPoolExecutor(max_workers=4)
-    #loop.run_until_complete(main(loop, executor))
     loop.run_until_complete(main())
-    #asyncio.run(non_blocking(None))
-    print("Here in __main__")
+    print("Main EV Loop Complete")
 
 
