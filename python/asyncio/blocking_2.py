@@ -2,9 +2,21 @@
 # -*- coding: utf-8 -*-
 
 import asyncio
+import boto3
+from moto import mock_s3, mock_ec2
 import time
 import random
 import concurrent.futures
+
+def get_aws_client(service_name):
+    session = boto3.Session(profile_name="dev1", region_name="us-west-2")
+    client = session.client(service_name)
+    return client
+
+def get_ec2_instances():
+    client = get_aws_client("ec2")
+    data = client.describe_instances()
+    print(data)
 
 def blocking_operation_one(id, queue):
     print("Blocking operation one ", id)
