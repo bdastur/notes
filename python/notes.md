@@ -60,6 +60,7 @@ Python tools:
 * [Convert any python CLI to a GUI](https://github.com/chriskiehl/Gooey)
 * [Penty Desktop Assistant - GUI with python](https://github.com/JeswinSunsi/PentyDesktopAssistant)
 * [Eel - Python library for GUI](https://github.com/samuelhwilliams/Eel/)
+* [Woosh - pure python search engine](https://whoosh.readthedocs.io/en/latest/intro.html)
 
 ### command sample:
 
