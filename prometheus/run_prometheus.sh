@@ -16,7 +16,7 @@ fi
 container_exited=$(docker ps -a | grep ${CONTAINER_NAME} | grep Exited)
 echo "Container: $container_exited"
 if [[ ! -z $container_exited ]]; then
-    echo "Container exited.. yes"
+    echo "Container exited. Cleanup"
     docker rm -f ${CONTAINER_NAME}
 fi
 
@@ -29,6 +29,6 @@ docker run -p 9090:9090 \
     --config.file /etc/prometheus/prometheus.yml \
     --storage.tsdb.path /prometheus_data/ \
     --web.console.libraries /etc/prometheus/console_libraries/ \
-    --web.console.templates /etc/prometheus/consoles
+    --web.console.templates /etc/prometheus/consoles &
 
 
