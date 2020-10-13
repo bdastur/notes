@@ -61,6 +61,7 @@ Python tools:
 * [Penty Desktop Assistant - GUI with python](https://github.com/JeswinSunsi/PentyDesktopAssistant)
 * [Eel - Python library for GUI](https://github.com/samuelhwilliams/Eel/)
 * [Woosh - pure python search engine](https://whoosh.readthedocs.io/en/latest/intro.html)
+* [dephell - Python project management](https://github.com/dephell/dephell)
 
 ### command sample:
 
