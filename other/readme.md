@@ -20,6 +20,7 @@
 * [High performance browser networking](https://hpbn.co/introduction-to-wireless-networks/)
 * [How to write a changelog](https://keepachangelog.com/en/0.3.0)
 * [c4 model for visualizing software architecture](https://c4model.com/)
+
 # Linux tips:
 
 ## How to terminate a unresponsive ssh connection.
@@ -51,11 +52,13 @@ will panic on OOM. A setting of 0 instructs the kerneel to call a function named
 OOM. Usually OOM Killer will kill rogue processes to let the system survive.
 
 ## Followups:
-http://flaws.cloud/hint1.html
-https://tutorialedge.net/python/concurrency/asyncio-event-loops-tutorial/
+* http://flaws.cloud/hint1.html
+* https://tutorialedge.net/python/concurrency/asyncio-event-loops-tutorial/
+* https://github.com/influxdata/telegraf
 
-Vulnerability database
-https://www.cvedetails.com/
+
+### Vulnerability database
+* https://www.cvedetails.com/
 
 ## Setting up AWS blog feeds in slack
 
