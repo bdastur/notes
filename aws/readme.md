@@ -502,6 +502,8 @@ xvdk    202:160  0 1000G  0 disk
 * Cross zone load balancing: ensures that request traffic is routed evenly
   across all back end instances regardless of AZ.
 
+* [AWS NLBs and mixed up TCP connections](https://www.niels-ole.com/cloud/aws/linux/2020/10/18/nlb-resets.html)
+
 
 ### Connection Draining for classic ELB:
 * To ensure that the ELB stops sending requests to instances that are
@@ -2729,6 +2731,38 @@ http://docs.aws.amazon.com/lambda/latest/dg/limits.html
   type is pre-determined.
 * languages supported: C#, Java, Node.js, Python.
 
+
+## AWS EKS:
+
+
+### Creating a kubeconfig
+```
+aws eks update-kubeconfig \
+    --name test-eks-cluster \
+    --role-arn arn:aws:iam::461168169469:role/SSOAdmin1Role \
+    --kubeconfig ./kubeconfig
+```
+
+
+###
+``
+kubectl get svc
+NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   172.20.0.1   <none>        443/TCP   13h
+
+```
+
+
+### Creating a node group
+```
+aws eks create-nodegroup \
+    --cluster-name test-eks-cluster \
+    --nodegroup-name eks-general \
+    --subnets subnet-0301c41ac3e4d860f \
+    --node-role arn:aws:iam::4xxxxxxxxx:role/eks-worker-role-NodeInstanceRole-1BA \
+    --scaling-config minSize=1,maxSize=4,desiredSize=2 \
+    --instance-types m4.large 
+```
 
 
 ## AWS Import/Export:
