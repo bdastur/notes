@@ -42,6 +42,7 @@ docker push $REGISTRY/alpine:0.1
 * [Kube cost tool](https://github.com/kubecost/cost-model)
 * [kube grafiti](https://github.com/HotelsDotCom/kube-graffiti)
 * [Dockerfile linter](https://github.com/hadolint/hadolint)
+* [Monitor Kubernetes, record history of events and resources](https://github.com/salesforce/sloop)
 
 
 
