@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: testdeploy
+    namespace: default
+    labels:
+        app: testapp
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            app: testapp
+    template:
+        metadata:
+            labels:
+                app: testapp
+        spec:
+            containers:
+            - name: nginx
+              image: nginx:1.14.2
+              ports:
+              - containerPort: 80
+              volumeMounts:
+              - name: testcm
+                mountPath: '/etc/foo'
+                readOnly: true
+              resources:
+                  requests:
+                      memory: '400Mi'
+                      cpu: '600m'
+                  limits:
+                      memory: '1Gi'
+                      cpu: '900m'
+            volumes:
+                - name: testcm
+                  configMap:
