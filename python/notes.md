@@ -154,6 +154,54 @@ Type *sphinx-quickstart*, and just follow the prompts.
 # sphinx-quickstart
 ```
 
+The above command generates a conf.py file. The main items to tweak are:
+
+
+```
+# 1.
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
+sys.setrecursionlimit(1500) 
+
+# 2.
+extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'sphinx.ext.autodoc']
+
+```
+
+Also a index.rst (restructured txt) would be generated. You can modify that
+```
+.. SS Alert Manager documentation master file, created by
+   sphinx-quickstart on Sat Nov 21 09:33:07 2020.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+Welcome to SS Alert Manager's documentation!
+============================================
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
+SS Main 
+=======
+.. automodule:: alert_manager
+   :members:
+
+SS Alert Manager Utils:
+=======================
+.. automodule:: ss_utils.alerts
+   :members:
+
+```
+
 #### Running the build
 If you use sphinx-quickstart, it also generates a Makefile that makes various
 sphix-build commands easy.
@@ -161,6 +209,7 @@ sphix-build commands easy.
 ```
 # make html
 ```
+
 
 
 
