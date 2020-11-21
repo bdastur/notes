@@ -2,6 +2,7 @@
 
 ## Useful links:
 - [How ssl works](https://www.tutorialsteacher.com/https/how-ssl-works)
+- [Mozilla Security](https://developer.mozilla.org/en-US/docs/Mozilla/Security/x509_Certificates#Self-signed_certificates)
 
 
 
