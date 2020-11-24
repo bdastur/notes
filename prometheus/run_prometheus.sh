@@ -20,15 +20,31 @@ if [[ ! -z $container_exited ]]; then
     docker rm -f ${CONTAINER_NAME}
 fi
 
+rm -rf /tmp/prometheus_config
+cp -R prometheus_config /tmp/prometheus_config
 
 docker run -p 9090:9090 \
     --volume ${VOLUME_NAME}:/data \
+    --volume /tmp/prometheus_config:/pconfig \
     --name prometheus \
     ${IMAGE_NAME} \
-    /usr/local/bin/prometheus \
+    /start.sh \
     --config.file /etc/prometheus/prometheus.yml \
     --storage.tsdb.path /prometheus_data/ \
     --web.console.libraries /etc/prometheus/console_libraries/ \
+    --web.enable-lifecycle \
     --web.console.templates /etc/prometheus/consoles &
+
+#docker run -p 9090:9090 \
+#    --volume ${VOLUME_NAME}:/data \
+#    --volume prometheus_config:/etc/prometheus_config/ \
+#    --name prometheus \
+#    ${IMAGE_NAME} \
+#    /usr/local/bin/prometheus \
+#    --config.file /etc/prometheus/prometheus.yml \
+#    --storage.tsdb.path /prometheus_data/ \
+#    --web.console.libraries /etc/prometheus/console_libraries/ \
+#    --web.enable-lifecycle \
+#    --web.console.templates /etc/prometheus/consoles &
 
 
