@@ -20,6 +20,9 @@
 * [High performance browser networking](https://hpbn.co/introduction-to-wireless-networks/)
 * [How to write a changelog](https://keepachangelog.com/en/0.3.0)
 * [c4 model for visualizing software architecture](https://c4model.com/)
+* [Writing Github Profile Readme](https://dev.to/m0nica/how-to-create-a-github-profile-readme-1paj)
+* [Elements of a beautiful README](https://github.com/matiassingers/awesome-readme)
+* [Markdown Cheetsheet](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf)
 
 # Linux tips:
 
