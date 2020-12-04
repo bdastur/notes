@@ -23,14 +23,16 @@ aws ec2 describe-security-groups \
     --profile dev1 \
     --region us-west-2 \
     --output json \
-    --filter  "Name=tag:ClusterStartedBy,Values=cathal.conroy" "Name=tag:aws:cloudformation:logical-id,Values=SecurityGroupEtcd" | jq -r '.SecurityGroups[]| [.GroupId,.VpcId,.Tags] '
+    --filter  "Name=tag:ClusterStartedBy,Values=john.doe" "Name=tag:aws:cloudformation:logical-id,Values=SecurityGroupEtcd" | jq -r '.SecurityGroups[]| [.GroupId,.VpcId,.Tags] '
 
 ```
 
 
-
 ```
-aws ec2 describe-instances --region us-west-2 --filters="Name=tag:Name,Values=general" --output json| jq -r '.Reservations[].Instances[]| .InstanceId'
+aws ec2 describe-instances \
+    --region us-west-2 \
+    --filters="Name=tag:Name,Values=general" \
+    --output json| jq -r '.Reservations[].Instances[]| .InstanceId'
 
 ```
 
@@ -99,6 +101,21 @@ aws dynamodb scan --table-name TestData \
 --filter-expression "build_status = :bs or build_status = :bs2" \
 --expression-attribute-values '{":bs": {"S": "SUCCESS"}, ":bs2": {"S": "FAILURE"}}' \
 --profile dev --output json --max-items 5000
+```
+
+## EBS Volumes. Find available volumes.
+```
+aws ec2 describe-volumes \
+    --filters "Name=status,Values=available" \
+    --profile dev1 --output json
+```
+
+# EBS Volumes. Find available gp2 volumes.
+```
+aws ec2 describe-volumes \
+    --filters "Name=status,Values=available" "Name=volume-type,Values=gp2" \
+    --profile dev1 --output json
+
 ```
 
 
