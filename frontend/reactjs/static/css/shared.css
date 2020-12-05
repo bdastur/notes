@@ -1,0 +1,21 @@
+
+.bg-color-black {
+    background-color: black;
+}
+
+.bordered {
+    border: 2px solid black;
+}
+
+.colored {
+    background-color: rgba(248, 175, 39, 0.50);
+}
+
+.colored-lite {
+    background-color: rgb(229,255,247, 0.9);
+}
+
+
+.noborder {
+    border: none;
+}
