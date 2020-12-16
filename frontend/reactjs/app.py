@@ -27,6 +27,12 @@ def handle_comms1():
     return render_template("comms1.html")
 
 
+@app.route("/sibling_comms")
+def handle_sibling_comms():
+    print("Sibling comms")
+    return render_template("sibling_comms.html")
+
+
 def main():
     app.run(host="0.0.0.0", port=5000, debug=True)
 
