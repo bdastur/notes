@@ -17,8 +17,14 @@ print("Current App: ", current_app.name)
 
 @app.route("/")
 def index_handler():
-    print("Vue App")
+    print("React App")
     return render_template("base.html")
+
+
+@app.route("/comms1")
+def handle_comms1():
+    print("Comms 1")
+    return render_template("comms1.html")
 
 
 def main():
