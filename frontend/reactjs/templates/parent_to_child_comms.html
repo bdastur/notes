@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+  <link rel='stylesheet' type='text/css' href="{{ url_for('static',
+            filename='css/layouts.css') }}">
+  <link rel='stylesheet' type='text/css' href="{{ url_for('static',
+            filename='css/shared.css') }}">
+  <body id="main">
+
+    <div id="root"></div>
+
+    <script type="text/javascript"
+        src="{{ url_for('static', filename='js/parent_to_child_comms.js') }}"></script>
+  </body>
+</html>

@@ -33,6 +33,12 @@ def handle_sibling_comms():
     return render_template("sibling_comms.html")
 
 
+@app.route("/parent_to_child_comms")
+def handle_parent_to_child_comms():
+    print("Parent to child")
+    return render_template("parent_to_child_comms.html")
+
+
 def main():
     app.run(host="0.0.0.0", port=5000, debug=True)
 
