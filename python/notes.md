@@ -62,7 +62,7 @@ Python tools:
 * [Eel - Python library for GUI](https://github.com/samuelhwilliams/Eel/)
 * [Woosh - pure python search engine](https://whoosh.readthedocs.io/en/latest/intro.html)
 * [dephell - Python project management](https://github.com/dephell/dephell)
-
+* [Difflib - Comparing sequences](https://docs.python.org/3/library/difflib.html)
 ### command sample:
 
 help
