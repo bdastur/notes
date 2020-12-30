@@ -48,7 +48,9 @@ def main():
                 print("Cannot buy.. all balance gone")
                 continue 
 
-            stocks += stock_lump
+            max_stock_lump = balance_left / stock_price_current
+
+            stocks += max_stock_lump
             cost_basis += stock_price_current * stock_lump
             balance_left -= cost_basis
             print("Balance left: %d, Buy at %f. Stocks accumulated: %d" % \
