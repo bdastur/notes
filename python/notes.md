@@ -41,6 +41,7 @@ nm['10.10.10.6']
 * [Python crash course](https://ehmatthes.github.io/pcc_2e/regular_index/)
 * [Miguel Grinbergs blog - Asyncio](https://blog.miguelgrinberg.com/post/sync-vs-async-python-what-is-the-difference)
 * [Asyncio for Beginners - youtube](https://www.youtube.com/watch?v=iG6fr81xHKA)
+* [Top 10 python libraries of 2020](https://tryolabs.com/blog/2020/12/21/top-10-python-libraries-of-2020/)
 
 
 Python profiling:
