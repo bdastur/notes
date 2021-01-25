@@ -41,6 +41,7 @@ http://holderjs.com/
 * [Penty Desktop Assistant - GUI with python](https://github.com/JeswinSunsi/PentyDesktopAssistant)
 * [Eel - Python library for GUI](https://github.com/samuelhwilliams/Eel/)
 * [Bable JSX to JS converter (Click 'Try it out' at the top menu](https://babeljs.io/)
+* [Understanding JavaScript Function Invocation and "this"](https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/)
 
 ## Bootstrap 3:
 

@@ -24,6 +24,11 @@
 * [Elements of a beautiful README](https://github.com/matiassingers/awesome-readme)
 * [Markdown Cheetsheet](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf)
 
+* [Dan McKinley - Data Driven Done Right. Talk at lean startup conference](https://mcfunley.com/data-driven-products-lean-startup-2014)
+* [Dan McKinley - Choose boring tech](https://mcfunley.com/choose-boring-technology)
+* [Camille Fournier - Make boring plans](https://skamille.medium.com/make-boring-plans-9438ce5cb053)
+
+
 # Linux tips:
 
 ## How to terminate a unresponsive ssh connection.

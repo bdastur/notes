@@ -306,3 +306,10 @@ logging.getLogger('botocore').setLevel(logging.ERROR)
 ```
 
 
+## pypi search
+
+Since pip search is disabled
+
+```
+curl https://pypi.org/search/?q=pygit2 | grep "package-snippet__name" | cut -d'>' -f2 | cut -d'<' -f1
+```
