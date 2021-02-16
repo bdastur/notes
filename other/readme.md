@@ -28,6 +28,8 @@
 * [Dan McKinley - Choose boring tech](https://mcfunley.com/choose-boring-technology)
 * [Camille Fournier - Make boring plans](https://skamille.medium.com/make-boring-plans-9438ce5cb053)
 
+* [Nomad home server](https://mrkaran.dev/posts/home-server-nomad/)
+* [Caddy reverse proxy](https://caddyserver.com/docs/quick-starts/https)
 
 # Linux tips:
 
