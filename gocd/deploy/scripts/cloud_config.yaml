@@ -1,0 +1,24 @@
+#cloud-config
+
+write_files:
+  - path: /tmp/setup.sh
+    permissions: 755
+    owner: root:root
+    content: |
+      #!/bin/bash
+      sudo yum install -y docker
+      mkdir -p /gocd/data
+      chown -R 1000:root /gocd
+
+  - path: /tmp/start_gocd_server.sh
+    permissions: 755
+    owner: root:root
+    content: |
+      #!/bin/bash
+      sudo docker run -v /home/centos/gocd/data/:/godata -p 8153:8153 gocd/gocd-server:v21.1.0
+
+
+runcmd:
+  - [ /tmp/setup.sh ]
+  - [ systemctl,  daemon-reload ]
+  - [ systemctl start docker ]
