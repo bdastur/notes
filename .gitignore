@@ -111,6 +111,7 @@ go/interfaces/bin/
 **gopkg.in/
 **/github.com/aws/
 
+**security_rules.auto.tfvars.json
 **terraform.tfstate
 **terraform.tfstate.backup
 .terraform
@@ -118,4 +119,5 @@ go/interfaces/bin/
 frontend/d3examples/static/thirdparty/*
 python/diagram/web_service.ps
 python/diagram/webservice.png
+
 
