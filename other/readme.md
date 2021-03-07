@@ -33,6 +33,9 @@
 
 # Linux tips:
 
+* [Linux n/w troubleshooting](https://www.redhat.com/sysadmin/beginners-guide-network-troubleshooting-linux)
+
+
 ## How to terminate a unresponsive ssh connection.
 Say you are working on a remote host, execute a command and it hangs, or the 
 ssh connection hangs.

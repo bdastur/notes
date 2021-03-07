@@ -2,7 +2,8 @@
 
 
 ## Links
-[Variables](https://www.terraform.io/docs/configuration/variables.html)
+* [Variables](https://www.terraform.io/docs/configuration/variables.html)
+* [Infra cost - Get cost estimates for terraform projects](https://github.com/infracost/infracost)
 
 
 ## Variables:
