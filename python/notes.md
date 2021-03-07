@@ -6,7 +6,7 @@
 ## Python nmap:
 
 **links:**
-http://xael.org/pages/python-nmap-en.html
+* http://xael.org/pages/python-nmap-en.html
 
 
 ```
@@ -42,7 +42,7 @@ nm['10.10.10.6']
 * [Miguel Grinbergs blog - Asyncio](https://blog.miguelgrinberg.com/post/sync-vs-async-python-what-is-the-difference)
 * [Asyncio for Beginners - youtube](https://www.youtube.com/watch?v=iG6fr81xHKA)
 * [Top 10 python libraries of 2020](https://tryolabs.com/blog/2020/12/21/top-10-python-libraries-of-2020/)
-
+* [Create project form cookiecutters - project templates](https://github.com/cookiecutter/cookiecutter)
 
 Python profiling:
 * https://github.com/benfred/py-spy
@@ -64,6 +64,9 @@ Python tools:
 * [Woosh - pure python search engine](https://whoosh.readthedocs.io/en/latest/intro.html)
 * [dephell - Python project management](https://github.com/dephell/dephell)
 * [Difflib - Comparing sequences](https://docs.python.org/3/library/difflib.html)
+* [FastAPI - fast, web framework for building APIs with Python 3.6+](https://fastapi.tiangolo.com/)
+
+
 ### command sample:
 
 help
