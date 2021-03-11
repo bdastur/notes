@@ -10,7 +10,7 @@ terraform {
     backend "s3" {
       region     = "us-west-2"
       profile    = "dev1"
-      bucket     = "scylla-12345-ilm-tfstate-dev1"
+      bucket     = "dev1-temp"
       key        = "tfstates/gocd-env/sandbox.tfstate"
       encrypt    = "false"
       acl        = "bucket-owner-full-control"
