@@ -11,6 +11,7 @@
 * [AWS Cost Optimization Playbook](https://d1.awsstatic.com/pricing/AWS_CO_Playbook_Final.pdf)
 * [Simple Storage calculator](https://www.duckbillgroup.com/aws-super-simple-storage-calculator/?storage=100&units=10&region=uswest2&submitButton=Compare+Storage+Costs)
 * [Cost estimates for terraform](https://github.com/infracost/infracost)
+* [Infracost - cost estimates for terraform](https://www.infracost.io/docs/)
 
 
 ## Identity and Authorization (IAM):
