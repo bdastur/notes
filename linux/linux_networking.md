@@ -63,10 +63,48 @@ connect: Permission denied
 
 ```
 
+### Network configuration files.
+
+#### ifcfg-eth<n>
+On RHEL based systems the interface configuration files are named after the
+interface that they reference. eg: ifcfg-eth0. Located in /etc/sysconfig/network-scripts
+directory.
+[RHEL Documentation - network interfaces](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/deployment_guide/s1-networkscripts-interfaces)
+```
+TYPE=Ethernet           Type of network interface device
+BOOTPROTO=none          Specify boot protocol none|dhcp|bootp
+DEFROUTE=yes            Specify default route for IPV4 yes|no
+USERCTL=yes             Allow non-root users to control this device  yes|no
+IPV4_DEFROUTE=yes       
+IPV4_FAILURE_FATAL=no   Disable the device if the configuration fails yes|no
+IPV6_FAILURE_FATAL=no   Disable the device if the configuration fails yes|no
+IPV6INIT=yes            Enable or disable IPV6 on the interface
+NAME=eth0               Specify the name for the interface
+UUID=..                 Unique identifier for the device 
+ONBOOT=yes              Activate interface on boot yes|no
+HWADDR=e0:5b:42:fc:43   Specify the MAC address for the interface
+IPADDR=10.0.1.12        IPV4 address
+PREFIX=24               Network prefix
+NETMASK=255.255.255.0   Specify netmask
+GATEWAY=10.0.1.1        Gateway address
+DNS1=192.168.3.23       DNS Server
+DNS2=10.213.33.3        Another DNS server
+PEERDNS=yes             Modify the /etc/resolv.conf file yes|no
+```
 
 
+#### /etc/hosts
+Associate hostnames with IP addresses
 
+#### /etc/resolv.conf
+Specifies DNS servers and searches domains for the host.
 
+#### /etc/sysconfig/network
+Used to specify global network settings
+
+#### /etc/nsswitch.conf
+Used to determine which source to obtain name-service information and in what
+order. 
 
 
 

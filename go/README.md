@@ -214,6 +214,11 @@ variable "{{ . }}-{{ $count }}" {
 
 ```
 
+## Exercise with go mod and scaffold.
+
+
+
+
 
 ## Useful packages:
 
