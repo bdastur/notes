@@ -4,6 +4,7 @@
 ## Links
 * [Variables](https://www.terraform.io/docs/configuration/variables.html)
 * [Infra cost - Get cost estimates for terraform projects](https://github.com/infracost/infracost)
+* [Terratest - terraform testing framework](https://terratest.gruntwork.io/docs/getting-started/quick-start/)
 
 
 ## Variables:

@@ -6,4 +6,6 @@
 3. create a main.go (ideally keeping the convention cmd/<proj name>/main.go)
 4. A simple build: `go build -a -o sampleproj cmd/sampleproject/main.go`
 
+#### Using the Dockerfile.build (Builder approach).
+5. Building the go builder image `docker build --tag bdastur/gobuilder:1.0 -f Dockerfile.builder  .`
 
