@@ -3001,20 +3001,112 @@ this is my value
 
 ```
 
+## AWS Well-Architected Framework
+
+### Five pillars
+- Operational excellence:
+  Ability to run and monitor systems to continually improve business value and
+  support processes and procedures.
+  
+ - Security
+   Ability to protect your information, systems and assets through risk
+   assessment and mitigation.
+
+ - Reliability
+   Ability to recover from infrastructure or service disruptions, acquiring
+   resources to meet demand and mitigating disruptions.
+
+ - Performance Efficiency
+   Ability to use compute resources efficiently to meet systems requiremenets
+   while demands change and technologies evolve.
+
+ - Cost Optimization
+   Ability to run systems to deliver business value at the lowest price
+
+ - AWS Well-Architected Framework Tool
+   Review workloads and compare the state of workload to architectural best
+   practices.
+
+### Desin Principals:
+- Stop guessin capacity
+- Test systems at production scale
+- Automate your architecture
+- Improve throuh game days
+- Allow for evolutionary changes
+
+
+
+
 
 ## Cost optimization:
 [Foundations for Cost optimization](https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-laying-the-foundation/introduction.html)
 
 ### Cost optimization pillars:
 * Right size
+  Pickingg the correct instances for our current resources as well as resources
+  we plan to use. 
+
 * Increase elasticity
+  Using ASG to only use resources when those resources are needed, and not
+  using resources when they are not. pay-for-what-we-use model.
+
 * Leverage the right pricing model
+  AWS offers different pricing models - reserved instances, on-demand and spot.
+
 * Optimize storage
+  Matching storage to our  uses.
+
 * Measurre, monitor and improve
+  Monitor and track our usage and cost
 
 
+###  Services that help with cost
+- AWS Budgets
+- AWS Cost & Usage report
+- Cost Explorer
+- Reserved Instance reporting
+
+### Cost effective resources and services
+- Spot instances
+- S3
+- S3 glacier
+- AWS Lambda
+- AWS Autoscaling
+- AWS Trusted Advisor
+- AWS Cost & Usage report
+- AWS Cost explorer
+
+### Cost optimization design principles:
+- Adopt a consumption model 
+  Pay for what you consume
+
+- Measure overall efficiency
+  Define and track your metrics and goals
+
+- Stop spending money on data centers.
+
+- Analyze and attributed expendetures
+  Track your costs and usage - tagging, budgets, cost explorer, etc.
+
+- Use AWS managed services
+  Reduce your overall cost of ownership
+
+- Recommends a CCOE (Cloud center of excellence).
+  This is a team who stays updated on AWS bestt practices, new release etc
+  so we can make sure we are using  AWS in most efficient and cost effective
+  ways.
 
 
+### Cost Optimization best practices
+
+Tagging strategy:
+See what resources are costing more
+
+Ownership of costs:
+Hold engineers responsible
+
+Define your account structures:
+Know your goals, and define metrics to track progress
 
 
 
