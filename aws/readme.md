@@ -125,6 +125,12 @@ D2:
   latency and less jitter.
 * Enhanced networking is available only for instances launched in Amazon VPC.
 
+
+* When the host on which an EC2 instance restarts, the instance will stay
+  with the same EC2 host. But if the instance is stopped and then restarted 
+  or if AWS stops the instance for maintenance etc on their end, then the 
+  instance will be reassigned to another host in the same AZ.
+
 **Benchmarking**:
 [Tool for benchmarking EC2/S3 throughput](https://github.com/dvassallo/s3-benchmark)
 [EC2 instance connect](https://github.com/glassechidna/ec2connect)
@@ -623,9 +629,10 @@ https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.ht
 ## Virtual Private Cloud (VPC:):
 
 **Links**
-[VPC Introduction](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html)
-[VPC Documentation](https://docs.aws.amazon.com/vpc/index.html)
-[VPC Invalid peering configs](https://docs.aws.amazon.com/vpc/latest/peering/invalid-peering-configurations.html#transitive-peering)
+* [VPC Introduction](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html)
+* [VPC Documentation](https://docs.aws.amazon.com/vpc/index.html)
+* [VPC Invalid peering configs](https://docs.aws.amazon.com/vpc/latest/peering/invalid-peering-configurations.html#transitive-peering)
+* [CIDR Range visualizer](https://cidr.xyz/)
 
 * VPCs do not span regions, they can span availability zones.
 * VPC lets you provision a logically isolated section of AWS cloud where you
@@ -1039,14 +1046,16 @@ A record is a single mapping between a resource and a name.
     must be refreshed or expire.
   * Default TTL value for resource records in the zone.
 
-**A and AAAA:**
+**A and AAAA Record:**
 * Both types of address records map a host to an IP address
 * A: map a host to IPV4 address
 * AAAA: map a host to IPV6 address
+* A stands for Address
 
 **Canonical Name (CNAME):**
 * Defines an alias for the CNAME for your server (the domain name defined in
   A or AAAA record)
+* Resolves one domain to another.
 
 **Mail Exchange (MX):**
 * Define the mail servers used for a domain and ensures emails are routed
@@ -2819,6 +2828,17 @@ Compute, Storage, Database, Networking
 AWS GLobal Infrastruture (Regions, AZs) Edge Locations
 +------------------------------------------------------
 ```
+
+## Difference between Region, AZ and Edge location.
+
+* A Region is a physical location in the world which consists off two or
+  more AZs.
+* An AZ is one or more discrete data centers, each with redunndant power,
+  networking and connectivity, housed in separate facilities.
+* Edge locations are endpoints for AWS whhich are used for cachin content.
+  Typically consists of Cloudfront, Amazon's content
+
+
 
 ### Physical and Environmental Security
 #### Fire detection and supression
