@@ -120,4 +120,8 @@ frontend/d3examples/static/thirdparty/*
 python/diagram/web_service.ps
 python/diagram/webservice.png
 
+**.terraform
+*.tfstate
+*.tfstate.backup
+
 
