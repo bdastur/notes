@@ -12,7 +12,13 @@
 * [Simple Storage calculator](https://www.duckbillgroup.com/aws-super-simple-storage-calculator/?storage=100&units=10&region=uswest2&submitButton=Compare+Storage+Costs)
 * [Cost estimates for terraform](https://github.com/infracost/infracost)
 * [Infracost - cost estimates for terraform](https://www.infracost.io/docs/)
+* [AWS Fault injection](https://aws.amazon.com/fis/)
 
+**Benchmarking**:                                                               
+* [Tool for benchmarking EC2/S3 throughput](https://github.com/dvassallo/s3-benchmark)
+* [EC2 instance connect](https://github.com/glassechidna/ec2connect)            
+* [EC2 instance connect - AWS documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html)
+     
 
 ## Identity and Authorization (IAM):
 
@@ -130,12 +136,6 @@ D2:
   with the same EC2 host. But if the instance is stopped and then restarted 
   or if AWS stops the instance for maintenance etc on their end, then the 
   instance will be reassigned to another host in the same AZ.
-
-**Benchmarking**:
-[Tool for benchmarking EC2/S3 throughput](https://github.com/dvassallo/s3-benchmark)
-[EC2 instance connect](https://github.com/glassechidna/ec2connect)
-[EC2 instance connect - AWS documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html)
-
 
 ### AMIs
 * AMIs define the initial software that will be on an instance when launched.
@@ -1976,7 +1976,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 * Access to manage the configuration of the cluster is controlled by IAM policies.
 
 
-## CloudFront:
+## AWS CloudFront:
 * It is a global Content Delivery Network (CDN) service.
 * A CDN is a globally distributed network of caching servers that speed up
   the downloading of web pages and other content.
@@ -1999,11 +1999,14 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 Three core concepts to understand CloudFront.
 
 #### Distributions
+* This is the name given to the CDN which consists of a collection of Edge 
+  locations.
 * You start by creating a distribution, which is identified by a DNS domain
   name like 'd11223233.cloudfront.net'.
 * To serve files from CloudFront, you simply use the distribution domain name
   in place of your website's domain name. Rest of the file path stays the same.
 * You can also create a CNAME record in Route53 for DNS.
+
 
 #### Origins
 * You must specify the DNS domain name of the origin - S3 bucket or HTTP server.
@@ -2046,8 +2049,124 @@ Three core concepts to understand CloudFront.
 
 
 ## Simple Storage Service (S3):
-* S3 provides a read-after-write consistency for PUTs to new objects (new key),
-  but eventual consistency for GETs and DELETEs of existing objects (existing key).
+* S3 has the following features:
+ * Tiered Storage
+ * Lifecycle managemennt
+ * Versioning
+ * Encryption
+ * MFA Delete
+ * Secure your data using Access Control Lists and Bucket Policies
+
+### S3 Storage classes:
+ * *S3 Standard:*
+ - 99.99% availability
+ - 99.99999999999% durability (11x9 durability)
+ - Stored redundantly across multiple devices in multiple facilities, and
+   is designed to sustain the loss of 2 facilities concurrently. 
+
+
+ * *S3 IA:*
+  - For data that is accessed less frequently, but requires rapid access
+    when needed.
+  - Lower fee than S3, butt are charged a retrieval fee.
+
+ * *S3 One Zone - IA:*
+  - Lower cost option for infrequently accessed data, but does not require
+    multiple AZ data resiliency.
+
+ * *S3 Intelligent tiering:*
+  - Designed to optimize costs by automatically moving data to most cost-effective
+    access tier, without performance impact or operational overhead.
+
+ * *S3 Glacier:*
+  - Secure,  durable, and low cost storage class for data archivin.
+  - Retrieval times configurable from mins to hours
+
+ * *S3 Glacier Deep Archive:*
+  - Lowest cost storage class.
+  - Retrieval time of 12 hours.
+
+
+### S3 Security & Encryption
+
+Access control::
+* Bucket policies
+* Access control lists
+* S3 buckets can be configured to create access logs which log all requests
+  made to the S3 bucket. This can be sent to another bucket in another account.
+
+* Encryption iin transit is achieved by
+ * SSL/TLS
+
+* Encryption at rest (Server side) is achieved by
+  * S3 Managed Keys SSE-S3
+  * AWS Key Management Service, Managed Keys-SSE-KMS
+  * Server Side Encryption with customer provided keys SSE-C
+  * Client side encryption
+
+### S3 object lock
+
+* You can use S3 object lock to store objects using a write-once-read-many
+  (WORM) model. It can help prevent objects from being deleted or modified
+  for a fixed amount of time or indefinitely.
+
+* You can use S3 object lock to meet regulatory requirements that require
+  WORM storage, or add extra layer of protection against object changes and
+  deletion.
+
+* You can only enable Object lock for new buckets. If you want to turn on
+  Object lock for an existing bucket, contact AWS support.
+* When you create a bucket with object lock, Amazon S3 will automatically enable
+  versioning for the bucket.
+* If you create a bucket with Object lock enabled, you can't disable Object lock
+  or suspend versioning for the bucket.
+
+* With *governance mode*, users can't overwrite or delete an object version or
+  alter it's lock settings unless they have special permissions.
+* With *compliance mode*, a protected object version can't be overwritten or
+  deleted by any user, including the root user in your AWS account.  
+
+
+### S3 Performance
+* S3 has extremely low lattency. You can get the first byte out of S3
+  within 100-200 milliseconds.
+
+* You can achieve a high number of requests: 3500 PUT/COPY/POST/DELETE
+  and 5,500 GET/HEAD requests per second *per prefix*.
+
+* You can get better performance by spreading your reads across different
+  prefixes. Eg: If you are using two prefixes, you can achieve 11,000 requests
+  per second.
+
+*S3 limitations when using KMS*
+* If you are using SSE-KMS to encrrypt your ojects in S33, you must keep in
+  mind the KMS limits. Uploading/downloading will count toward KMS quota.
+
+* When you upload a file, you will call GenerateDataKey in the KMS API.
+
+* When you download a file, you will call Decrypt in the KMS API.
+
+* Region-specific, however it's either 5,5000, 10,000 or 30,000 requests per 
+  second.
+
+### S3 Select:
+* Retrieve only a subset of data from an object by  using simple SQL expressions.
+* Get data by rows or columns using simple SQL expressions.
+* Save money on data transfer and increase speed.
+
+###  Granting S3 bucket access cross accounts:
+
+* Using Bucket policy and IAM (Applies across entire bucket) Programmatic Access Only
+* Using Bucket ACLs and IAM (individual objects) Programmatic Access only
+* Cross account IAM Roles. Programmatic and Console access.
+
+### S3 Transfer Acceleration:
+
+
+* Once versioning is enabled, it cannot be disabled. Only suspended.
+
+* read-after-write consistency for PUTs to new objects (new key),
+* But eventual consistency for GETs and DELETEs of existing objects (existing key).
   Eventual consistency means if you PUT new data to an existing key, a subsequent
   GET might return old data. Similarly if you DELETE an object, a subsequent GET
   for that object might still read the deleted object.
@@ -2327,7 +2446,6 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 * Provides cloud backed storage volumes that you can mount as iSCSI devices
   from on-premise application servers.
 
-
 #### Cached Volumes
 * You store your data in S3 and retain a copy of frequently accessed data
   locally.
@@ -2349,7 +2467,7 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 * Total size of all stored volumes: 512 TB
 
 
-### Tape gateway:
+### Virtual Tape gateway:
 * cost-effectively and durably archive backup data in Amazon Glacier.
 * Provides a virtual tape infrastructure that scales seamlessly with your
   business needs.
@@ -2545,6 +2663,44 @@ THis is a second line in the document.
 ```
 
 
+## Athena vs Macie
+
+## Athena
+* Interactiive query service which enables you to analyze and query data
+  located in S3 using standard SQL.
+
+* Serverless, nothing to provision, pay per query / per TB scanned
+* No need to setup complex Extract/Transform/Load (ETL) processes
+* Works directly with data stored in S3
+
+### What can Athena be used for?
+* Query log files stored in S3, eg ELB logs, S3 access logs, cloudtrail logs.
+* Generate business reports on data stored in S33
+* Analyze AWS cost and usage reports
+* Run queries on click-stream data
+
+### What is PII (Personally Identifiaable Information)?
+
+* Personnal data used to establish an individual's identity.
+* This data can be exploited by criminals, used in identity theft and
+  financial fraud
+* Home address,  email, SSN, Passport number, driver's license number
+* DOB, phone, bank account, credit card number.
+
+### Macie?
+
+* It is a security service which uses ML and NLP to discover, classify and
+  protect sensitive data stored in S3
+
+* Uses AI to recognise if your S3 objects contain sensitive data such as PII
+* Dashboards, reporting and alerts
+* Works directly with data stored in S3.
+* Can only analyze CloudTrail logs
+* Great for PCI-DSS and preventing ID theft.
+
+
+
+
 ### AWS CloudHSM:
 * Service providing secure cryptographic key storage by making hardware
   security modules (HSM) in the cloud.
@@ -2648,6 +2804,7 @@ THis is a second line in the document.
   such as storage.
 * Supports both linux and windows servers, including exisitng EC2 instances and
   servers running in private data center.
+
 
 ## AWS Cloudformation:
 * Provides an easy way to create and manage a collection of related AWS

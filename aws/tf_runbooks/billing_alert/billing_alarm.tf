@@ -1,7 +1,14 @@
 resource "aws_sns_topic" "billing_alert_topic" {
-  name = "sns-billing-topic"
+  name         = "sns-billing-topic"
   display_name = "BillingTopic"
   
+}
+
+resource "aws_sns_topic_subscription" "billing_alert_email_subscription" {
+  topic_arn              = aws_sns_topic.billing_alert_topic.arn
+  protocol               = "email"
+  endpoint               = "bdastur@gmail.com"
+  endpoint_auto_confirms = true
 }
 
 resource "aws_cloudwatch_metric_alarm" "billing_alarm" {
