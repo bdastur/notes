@@ -14,13 +14,17 @@
 * [Infracost - cost estimates for terraform](https://www.infracost.io/docs/)
 * [AWS Fault injection](https://aws.amazon.com/fis/)
 
-**Benchmarking**:                                                               
+**Benchmarking**:
 * [Tool for benchmarking EC2/S3 throughput](https://github.com/dvassallo/s3-benchmark)
-* [EC2 instance connect](https://github.com/glassechidna/ec2connect)            
+* [EC2 instance connect](https://github.com/glassechidna/ec2connect)
 * [EC2 instance connect - AWS documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Connect-using-EC2-Instance-Connect.html)
-     
+
 
 ## Identity and Authorization (IAM):
+
+* [AWS Reinvent: Become an IAM Policy Master](https://www.youtube.com/watch?v=YQsK4MtsELU)
+* [AWS Reinvent: Getting started with AWS identity](https://www.youtube.com/watch?v=Zvz-qYYhvMk)
+
 
 ### How to generate IAM credentials report.
 ```
@@ -133,8 +137,8 @@ D2:
 
 
 * When the host on which an EC2 instance restarts, the instance will stay
-  with the same EC2 host. But if the instance is stopped and then restarted 
-  or if AWS stops the instance for maintenance etc on their end, then the 
+  with the same EC2 host. But if the instance is stopped and then restarted
+  or if AWS stops the instance for maintenance etc on their end, then the
   instance will be reassigned to another host in the same AZ.
 
 ### AMIs
@@ -294,7 +298,35 @@ VPC SG         -- Control outgoing and incoming instance traffic.
 
 **Types of EBS Volumes:**
 
-**Magnetic volumes:**
+**General purpose SSD (gp2):**
+* Strong performance at a moderate price.
+* Ranges from 1GB to 16TB and provides baseline performance of 3 IOPS per
+  gigabyte provisioned.
+* Caping at 16,000 IOPS.
+  EG: for a 1 TB volume, you can expect a baseline performance of 3000 IOPS
+* Under 1TB, it has ability to burst upto 3000 IOPS for extended periods of
+  time.
+* When not using IOPS are accumulated as I/O credits, which get used during
+  heavy traffic.
+* Use cases:
+  * System boot volumes
+  * Small to medium sized DB.
+  * Development and test environments.
+
+**Provisioned IOPS SSD (io1):**
+* Designed to meet needs of I/O intensive workloads.
+* Range from 4GB to 16TB.
+* When provisioning specify the size and desired IOPS, up to the lower of
+  maximum of 30 times the number of GB of volume or 64,000 IOPS.
+* EBS delivers within 10% of the provisioned IOPS 99.9 % of the time over a
+  given year.
+* Price is on provisioned size. Additional monthly fee is based on provisioned
+  IOPS (whether consumed or not).
+* Use cases:
+  * Critical business apps requiring sustained IOPS performance.
+  * Large DB workloads.
+
+**EBS Magnetic volumes (standard):**
 * Lowest performance characteristics and lowest cost per gigabyte.
 * Great cost effective solution for appropriate workloads.
 * Can range from 1 GB to 1 TB and avg 100 IOPS, with ability to burst to
@@ -306,43 +338,14 @@ Use cases:
 * Billed based on provisioned space, regardless of how much data is actually
   stored on the volume.
 
-**General purpose SSD:**
-* Strong performance at a moderate price.
-* Ranges from 1GB to 16TB and provides baseline performance of 3 IOPS per
-  gigabyte provisioned.
-* Caping at 10,000 IOPS.
-  EG: for a 1 TB volume, you can expect a baseline performance of 3000 IOPS
-* Under 1TB, it has ability to burst upto 3000 IOPS for extended periods of
-  time.
-* When not using IOPS are accumulated as I/O credits, which get used during
-  heavy traffic.
-* Use cases:
-  * System boot volumes
-  * Small to medium sized DB.
-  * Development and test environments.
 
-
-**Provisioned IOPS SSD:**
-* Designed to meet needs of I/O intensive workloads.
-* Range from 4GB to 16TB.
-* When provisioning specify the size and desired IOPS, up to the lower of
-  maximum of 30 times the number of GB of volume or 20,000 IOPS.
-* EBS delivers within 10% of the provisioned IOPS 99.9 % of the time over a
-  given year.
-* Price is on provisioned size. Additional monthly fee is based on provisioned
-  IOPS (whether consumed or not).
-* Use cases:
-  * Critical business apps requiring sustained IOPS performance.
-  * Large DB workloads.
-
-
-**HDD throughput optimized (ST1):**
+**Throughput optimized HDD (ST1):**
 * Sequential writes.
 * frequently accessed workloads.
 * Usually used for data warehouse apps.
 
 
-**HDD Cold (SC1):**
+**Cold HDD (SC1):**
 * Less frequently accessed data
 * Usually used for file servers.
 
@@ -910,6 +913,9 @@ the wide range of ephemeral ports.
 
 
 ### VPC Flowlogs:
+
+
+## ENI vs ENA vs EFA
 
 
 ## Route53:
@@ -1999,7 +2005,7 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 Three core concepts to understand CloudFront.
 
 #### Distributions
-* This is the name given to the CDN which consists of a collection of Edge 
+* This is the name given to the CDN which consists of a collection of Edge
   locations.
 * You start by creating a distribution, which is identified by a DNS domain
   name like 'd11223233.cloudfront.net'.
@@ -2062,7 +2068,7 @@ Three core concepts to understand CloudFront.
  - 99.99% availability
  - 99.99999999999% durability (11x9 durability)
  - Stored redundantly across multiple devices in multiple facilities, and
-   is designed to sustain the loss of 2 facilities concurrently. 
+   is designed to sustain the loss of 2 facilities concurrently.
 
 
  * *S3 IA:*
@@ -2124,7 +2130,7 @@ Access control::
 * With *governance mode*, users can't overwrite or delete an object version or
   alter it's lock settings unless they have special permissions.
 * With *compliance mode*, a protected object version can't be overwritten or
-  deleted by any user, including the root user in your AWS account.  
+  deleted by any user, including the root user in your AWS account.
 
 
 ### S3 Performance
@@ -2146,7 +2152,7 @@ Access control::
 
 * When you download a file, you will call Decrypt in the KMS API.
 
-* Region-specific, however it's either 5,5000, 10,000 or 30,000 requests per 
+* Region-specific, however it's either 5,5000, 10,000 or 30,000 requests per
   second.
 
 ### S3 Select:
@@ -2384,12 +2390,12 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
   - Status check.
 * Other things are custom metrics - like RAM utilization.
 ### Cloudwatch Concepts:
-*Namespaces:* 
+*Namespaces:*
 * Is a container for cloudwatch metrics.
 * Metrics in different namespaces are isolated from each other.
-* There is no default namespace. You must specify a namespace for each 
+* There is no default namespace. You must specify a namespace for each
   data point you publish to cloudwatch.
-* Names must contain valid XML characters and must be < 265 characters in length. 
+* Names must contain valid XML characters and must be < 265 characters in length.
 *Metrics:*
 * Metrics are the fundamental concept in cloudwatch. It represents a time-ordered
   set of data points that are published to cloudwatch.
@@ -2401,7 +2407,7 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
   new data points come in.
 *Timestamps:*
 * Each metric data point must be associated with a timestamp.
-* Timestamp can be 2 weeks in the past or upto two hours in the future. 
+* Timestamp can be 2 weeks in the past or upto two hours in the future.
 * If you do not provide a timestamp, Cloudwatch creates it for you based on the time
   the data point was received.
 *Metrics Retention:*
@@ -2413,7 +2419,7 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 *Dimensions:*
 * A dimension is a name/value pair that is part of the identity of a metric.
 * You can assign upto 10 dimensions to a metric.
-* Cloudwatch treats each unique combination of dimensions as a separate metric, even if 
+* Cloudwatch treats each unique combination of dimensions as a separate metric, even if
   the metric have the same metric name.
 *Statistics:*
 
@@ -2615,7 +2621,7 @@ $ aws kms get-key-policy \
 
 ```
 
-An alias makes it easy to identify the key. 
+An alias makes it easy to identify the key.
 - Create an alias.
 ```
 $ aws kms create-alias \
@@ -2653,7 +2659,7 @@ $ aws kms decrypt \
     --query Plaintext \
     --profile dev1 --region us-west-2 | base64 --decode > decodedfile
 
-$ cat decodedfile 
+$ cat decodedfile
 THis is a test document
 THis is a second line in the document.
 {
@@ -2929,7 +2935,7 @@ aws eks create-nodegroup \
     --subnets subnet-0301c41ac3e4d860f \
     --node-role arn:aws:iam::4xxxxxxxxx:role/eks-worker-role-NodeInstanceRole-1BA \
     --scaling-config minSize=1,maxSize=4,desiredSize=2 \
-    --instance-types m4.large 
+    --instance-types m4.large
 ```
 
 
@@ -3184,7 +3190,7 @@ this is my value
 - Operational excellence:
   Ability to run and monitor systems to continually improve business value and
   support processes and procedures.
-  
+
  - Security
    Ability to protect your information, systems and assets through risk
    assessment and mitigation.
@@ -3221,7 +3227,7 @@ this is my value
 ### Cost optimization pillars:
 * Right size
   Pickingg the correct instances for our current resources as well as resources
-  we plan to use. 
+  we plan to use.
 
 * Increase elasticity
   Using ASG to only use resources when those resources are needed, and not
@@ -3254,7 +3260,7 @@ this is my value
 - AWS Cost explorer
 
 ### Cost optimization design principles:
-- Adopt a consumption model 
+- Adopt a consumption model
   Pay for what you consume
 
 - Measure overall efficiency
@@ -3285,6 +3291,11 @@ Hold engineers responsible
 Define your account structures:
 Know your goals, and define metrics to track progress
 
+
+### Fedramp:
+
+* [AWS Fedramp integrated inventory workbook](https://aws.amazon.com/blogs/publicsector/automating-creation-fedramp-integrated-inventory-workbook/)
+* [Fedramp.gov](https://www.fedramp.gov/new-integrated-inventory-template/)
 
 
 
