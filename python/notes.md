@@ -65,6 +65,8 @@ Python tools:
 * [dephell - Python project management](https://github.com/dephell/dephell)
 * [Difflib - Comparing sequences](https://docs.python.org/3/library/difflib.html)
 * [FastAPI - fast, web framework for building APIs with Python 3.6+](https://fastapi.tiangolo.com/)
+* [Unittest Mock](https://docs.python.org/3/library/unittest.mock.html)
+* [Logging Louru](https://github.com/Delgan/loguru)
 
 
 ### command sample:
