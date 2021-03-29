@@ -13,6 +13,7 @@
 * [Cost estimates for terraform](https://github.com/infracost/infracost)
 * [Infracost - cost estimates for terraform](https://www.infracost.io/docs/)
 * [AWS Fault injection](https://aws.amazon.com/fis/)
+* [Cloudquery - Monitoring, governance & security](https://github.com/cloudquery/cloudquery)
 
 **Benchmarking**:
 * [Tool for benchmarking EC2/S3 throughput](https://github.com/dvassallo/s3-benchmark)
