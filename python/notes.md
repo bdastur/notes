@@ -43,7 +43,7 @@ nm['10.10.10.6']
 * [Asyncio for Beginners - youtube](https://www.youtube.com/watch?v=iG6fr81xHKA)
 * [Top 10 python libraries of 2020](https://tryolabs.com/blog/2020/12/21/top-10-python-libraries-of-2020/)
 * [Create project form cookiecutters - project templates](https://github.com/cookiecutter/cookiecutter)
-
+* [ViM settings for python](https://realpython.com/vim-and-python-a-match-made-in-heaven/#lets-make-an-ide)
 Python profiling:
 * https://github.com/benfred/py-spy
 

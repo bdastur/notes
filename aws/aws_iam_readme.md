@@ -56,7 +56,120 @@
 aws iam generate-credential-report  --profile core-services-prod
 aws iam get-credential-report \
     --query Content --output text \
-    --profile core-services-dev | base64 -D
+    --profile dev | base64 -D
 
 ```
+
+### Creating a role with Path.
+*NOTE*: AWS Console does not have a way to create a Role with Path. Only
+        CLI and AWS SDK allow.
+
+Create a role testrole,  in path /operations/
+
+```
+$ aws iam create-role \
+  --role-name testrole --path /operations/ \
+  --assume-role-policy-document file:///tmp/assume_role_policy_doc.json \
+  --profile acguru
+{
+    "Role": {
+        "Path": "/operations/",
+        "RoleName": "testrole2",
+        "RoleId": "AROA4GNPSIULAJQ3TRSOZ",
+        "Arn": "arn:aws:iam::838423692566:role/operations/testrole2",
+        "CreateDate": "2021-04-01T00:41:39+00:00",
+        "AssumeRolePolicyDocument": {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Principal": {
+                        "Service": "ec2.amazonaws.com"
+                    },
+                    "Action": "sts:AssumeRole"
+                }
+            ]
+        }
+    }
+}
+
+```
+
+Role created with ARN: ```arn:aws:iam::838423692566:role/operations/testrole```
+
+
+## Policy Examples.
+
+*Allow a user to change his own user password*
+
+```
+{
+    "Effect": "Allow",
+     "Action": [
+         "iam:ChangePassword"
+     ],
+     "Resource": [
+         "arn:aws:iam::*:user/${aws:username}"
+     ]
+}
+```
+
+*Allow a specific user IAM permissions*
+
+```
+{
+      "Sid": "Stmt1464991474200",
+      "Effect": "Allow",
+      "Action": [
+        "iam:*",
+        "config:*"
+      ],
+      "Condition": {
+        "StringLike": {
+          "aws:userid": "*john_doe"
+        }
+      },
+      "Resource": [
+        "*"
+      ]
+}
+```
+
+*Allow creating roles with specific path prefix*
+
+When this policy is attached to an IAM entity it allows it to create roles
+and instance profiles with --path /operations/. The IAM entity cannot create a
+role in / 'default' path or any other --path prefix.
+
+```
+{
+    "Sid": "Stmt1617235151794",
+    "Action": [
+        "iam:CreateRole",
+        "iam:CreateInstanceProfile"
+    ],
+    "Effect": "Allow",
+    "Resource": [
+        "arn:aws:iam::*:role/operations/*",
+        "arn:aws:iam::*:instance-profile/operations/*"
+    ]
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
