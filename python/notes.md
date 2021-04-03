@@ -44,6 +44,7 @@ nm['10.10.10.6']
 * [Top 10 python libraries of 2020](https://tryolabs.com/blog/2020/12/21/top-10-python-libraries-of-2020/)
 * [Create project form cookiecutters - project templates](https://github.com/cookiecutter/cookiecutter)
 * [ViM settings for python](https://realpython.com/vim-and-python-a-match-made-in-heaven/#lets-make-an-ide)
+
 Python profiling:
 * https://github.com/benfred/py-spy
 
@@ -67,7 +68,7 @@ Python tools:
 * [FastAPI - fast, web framework for building APIs with Python 3.6+](https://fastapi.tiangolo.com/)
 * [Unittest Mock](https://docs.python.org/3/library/unittest.mock.html)
 * [Logging Louru](https://github.com/Delgan/loguru)
-
+* [Writing serverless apps in python](https://github.com/aws/chalice)
 
 ### command sample:
 

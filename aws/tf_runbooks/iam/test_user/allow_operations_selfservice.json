@@ -1,0 +1,34 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1617303478416",
+      "Action": [
+        "iam:ListGroups",
+        "iam:ListPolicies",
+        "iam:ListRoleTags",
+        "iam:ListRoles",
+        "iam:ListUsers"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    },
+    {
+      "Sid": "createoperations",
+      "Action": [
+        "iam:CreateUser",
+        "iam:DeleteUser",
+        "iam:CreateRole",
+        "iam:DeleteRole",
+        "iam:TagUser",
+        "iam:CreatePolicy"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+          "arn:aws:iam::*:user/operations/*",
+          "arn:aws:iam::*:role/operations/*",
+          "arn:aws:iam::*:instance-profile/operations/*"
+      ]
+    }
+  ]
+}

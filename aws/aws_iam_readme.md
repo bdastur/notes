@@ -7,7 +7,7 @@
 * [IAM JSON policy reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html)
 * [Actions, Resources & Condition keys for AWS Services](https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html)
 * [Access policy types](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policy-types)
-
+* [IAM JSON policy elements: conditions](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html)
 
 ## Policy Types:
 
@@ -48,6 +48,8 @@
   policies grant to the session.
 * Session policies limit permissions for a created session, but do  not grant
   permissions.
+
+
 
 
 ### How to generate IAM credentials report.
