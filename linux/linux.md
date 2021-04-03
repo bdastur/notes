@@ -1,3 +1,8 @@
+## Useful links
+
+* [Opensource linux - fork of RHEL](https://github.com/AlmaLinux)
+* [AlmaLinnux - centos replacement](https://almalinux.org/blog/almalinux-os-stable-release-is-live/)
+
 
 ## Bash completion not working.
 Check if you have bash-completion package installed.

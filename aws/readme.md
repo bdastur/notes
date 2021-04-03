@@ -14,6 +14,7 @@
 * [Infracost - cost estimates for terraform](https://www.infracost.io/docs/)
 * [AWS Fault injection](https://aws.amazon.com/fis/)
 * [Cloudquery - Monitoring, governance & security](https://github.com/cloudquery/cloudquery)
+* [EC2 Serial console - troubleshoot boot & n/w issues](https://aws.amazon.com/blogs/aws/troubleshoot-boot-and-networking-issues-with-new-ec2-serial-console/)
 
 **Benchmarking**:
 * [Tool for benchmarking EC2/S3 throughput](https://github.com/dvassallo/s3-benchmark)

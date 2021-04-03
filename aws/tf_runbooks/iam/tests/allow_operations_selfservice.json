@@ -1,0 +1,19 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1617303478416",
+      "Action": [
+        "iam:CreateRole",
+        "iam:CreateUser",
+        "iam:ListGroups",
+        "iam:ListPolicies",
+        "iam:ListRoleTags",
+        "iam:ListRoles",
+        "iam:ListUsers"
+      ],
+      "Effect": "Allow",
+      "Resource": "*"
+    }
+  ]
+}
