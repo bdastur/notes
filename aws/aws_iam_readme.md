@@ -8,6 +8,9 @@
 * [Actions, Resources & Condition keys for AWS Services](https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html)
 * [Access policy types](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policy-types)
 * [IAM JSON policy elements: conditions](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition.html)
+* [Example policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html)
+* [Example of policy summaries](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_policy-summary-examples.html)
+
 
 ## Policy Types:
 
@@ -50,7 +53,144 @@
   permissions.
 
 
+## Policy reference
+[IAM Policy reference](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html)
 
+### JSON element reference
+
+#### Version (Required)
+
+```
+"Version": "2012-10-17"
+```
+
+* If you do not include Version elemennt, some features will not work.
+
+#### Id  (optional)
+#### Statement (Required)
+#### Sid (statement id)
+* Multiple policy statement blocks, cannot have same sid in the same policy.
+
+#### Effect (Required)
+* Allow or Deny
+
+#### Principal
+You can specify any of the following principals in a policy
+* AWS Account and root user
+* IAM User, IAM roles.
+* Federated users (using web identity or SAML federation)
+* Assumed-role sessions
+* AWS Services
+* Anonymous users (not recommended)
+
+#### NotPrincipal.
+* Used to specify an IAM user, role, federated user, account, service or
+  other principal that is *not* allowed, or denied access to the resource.
+* Enables you to specify an exception to the list of principals.
+
+#### Action
+#### NotAction
+* It explicitly matches everything except the specified list of actions. 
+* Using NotAction can result in a shorter policy, listing only a few actions 
+  that should not match, rather than a long list of actions that will match.
+* Keep in mind that actions specified in this element are the only actions 
+  that are limited. Means that all of the applicable actions or services that 
+  are not listed are allowed if you use the Allow effect.
+* When you use NotAction with the Resource element, you provide scope for the policy. 
+
+**NOTE**: 
+Be careful when using NotAction with Allow. You could grant more
+permissions than you intended.
+
+*NotAction with Allow*
+
+Example 1:
+* This allows  access to all S3 actions except Delete bucket.
+* This does not allow ListAllMyBuckets, as it reqiures "\*" resource.
+* This does not allow actions in other services, as resource is specified as S3.
+
+```
+"Effect": "Allow",
+"NotAction": "s3:DeleteBucket",
+"Resource": "arn:aws:s3:::*",
+```
+
+Example 2:
+
+* This allows access to all actions on all AWS services except IAM.
+
+```
+"Effect": "Allow",
+"NotAction": "iam:*",
+"Resource": "*"
+```
+
+*NotAction with Deny*
+
+* This example denies access to non-IAM actions if the user is not signed 
+  in using MFA. If the user is signed in with MFA, then the "Condition" test 
+  fails and the "Deny" statement has no effect. Note, however, that this 
+  would not grant the user access to any actions; it would only explicitly 
+  deny all other actions except IAM actions.
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [{
+        "Sid": "DenyAllUsersNotUsingMFA",
+        "Effect": "Deny",
+        "NotAction": "iam:*",
+        "Resource": "*",
+        "Condition": {"BoolIfExists": {"aws:MultiFactorAuthPresent": "false"}}
+    }]
+}
+```
+
+Another example: 
+[Deny Access based on region](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_deny-requested-region.html)
+
+
+#### Resource
+#### NotResource
+* Explicitly match every resource except the ones specified.
+
+
+### Condition
+* Let's you specify conditions for when a policy is in effect.
+
+```
+"Condition" : { 
+    "{condition-operator}" : { "{condition-key}" : "{condition-value}" }
+}
+```
+
+#### condition-key:
+
+##### Global condition key:
+[Global condition context](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_condition-keys.html)
+
+
+##### condition-operator:
+* Used to match the condition-key and the condition values in the request
+  context.
+* [condition operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html)
+ 
+
+*condition operator categories:*
+
+* *String*
+* *Numeric*
+* *Date & time*
+* *Boolean*
+* *Binary*
+* *IP address*
+* *ARN* (available for only some services)
+* *...IfExists* (checks if the key value exists as part of another check)
+* *Null check* (checks if the kkey value exists)
+
+
+
+---
 
 ### How to generate IAM credentials report.
 ```
@@ -157,6 +297,75 @@ role in / 'default' path or any other --path prefix.
     ]
 }
 ```
+
+
+*S3 policy: Deny any requests that do not originate from specific vpc*
+
+```
+{
+    "Sid": "DenyNonVPCRequests",
+    "Effect": "Deny",
+    "Principal": {
+        "AWS": "*"
+    },
+    "Action": "s3:*",
+    "Resource": [
+        "arn:aws:s3:::mytestbucket123",
+        "arn:aws:s3:::mytestbucket123/*"
+    ],
+    "Condition": {
+        "Bool": {
+            "aws:SecureTransport": "false"
+        },
+        "StringNotEquals": {
+            "aws:SourceVpc": "vpc-b4ec6aa1"
+        }
+    }
+}
+```
+
+*S3 policy: Deny put objects with incorrect encryption.*
+
+```
+{
+    "Sid": "DenyIncorrectEncryptionHeader",
+    "Effect": "Deny",
+    "Principal": "*",
+    "Action": "s3:PutObject",
+    "Resource": [
+        "arn:aws:s3:::mytestbucket123",
+        "arn:aws:s3:::mytestbucket123/*"
+    ],
+    "Condition": {
+        "StringNotEquals": {
+            "s3:x-amz-server-side-encryption": "aws:kms"
+        }
+    }
+}
+```
+
+*S3 policy: Deny unencrypted object uploads*
+
+```
+{
+    "Sid": "DenyUnEncryptedObjectUploads",
+    "Effect": "Deny",
+    "Principal": "*",
+    "Action": "s3:PutObject",
+    "Resource": [
+        "arn:aws:s3:::mytestbucket123",
+        "arn:aws:s3:::mytestbucket123/*"
+    ],
+    "Condition": {
+        "Null": {
+            "s3:x-amz-server-side-encryption": "true"
+        }
+    }
+}
+```
+
+
+
 
 
 

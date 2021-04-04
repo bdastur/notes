@@ -45,6 +45,7 @@ docker push $REGISTRY/alpine:0.1
 * [Monitor Kubernetes, record history of events and resources](https://github.com/salesforce/sloop)
 * [CD.Foundation Projects (Jenkins, Tekton,..)](https://cd.foundation/projects/)
 * [Tekton K8s CI/CD](https://github.com/tektoncd)
+* [Kubernetes desktop client - visualization](https://docs.infra.app/)
 
 
 
