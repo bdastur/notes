@@ -32,6 +32,7 @@
 * [Caddy reverse proxy](https://caddyserver.com/docs/quick-starts/https)
 * [API Testing automation](https://github.com/intuit/karate)
 * [Manage runtime versions with CLI](https://asdf-vm.com/#/)
+* [Github - Awesome code review](https://github.com/joho/awesome-code-review)
 
 # Linux tips:
 
