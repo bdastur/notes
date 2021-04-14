@@ -469,6 +469,15 @@ xvdk    202:160  0 1000G  0 disk
 * Read after write consistency
 * Great use case for a file server.
 
+## Amazon FSx for Luster: 
+* Designed for fast processing of workloads like ML, HPC, video processing,
+  financial modeling and electronic design automation (EDA).
+* Lets you launch and run a file system that provides sub-milliseconnd access
+  to your data.
+* Allows read/write speeds of up to hunderes of gigabytes/second and millions
+  of IOPS.
+
+
 
 ## Elastic Load balancer (ELB:)
 * ELB service allows you to distribute traffic across a group of EC2 instances
@@ -2366,7 +2375,7 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 [cross account access](https://aws.amazon.com/premiumsupport/knowledge-center/cross-account-access-s3/)
 
 ## Cloudwatch:
-* Two plans: basic and detailed
+* Two plans: basic/standard and detailed
 * Basic is default, sends data points to Cloudwatch every 5 minutes for a
   limited number of metrics.
 * Detailed is to be explicitly enabled. Sends data points every minute and
@@ -2884,7 +2893,10 @@ THis is a second line in the document.
 * AWS WAF lets you monitor the HTTP and HTTPS requests that are forwarded to
   API gateway, Cloudfront or ALB.
 * It also lets you control access to your content.
-
+* WAF allows 3 different behaviours:
+  - Allow all requests except the ones you specify
+  - Block all requests except the ones you specify
+  - Count the requests thatt match the properties you specify
 
 
 ## Lambda

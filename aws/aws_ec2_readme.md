@@ -18,8 +18,17 @@
   with the same EC2 host. But if the instance is stopped and then restarted 
   or if AWS stops the instance for maintenance etc on their end, then the 
   instance will be reassigned to another host in the same AZ.
+* AWS originally modified Xen Hypervisor to host EC2. Later it rolled out
+  it's own hypervisor called Nitro.
+* To attach an IAM role to an instance that has no role, the instance can 
+  be in the stopped or running state. 
+* To replace the IAM role on an instance that already has an attached IAM 
+  role, the instance must be in the running state.
+
 
 * Instance metadata: http://169.254.169.254/latest/meta-data/                                
+* Instance user data: http://169.254.169.254/latest/user-data/
+
                                                                                 
 **Termination Protection**                                                      
 * Prevents from accidental Termination from console, CLI or API.                
@@ -174,6 +183,56 @@ VPC SG         -- Control outgoing and incoming instance traffic.
 * Changes to SG are immediate.
 * Everything is denied by default. You can add a SG Rule to allow traffic,
   you cannot add a rule to deny traffic.
+
+
+
+## Ec2 Hibernate
+* EC2 hibernate preserves the in-memory RAM on persistent storage (EBS)
+* Much faster boot up because you do not need to reload the OS.
+* Instance RAM must be less than 150 GB
+* Instances families include C3-5, M3-M5, R3-R5.
+* Available for Windows, Amazon Linux 2 AMI and ubuntu
+* Instances can't be hiibernated for more than 60 days.
+* Available for on-demand or reserved instances.
+* You are not charged for an instance usage for a hibernated instance when it
+  is in stopped state.
+
+
+## EC2 placement groups
+
+*Clustered placement group*
+* Grouping of instances within a single AZ.
+* Applications that require low n/w latency, high throughput.
+
+*Spread placement group*
+* Instances are placed on  distinct underlying hw.
+* Applications that have number of critical instances that should be kept 
+  separate from each other.
+
+*Partitioned placement group*
+* Amazon EC2 divides each group into logical segments called partitions.
+* Each partition within a placement group has it's own set of racks.
+* Each rack has its own n/w and power source. 
+* No two partitions within a placement group share the same racks.
+* Allows you to isolate the impact of hardware failure within your application.
+
+
+
+* Only certain types of instances can be launched in a PG (Compute optimized,
+  GPU, Memory optimized, Storage optimized).
+* You can move an  existing instance into a PG. Before you move, the instance,
+   must be in stopped state.
+
+
+## HPC on AWS.
+Compute and n/w services that allow HPC:
+* GPU or CPU optimized EC2 instances
+* Enhanced N/wing  (SR-IOV)
+* EC2 fleets (spot fleets)
+* Elastic network adapters
+* PG
+* Elastic fabric adapters
+
 
 
 
