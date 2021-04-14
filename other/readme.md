@@ -33,6 +33,9 @@
 * [API Testing automation](https://github.com/intuit/karate)
 * [Manage runtime versions with CLI](https://asdf-vm.com/#/)
 * [Github - Awesome code review](https://github.com/joho/awesome-code-review)
+* [Terminal like website](https://hackernoon.com/how-to-make-a-terminal-like-portfolio-website-for-yourself-27d7a7030004)
+* [cross-shell prompt. customizable prompt](https://starship.rs/)
+
 
 # Linux tips:
 
