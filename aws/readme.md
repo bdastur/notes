@@ -1761,60 +1761,6 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
   Enables you to send messages directly to mobile applications.
 
 
-## ElastiCache:
-* Improves application performance by storing the most frequently accessed
-  data in memory.
-* Simplifies the setup and management of distributed in-memory caching
-  environments.
-* You can choose from Memcached or Redis protocol-compliant cache engine and
-  quickly launch a cluster within minutes.
-
-### Cache Engines:
-
-#### Memcached
-* Provides a simple interface that allows you to write and read objects into
-  in-memory key/value data stores.
-* You can elastically grow and shrink a cluster of memcached nodes to meet
-  your demands.
-* You can partition your cluster into shards and parallelize operations for
-  very high performance throughput.
-
-
-#### Redis
-* Beyond the object support provided in Memcached, Redis supports a rich
-  set of data types like strings, lists and sets.
-* Unlike Memcached, Redis supports the ability to persist the in-memory data
-  on to disks. This allows you to create snapshots that backup data and then
-  recover or replicate from the backups.
-* It can support up to 5 read replicas to offload read requests. In the event
-  of a primary node failure, a read replica can be promoted to become the new
-  master using multi AZ replication groups.
-* Redis also has advanced features that make it easy to sort and rank data.
-
-### Nodes and Clusters
-* Each deployment of ElastiCache consists of one or more nodes in a cluster.
-* A single Memcached cluster can contain upto 20 nodes.
-* Redis clusters are always made up of a single node; however multiple
-  clusters can be grouped into a Redis replication group.
-* For Memcached clusters ElastiCache supports Auto Discovery with the provided
-  client library.
-
-### Backup and Recovery
-* Redis allows you to persist your data from in-memory to disk and create a
-  snapshot.
-* Each snapshot is a full clone of the data that can be used to recover to a
-  specific point in time.
-* Snapshots CANNOT be created for Memcached engine because it is purely
-  in-memory key/value store and always starts empty.
-* Taking snapshot can have performance impact, and best practice is to create
-  a replication group and perform a snapshot against a read replica instead of
-  a primary node.
-
-### Access Control:
-* Access to ElastiCache cluster is controlled primarily by restricting inbound
-  network access to your cluster, using security groups.
-* Access to manage the configuration of the cluster is controlled by IAM policies.
-
 
 ## AWS CloudFront:
 * It is a global Content Delivery Network (CDN) service.
@@ -2512,6 +2458,7 @@ THis is a second line in the document.
 * Serverless, nothing to provision, pay per query / per TB scanned
 * No need to setup complex Extract/Transform/Load (ETL) processes
 * Works directly with data stored in S3
+* Data formats supported: JSON, Apache Parquet, Apaache ORC
 
 ### What can Athena be used for?
 * Query log files stored in S3, eg ELB logs, S3 access logs, cloudtrail logs.
