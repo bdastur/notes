@@ -11,6 +11,10 @@
  - [Decimal to Binary converter](https://www.rapidtables.com/convert/number/decimal-to-binary.html)
 
 
+## DNS 101:
+* Stands for Domain Name Service.
+
+
 
 ## Networking with VPC:
 
