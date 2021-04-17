@@ -13,6 +13,30 @@
 * [Example of policy summaries](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_policy-summary-examples.html)
 * [S3 condition key examples](https://docs.aws.amazon.com/AmazonS3/latest/userguide/amazon-s3-policy-keys.html)
 
+## AWS Arn:
+
+ARNs all begin with:
+
+
+arn:partition:service:region:account_id:
+
+partition: aws|aws-cn
+service:    s3|ec2|rds..
+region:     us-east1|us-west2...
+account_id: 893748333433
+
+Ends with:
+
+resource
+resource_type/resource
+resource_type/resource/qualifier
+resource_type:resource
+resource_type:resource:qualifier
+
+
+
+
+
 ## Policy Types:
 
 *Identity-based policies*
@@ -91,15 +115,15 @@ You can specify any of the following principals in a policy
 
 #### Action
 #### NotAction
-* It explicitly matches everything except the specified list of actions. 
-* Using NotAction can result in a shorter policy, listing only a few actions 
+* It explicitly matches everything except the specified list of actions.
+* Using NotAction can result in a shorter policy, listing only a few actions
   that should not match, rather than a long list of actions that will match.
-* Keep in mind that actions specified in this element are the only actions 
-  that are limited. Means that all of the applicable actions or services that 
+* Keep in mind that actions specified in this element are the only actions
+  that are limited. Means that all of the applicable actions or services that
   are not listed are allowed if you use the Allow effect.
-* When you use NotAction with the Resource element, you provide scope for the policy. 
+* When you use NotAction with the Resource element, you provide scope for the policy.
 
-**NOTE**: 
+**NOTE**:
 Be careful when using NotAction with Allow. You could grant more
 permissions than you intended.
 
@@ -128,10 +152,10 @@ Example 2:
 
 *NotAction with Deny*
 
-* This example denies access to non-IAM actions if the user is not signed 
-  in using MFA. If the user is signed in with MFA, then the "Condition" test 
-  fails and the "Deny" statement has no effect. Note, however, that this 
-  would not grant the user access to any actions; it would only explicitly 
+* This example denies access to non-IAM actions if the user is not signed
+  in using MFA. If the user is signed in with MFA, then the "Condition" test
+  fails and the "Deny" statement has no effect. Note, however, that this
+  would not grant the user access to any actions; it would only explicitly
   deny all other actions except IAM actions.
 
 ```
@@ -147,7 +171,7 @@ Example 2:
 }
 ```
 
-Another example: 
+Another example:
 [Deny Access based on region](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_deny-requested-region.html)
 
 
@@ -160,7 +184,7 @@ Another example:
 * Let's you specify conditions for when a policy is in effect.
 
 ```
-"Condition" : { 
+"Condition" : {
     "{condition-operator}" : { "{condition-key}" : "{condition-value}" }
 }
 ```
@@ -175,7 +199,7 @@ Another example:
 * Used to match the condition-key and the condition values in the request
   context.
 * [condition operators](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_condition_operators.html)
- 
+
 
 *condition operator categories:*
 
@@ -370,15 +394,90 @@ role in / 'default' path or any other --path prefix.
 
 
 
+---
+## AWS Directory Service:
+* Provides directories that contain information about your org, including users
+  groups, computers and other resources.
+* Designed to reduce identity management tasks.
+* Each directory is deployed across multiple AZs and monitoring automatically
+  detects and replaces domain controllers that fail.
+* Data replication and automated daily snapshots are configured.
+
+* Three directory types:
+  * Microsoft AD
+  * Simple AD
+  * AD connector
+
+### Microsoft AD:
+* Provides similar functionality offered by Microsoft AD, plus integration
+  with other AWS services.
+* Easily setup trust relationships with existing AD domains to extend
+  those directories.
+
+### Simple AD:
+* Microsoft AD compatible directory service from AWS powered by Samba 4.
+* Supports: user accounts, group memberships, domain-joining EC2 instances
+  running Linux and Windows, Kerberose-based SSO, and group policies.
+* User accounts in Simple AD can also access AWS applications, like AWS
+  Workspaces, WorkDocs and WorkMail.
+* They can also use IAM roles to access console and manage AWS resources.
+* Provides daily automated snapshots.
+* You can setup trust relationships between simple AD and other AD domains.
+* Features not supported: DNS dynamic update, schema extensions, MFA,
+  communication over LDAP, AD cmdlets and transfer of flexible Single-Master
+  operations roles.
+
+### AD connector:
+* Proxy service for connecting your on-premise Microsoft AD to AWS without
+  requiring complex directory synchronization or the cost and complexity
+  of hosting a federation infrastructure.
+* AD connector forwards sign-in requests to your AD domain controllers for
+  authentication.
+* After setup your users can use their existing corp credentials to login
+  to AWS applications.
+
+## Cloud directory:
+* Directory-based store for developers.
+* Multiple hieraarchies with hundereds of million of objects.
+* Use cases: Org charts, course catalogs, device registries.
+* Fully managed service
+
+## Cognito user pools:
+* Managed user directory for SAAS applications.
+* Sign-up and sign-in services.
 
 
 
+### AD Compatible Services
+* Managed Microsoft AD
+* AD Connector
+* Simple AD
+
+### Not AD Compatible services
+* Cloud Directory
+* Cognito user pools
 
 
 
+## AWS Resource Access Manager (RAM)
+* Easily and securely share AWS resources with any AWS accout or
+  within your AWS organization.
+*Allowed Resources*:
+- AppMesh
+- Aurora
+- CodeBuild
+- EC2
+- EC2 Image Builder
+- License Manager
+- Resource groups
+- Route53
 
 
 
+## AWS Single Sign-On (SSO):
+* Allows centrally manage access to multiple AWS accounts and applications.
+* Provide users with SSO access to all their assigned accounts and apps from
+  one place.
 
 
 
