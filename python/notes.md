@@ -32,6 +32,7 @@ nm['10.10.10.6']
 * https://awesome-python.com/
 * https://www.codementor.io/sumit12dec/python-tricks-for-beginners-du107t193
 * https://boltons.readthedocs.io/en/latest/
+* [Python3 Virtual env setup](https://docs.python.org/3/library/venv.html)
 * [Python web hosting](https://www.pythonanywhere.com/)
 * [Python antipatterns book](https://docs.quantifiedcode.com/python-anti-patterns/index.html)
 * [Plotly Dash - Build data visualizations apps](https://dash.plot.ly/)
@@ -267,7 +268,7 @@ http://brython.info/tests/console.html?lang=en
 
 
 ## Installing Python3 and virtal env with Python3.
-
+[Python3 venv](https://docs.python.org/3/library/venv.html)
 ```
 brew install python3
 python3 -m venv ~/pyenv/py3env
