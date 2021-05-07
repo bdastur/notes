@@ -35,7 +35,7 @@
 * [Github - Awesome code review](https://github.com/joho/awesome-code-review)
 * [Terminal like website](https://hackernoon.com/how-to-make-a-terminal-like-portfolio-website-for-yourself-27d7a7030004)
 * [cross-shell prompt. customizable prompt](https://starship.rs/)
-
+* [change data capture tool](https://debezium.io/)
 
 # Linux tips:
 
