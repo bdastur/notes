@@ -21,6 +21,8 @@
 
 # Chef Recepie
 
+[Chef Resources](https://docs.chef.io/resources/)
+
 ## First chef recipe.
 
 Create a new ruby file.
@@ -54,7 +56,7 @@ package 'tree' do
     action :install
 end
 
-package 'ntp'    <-- note simpliy specifying a package like this will use the default action 
+package 'ntp'    <-- note simpliy specifying a package like this will use the default action
                      of installing the package.
 
 file "/etc/motd" do
@@ -87,6 +89,58 @@ sudo chef-client --local-mode setup.rb
 - metadata
 - recipes
 - testing directorie (spec + test)
+
+
+## Running recepies in a cookbook
+
+You can use chef-client to run recepies within a cookbook, using the --runlist option which takes
+the form "cookbook::recipe" as below:
+
+```
+   sudo chef-client --local-mode --runlist "apache::server"
+```
+
+Running multiple recepies
+
+```
+   sudo chef-client --local-mode --runlist "workstation::setup,apache::server"
+```
+same behavior, a slightly different way to specify multiple recipes:
+
+```
+   sudo chef-client --local-mode --runlist "recipe[workstation::setup],recipe[apache::server]"
+```
+
+## Calling a recipe from another recipe.
+
+```
+   include_recipe method
+```
+
+Edit the worksation/recipes/default.rb and include the setup recipe.
+```
+> cat workstation/recipes/default.rb
+
+include_recipe "workstation::setup"
+
+```
+
+Now, we can run the chef-client, notice how we dont specify any recipe and it picks up the
+default recipe, which goes through the steps in the setup recipe as we have included it in our
+defaults.rb recipe
+
+
+```
+   sudo chef-client --local-mode --runlist "recipe[workstation]"
+```
+
+can run multiple recipes in a similar way:
+
+```
+   sudo chef-client --local-mode --runlist "recipe[apache],recipe[workstation]"
+
+```
+
 
 
 
