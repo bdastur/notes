@@ -142,8 +142,81 @@ can run multiple recipes in a similar way:
 ```
 
 
+# [Chef Ohai](https://docs.chef.io/ohai/)
+
+* Tool that collects system configuration data.
+* Ohai is run by Chef infra client at the beginning of every chef infra run to determine system
+  state.
+* It adds it to a node object. The node object is the representation of all the host specific
+  details. We call the values on the node object, system attributes or node attributes.
 
 
+Simply run:
+```
+   ohai
+```
+
+Will return all the node statistics in json format.
+
+You can get specific data as well, like free swap memory, using syntax:
+
+```
+    ohai memory/swap/free
+```
+
+## Using the node object in the recipe:
+
+
+```
+   file "/etc/motd" do
+    content "This server is a property of Behzad Dastur.
+    Hostname: #{node['ipaddress']}
+    Memory:   #{node['memory']['total']}
+    "
+    owner 'root'
+    group 'root'
+end
+```
+
+
+# Template resources
+
+Instead of adding a file resource you can use a template.
+A template allows you to define an erb template file that you can render and use in your chef recipes.
+
+## Generating a template
+
+```
+    chef generate template workstation/ motd
+```
+
+The template file is a .erb file. You can specify ruby like syntax enclused in <% %> tags.
+You can use <%= %> syntax to print any variable or expression.
+
+An example
+```
+$ cat templates/motd.erb 
+This server is a property of Behzad Dastur.
+Hostname: <%= node['ipaddress'] %>
+Memory:   <%= node['memory']['total'] %>
+CPU :     <%= node['cpu']['0']['model_name'] %>
+Name:     <%= @name %>
+
+```
+Here, we are referencing the node attributes as well as a name variable (last line), 
+that is passed to the template.
+
+Define a template resource:
+```
+  template "/etc/motd" do
+  source "motd.erb"
+  variables(
+    :name => 'Behzad'
+  )
+  action :create
+end
+
+```
 
 
 
