@@ -19,6 +19,7 @@
 ```
 
 
+
 # Chef Recepie
 
 [Chef Resources](https://docs.chef.io/resources/)
@@ -218,6 +219,112 @@ end
 
 ```
 
+# Sending and receiving notifications
+* Notification is a property common to all resources. 
+* All resources have the ability to notify or subscribe to another resource if it's
+  state changes in some way.
+
+## Timers
+
+*:before*
+Action on the notified resource should be run before processing the resource block
+in which the notification is located
+
+*:delayed*
+(Default) Specifies that a notification should be queued up, and then executed at
+the very end of the chef-client run
+
+*:immediately*
+Specifies that the notification should be run immediately, per resource notified.
+
+## Notifies
+Syntax:
+```
+   notifies :action, "resource[name]", :timer
+```
+
+## Subscribes
+Syntax:
+```
+   subscribes :action, "resource[name]", :timer
+```
+
+A simple example:
+Here we notify the 'httpd' service to :restart, when the template resource runs. The action is
+taken immediately as specified by the :timer.
+
+```
+template "/var/www/html/index.html" do
+  source "index.html.erb"
+  variables(
+    :name => "Behzad Dastur"
+  )
+  action :create
+  notifies :restart, 'service[httpd]', :immediately
+end
+
+service "httpd" do
+  action [:enable, :start]
+end
+
+```
+
+Alternatively, we will use subscribes for the same example to restart 'httpd' service, when the
+template resource changes.
+
+```
+template "/var/www/html/index.html" do
+  source "index.html.erb"
+  variables(
+    :name => "Behzad R. Dastur"
+  )
+  action :create
+end
+
+service "httpd" do
+  action [:enable, :start]
+  subscribes :restart, "template[/var/www/html/index.html]", :immediately
+end
+
+```
+
+# Chef server
+
+## Installation:
+
+```
+yum install -y rpm
+
+wget https://packages.chef.io/files/stable/chef-server/14.3.14/el/7/chef-server-core-14.3.14-1.el7.x86_64.rpm?_ga=2.265831439.1409014844.1620690157-2090025871.1620085040
+mv chef-server-core-14.3.14-1.el7.x86_64.rpm\?_ga\=2.265831439.1409014844.1620690157-2090025871.1620085040 chef-server-core-14.3.14-1.el7.x86_64.rpm
+rpm -Uhv chef-server-core-14.3.14-1.el7.x86_64.rpm
+
+sudo chef-server-ctl --help
+
+```
+
+## Configuration
+
+
+
+# Installing Ruby on centos
+
+```
+sudo yum install -y git-core zlib zlib-devel gcc-c++ patch readline readline-devel \
+                    libyaml-devel libffi-devel openssl-devel make bzip2 autoconf \
+                    automake libtool bison curl sqlite-devel
+git clone git://github.com/sstephenson/rbenv.git .rbenv
+echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+exec $SHELL
+git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bash_profile
+exec $SHELL
+rbenv install -v 2.2.1
+export PATH=$PATH:~/.rbenv/bin/
+rbenv install -v 2.2.1
+rbenv global 2.2.1
+ ```
 
 
 
