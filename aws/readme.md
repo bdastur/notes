@@ -17,6 +17,7 @@
 * [EC2 Serial console - troubleshoot boot & n/w issues](https://aws.amazon.com/blogs/aws/troubleshoot-boot-and-networking-issues-with-new-ec2-serial-console/)
 * [AWS Cost Explorer tips-1](https://aws.amazon.com/blogs/aws-cost-management/getting-started-with-aws-cost-explorer-part-1/)
 * [AWS Cost Explorer tips-2](https://aws.amazon.com/blogs/aws-cost-management/tips-and-tricks-for-exploring-your-data-in-aws-cost-explorer-part-2/)
+* [Amortize vs Blended vs Unblended costs](https://aws.amazon.com/blogs/aws-cost-management/understanding-your-aws-cost-datasets-a-cheat-sheet/)
 
 **Benchmarking**:
 * [Tool for benchmarking EC2/S3 throughput](https://github.com/dvassallo/s3-benchmark)
