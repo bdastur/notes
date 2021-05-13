@@ -2,8 +2,10 @@
 # -*- coding: utf-8 -*-
 
 from logging import Filter
+import botocore
 import boto3
 import pprint
+import datetime
 
 # Granularity: DAILY | MONTHLY | HOURLY
 # Metrics: AmortizedCost , BlendedCost , NetAmortizedCost, NetUnblendedCost,
@@ -34,7 +36,7 @@ class CostExplorer():
         self.client = self.session.client('ce')
 
 
-    def get_cost_usage_data(self):
+    def get_cost_usage_data_old(self):
         """
         Get Usage and Cost
         """
@@ -43,6 +45,40 @@ class CostExplorer():
             Granularity='DAILY', Metrics=['AmortizedCost'])
 
         print(data)
+
+
+    def get_cost_usage_data(self, **options):
+        """
+        Return the cost & usage data.
+        """
+        timePeriod =  {
+            'Start': options['start_time'],
+            'End':   options['end_time']
+        }
+        granularity = options.get('granularity', 'DAILY')
+        metrics = options.get('metrics', ['UnblendedCost'])
+        filter = options.get('filter', {})
+        groupBy = options.get('group_by', [])
+        try:
+            if not filter:
+                data = self.client.get_cost_and_usage(
+                TimePeriod=timePeriod,
+                Granularity=granularity,
+                Metrics=metrics,
+                GroupBy=groupBy)
+            else:
+                data = self.client.get_cost_and_usage(
+                    TimePeriod=timePeriod,
+                    Granularity=granularity,
+                    Metrics=metrics,
+                    Filter=filter,
+                    GroupBy=groupBy)
+        except botocore.exceptions.ParamValidationError as err:
+            print("Usage Data failed: ", err)
+            return {}
+
+        return data
+
 
 
     def get_cost_usage_data_2(self):
@@ -82,7 +118,7 @@ class CostExplorer():
             Granularity='DAILY',
             Metrics=['UnblendedCost'],
             Filter=filter,
-            GroupBy=  groupBy
+            GroupBy=groupBy
         )
         pp = pprint.PrettyPrinter()
         pp.pprint(data)
@@ -93,9 +129,27 @@ class CostExplorer():
 
 def main():
     ce = CostExplorer(profile='dev', region='us-east-1')
-    ce.get_cost_usage_data()
+    ce.get_cost_usage_data_old()
     print("--------")
     ce.get_cost_usage_data_2()
+
+    # Setup time period for cost & usage collection.
+    end_time = datetime.datetime.now()
+    end_time_str = end_time.strftime('%Y-%m-%d')
+
+    time_delta = datetime.timedelta(days=4)
+    start_time = end_time - time_delta
+    start_time_str = start_time.strftime('%Y-%m-%d')
+
+
+    options = {
+        'start_time': start_time_str,
+        'end_time': end_time_str,
+        'granularity': 'DAILY',
+        'metrics': ['UnblendedCost']
+    }
+    data = ce.get_cost_usage_data(**options)
+    print(data)
 
 if __name__ == "__main__":
     main()
