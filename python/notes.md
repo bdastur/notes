@@ -71,6 +71,7 @@ Python tools:
 * [Logging Louru](https://github.com/Delgan/loguru)
 * [Writing serverless apps in python](https://github.com/aws/chalice)
 * [Opensource  continuous profiling tool](https://pyroscope.io/)
+* [Python3 venv - creating virtual environments](https://docs.python.org/3/library/venv.html)
 
 
 ### command sample:
