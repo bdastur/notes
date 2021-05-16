@@ -124,11 +124,34 @@ class CostExplorer():
         pp.pprint(data)
 
 
-
+def get_cost_by_c_role(ce):
+    groupBy = [
+        {
+            'Type': 'DIMENSION',
+            'Key': 'SERVICE'
+        }
+    ]
+    filter = {
+        "Tags": {
+            "Key": "c_role",
+            "Values": ["coupa_etcd"]
+        }
+    }
+    options = {
+        'start_time': "2021-01-01",
+        'end_time': "2021-04-30",
+        'granularity': 'MONTHLY',
+        'metrics': ["UnblendedCost"],
+        'group_by': groupBy,
+        'filter': filter
+    }
+    data = ce.get_cost_usage_data(**options)
+    pp = pprint.PrettyPrinter()
+    pp.pprint(data)
 
 
 def main():
-    ce = CostExplorer(profile='dev', region='us-east-1')
+    ce = CostExplorer(profile='dev')
     ce.get_cost_usage_data_old()
     print("--------")
     ce.get_cost_usage_data_2()
@@ -150,6 +173,8 @@ def main():
     }
     data = ce.get_cost_usage_data(**options)
     print(data)
+
+    get_cost_by_c_role(ce)
 
 if __name__ == "__main__":
     main()
