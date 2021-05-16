@@ -47,6 +47,22 @@ def generate_summary(instances):
 
             summary['last_7_days'][instance_type].append(idx)
 
+        # By tags
+        ####################################################
+        tags = instance['Tags']
+        for tag in tags:
+            key = tag['Key']
+            value = tag['Value']
+            key = key.strip()
+            value = value.strip()
+            if summary['by_tags'].get(key, None) is None:
+                summary['by_tags'][key] = {}
+
+            if summary['by_tags'][key].get(value, None) is None:
+                summary['by_tags'][key][value] = []
+
+            summary['by_tags'][key][value].append(idx)
+
         idx += 1
 
     pp = pprint.PrettyPrinter()
@@ -62,14 +78,13 @@ def filter_instances_launch_date(instances, from_date, to_date):
         launchDate = instance['LaunchTime']
         launchDate_str = launchDate.strftime("%Y-%m-%d")
         launchDate = launchDate.replace(tzinfo=None)
-        print("Launch date: ", instance['LaunchTime'])
         if launchDate > fromDate and launchDate <= toDate:
             filteredInstances.append(instance)
-            print("Instance launched at %s, between (%s - %s) " % \
-                  (launchDate_str, from_date, to_date))
+            # print("Instance launched at %s, between (%s - %s) " % \
+            #       (launchDate_str, from_date, to_date))
 
-    print("Instance launched at %s, between (%s - %s) %d" % \
-        (launchDate_str, from_date, to_date, len(filteredInstances)))
+    print("Instance launched between (%s - %s) %d" % \
+        (from_date, to_date, len(filteredInstances)))
 
 
 def get_ec2_instances(**kwargs):
@@ -170,8 +185,9 @@ def main():
     # Generate report (All Instances - no filter)
     generate_csv_file_from_instances_info(allInstances, "all_instances.csv")
 
-    filter_instances_launch_date(allInstances, "2021-04-01", "2021-04-05")
-    #summary = generate_summary(allInstances)
+    filter_instances_launch_date(allInstances, "2021-03-01", "2021-03-30")
+    summary = generate_summary(allInstances)
+    import pdb; pdb.set_trace()
 
 
 if __name__ == "__main__":
