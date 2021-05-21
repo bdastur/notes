@@ -3,6 +3,7 @@
 
 import datetime
 import boto3
+import click
 import os
 import pickle
 import pprint
@@ -65,18 +66,21 @@ def generate_summary(instances):
 
         idx += 1
 
-    pp = pprint.PrettyPrinter()
-    pp.pprint(summary)
+    # pp = pprint.PrettyPrinter()
+    # pp.pprint(summary)
     return summary
 
 def filter_instances_launch_date(instances, from_date, to_date):
     filteredInstances = []
-    fromDate = datetime.datetime.strptime(from_date, '%Y-%m-%d')
-    toDate = datetime.datetime.strptime(to_date, '%Y-%m-%d')
+    fromDate = datetime.datetime.strptime(from_date, '%Y-%m-%dT%H:%M:%S+00:00')
+    toDate = datetime.datetime.strptime(to_date, '%Y-%m-%dT%H:%M:%S+00:00')
 
     for instance in instances:
         launchDate = instance['LaunchTime']
-        launchDate_str = launchDate.strftime("%Y-%m-%d")
+        if instance['BlockDeviceMappings']:
+            launchDate = instance['BlockDeviceMappings'][0]['Ebs']['AttachTime']
+
+        launchDate_str = launchDate.strftime("%Y-%m-%dT%H:%M:%S+00:00")
         launchDate = launchDate.replace(tzinfo=None)
         if launchDate > fromDate and launchDate <= toDate:
             filteredInstances.append(instance)
@@ -85,6 +89,7 @@ def filter_instances_launch_date(instances, from_date, to_date):
 
     print("Instance launched between (%s - %s) %d" % \
         (from_date, to_date, len(filteredInstances)))
+    return filteredInstances
 
 
 def get_ec2_instances(**kwargs):
@@ -125,8 +130,8 @@ def generate_csv_file_from_instances_info(instances, name):
 
     fpath = os.path.join("/Users/behzaddastur/scratch", name)
     fhandle = open(fpath, "w")
-    row_heading = ["instance id", "AZ", "instance type", "launch date",
-                   "state", "c_deployment"]
+    row_heading = ["status", "instance id", "AZ", "instance type", "launch date",
+                   "attach date", "state", "Termination time", "c_deployment", "c_role"]
     rowHeadingString = ",".join(row_heading) + "\n"
     fhandle.write(rowHeadingString)
 
@@ -134,16 +139,37 @@ def generate_csv_file_from_instances_info(instances, name):
         row = []
         launchDate = instance['LaunchTime'].strftime('%Y-%m-%d')
 
+        if instance['BlockDeviceMappings']:
+            attachDate = instance['BlockDeviceMappings'][0]['Ebs']['AttachTime'].strftime('%Y-%m-%d')
+        else:
+            attachDate = launchDate
+
+        if attachDate == launchDate:
+            row.append("NEW INSTANCE")
+        else:
+            row.append("Restarted")
+
+
         row.append(instance['InstanceId'])
         row.append(instance['Placement']['AvailabilityZone'])
         row.append(instance['InstanceType'])
         row.append(launchDate)
+        row.append(attachDate)
         row.append(instance['State']['Name'])
+        if not instance['StateTransitionReason']:
+            row.append("NA")
+        else:
+            row.append(instance['StateTransitionReason'])
+
         for tag in instance['Tags']:
             key = tag['Key']
             value = tag['Value']
             if key == "c_deployment":
-                row.append(value)
+                #row.append(value)
+                row.insert(8, value)
+            if key == "c_role":
+                #row.append(value)
+                row.insert(9, value)
 
         rowString = ",".join(row) + "\n"
         fhandle.write(rowString)
@@ -185,9 +211,15 @@ def main():
     # Generate report (All Instances - no filter)
     generate_csv_file_from_instances_info(allInstances, "all_instances.csv")
 
-    filter_instances_launch_date(allInstances, "2021-03-01", "2021-03-30")
+    #filter_instances_launch_date(allInstances, "2021-03-01", "2021-03-30")
+    #filter_instances_launch_date(allInstances, "2021-04-01", "2021-04-30")
+    #filter_instances_launch_date(allInstances, "2021-05-01", "2021-05-14")
+
+    filteredInstances = filter_instances_launch_date(allInstances,
+                                 '2021-05-19T00:01:01+00:00',
+                                 '2021-05-20T00:01:00+00:00')
+    print("Filtered instances: ", filteredInstances)
     summary = generate_summary(allInstances)
-    import pdb; pdb.set_trace()
 
 
 if __name__ == "__main__":
