@@ -323,3 +323,23 @@ Since pip search is disabled
 ```
 curl https://pypi.org/search/?q=pygit2 | grep "package-snippet__name" | cut -d'>' -f2 | cut -d'<' -f1
 ```
+
+## Datetime operations
+
+```
+Convert a string time to datetime.
+---------------------------------
+ltime = "2015-10-30T21:54:39+00:00"
+dt2 = datetime.datetime.strptime(ltime, "%Y-%m-%dT%H:%M:%S+00:00")
+print(dt2)
+2015-10-30 21:54:39
+
+Increment datea/time
+----------------------------------
+>>> print(now)
+datetime.datetime(2021, 5, 21, 6, 45, 54, 716136)
+newtime = now + datetime.timedelta(hours=10)
+>>> print(newtime)
+2021-05-21 16:45:54.716136
+
+```
