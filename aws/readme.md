@@ -18,6 +18,8 @@
 * [AWS Cost Explorer tips-1](https://aws.amazon.com/blogs/aws-cost-management/getting-started-with-aws-cost-explorer-part-1/)
 * [AWS Cost Explorer tips-2](https://aws.amazon.com/blogs/aws-cost-management/tips-and-tricks-for-exploring-your-data-in-aws-cost-explorer-part-2/)
 * [Amortize vs Blended vs Unblended costs](https://aws.amazon.com/blogs/aws-cost-management/understanding-your-aws-cost-datasets-a-cheat-sheet/)
+* [S3 FAQs](https://aws.amazon.com/s3/faqs/)
+
 
 **Benchmarking**:
 * [Tool for benchmarking EC2/S3 throughput](https://github.com/dvassallo/s3-benchmark)
@@ -472,7 +474,7 @@ xvdk    202:160  0 1000G  0 disk
 * Read after write consistency
 * Great use case for a file server.
 
-## Amazon FSx for Luster: 
+## Amazon FSx for Luster:
 * Designed for fast processing of workloads like ML, HPC, video processing,
   financial modeling and electronic design automation (EDA).
 * Lets you launch and run a file system that provides sub-milliseconnd access
@@ -668,6 +670,14 @@ https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.ht
 * Can only have one internet gateway in a VPC.
 * Network ACLs are stateless.
 * When you create a VPC all subnets can communicate with each other by default.
+* The first 4 ip addresses and the last ip address in each subnet CIDR block are not available
+  for you to use.
+  10.0.0.0 - network address
+  10.0.0.1 - reserved by AWS for the VPC router.
+  10.0.0.2 - Reserved by AWS for DNS
+  10.0.0.3 - reserved by AWS for future use.
+  10.0.0.255 - Network broadcast address. We do not support broadcast in VPC, therefore we reserve this address.
+
 
 * VPC has the following components:
   * subnets
@@ -1044,7 +1054,7 @@ com            == tld
   level of authority by default.
 * If a zone file is used to configure the example.com domain, the $ORIGIN would
   be set to example.com
-* $TTL - Time to live value. Defines the length of time the previously queried
+* TTL - Time to live value. Defines the length of time the previously queried
   results are available to the caching name server before they expire.
 
 ### Record Types:
@@ -1121,7 +1131,8 @@ A record is a single mapping between a resource and a name.
   another registrar to route53.
 * Supports domain registration for a wide variety of generic TLDs and
   geographic TLDs.
-
+* There is a limit of 20 domain names for new customers as of March 2021.
+* If you have an existing account and your default limit is 50 now, it will remain at 50. Reference: Amazon Route 53 Quotas.
 
 #### **DNS Service:**
 * Route53 is an authoritative DNS service.
@@ -1160,20 +1171,44 @@ Supported record types:
 * SRV
 * TXT
 
+* Alias Records have special functions that are not present in other DNS servers.
+* Their main function is to provide special functionality and integration into AWS services.
+* Unlike CNAME records, they can also be used at the Zone Apex, where CNAME records cannot.
+* Alias Records can also point to AWS Resources that are *hosted in other accounts* by manually entering the ARN
+
+
+
 ##### **Routing Policies:**
 **Simple**
 * This is the default routing policy when you create a new resource.
+* If you choose a simple routing policy you can only have one record with multiple
+  IP addresses. If you specify multiple values in a record, Route53 returns all values
+  to the user in a random order.
 
 **Weighted**
 * You can associate multiple resources with a single DNS name.
+*
 
 **Latency based**
+* Based on users location and latency.
 
 **Failover**
+* Active/Passive
 
 **Geolocation**
+* Allows EU customers to be sent to EU backend and US customers to US backend.
+* Lets you choose the resources that serve your traffic based on geographic
+  location of your users, meaning the location that DNS queries originate from.
 
+**Geoproximity Routing**
+* Geoproximity routing lets Route53 route traffic to your resources based on the
+  geographic location of your users and your resoures.
 
+**Multivalue Routing**
+* R53 Multivalue lets you respond to DNS queries with up to eight IP addresses of
+  'healthy' targets. Plus it will give a different set of 8 to different DNS resolvers.
+  The R53 Simple policy will provide a list of multiple instances in random order,
+  but Multivalue is the AWS preferred option for this type of service.
 
 #### **Health checking:**
 
