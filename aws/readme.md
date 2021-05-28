@@ -18,6 +18,8 @@
 * [AWS Cost Explorer tips-1](https://aws.amazon.com/blogs/aws-cost-management/getting-started-with-aws-cost-explorer-part-1/)
 * [AWS Cost Explorer tips-2](https://aws.amazon.com/blogs/aws-cost-management/tips-and-tricks-for-exploring-your-data-in-aws-cost-explorer-part-2/)
 * [Amortize vs Blended vs Unblended costs](https://aws.amazon.com/blogs/aws-cost-management/understanding-your-aws-cost-datasets-a-cheat-sheet/)
+* [Cost of cloud, a trillion dollar paradox](https://a16z.com/2021/05/27/cost-of-cloud-paradox-market-cap-cloud-lifecycle-scale-growth-repatriation-optimization/)
+* [Open platform for building developer portals](https://backstage.io/)
 * [S3 FAQs](https://aws.amazon.com/s3/faqs/)
 
 
