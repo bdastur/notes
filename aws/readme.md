@@ -786,11 +786,13 @@ https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.ht
   them is primary.
 * Allow you to create dual-homed instances with workloads on distinct subnets.
 
-### Endpoints:
-* Enables you to create a private connection between your VPC and another
-  AWS service without requiring access over the internet, or a NAT interface,
-  VPN connection or AWS direct connect.
-* VPC endpoint currently supports S3.
+### VPC Endpoints:
+* Enables you to create a private connection between your VPC and another AWS service
+  without requiring access over the internet, or a NAT interface, VPN connection or AWS direct connect.
+* VPC endpoint currently supports S3 and dynamodb.
+* Does not require an IGW, Nat device, VPN connection or AWS direct connect connections.
+* Instances in your VPC do not require public IP addresses to communicate with resources in
+  the service.
 
 * You can use the describe-prefix-lists to list the CIDRs for your
   endpoints in the vpc. This can be useful when opening specific CIDRs for
@@ -805,6 +807,12 @@ PREFIXLISTS	pl-04442c6b	com.amazonaws.us-east-1.dynamodb
 CIDRS	51.44.0.0/22
 CIDRS	54.159.224.0/21
 ```
+
+### Global Accelerator:
+* It is a service in which you create accelerators to improve availability and
+  performance of your applications for local and global users.
+* You are assigned two static IP addresses (or you can bring your own)
+* You can control traffic using traffic dials. This is done within the endpoint group.
 
 
 
@@ -877,8 +885,8 @@ CIDRS	54.159.224.0/21
 
 
 ### Network ACLs:
-* Your VPC automatically comes with a default network ACL and by default it
-  allows all outbound and inbound traffic.
+* Your VPC automatically comes with a default network ACL and by default it allows
+  all outbound and inbound traffic.
 * Operates at subnet level (second level of defense)
 * Supports allow and deny rules.
 * Stateless: Return traffic must be explicitly allowed by rules.
@@ -910,6 +918,7 @@ the wide range of ephemeral ports.
 **NAT Instances**
 * When creating a NAT instance, disable source/destination check on the instance
 * Always deploy NAT Gateway in the public subnet.
+* Deploy NAT instance in the public subnet.
 * Must have an Elastic IP address associated to work.
 * NAT gateways must be behind a security group.
 * There must be a route from the private subnet to the NAT instance in order
@@ -939,6 +948,13 @@ the wide range of ephemeral ports.
 
 
 ### VPC Flowlogs:
+* VPC FLow logs enables you to capture information about the IP traffic going to
+  and from network interfaces in your VPC.
+* Flow log data is stored in Amazon cloudwatch logs.
+* You cannot enable flow logs for VPCs that are peered with your VPC unless the peer
+  VPC is in your account.
+* You can tag flow llogs.
+* After you have created a flow log you cannot change it's configuration.
 
 
 ## ENI vs ENA vs EFA
