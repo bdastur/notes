@@ -185,8 +185,27 @@
   software.
 
 
-### VPC endpoints and PrivateLink
+### VPC endpoints and Privatelink
 * To allow access to AWS services like S3, SQS, KMS and DynamoDB from a private subnet, which does not have access to internet.
+* Enables you to create a private connection between your VPC and another AWS service
+  without requiring access over the internet, or a NAT interface, VPN connection or AWS direct connect.
+* VPC endpoint currently supports S3 and dynamodb.
+* Does not require an IGW, Nat device, VPN connection or AWS direct connect connections.
+* Instances in your VPC do not require public IP addresses to communicate with resources in
+  the service.
+* You can use the describe-prefix-lists to list the CIDRs for your
+  endpoints in the vpc. This can be useful when opening specific CIDRs for
+  outbound access from your EC2 instances.
+
+```
+$ aws ec2 describe-prefix-lists --profile devaccount
+PREFIXLISTS pl-6333400a com.amazonaws.us-east-1.s3
+CIDRS 53.251.0.0/17
+CIDRS 51.116.0.0/15
+PREFIXLISTS pl-04442c6b com.amazonaws.us-east-1.dynamodb
+CIDRS 51.44.0.0/22
+CIDRS 54.159.224.0/21
+```
 
 * A VPC endpoint can connect to the VPC and allow for communication to the service within a private IP space.
 
@@ -202,9 +221,10 @@
 #### Interface endpoint
 * An interface endpoint - essentially a service-level ENI. The service is attached
   straight to the VPC subnet through the ENI.
-* Enables assigning a private IP address from the subnet pool directly to th
+* Enables assigning a private IP address from the subnet pool directly to the
   service.
 * Can communicate with the service on prrivate network.
+
 
 ### VPC peering
 * A VPC peering connection is a networking connection between two VPCs that allow
@@ -228,6 +248,54 @@
   - Communication over IPV6 is not supported
   - Communication over ClassicLink for EC2-classic instances is not supported
   - Jumbo frames are not supported across inter region VPC peering connection.
+
+
+### VPC Flowlogs:
+* VPC FLow logs enables you to capture information about the IP traffic going to
+  and from network interfaces in your VPC.
+* VPC flow logs can be created at the VPC, subnet and network interface levels.
+* Flow log data is stored in Amazon cloudwatch logs.
+* You cannot enable flow logs for VPCs that are peered with your VPC unless the peer
+  VPC is in your account.
+* You can tag flow llogs.
+* After you have created a flow log you cannot change it's configuration.
+
+### Global Accelerator:
+* It is a service in which you create accelerators to improve availability and
+  performance of your applications for local and global users.
+* You are assigned two static IP addresses (or you can bring your own)
+* You can control traffic using traffic dials. This is done within the endpoint group.
+* A network zone services the static IP addresses for your accelerator from a unique 
+  IP subnet. Similar to availability zone, a network zone is an isolated unit with its
+  own set of physical infrastructure.
+* When you configure an accelerator, by default it allocates two IPv4 addresses for it.
+
+
+### AWS Transit Gateway:
+* Allows you to have transitive peering between thousands of VPCs and on-premises
+  data centers.
+* Works on a hub-and-spoke model.
+* Works on a regional basis, but you can have it across multiple regions.
+* You can use it across multiple AWS accounts using Resource Access Manager.
+* You can use route tables to limit how VPCs talk to one another.
+* Works with Direct Connect as well as VPN connections.
+* Supports IP Multicast (not supported by any other AWS service)
+
+
+### AWS VPN CloudHub:
+* If you have multiple sites, each with it's own VPN connection, you can use AWS
+  VPN Cloudhub to connect to those sites together.
+* Hub and spoke model
+* Low cost; easy to manage
+* It operates over the public internet, but all traffic between the customer gateway
+  and the AWS VPN cloudhub is encrypted.
+
+## AWS Networking costs
+* Use private IP addresses over public ip addresses to save cost. This utilizes the AWS
+  backbone.
+* Traffic between instances within the same AZ is free, but flowing across AZs is 0.01$/Gb.
+* Traffic across regions will be charged at 0.02$/Gb (depending on regions)
+* Traffic going out to the internet will have a cost.
 
 
 
@@ -357,6 +425,15 @@ AWS subnet to on-prem.
 
 * **Direct connect:** low latency layer 2 connection on dedicated private links
 *** VPN with virtual gateway:** layer3 IPSec-encrypted connection over public internet.
+
+### Steps to creating a direct connect connection
+* Create a virtual interface in the direct connect console. This is a Public virtual interface.
+* Go to the VPC console - to VPN connections. Create a customer gateway
+* Create a virtual private gateway
+* Attach a virtual private gateway to the desired VPC.
+* Select the VPN connections and create a new VPN connection.
+* Select the virtual private gateway and the customer gateway
+* Once the VPN is available, setup the VPN on the customer gateway or firewall.
 
 
 
