@@ -591,13 +591,18 @@ https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.ht
 **Scheduled scaling:**
 * Scaling actions are performed automatically as a function of time and date.
 
-**Dynamic scaling:**
+**Dynamic scaling or scaling on demand:**
 * Create a scaling policy based on criteria like n/w bandwidth or CPU
   measured by cloudwatch and measure a threshold.
 
+**Use predictive scaling**
+* Predcting based on previous EC2 usage, with decision based on billions of
+  data points drawn from observations.
+
+
 ### ASG Components:
 
-**Launch configuration:**
+**Launch configuration:** & **Configuration templates**
 * A template that ASG uses to create new instances.
 * It is composed of config name, AMI, Instance type, SG, key pair.
 * Only a launch config name, AMI and instance type are required to create a
@@ -608,6 +613,8 @@ https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.ht
 * on-demand is default, but spot instances can be used by referencing a max
   bid price in the launch config.
 * A launch config can reference on-demand or spot instances but not both.
+* Launch configuration templates are the new version of launch configuration.
+* You can create new versions of launch templates unlike launch configuration.
 
 
 **Autoscaling group:**
@@ -1626,13 +1633,12 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 
 ## Simple Queue Service (SQS)
 * A fast, reliable, scalable and fully managed queuing service.
-* Makes it simple and cost effective to decouple components of your cloud
-  application.
+* Makes it simple and cost effective to decouple components of your cloud application.
 * Does not guarantee message delivery order (no FIFO)
-* If message order is required applications can handle that by passing a
-  message sequence id.
-* Ensures delivery of each message at least once and supports multiple
-  readers and writers interacting with the same queue.
+* If message order is required applications can handle that by passing a message
+  sequence id.
+* Ensures delivery of each message at least once and supports multiple readers and
+  writers interacting with the same queue.
 
 ### Message lifecycle:
 1. Component 1 sends message A to a queue. The message is redundantly distributed
@@ -1659,12 +1665,17 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
   timeout, it is considered to be "in flight"
 * You can have up to 120,000 messages in flight at any given time.
 * Default visibility timeout is 30 seconds.
-* SQS supports up to 12 hours max visibility timeout.
+* SQS supports up to **12 hours max visibility timeout**.
 * SQS automatically deletes messages that have been in the queue for more than
   maximum message retention period.
 * Shortest message retention period is 60 seconds.
 * Default message retention period is 4 days.
 * Longest message retention period is 14 days.
+* Visibility timeout is the amout of time a message is invisible in the SQS queue
+  after a reader picks up the message. Provided the job is processed before the
+  visibility timeout expires, the message will then be deleted from the queue. If the
+  job is not processed within that time, the message will become visible again and another
+  reader will process it. This could result in same message being delivered twice.
 
 
 ### Queue Operations, Unique IDs and Metadata:
@@ -1725,19 +1736,19 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 
 
 ## Simple Workflow Service (SWF):
-* SWF makes it easy to build applications that coordinate work across
-  distributed components.
-* In SWF task represents a logical unit of work that is performed by a
-  component of your application.
+* SWF makes it easy to build applications that coordinate work across distributed
+  components.
+* In SWF task represents a logical unit of work that is performed by a component
+  of your application.
 * You implement the workers to perform tasks.
 * Workers can run either on EC2 or on on-premises instances/servers.
 * You can create long running tasks that might fail, timeout or require
   restart or tasks that can complete with varying throughput and latency.
 * SWF stores tasks, and assigns them to workers when they are ready, monitor
-  their progress and maintain their state, including details on their
-  completion.
-* To coordinate tasks you write a program that gets the latest state of
-  each task from SWF and uses it to initiate subsequent tasks.
+  their progress and maintain their state, including details on their completion.
+* To coordinate tasks you write a program that gets the latest state of each task
+  from SWF and uses it to initiate subsequent tasks.
+* SWF workflow executions can last up to 1 year.
 
 ### Workflows:
 * In SWF you can implement distributed, asynchronous applications as workflows.
@@ -2419,14 +2430,17 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 #### KMS Operations:
 
 - Creating a new KMS customer key:
+
 ```
 aws kms create-key \
     --profile dev1 --region us-west-2 \
     --description "Customer test key"
 KEYMETADATA	111111111111	arn:aws:kms:us-west-2:1111111:key/839-f1114-1411-02222228	122409.9	Customer test key	True	83118	CUSTOMER	Enabled	ENCRYPT_DECRYPT	AWS_KMS
+
 ```
 
 - List key policies:
+
 ```
 $ aws kms list-key-policies \
     --key-id 81xx9-15-41-111011 \
@@ -2435,7 +2449,9 @@ POLICYNAMES	default
 
 ```
 
+
 - Get Key policy:
+
 ```
 $ aws kms get-key-policy \
     --key-id 811-15111a1-1111 \
@@ -2459,6 +2475,7 @@ $ aws kms get-key-policy \
 
 An alias makes it easy to identify the key.
 - Create an alias.
+
 ```
 $ aws kms create-alias \
     --alias-name alias/brdtestkey \
@@ -2466,6 +2483,7 @@ $ aws kms create-alias \
     --profile dev1 --region us-west-2
 
 ```
+
 
 Now let's use are new key to encrypt and decrypt data. We will use the alias created instead of the long convoluted key-id:
 
@@ -2488,6 +2506,7 @@ $ aws kms encrypt \
 ```
 
 - Decrypt data.
+
 ```
 $ aws kms decrypt \
     --ciphertext-blob fileb://encrypted_data \
@@ -2808,6 +2827,10 @@ aws eks create-nodegroup \
 * Petabyte and Exabyte amount of data.
 
 
+## HA Architecture:
+
+
+
 ## Security on AWS:
 * AWS is responsible for security of the cloud, and customers are responsible
   for security in the cloud.
@@ -2918,6 +2941,7 @@ Here is an example:
 1. Create a Role in AWS Account. EG TESTROLE.
 2. Create an IAM user that can assume the TESTROLE (it can be in a different account)
 3. Now you aws config and credentials file will look like below:
+
 ```
 ~/.aws/config:
 [profile myuser]
