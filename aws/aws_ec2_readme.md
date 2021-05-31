@@ -205,7 +205,7 @@ VPC SG         -- Control outgoing and incoming instance traffic.
 * Applications that require low n/w latency, high throughput.
 
 *Spread placement group*
-* Instances are placed on  distinct underlying hw.
+* Instances are placed on distinct underlying hw.
 * Applications that have number of critical instances that should be kept 
   separate from each other.
 
