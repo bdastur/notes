@@ -1249,31 +1249,33 @@ Supported record types:
 #### Scaling Up and Out:
 **Vertical Scaling**:
 * By changing your DB instance type to a higher compute, memory or storage type.
-* RDS automates the migration process to a new class with only a short
-  disruption.
-* Each Db instance can scale from 5GB up to 6 TB in provisioned storage depending
+* RDS automates the migration process to a new class with only a short disruption.
+* Each DB instance can scale from 5GB up to 6 TB in provisioned storage depending
   on the storage type and engine.
 * Storage expansion is supported for all Db engines except **SQL Server**.
 
 **Horizontal Scaling**:
-  **Partitioning**:
-    * Partitioning a large relational database into multiple instances or shards
-      is a common technique for handling more requests beyond the capabilities
-      of a single instance.
-    * Requires additional logic in the application layer. Application needs to
-      decide how to route DB request to the correct shard.
-    * NoSQL Databases like DynamoDB and Cassandra are designed to scale
-      horizontally.
+**Partitioning**:
+* Partitioning a large relational database into multiple instances or shards is a
+  common technique for handling more requests beyond the capabilities of a single
+  instance.
+* Requires additional logic in the application layer. Application needs to
+  decide how to route DB request to the correct shard.
+* NoSQL Databases like DynamoDB and Cassandra are designed to scale horizontally.
 
-  **Read Replicas**:
-  * Offload read transactions from the primary database to increase the
-    overall number of transactions.
-  * Supported in RDS for MySQL, PostgreSQL, MariaDB and Aurora.
-  * RDS uses the MySQL, MariaDB and PostgreSQL DB engines built-in replication
-    functionality to create a special type of DB instance, called a read replica
-    from a source DB instance.
-  * Updates to the primary DB instance are asynchronously copied to the read
-    replica.
+**Read Replicas**:
+* Offload read transactions from the primary database to increase the overall
+  number of transactions.
+* Supported in RDS for MySQL, PostgreSQL, MariaDB and Aurora.
+* RDS uses the MySQL, MariaDB and PostgreSQL DB engines built-in replication
+  functionality to create a special type of DB instance, called a read replica
+  from a source DB instance.
+* Updates to the primary DB instance are asynchronously copied to the read
+  replica.
+* They are used for scaling, not for DR.
+* Must have automatic backups turned on in order to deploy a read replica.
+* You can have up to 5 read replica copies of any database.
+* You can have read replicas of read replicas.
 
 #### Security:
 * Deploy RDS instance in private subnet within a VPC.
@@ -1282,19 +1284,40 @@ Supported record types:
   frequently.
 * Encryption.
 
+
+## Amazon Aurora:
+* 5 times better performance that MysQL and 3 times better performance than
+  postgres db.
+* 2 copies of your data are contained in each AZ, with minimum of 3 AZs. 6 copies of
+  your data.
+* You can share Aurora snapshots with other AWS accounts.
+* Automated backups turned on by default. 
+* Use Aurora serverless if you want a simple, cost-effective option for infrequent,
+  intermittend or unpredicable workloads.
+
+## Elasticache:
+* SUpports two opensource caching engines
+  - Memcached
+  - Redis
+
+
 ## Amazon Redshift:
 * Fast powerful, fully managed petabyte scale data warehouse service
 * Relational database designed for OLAP scenarios.
 * Optimized for high performance analysis and reporting very large datasets.
 * Uses standard SQL commands to query large datasets.
+* Currently only available in 1 AZ.
+* Backups - enabled by default with a 1 day retention period, maximum retention
+  period is 35 days.
+* Always attempts to maintain atleast 3 copies of your data (the original and
+  replica on the compute nodes and a backup in S3).
+* It can asynchronously replicate snapshots to S3 in anothere region for DR.
 
 ### Clusters and Nodes:
 * Key component of Redshift is cluster.
 * A cluster is composed of a leader node and one ore more compute nodes.
-* A client interacts with leader node. Compute nodes are transparent to
-  applications.
-* Supports six different node types with different mix of CPU, memory and
-  storage.
+* A client interacts with leader node. Compute nodes are transparent to applications.
+* Supports six different node types with different mix of CPU, memory and storage.
 * Nodes are grouped into two categories:
   * Dense compute: supports up to 326TB using fast SSDs.
   * Dense Storage: supports 2 Petabyte using large magnetic disks.
@@ -1392,8 +1415,6 @@ Supported record types:
 * Data at rest with KMS.
 
 
-
-
 ## DynamoDB:
 
 **Links:**
@@ -1413,38 +1434,36 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
   within an AWS Region.
 
 ### Data Model:
-* Main components of DynamoDB are:
-  * Tables:
-    DynamoDB stores data in tables.
+* **Main components of DynamoDB are**:
+* Tables:
+  DynamoDB stores data in tables.
 
-  * Items:
-    * Each table contains multiple items. An item is a group of attributes that
-      is uniquely identifiable. For E.g in a people table each item represents
-      one person.
-    * There is no limit on the number of items you can store in a table.
+* Items:
+  * Each table contains multiple items. An item is a group of attributes that
+    is uniquely identifiable. For E.g in a people table each item represents
+    one person.
+  * There is no limit on the number of items you can store in a table.
 
-  * Attributes:
-    * An attribute in DynamoDB is similar to fields or columns in other
-      databases.
-    * Each item is composed of one ore more attributes. An attribute is a
-      fundamental data element that does not need to be broken down further.
+* Attributes:
+  * An attribute in DynamoDB is similar to fields or columns in other databases.
+  * Each item is composed of one ore more attributes. An attribute is a
+    fundamental data element that does not need to be broken down further.
 
-  * Primary Key:
-    * When you create a table, in addition to the table name, you must specifically
-      the primary key of the table.
-    * A primary key in DynamoDB uniquely identifies each item in the table,
-      so that no two items can have the same key.
-    * When you add update or delete an item from a table you must specify
-      the primary key attribute values for that item.
+* Primary Key:
+  * When you create a table, in addition to the table name, you must specifically
+    the primary key of the table.
+  * A primary key in DynamoDB uniquely identifies each item in the table,
+    so that no two items can have the same key.
+  * When you add update or delete an item from a table you must specify
+    the primary key attribute values for that item.
 
-    DynamoDB supports two types of primary keys:
+DynamoDB supports two types of primary keys:
 
-    **Partition Key**:
-    * A simple primary key, composed of one attribute known as the partition key.
-    * DynamoDB uses the partition key's value as input to an internal hash
-      function. The output from the hash function determines the partition where the item is stored.
-    * No two items in a table can have the same partition key value.
-
+**Partition Key**:
+* A simple primary key, composed of one attribute known as the partition key.
+* DynamoDB uses the partition key's value as input to an internal hash
+  function. The output from the hash function determines the partition where the item is stored.
+* No two items in a table can have the same partition key value.
 
     **Partition key and sort key**:
     * A composite primary key, composed of two attributes. First attribute is
@@ -1623,12 +1642,25 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 * Restrict access to specific item and attributes with conditionals.
 
 ### DynamoDb Streams:
+* Time ordered sequence of item-level changes in a table.
 * To keep track of changes to DynamoDb.
 * Can get a list of item modifications for the last 24 hour period.
 * Each stream record represents a single data modification in the DynamoDb
   table to which the stream belongs.
 * Each stream record is assigned a sequence number, reflecting the order in
   which the record was published to the stream.
+
+### DynamoDB Accelerator (DAX):
+* 10x performance improvement over DynamoDB
+* Fully managed, highly available, in-memory cache
+* Reduces request time from milliseconds to microseconds - even under load.
+* No need to manage caching logic.
+* Compatible with DynamoDB API calls.
+
+
+### Transactions
+* "All-or-nothing" operations - like financial transactions.
+* Can operate of up to 25 items or 4 MB of data.
 
 
 ## Simple Queue Service (SQS)
@@ -1827,6 +1859,9 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
 * Mobile push notifications:
   Enables you to send messages directly to mobile applications.
 
+## Elastic Transcoder:
+* Media transcoder in the cloud.
+* Convert media files from original source in to different formats.
 
 
 ## AWS CloudFront:
@@ -2523,6 +2558,11 @@ THis is a second line in the document.
 
 ```
 
+## AWS Secrets Manager:
+
+
+## AWS Systems Manager /Parameter Store:
+
 
 ## Athena vs Macie
 
@@ -2594,8 +2634,8 @@ THis is a second line in the document.
 
 ### Kinesis Firehose:
 * It is Amazon's data-ingestion product.
-* It is used to capture and load streaming data into other AWS services
-  like S3 and Redshift.
+* It is used to capture and load streaming data into other AWS services like S3 and
+  Redshift.
 * Clients write data to stream using API call and data is automatically sent
   to proper destination.
 * When configured to save to S3, firehose sends data directly to S3. for
@@ -2603,6 +2643,7 @@ THis is a second line in the document.
   executed to load data to Redshift.
 * Firehose can also write data to Elasticsearch, with option to back it up
   in S3.
+* There is not data persistence in Kinesis firehost.
 
 ### Kinesis Streams:
 * Capable of capturing large amounts of data from data producers and streaming
@@ -2611,9 +2652,23 @@ THis is a second line in the document.
   data across number of shards.
 * The processing is then executed on consumers which read data from shards
   and run the kinesis stream application.
+* Allows you to persistently store your data for 24 hrs up to 7 days.
+* Kineshis streams consists of shards:
+  - 5 transactions per second for reads, up to a max total data read rate of
+    2 MB per second and up to, 1000 records per second for writes, up to a max
+    total data write rate of 1 MB per second (including partition keys)
+
+Producers        Kinesis Streams         Consumers
+
+EC2 -----------> Shard  ------------->  EC2               DynamoDB, S3
+Mobile --------> Shard  ------------->  EC2      -------> EMR, Redshift 
+IOT    --------> Shard  ------------->  EC2
+
+
 
 ### Kinesis Analytics:
 * Enables you to analyze streaming data real time with Standard SQL.
+* Works with Firehose or streams.
 
 ## Amazon EMR:
 * Fully managed on-demand Hadoop framework.
@@ -2654,6 +2709,9 @@ THis is a second line in the document.
   compute and storage services and also on-premise data sources at specified
   intervals.
 * It is best for regular batch processes instead of continous data streams.
+
+
+## Web Identity Federation & Cognito
 
 
 ## OpsWorks:
@@ -2733,6 +2791,30 @@ THis is a second line in the document.
   * Troubleshooting
   * Security and Incident analysis
 
+## API Gateway:
+**What can it do?**
+  - Expose HTTPS endpoints to define a restful api.
+  - Serverless-ly connect to services like lambda and dynamodb.
+  - Send each API endpoint to a different target
+  - Run efficiently with low cost
+  - Scale effortlessly
+  - Track and control usage by API key.
+  - Throttle requests to prevent attacks
+  - Connect to cloudwatch to log all requests for monitoring.
+  - maintain multiple versions of api.
+
+### Same origin policy & CORS
+* In computing, the same-origin policy is an important concept in the web application
+  security model. Under the policy, a web browser permits scripts contained in a
+  first web page to access data in a second web page, but only if both web pages
+  have the same origin.
+* This is done to prevent cross-site scripting (XSS) attacks.
+* CORS is one way the server at the other end (not the client code in the browser),
+  can relax the same-origin policy.
+* Cross-Origin resource sharing (CORS) is a mechanism that allows restricted
+  resources on a web page to be requested from another domain outside the domain
+  from which the first resource was served.
+
 
 ## AWS WAF (web application firewall)
 * AWS WAF lets you monitor the HTTP and HTTPS requests that are forwarded to
@@ -2741,17 +2823,28 @@ THis is a second line in the document.
 * WAF allows 3 different behaviours:
   - Allow all requests except the ones you specify
   - Block all requests except the ones you specify
-  - Count the requests thatt match the properties you specify
+  - Count the requests that match the properties you specify
+* Configure filter rules to allow/deny traffic:
+  - IP address
+  - Query string parameters
+  - SQL query injection.
+  - Cross-site scripting attacks.
+
+## AWS Firewall manager
+* Centrally configure and manage firewall rules across an AWS organization.
+* Using Firewall manager you can deploy WAF rules for
+  - ALB, API Gateways, CLoudFront distributions.
+* YOu can also configure security grous for EC2 and ENIs.
 
 
-## Lambda
+
+## Serverless (Lambda):
+
 
 **Links**:
-http://docs.aws.amazon.com/lambda/latest/dg/welcome.html
-
-http://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
-
-http://docs.aws.amazon.com/lambda/latest/dg/limits.html
+* http://docs.aws.amazon.com/lambda/latest/dg/welcome.html
+* http://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
+* http://docs.aws.amazon.com/lambda/latest/dg/limits.html
 
 
 * Server-less way to run your application
@@ -2763,6 +2856,11 @@ http://docs.aws.amazon.com/lambda/latest/dg/limits.html
 * When the lambda function is invoked from another aws service, the invocation
   type is pre-determined.
 * languages supported: C#, Java, Node.js, Python.
+* Lambda billing is based on both, the MB of RAM reserved and the execution duration
+  in 100ms units.
+
+
+## Elastic Container Service (ECS):
 
 
 ## AWS EKS:
@@ -3162,5 +3260,60 @@ Know your goals, and define metrics to track progress
 * [Fedramp.gov](https://www.fedramp.gov/new-integrated-inventory-template/)
 
 
+---
+Followups:
+Basic (included for all AWS customers), Developer, Business, and Enterprise are the available AWS Support Plans. Reference: Compare AWS Support Plans.
+https://aws.amazon.com/premiumsupport/plans/
+
+
+The business support plan has a maximum response time of < 1 hour for "production system down" cases.
+
+VPC peering only routes traffic between source and destination VPCs. VPC peering does not support edge to edge routing. Reference: Unsupported VPC peering configurations.
+https://docs.aws.amazon.com/vpc/latest/peering/invalid-peering-configurations.html
+
+
+Dynamodb: When you request a strongly consistent read, DynamoDB returns a response with the most up-to-date data, reflecting the updates from all prior write operations that were successful. However, this consistency comes with some disadvantages such as read might not be available if there is a network delay or outage, higher latency than eventually consistent reads, global secondary indexes not supported, and use of more throughput capacity than eventually consistent reads.
+
+DynamoDB allows for the storage of large text and binary objects, but there is a limit of 400 KB.
+
+spot instances:
+Capacity Rebalancing helps you maintain workload availability by proactively augmenting your fleet with a new Spot Instance before a running Spot Instance receives the two-minute Spot Instance interruption notice. When Capacity Rebalancing is enabled, Auto Scaling or Spot Fleet attempts to proactively replace Spot Instances that have received a rebalance recommendation, providing the opportunity to rebalance your workload to new Spot Instances that are not at elevated risk of interruption. Capacity Rebalancing complements the capacity optimized allocation strategy (which is designed to help find the most optimal spare capacity) and the mixed instances policy (which is designed to enhance availability by deploying instances across multiple instance types running in multiple Availability Zones). Reference: Best practices for EC2 Spot.
+
+Allocation strategies in Auto Scaling groups help you to provision your target capacity without the need to manually look for the Spot Instance pools with spare capacity. AWS recommends using the capacity optimized strategy because this strategy automatically provisions instances from the most-available Spot Instance pools. You can also take advantage of the capacity optimized allocation strategy in Spot Fleet. Because your Spot Instance capacity is sourced from pools with optimal capacity, this decreases the possibility that your Spot Instances are reclaimed. Reference: Best practices for EC2 Spot.
+
+
+Placement groups:
+Spread placement groups have a specific limitation that you can only have a maximum of 7 running instances per Availability Zone and therefore this is the only correct option. Deploying instances in a single Availability Zone is unique to Cluster Placement Groups only and therefore is not correct. The last two remaining options are common to all placement group types and so are not specific to Spread Placement Groups.
+
+S3 URLs for accessing a bucket:
+Both Virtual-host-Style and Path-Style URLs are supported, but path-style URLs will be eventually deprecated in favor of virtual hosted-style URLs for S3 bucket access. DNS compliant names are also recommended.
+
+Reference: Virtual hosting of buckets.
+
+Both virtual-host-style and Path-Style URLs are supported, but path-style URLs will be eventually deprecated in favor of virtual hosted-style URLs for S3 bucket access. DNS compliant names are also recommended.
+
+Reference: Virtual hosting of buckets.
+
+Path-Style URLs will be eventually deprecated. Virtual-host-style URLs are strongly recommended.
+
+Reference: Amazon S3 Path Deprecation Plan – The Rest of the Story.
+https://aws.amazon.com/blogs/aws/amazon-s3-path-deprecation-plan-the-rest-of-the-story/
+https://docs.aws.amazon.com/AmazonS3/latest/userguide/VirtualHosting.html
+
+
+Storage gateways and file gateways:
+
+File gateway provides access to objects in S3 as files or file share mount points. A file gateway simplifies file storage in Amazon S3, integrates to existing applications through industry-standard file system protocols, and provides a cost-effective alternative to on-premises storage. Reference: What is AWS Storage Gateway?.
+
+With cached volumes, you store your data in Amazon Simple Storage Service (Amazon S3) and retain a copy of frequently accessed data subsets locally. Cached volumes offer a substantial cost savings on primary storage and minimize the need to scale your storage on-premises. You also retain low-latency access to your frequently accessed data. Reference: What is AWS Storage Gateway?.
+
+
+SQS:
+When a consumer receives and processes a message from a queue, the message remains in the queue. Amazon SQS doesn't automatically delete the message. To prevent other consumers from processing the message again, Amazon SQS sets a visibility timeout, a period of time during which Amazon SQS prevents other consumers from receiving and processing the message. The visibility timeout begins when Amazon SQS returns a message. During this time, the consumer processes and deletes the message. However, if the consumer fails before deleting the message and your system doesn't call the DeleteMessage action for that message before the visibility timeout expires, the message becomes visible to other consumers and the message is received again. If a message must be received only once, your consumer should delete it within the duration of the visibility timeout.
+
+Standard queues support at-least-once message delivery. However, occasionally (because of the highly distributed architecture that allows nearly unlimited throughput), more than one copy of a message might be delivered out of order.
+
+
 
 ....
+
