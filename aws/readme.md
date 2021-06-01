@@ -2308,27 +2308,39 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 
 
 ## Storage Gateway:
+
+[Storage gateway FAQ](https://aws.amazon.com/storagegateway/faqs/)
 * Connects on-premise software appliance with cloud based storage.
 * Provides seamless integration with data security between your data center
   and AWS storage infrastructure.
+* AWS storage gateway offers 
+  - file-based file gateways (Amazon S3 File & Amazon FSx File)
+  - Volume based (cached and stored)
+  - tape-based storage solutions
 
-### File Gateway:
+
+### S3 File Gateway:
 * Adds to the users current block-based volume and VTL storage.
 * Provides access to objects in S3 as files on NFS mount point.
 *  It combines a service and virtual software appliance.
-* The appliance/gateway is deployed on the premise on a VMWare ESXi.
-  The gateway provides access to S3 objects as NFS mounted files.
+* The appliance/gateway is deployed on the premise on a VMWare ESXi, Microsoft
+  hyper-V or KVM.
+* The gateway provides access to S3 objects as NFS mounted files.
 * With File gateway you can:
   * Store and retrieve files directly using NFS 3 or 4.1 protocol.
   * Access your data directly in S3 from any cloud application or service.
   * Manage your data in S3 using lifecycle policies, cross origin replication
     and versioning.
-* It also provides low latency access to data through transparent local
-  caching.
+* It also provides low latency access to data through transparent local caching.
 * Maximum number of file shares/S3 bucket is 1. There isa 1-to-1 mapping
   between a file share and S3 bucket.
 * maximum number of file shares per gateway is 10.
 * Maximum file size is 5 TB (same as the limit for S3.)
+
+### Amazon FSx File Gateway
+* Enables you to sotre and retrieve files in Amazon FSx for windows file server
+  using SMB protocol.
+
 
 ### Volume gateway:
 * Provides cloud backed storage volumes that you can mount as iSCSI devices
@@ -2643,7 +2655,7 @@ THis is a second line in the document.
   executed to load data to Redshift.
 * Firehose can also write data to Elasticsearch, with option to back it up
   in S3.
-* There is not data persistence in Kinesis firehost.
+* There is not data persistence in Kinesis firehose.
 
 ### Kinesis Streams:
 * Capable of capturing large amounts of data from data producers and streaming
@@ -2717,13 +2729,12 @@ IOT    --------> Shard  ------------->  EC2
 ## OpsWorks:
 * A configuration management service that helps you configure and operate
   applications using Chef.
-* Can work with any application, and is independent of any architectural
-  patterns.
-* You can define an application's architecture and specification of each
-  component, including package installation, configuration and resources
-  such as storage.
+* Can work with any application, and is independent of any architectural patterns.
+* You can define an application's architecture and specification of each component,
+  including package installation, configuration and resources such as storage.
 * Supports both linux and windows servers, including exisitng EC2 instances and
   servers running in private data center.
+* OpsWorks for puppet enterprise lets you create AWS managed puppet master servers.
 
 
 ## AWS Cloudformation:
@@ -3312,6 +3323,114 @@ SQS:
 When a consumer receives and processes a message from a queue, the message remains in the queue. Amazon SQS doesn't automatically delete the message. To prevent other consumers from processing the message again, Amazon SQS sets a visibility timeout, a period of time during which Amazon SQS prevents other consumers from receiving and processing the message. The visibility timeout begins when Amazon SQS returns a message. During this time, the consumer processes and deletes the message. However, if the consumer fails before deleting the message and your system doesn't call the DeleteMessage action for that message before the visibility timeout expires, the message becomes visible to other consumers and the message is received again. If a message must be received only once, your consumer should delete it within the duration of the visibility timeout.
 
 Standard queues support at-least-once message delivery. However, occasionally (because of the highly distributed architecture that allows nearly unlimited throughput), more than one copy of a message might be delivered out of order.
+
+---
+You have been engaged by a company to design and lead the migration to an AWS environment. An argument has broken out about how to meet future Backup & Archive requirements and how to transition. The Security Manager and CTO are concerned about backup continuity and the ability to continue to access old tape archives. The Senior engineer is adamant that there is no way to retain the old backup solution in the AWS environment, and that they will lose access to all the current archives. What information can you share that will satisfy both parties in a cost-effective manner?
+
+Sorry!
+AWS Import/Export is a service you can use to transfer large amounts of data from physical storage devices into AWS. You mail your portable storage devices to AWS and AWS Import/Export transfers data directly off of your storage devices using Amazon's high-speed internal network. It wouldn't help to manage legacy data and data formats.
+
+Correct Answer
+Any migration project needs to consider how to manage legacy data and data formats. This includes backup and archives. A 3rd party archive service is viable, but would be an ongoing expense. Storage Gateway can be used to efficiently move data into AWS. Old tapes could either be restored to the Storage Gateway volume, or migrated to Virtual tapes inside AWS using Tape Gateway.
+
+
+---
+Following advice from your consultant, you have configured your VPC to use dedicated hosting tenancy. Your VPC has an Amazon EC2 Auto Scaling designed to launch or terminate Amazon EC2 instances on a regular basis, in order to meet workload demands. A subsequent change to your application has rendered the performance gains from dedicated tenancy superfluous, and you would now like to recoup some of these greater costs. How do you revert to default hosting tenancy?​
+
+You can change the instance tenancy attribute of a VPC from dedicated to default. Modifying the instance tenancy of the VPC does not affect the tenancy of any existing instances in the VPC. The next time you launch an instance in the VPC, it has a tenancy of default, unless you specify otherwise during launch. You can modify the instance tenancy attribute of a VPC using the AWS CLI, an AWS SDK, or the Amazon EC2 API only. Reference: Change the tenancy of a VPC.
+
+
+what is cold attach
+
+NACL Rule processing
+
+Your company is storing highly sensitive data in S3 Buckets. The data includes personal and financial information. An audit has determined that this data must be stored in a secured manner and any data stored in the buckets already or data coming into the buckets must be analyzed and alerts sent out flagging improperly stored data. Which AWS service can be used to meet this requirement?
+
+
+AWS GuardDuty
+
+
+AWS Trusted Advisor
+
+
+AWS Inspector
+
+
+Amazon Macie
+
+
+
+
+
+Your company is slowly migrating to the cloud and is currently in a hybrid environment. The server team has been using Puppet for deployment automations. The decision has been made to continue using Puppet in the AWS environment if possible. If possible, which AWS service provides integration with Puppet?
+
+
+Elastic Beanstalk
+
+
+AWS OpsWorks
+
+
+This is not possible. The AWS Developer Tools suite can handle automations.
+
+
+CloudFormation
+
+
+
+
+
+Your team has provisioned multiple Auto Scaling Groups in a single Availability Zone. The Auto Scaling Groups at max capacity would total 40 EC2 instances between them. However, you notice that the Auto Scaling Groups will only scale out to a total of 20 instances at any one time. What could be the problem?
+
+
+There is a vCPU-based on-demand instance limit per region.
+
+
+You can only have 20 instances per Availability Zone.
+
+
+The associated load balancer can only serve 20 instances at one time.
+
+
+You can only have 20 instances per region. This is a hard limit.
+
+
+
+
+
+A small startup company has begun using AWS for all of its IT infrastructure. The company has two AWS Solutions Architects, and they are very proficient with AWS deployments. They want to choose a deployment service that best meets the given requirements. Those requirements include version control of their infrastructure documentation and granular control of all of the services to be deployed. Which AWS service would best meet these requirements?
+
+
+CloudFormation
+
+
+Terraform
+
+
+OpsWorks
+
+
+Elastic Beanstalk
+
+
+
+Your company is using a hybrid configuration because there are some legacy applications which are not easily converted and migrated to AWS. And with this configuration comes a typical scenario where the legacy apps must maintain the same private ip address and MAC address. You are attempting to convert the application to the Cloud and have configured an EC2 instance to house the application. What you are currently testing is removing the ENI from the legacy instance and attaching it to the EC2 instance. You want to attempt a warm attach. What does this mean?
+
+
+Attach the ENI to an instance when it's running.
+
+
+Attach the ENI before the public IP address is assigned.
+
+
+Attach the ENI to an instance when it is stopped.
+
+
+Attach the ENI when the instance is being launched.
+
+
+
+
 
 
 
