@@ -21,7 +21,7 @@
 * [Cost of cloud, a trillion dollar paradox](https://a16z.com/2021/05/27/cost-of-cloud-paradox-market-cap-cloud-lifecycle-scale-growth-repatriation-optimization/)
 * [Open platform for building developer portals](https://backstage.io/)
 * [S3 FAQs](https://aws.amazon.com/s3/faqs/)
-
+* [Best practices for configuring n/w interfaces](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/best-practices-for-configuring-network-interfaces.html)
 
 **Benchmarking**:
 * [Tool for benchmarking EC2/S3 throughput](https://github.com/dvassallo/s3-benchmark)
@@ -1432,6 +1432,8 @@ http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GuidelinesForTab
   DynamoDB will adjust the internal Partitioning accordingly.
 * DynamoDB provides HA and durability by replicating data across multiple AZs
   within an AWS Region.
+* Usecases for Dynamodb include storing metadata for S3 objects, json objects,
+  managing web session data.
 
 ### Data Model:
 * **Main components of DynamoDB are**:
@@ -2689,6 +2691,8 @@ IOT    --------> Shard  ------------->  EC2
   * Number of nodes in the cluster
   * Version of Hadoop to run
   * Additional tools or applications like Hive, Pig, Spark or Presto.
+* You can use EMR with a customized version of hive with connectivity to DynamoDB
+  to perform operations on data stored in DynamoDB.
 
 * Storage types when using EMR:
 **Hadoop Distributed File System (HDFS)**
@@ -3320,7 +3324,17 @@ With cached volumes, you store your data in Amazon Simple Storage Service (Amazo
 
 
 SQS:
-When a consumer receives and processes a message from a queue, the message remains in the queue. Amazon SQS doesn't automatically delete the message. To prevent other consumers from processing the message again, Amazon SQS sets a visibility timeout, a period of time during which Amazon SQS prevents other consumers from receiving and processing the message. The visibility timeout begins when Amazon SQS returns a message. During this time, the consumer processes and deletes the message. However, if the consumer fails before deleting the message and your system doesn't call the DeleteMessage action for that message before the visibility timeout expires, the message becomes visible to other consumers and the message is received again. If a message must be received only once, your consumer should delete it within the duration of the visibility timeout.
+* When a consumer receives and processes a message from a queue, the message remains 
+ in the queue. Amazon SQS doesn't automatically delete the message. To prevent other 
+ consumers from processing the message again, Amazon SQS sets a visibility timeout, 
+ a period of time during which Amazon SQS prevents other consumers from receiving and 
+ processing the message. The visibility timeout begins when Amazon SQS returns a message. 
+ During this time, the consumer processes and deletes the message. However, if the 
+ consumer fails before deleting the message and your system doesn't call the 
+ DeleteMessage action for that message before the visibility timeout expires, 
+ the message becomes visible to other consumers and the message is received again. 
+ If a message must be received only once, your consumer should delete it within the 
+ duration of the visibility timeout.
 
 Standard queues support at-least-once message delivery. However, occasionally (because of the highly distributed architecture that allows nearly unlimited throughput), more than one copy of a message might be delivered out of order.
 
@@ -3430,9 +3444,28 @@ Attach the ENI when the instance is being launched.
 
 
 
+## Uncategorized.
+
+* You can attach network interface to an instance when:
+  - its running (hot attach)
+  - it's stopped (warm attach)
+  - when it is being launched (cold attach)
+
+* You cannot detach primary n/w interface.
+* You can detach secondary n/w interface when instance is running or stopped.
+* You can move a n/w interface from one instance to another, if the instances are
+  in the same AZ and VPC but in different subnets.
 
 
+* A setup where you have an DR region up and running along side an active one, is
+  following a *Multi-site* deployment patter.
 
+* Each subnet in your VPC must be associated with a network ACL. If you don't 
+  explicitly associate a subnet with a network ACL, the subnet is automatically
+  associated with the default network ACL.
 
+* Cannot create an lias with a CNAME record set at the zone apex.
+
+DIff bettween kinesis firehost kinesis streams, analytics
 ....
 

@@ -119,3 +119,10 @@ aws ec2 describe-volumes \
 ```
 
 
+## Calculate AWS S3 bucket size using cli:
+
+```
+   aws s3 ls s3://paperclip.coupahost.com/vailresorts.coupahost.com --recursive --human-readable --summarize
+
+```
+
