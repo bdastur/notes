@@ -22,6 +22,7 @@
 * [Open platform for building developer portals](https://backstage.io/)
 * [S3 FAQs](https://aws.amazon.com/s3/faqs/)
 * [Best practices for configuring n/w interfaces](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/best-practices-for-configuring-network-interfaces.html)
+* [Collection of useful tools and scripts](https://github.com/dannysteenman/aws-toolbox)
 
 **Benchmarking**:
 * [Tool for benchmarking EC2/S3 throughput](https://github.com/dvassallo/s3-benchmark)
