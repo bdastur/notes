@@ -334,12 +334,29 @@ dt2 = datetime.datetime.strptime(ltime, "%Y-%m-%dT%H:%M:%S+00:00")
 print(dt2)
 2015-10-30 21:54:39
 
-Increment datea/time
+Increment date/time
 ----------------------------------
 >>> print(now)
 datetime.datetime(2021, 5, 21, 6, 45, 54, 716136)
 newtime = now + datetime.timedelta(hours=10)
 >>> print(newtime)
 2021-05-21 16:45:54.716136
+
+Convert date to timestamp
+-------------------------
+>>> sdt = "2021-04-30"
+>>> date = datetime.datetime.strptime(sdt, "%Y-%m-%d")
+>>> stamp = date.timestamp()
+>>> print(stamp)
+1619766000.0
+
+Convert timestamp to date
+-------------------------
+>>> ut = 1619820000
+>>> date = datetime.datetime.utcfromtimestamp(ut)
+>>> print(date)
+2021-04-30 22:00:00
+
+
 
 ```
