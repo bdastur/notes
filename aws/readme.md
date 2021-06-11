@@ -2878,6 +2878,40 @@ IOT    --------> Shard  ------------->  EC2
   in 100ms units.
 
 
+### Creating a Lamda layer with python.
+
+Lambda layers need to follow a specific [directory structure](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html). 
+The PATH variable includes specific folders in the /opt directory. If you define the
+same folder structure in your layer .zip file, your function code can access the layer
+content without the need to specify the path.
+
+For python : python
+
+#### Creating a zip file for the layer
+```
+mkdir tempdir
+cd tempdir
+python3 -m venv python
+source ./python/bin/activate
+pip3 install requests
+zip -r py38_layer.zip python
+```
+
+#### Creating or updating a lambda layer.
+
+The same CLI works for creating a new layer or updating an existing layer. If the
+layer already exists, it's version will be bumped up by 1.
+
+```
+aws lambda publish-layer-version \
+    --layer-name py38_layer \
+    --compatible-runtimes python3.8 \
+    --zip-file fileb://py38_layer.zip \
+    --profile test
+
+```
+
+
 ## Elastic Container Service (ECS):
 
 
