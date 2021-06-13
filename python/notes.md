@@ -73,6 +73,7 @@ Python tools:
 * [Opensource  continuous profiling tool](https://pyroscope.io/)
 * [Python3 venv - creating virtual environments](https://docs.python.org/3/library/venv.html)
 * [Open source library for making user interfaces/ui](https://kivy.org/#home)
+* [Python API for Google sheets](https://docs.gspread.org/en/latest/)
 
 ### command sample:
 
