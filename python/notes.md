@@ -74,6 +74,8 @@ Python tools:
 * [Python3 venv - creating virtual environments](https://docs.python.org/3/library/venv.html)
 * [Open source library for making user interfaces/ui](https://kivy.org/#home)
 * [Python API for Google sheets](https://docs.gspread.org/en/latest/)
+* [Tool that computes cyclomatic complexity, SLOC, maintainability index from source code](https://pypi.org/project/radon/)
+* [A command-line app for tracking complexity of python apps](https://github.com/tonybaloney/wily)
 
 ### command sample:
 
