@@ -76,6 +76,9 @@ Python tools:
 * [Python API for Google sheets](https://docs.gspread.org/en/latest/)
 * [Tool that computes cyclomatic complexity, SLOC, maintainability index from source code](https://pypi.org/project/radon/)
 * [A command-line app for tracking complexity of python apps](https://github.com/tonybaloney/wily)
+* [An Efficient Framework For High Fidelity Face Swapping](https://github.com/neuralchen/SimSwap)
+* [Manage feature flags](https://github.com/Flagsmith/flagsmith)
+* [RQ (Redis Queue) library for queueing and processing jobs](https://python-rq.org/)
 
 ### command sample:
 
