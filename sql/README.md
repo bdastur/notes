@@ -1,5 +1,7 @@
 # SQL Notes.
 
+* [Good sql notes](https://github.com/vasudeveloper001/completesql/blob/main/sql_notes.md)
+
 ## SQLITE3.
 
 ### Show tables.
