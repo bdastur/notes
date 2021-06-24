@@ -26,6 +26,8 @@
 * [Blog by Corey - Multicloud practice pitfalls](https://www.lastweekinaws.com/blog/multi-cloud-is-the-worst-practice/)
 * [AWS Well architected labs](https://wellarchitectedlabs.com/operational-excellence/100_labs/100_inventory_patch_management/)
 * [AWS Cost - trends dashboard with Athena](https://aws.amazon.com/blogs/aws-cost-management/trends-dashboard-with-aws-cost-and-usage-reports-amazon-athena-and-amazon-quicksight/)
+* [Cost explore API example](https://medium.com/@devops_83824/report-your-aws-costs-programmatically-using-the-cost-explorer-api-aa8dc0f9d8f1)
+
 **Benchmarking**:
 * [Tool for benchmarking EC2/S3 throughput](https://github.com/dvassallo/s3-benchmark)
 * [EC2 instance connect](https://github.com/glassechidna/ec2connect)

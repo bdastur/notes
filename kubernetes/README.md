@@ -46,6 +46,7 @@ docker push $REGISTRY/alpine:0.1
 * [CD.Foundation Projects (Jenkins, Tekton,..)](https://cd.foundation/projects/)
 * [Tekton K8s CI/CD](https://github.com/tektoncd)
 * [Kubernetes desktop client - visualization](https://docs.infra.app/)
+* [Opensource cloud native registry for docker images and helm charts](https://github.com/goharbor/harbor)
 
 
 
