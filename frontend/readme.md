@@ -43,6 +43,9 @@ http://holderjs.com/
 * [Bable JSX to JS converter (Click 'Try it out' at the top menu](https://babeljs.io/)
 * [Understanding JavaScript Function Invocation and "this"](https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/)
 
+## Javascript
+* [A great repo for Javascript algorithms](https://github.com/trekhleb/javascript-algorithms)
+
 ## Bootstrap 3:
 
 ### Containers:
