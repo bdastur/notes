@@ -122,7 +122,52 @@ aws ec2 describe-volumes \
 ## Calculate AWS S3 bucket size using cli:
 
 ```
-   aws s3 ls s3://paperclip.coupahost.com/vailresorts.coupahost.com --recursive --human-readable --summarize
+   aws s3 ls s3://xyz.acmecorp.com/xyz.acmecorp.com --recursive --human-readable --summarize
 
 ```
+
+## Get AWS Cloudwatch metrics.
+
+### Get Duration for a specific lambda function.
+
+create a cli input json file as below:
+```
+   {
+    "MetricDataQueries": [
+        {
+            "Id": "myRequest",
+            "MetricStat": {
+                "Metric": {
+                    "Namespace": "AWS/Lambda",
+                    "MetricName": "Duration",
+                    "Dimensions": [
+                        {
+                            "Name": "FunctionName",
+                            "Value": "HelloWorld"
+                        }
+                    ]
+                },
+                "Period": 3600,
+                "Stat": "Average",
+                "Unit": "Milliseconds"
+            },
+            "Label": "myRequestLabel",
+            "ReturnData": true
+        }
+    ],
+    "StartTime": "2021-06-10T10:40:0000",
+    "EndTime": "2021-06-23T14:12:0000"
+}
+
+```
+
+Execute cli:
+```
+   aws cloudwatch get-metric-data --cli-input-json file://cw_metric.json --profile test
+
+```
+
+
+
+
 
