@@ -134,7 +134,7 @@ def get_cost_by_c_role(ce):
     filter = {
         "Tags": {
             "Key": "c_role",
-            "Values": ["coupa_etcd"]
+            "Values": ["test_etcd"]
         }
     }
     options = {
