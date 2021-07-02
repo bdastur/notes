@@ -38,7 +38,7 @@
 
 * [AWS Reinvent: Become an IAM Policy Master](https://www.youtube.com/watch?v=YQsK4MtsELU)
 * [AWS Reinvent: Getting started with AWS identity](https://www.youtube.com/watch?v=Zvz-qYYhvMk)
-
+* [Okta AWS CLI Tool](https://github.com/jmhale/okta-awscli)
 
 ### How to generate IAM credentials report.
 ```
