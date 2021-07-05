@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>p5.js example</title>
+  <style>
+    body {
+      padding: 5;
+      margin: 5;
+    }
+  </style>
+  <script src="/static/js/thirdparty/p5.min.js"></script>
+</head>
+
+<body>
+  <h2>p5.js Examples:</h2>
+  <br>
+  <ul>
+    {% for url, endpoint in links %}
+    <li><a href="{{ url }}">{{ endpoint }}</a></li>
+    {% endfor %}
+  </ul>
+</body>
+
+</html>
