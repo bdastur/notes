@@ -123,5 +123,5 @@ python/diagram/webservice.png
 **.terraform
 *.tfstate
 *.tfstate.backup
-
+*.vscode
 
