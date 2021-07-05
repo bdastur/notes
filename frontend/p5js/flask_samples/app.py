@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 
-from flask import (Flask, request, jsonify, session, render_template, url_for)
+from flask import (Flask,
+                   render_template)
 import random
 
 
@@ -17,13 +18,18 @@ def handle_index():
         if rule.endpoint == "static":
             continue
         links.append((rule.rule, rule.rule))
-    
+
     return render_template("index.html", links=links)
 
 
 @app.route("/instance_mode")
 def handle_instance_mode():
     return (render_template("instance_mode.html"))
+
+
+@app.route("/shapes")
+def handle_shapes():
+    return(render_template("shapes.html"))
 
 
 def main():
