@@ -32,6 +32,16 @@ def handle_shapes():
     return(render_template("shapes.html"))
 
 
+@app.route("/custom_shapes")
+def handle_custom_shapes():
+    return(render_template("custom_shapes.html"))
+
+
+@app.route("/mouse_moves")
+def handle_mouse_moves():
+    return(render_template("mouse_moves.html"))
+
+
 def main():
     app.run(host='127.0.0.1', port=5001, debug=True)
 
