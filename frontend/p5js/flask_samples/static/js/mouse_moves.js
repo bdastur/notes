@@ -98,7 +98,7 @@ let myp5Container3 = new p5((sketch) => {
     y += (targetY - y) * easing;
 
     sketch.ellipse(x, y, 12, 12);
-    sketch.print(targetX + " : " + x);
+    //sketch.print(targetX + " : " + x);
   };
 
   // Create a function to draw a custom shape.
@@ -120,3 +120,46 @@ let myp5Container3 = new p5((sketch) => {
   }
 
 }, div3);
+
+
+var div4 = document.getElementById("sketch4");
+let myp5Container4 = new p5((sketch) => {
+
+  let canvasWidth = 400;
+  let canvasHeight = 300;
+  let x = 40;
+  let y = 80;
+  let toggle = false;
+
+  sketch.setup = () => {
+    sketch.createCanvas(canvasWidth, canvasHeight);
+    sketch.textSize(24);
+    sketch.textAlign(sketch.CENTER);
+    sketch.stroke(255);
+    sketch.fill(255);
+    sketch.background(0);
+  };
+
+  sketch.keyReleased = () => {
+    sketch.print("Key Release Key: " + sketch.key + ", x, y: " + x + " , " + y);
+    toggle = false;
+  }
+
+  sketch.draw = () => {
+    
+    if (sketch.keyIsPressed && !toggle) {
+      if (sketch.keyCode != sketch.SHIFT && 
+          sketch.keyCode != sketch.BACKSPACE && sketch.keyCode != sketch.ENTER) { 
+        sketch.text(sketch.key, x, y);
+      }
+      sketch.print("Key: " + sketch.key + ", x, y: " + x + " , " + y);
+      x = x + 14;
+      if (sketch.width -x < 10) {
+        x = 10;
+        y = y + 22;
+      }
+      toggle = true;
+    }
+  }
+
+}, div4);
