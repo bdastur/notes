@@ -47,7 +47,8 @@ docker push $REGISTRY/alpine:0.1
 * [Tekton K8s CI/CD](https://github.com/tektoncd)
 * [Kubernetes desktop client - visualization](https://docs.infra.app/)
 * [Opensource cloud native registry for docker images and helm charts](https://github.com/goharbor/harbor)
-
+* [Kubectl Krew - plugin manager](https://krew.sigs.k8s.io/)
+* [Kubernetes essential tools - 2021](https://itnext.io/kubernetes-essential-tools-2021-def12e84c572)
 
 
 * https://github.com/karmab/samplecontroller
