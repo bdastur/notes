@@ -42,6 +42,14 @@ def handle_mouse_moves():
     return(render_template("mouse_moves.html"))
 
 
+@app.route("/objects")
+def handle_objects_examples():
+    return(render_template("objects.html"))
+
+@app.route("/translate")
+def handle_translate():
+    return(render_template("translate.html"))
+
 def main():
     app.run(host='127.0.0.1', port=5001, debug=True)
 
