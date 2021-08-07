@@ -50,6 +50,7 @@ docker push $REGISTRY/alpine:0.1
 * [Kubectl Krew - plugin manager](https://krew.sigs.k8s.io/)
 * [Kubernetes essential tools - 2021](https://itnext.io/kubernetes-essential-tools-2021-def12e84c572)
 * [Mizu - kubernetes traffic viewer tool](https://up9.com/traffic-viewer-kubernetes)
+* [Kubernetes prompt for bash and zsh](https://github.com/jonmosco/kube-ps1)
 
 
 * https://github.com/karmab/samplecontroller
@@ -759,6 +760,25 @@ minikube start --memory=$MEMORY --cpus=$CPU --kubernetes-version=$KUBE_VERSION \
     --vm-driver=`$VMDRIVER`
 ```
 
+## Setting up kubernetes prompt
+
+* Copy the [kube-ps1.sh ](https://github.com/jonmosco/kube-ps1) script to a
+  location on your mac.
+* Add the following to your `.bashrc` or `.zshrc` file
+
+(in this case I have saved the kube-ps1.sh as `/tools/kube_ps1.sh`
+```
+export KUBECONFIG="$HOME/.kube/prodconfig"
+source ~/tools/kube_ps1.sh
+export PROMPT='$(kube_ps1)'$PROMPT
+```
+
+Now you should see the kubernetes context and namespace in your prompt
+```
+(⎈ |oresimpl:default)√[behzad.dastur] ~/.scylla %~> 
+```
+
+You can turn this on and off using `kubeon/kubeoff`
 
 
 
