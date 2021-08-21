@@ -1296,7 +1296,7 @@ Supported record types:
 * 2 copies of your data are contained in each AZ, with minimum of 3 AZs. 6 copies of
   your data.
 * You can share Aurora snapshots with other AWS accounts.
-* Automated backups turned on by default. 
+* Automated backups turned on by default.
 * Use Aurora serverless if you want a simple, cost-effective option for infrequent,
   intermittend or unpredicable workloads.
 
@@ -2320,7 +2320,7 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/aws_volume_helper.py?AWSAccess
 * Connects on-premise software appliance with cloud based storage.
 * Provides seamless integration with data security between your data center
   and AWS storage infrastructure.
-* AWS storage gateway offers 
+* AWS storage gateway offers
   - file-based file gateways (Amazon S3 File & Amazon FSx File)
   - Volume based (cached and stored)
   - tape-based storage solutions
@@ -2680,7 +2680,7 @@ THis is a second line in the document.
 Producers        Kinesis Streams         Consumers
 
 EC2 -----------> Shard  ------------->  EC2               DynamoDB, S3
-Mobile --------> Shard  ------------->  EC2      -------> EMR, Redshift 
+Mobile --------> Shard  ------------->  EC2      -------> EMR, Redshift
 IOT    --------> Shard  ------------->  EC2
 
 
@@ -2882,7 +2882,7 @@ IOT    --------> Shard  ------------->  EC2
 
 ### Creating a Lamda layer with python.
 
-Lambda layers need to follow a specific [directory structure](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html). 
+Lambda layers need to follow a specific [directory structure](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
 The PATH variable includes specific folders in the /opt directory. If you define the
 same folder structure in your layer .zip file, your function code can access the layer
 content without the need to specify the path.
@@ -2909,9 +2909,25 @@ aws lambda publish-layer-version \
     --layer-name py38_layer \
     --compatible-runtimes python3.8 \
     --zip-file fileb://py38_layer.zip \
-    --profile test
+    --profile test \
+    --region us-west-2
 
 ```
+
+#### Listing lamda layers:
+
+```
+aws lambda list-layers --profile dev1 --region us-west-2
+```
+
+#### Deleting lambda layers.
+You will need to delete all versions of the lambda layer.
+```
+aws lambda delete-layer-version --layer-name py38_layer --version-number 3 --profile dev1 --region us-west-2
+aws lambda delete-layer-version --layer-name py38_layer --version-number 2 --profile dev1 --region us-west-2
+aws lambda delete-layer-version --layer-name py38_layer --version-number 1 --profile dev1 --region us-west-2
+```
+
 
 
 ## Elastic Container Service (ECS):
@@ -3363,16 +3379,16 @@ With cached volumes, you store your data in Amazon Simple Storage Service (Amazo
 
 
 SQS:
-* When a consumer receives and processes a message from a queue, the message remains 
- in the queue. Amazon SQS doesn't automatically delete the message. To prevent other 
- consumers from processing the message again, Amazon SQS sets a visibility timeout, 
- a period of time during which Amazon SQS prevents other consumers from receiving and 
- processing the message. The visibility timeout begins when Amazon SQS returns a message. 
- During this time, the consumer processes and deletes the message. However, if the 
- consumer fails before deleting the message and your system doesn't call the 
- DeleteMessage action for that message before the visibility timeout expires, 
- the message becomes visible to other consumers and the message is received again. 
- If a message must be received only once, your consumer should delete it within the 
+* When a consumer receives and processes a message from a queue, the message remains
+ in the queue. Amazon SQS doesn't automatically delete the message. To prevent other
+ consumers from processing the message again, Amazon SQS sets a visibility timeout,
+ a period of time during which Amazon SQS prevents other consumers from receiving and
+ processing the message. The visibility timeout begins when Amazon SQS returns a message.
+ During this time, the consumer processes and deletes the message. However, if the
+ consumer fails before deleting the message and your system doesn't call the
+ DeleteMessage action for that message before the visibility timeout expires,
+ the message becomes visible to other consumers and the message is received again.
+ If a message must be received only once, your consumer should delete it within the
  duration of the visibility timeout.
 
 Standard queues support at-least-once message delivery. However, occasionally (because of the highly distributed architecture that allows nearly unlimited throughput), more than one copy of a message might be delivered out of order.
@@ -3499,7 +3515,7 @@ Attach the ENI when the instance is being launched.
 * A setup where you have an DR region up and running along side an active one, is
   following a *Multi-site* deployment patter.
 
-* Each subnet in your VPC must be associated with a network ACL. If you don't 
+* Each subnet in your VPC must be associated with a network ACL. If you don't
   explicitly associate a subnet with a network ACL, the subnet is automatically
   associated with the default network ACL.
 
