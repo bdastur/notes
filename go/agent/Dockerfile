@@ -40,7 +40,7 @@ RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh -o insta
 RUN bash install.sh
 
 RUN wget https://github.com/Masterminds/glide/releases/download/v0.13.2/glide-v0.13.2-linux-amd64.tar.gz
-
+RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.42.0
 
 RUN go get "github.com/fzipp/gocyclo" && \
     go get -u "golang.org/x/lint/golint" && \
