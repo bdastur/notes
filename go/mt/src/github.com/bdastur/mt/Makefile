@@ -6,7 +6,7 @@ OS := $(shell uname -s | tr A-Z a-z)
 GOOS := $(OS)
 PKG := $(shell echo $$PKG)
 
-BUILD_IMAGE ?= gobuildagent:0.1
+BUILD_IMAGE ?= bdastur/gobuildagent:0.1
 
 
 
