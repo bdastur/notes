@@ -31,15 +31,15 @@ ENV GOPATH "/go"
 ENV GOBIN "$GOPROJPATH/bin"
 ENV PATH=$PATH:$GOBIN:/usr/local/go/bin
 
-
-RUN wget https://dl.google.com/go/go1.11.5.linux-amd64.tar.gz
-RUN tar -C /usr/local -xzf go1.11.5.linux-amd64.tar.gz
+RUN wget https://golang.org/dl/go1.17.linux-amd64.tar.gz
+RUN tar -C /usr/local -xzf go1.17.linux-amd64.tar.gz
 
 #RUN wget https://github.com/golang/dep/releases/download/v0.5.0/dep-linux-amd64 -o dep && chmod +x dep
-RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh -o install.sh
-RUN bash install.sh
+#RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh -o install.sh
+#RUN bash install.sh
+#RUN wget https://github.com/Masterminds/glide/releases/download/v0.13.2/glide-v0.13.2-linux-amd64.tar.gz
 
-RUN wget https://github.com/Masterminds/glide/releases/download/v0.13.2/glide-v0.13.2-linux-amd64.tar.gz
+# Golangci-lint linter.
 RUN curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.42.0
 
 RUN go get "github.com/fzipp/gocyclo" && \

@@ -1,2 +1,2 @@
 build: Dockerfile
-	docker build --tag gobuildagent:0.1 .
+	docker build --tag bdastur/gobuildagent:0.1 .
