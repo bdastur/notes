@@ -96,6 +96,12 @@ LABEL application="example" OS="AL2"
   runs the container, about which ports are intended to be published.
 
 
+## ENV
+* Allows you to set a variable <key> to a <vaule>. This value will be in the environment
+for all subsquent instructions in the build stage. The ENV will persist when a 
+container is run from the resulting image
 
+* Difference between ENV and ARG is that ARG <value> is only available during the build
+  stage and is not persisted in the final image.
 
 
