@@ -41,6 +41,10 @@ resource "aws_iam_role_policy_attachment" "lamba_role_policy_attachment" {
     role       = aws_iam_role.iam_lambda_role.name
 }
 
+data "aws_lambda_layer_version" "py38_layer" {
+    layer_name = "py38_layer"
+}
+
 
 resource "aws_lambda_function" "hello_example" {
     filename = "code/hello_example.zip"
@@ -58,6 +62,7 @@ resource "aws_lambda_function" "hello_example" {
         }
     }
     tags = var.tags
+    layers = [data.aws_lambda_layer_version.py38_layer.arn]
 }
 
 
