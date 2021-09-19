@@ -7,6 +7,7 @@
 * [Terratest - terraform testing framework](https://terratest.gruntwork.io/docs/getting-started/quick-start/)
 * [Static analysis of terraform templates to spot security issues](https://github.com/aquasecurity/tfsec)
 * [Collection of git hooks for Terraform](https://github.com/antonbabenko/pre-commit-terraform)
+* [Terraform version manager](https://github.com/tfutils/tfenv)
 
 ## Variables:
 * Terraform automatically loads any variable definition files if they are
