@@ -36,6 +36,7 @@
 * [Terminal like website](https://hackernoon.com/how-to-make-a-terminal-like-portfolio-website-for-yourself-27d7a7030004)
 * [cross-shell prompt. customizable prompt](https://starship.rs/)
 * [change data capture tool](https://debezium.io/)
+* [How to set default github branch from master to main](https://stevenmortimer.com/5-steps-to-change-github-default-branch-from-master-to-main/)
 
 # Linux tips:
 
