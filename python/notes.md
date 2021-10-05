@@ -79,6 +79,7 @@ Python tools:
 * [An Efficient Framework For High Fidelity Face Swapping](https://github.com/neuralchen/SimSwap)
 * [Manage feature flags](https://github.com/Flagsmith/flagsmith)
 * [RQ (Redis Queue) library for queueing and processing jobs](https://python-rq.org/)
+* [Object explorer for terminal](https://github.com/kylepollina/objexplore)
 
 ### command sample:
 
