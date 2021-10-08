@@ -257,3 +257,5 @@ that are used to verify the authenticity of requests with form data.
 * [fullstack python flask](https://www.fullstackpython.com/flask.html)
 * [How to serve static files with python](https://stackoverflow.com/questions/20646822/how-to-serve-static-files-in-flask)
 * [Why do we pass name to flask class](https://blog.miguelgrinberg.com/post/why-do-we-pass-name-to-the-flask-class)
+* [Flask Sessions](https://testdriven.io/blog/flask-sessions/)
+
