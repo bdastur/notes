@@ -8,8 +8,6 @@ Guardrails Server:
 
 
 from flask import Flask, render_template, jsonify
-import prometheus_client
-import grail.awslibs.supportlib as talib
 
 
 app = Flask(__name__)
