@@ -19,6 +19,11 @@ def index():
     return render_template("main.html")
 
 
+@app.route("/app")
+def appHandler():
+    return render_template("test_app.html")
+
+
 
 def main():
     """Main Application"""
