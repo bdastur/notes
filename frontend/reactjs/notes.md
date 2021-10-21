@@ -81,7 +81,7 @@ ReactDOM.render(welcomeObj, document.getElementById("root"));
 ```
 
 
-### Updating React element (regular interval)
+## Updating React element (regular interval)
 here is an example of updating a text at regular intervals.
 
 ```
@@ -104,7 +104,7 @@ setInterval(tick, 3000);
 
 ```
 
-### Props.
+## Props.
 When you define a React element, you would notice that you can pass
 attributes to the element. In React this object is called  'Props'. It is
 the second argument of React.createElement() method.
@@ -133,7 +133,7 @@ ReactDOM.render(welcomeObj, document.getElementById("root"));
 ```
 
 
-### Parent/Child elements.
+## Parent/Child elements.
 Most times you will have a container element, that includes other
 child elements.
 Like a Grid element that can have multiple child elements.
@@ -209,3 +209,85 @@ class Grid extends React.Component {
 let gridObj = React.createElement(Grid, null, null);
 ReactDOM.render(gridObj, document.getElementById("root"));
 ```
+
+## State and Lifecyle.
+Props are immutable, inside an element they should not be altered.
+Sometimes there is a need to update attributes of an element. You can
+use state for that.
+
+This example below shows a Clock element, which updates itself, by
+managing a state varibale, that gets updated at regular intervals.
+
+```
+/*
+ * * A new state object is defined. Initialized in the constructor of
+ *   the element.
+ * * Implement the componentDidMount() method, which gets invoked once
+ *   when the element is created. In here we call the setInterval()
+ *   method, which refereces the tick() method, which updates the state.
+ */
+
+class Clock extends React.Component {
+  constructor (props) {
+    super(props);
+    this.state = {clockDate: new Date()};
+  }
+
+  tick = () => {
+    this.setState({clockDate: new Date()});
+  }
+
+  componentDidMount() {
+     console.log("Component did Mount.");
+     this.timerID = setInterval(this.tick, 5000);
+  }
+
+  componentWillUnMount() {
+    console.log("Component will unmount");
+    clearInterval(this.timerID);
+  }
+
+  render () {
+    let localTime = new Date();
+    let h1Element = React.createElement("h1", null, this.state.clockDate.toLocaleTimeString());
+    return h1Element;
+  }
+}
+
+
+class Grid extends React.Component {
+  render () {
+    let prop = {
+      message: "This is a test",
+      elem_class: "text-3xl text-blue-500 border p-2",
+    };
+    let banner = React.createElement(Clock,prop, null);
+
+
+    let gridElem = React.createElement("div",
+          {class: "grid grid-cols-3 gap-2 m-4 p-4 border border-t-8 border-blue-600"},
+          banner);
+    return gridElem;
+  }
+}
+
+
+let gridObj = React.createElement(Grid, null, null);
+ReactDOM.render(gridObj, document.getElementById("root"));
+```
+
+## Using state correctly.
+
+* Do not modify state directly.
+* The only place where you can assing this.state is in the element's
+  constructor.
+
+// Incorrect
+```
+this.state.comment = "Hello";
+```
+// Correct way:
+```
+this.setState({comment: "Hello"});
+```
+
