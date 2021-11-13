@@ -81,6 +81,10 @@ Python tools:
 * [Manage feature flags](https://github.com/Flagsmith/flagsmith)
 * [RQ (Redis Queue) library for queueing and processing jobs](https://python-rq.org/)
 * [Object explorer for terminal](https://github.com/kylepollina/objexplore)
+* [Python Schedule Library](https://www.geeksforgeeks.org/python-schedule-library/)     
+* [ReadTheDocs - Python Schedule Library](https://schedule.readthedocs.io/en/stable/index.html)
+* [Python Import: Advanced techniques](https://realpython.com/python-import/)
+
 
 ### command sample:
 
