@@ -1,5 +1,5 @@
-#!/usr/bin/env python                                                               
-# -*- coding: utf-8 -*- 
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 '''
 A simple example of using schedule library.
@@ -32,6 +32,7 @@ def main():
         schedule.run_pending()
         time.sleep(2)
         print("Sleep for 2 seconds")
+        print(schedule.jobs)
 
 if __name__ == '__main__':
     main()
