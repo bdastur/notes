@@ -6,8 +6,10 @@ A simple example of using schedule library.
 '''
 
 import datetime
+import re
 import schedule
 import time
+
 
 
 
@@ -19,7 +21,8 @@ def check_iam_password_policy():
 def check_trustedadvisor_limits():
     curTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     print("Check trusted advisor limits: ", curTime)
-    time.sleep(8)
+    time.sleep(20)
+    print("check_trustedadvisor sleep complete")
 
 
 
