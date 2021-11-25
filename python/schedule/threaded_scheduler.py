@@ -9,6 +9,7 @@ import datetime
 import threading
 import time
 import schedule
+import queue
 
 
 def check_password_policy(**kwargs):
@@ -47,20 +48,20 @@ def wrapper_function(jobFunction, **kwargs):
     print("Thread %s elapsed time: %d" % (jobFunction, elapsedSeconds))
 
 
-def run_threaded(job_func):
+def run_threaded(job_func, **options):
     print("Run threaded --> start")
-    options = {
-            "abckey": "value"
-    }
     job_thread = threading.Thread(target=wrapper_function, args=[job_func], kwargs=options)
     job_thread.start()
     print("Run threaded --> End")
 
 
 def main():
-    schedule.every(10).seconds.do(run_threaded, check_iam_roles)
-    schedule.every(15).seconds.do(run_threaded, check_trustedadvisor_limits)
-    schedule.every(20).seconds.do(run_threaded, check_password_policy)
+    options = {}
+    options['queue'] = queue.Queue()
+
+    schedule.every(10).seconds.do(run_threaded, check_iam_roles, **options)
+    schedule.every(15).seconds.do(run_threaded, check_trustedadvisor_limits, **options)
+    schedule.every(20).seconds.do(run_threaded, check_password_policy, **options)
 
     print("-------------------------------")
     for job in schedule.get_jobs():
