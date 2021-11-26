@@ -3,20 +3,24 @@
 
 import datetime
 import functools
+import random
 import time
+import threading
 
 
 def test_job(**kwargs):
-    print("Running test job with kwargs: ", kwargs)
-    time.sleep(3)
-    return "Data from testjob"
+    randval = random.randint(1, 10)
+    msg = "Task will run for %d seconds args: (%s)" % (randval, kwargs)
+    print(msg)
+    time.sleep(randval)
+    return "Data returned %d" % randval 
 
 
 class Scheduler():
     def __init__(self):
         self.jobs = []
 
-    def scheule_job(self, **options):
+    def schedule_job(self, **options):
         job = Job(**options)
         self.jobs.append(job)
 
@@ -28,43 +32,59 @@ class Scheduler():
 
 
 
-
-
 class Job():
     def __init__(self, **options):
+        self.operation = options['operation']
         schedule = options['schedule']
         every = schedule.get('every', 1)
         unit = schedule.get('unit', 'seconds')
-        print("Job init: Unit: %s, Every: %d " % (unit, every))
+        print("Job init: Every: %d %s " % (every, unit))
         jobOptions = options['jobOptions']
         jobFunction = options['jobFunction']
         self.job_func = functools.partial(jobFunction, **jobOptions)
 
         now = datetime.datetime.now()
-        self.timeDelta = datetime.timedelta(seconds=every)
+        if unit == "seconds":
+            self.timeDelta = datetime.timedelta(seconds=every)
+        elif unit == "minutes":
+            self.timeDelta = datetime.timedelta(minutes=every)
+
         self.schedulableTime = now + self.timeDelta
-        print("Schedulable time: ", self.schedulableTime)
-        print("type: ", type(self.schedulableTime))
+        print("[%s] Next run scheduled: %s " % (self.operation, self.schedulableTime))
 
     def is_schedulable(self):
         now = datetime.datetime.now()
         if now >= self.schedulableTime:
-            print("Curr time: %s, Scheduleable time: %s" %
-                  (now.strftime("%Y-%m-%d %H:%M:%S"),
+            print("[%s] schedulable Curr time: %s, Scheduleable time: %s" %
+                  (self.operation, now.strftime("%Y-%m-%d %H:%M:%S"),
                    self.schedulableTime.strftime("%Y-%m-%d %H:%M:%S")))
             return True
 
         return False
 
-    def run(self):
-        print("Do something")
-        now = datetime.datetime.now()
-        self.schedulableTime = now + self.timeDelta
-        print("Now: %s, Next run: %s" % (now.strftime("%Y-%m-%d %H:%M:%S"),
-                   self.schedulableTime.strftime("%Y-%m-%d %H:%M:%S")))
+    def threadedRun(self):
+        startTime = datetime.datetime.now()
+        self.schedulableTime = startTime + self.timeDelta
         ret = self.job_func()
-        print("Returned data: ", ret)
-        time.sleep(2)
+        endTime = datetime.datetime.now()
+        elapsedSeconds = (endTime - startTime).total_seconds()
+
+        # Update schedulableTime after the last run.
+        self.schedulableTime = endTime + self.timeDelta
+        print("[%s] Started: %s took %d seconds to run. (Returned: %s). Next run: %s" %
+              (self.operation, startTime, elapsedSeconds, ret, self.schedulableTime))
+
+
+    def run(self):
+        startTime = datetime.datetime.now()
+        #self.schedulableTime = startTime + self.timeDelta
+        #print("Now: %s, Next run: %s" % (startTime.strftime("%Y-%m-%d %H:%M:%S"),
+        #           self.schedulableTime.strftime("%Y-%m-%d %H:%M:%S")))
+        jobThread = threading.Thread(target=self.threadedRun)
+        jobThread.start()
+        #ret = self.job_func()
+        endTime = datetime.datetime.now()
+        elapsedSeconds = (endTime - startTime).total_seconds()
 
 
 
@@ -75,6 +95,7 @@ def main():
     scheduler = Scheduler()
 
     options = {
+        'operation': "IAM_POLICY_CHECKER",
         'schedule': {
             'every': 10,
             'unit': 'seconds'
@@ -85,9 +106,10 @@ def main():
           'session': 'test'
         }
     }
-    scheduler.scheule_job(**options)
+    scheduler.schedule_job(**options)
 
     options = {
+        'operation': 'EC2_LOW_UTILIZATION',
         'schedule': {
             'every': 10,
             'unit': 'seconds'
@@ -98,7 +120,21 @@ def main():
           'session': 'test'
         }
     }
-    scheduler.scheule_job(**options)
+    scheduler.schedule_job(**options)
+
+    options = {
+        'operation': 'EBS_VOLUMES_CHECK',
+        'schedule': {
+            'every': 1,
+            'unit': 'minutes'
+        },
+        'jobFunction': test_job,
+        'jobOptions': {
+            'apikey': 'DKRlsk',
+            'session': 'test'
+        }
+    } 
+    scheduler.schedule_job(**options)
 
     for x in range(50):
         scheduler.run_pending()
