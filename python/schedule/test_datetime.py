@@ -31,6 +31,28 @@ def get_next_run_time(**options):
             print("Only supported time unit is days and weeks for this schedule")
             return
 
+        if newHour < curHour:
+            deltaHours = 24 - (curHour - newHour)
+            print("Delta hours: ", deltaHours)
+            deltaMins = 60 * deltaHours
+            if newMinute < curMin:
+                deltaMins = deltaMins + (curMin - newMinute)
+            else:
+                deltaMins = deltaMins + (newMinute - curMin)
+                #deltaMins = 60 - (curMin - newMinute)
+            print("Delta Mins: ", deltaMins)
+            timeDelta = datetime.timedelta(minutes=deltaMins)
+            print("Time delta: ", timeDelta)
+            nextRunTime = now + timeDelta
+
+            print("Now: %s | Next Run: %s | Time Delta: %s" %
+                  (now.strftime("%Y-%m-%d %H:%M:%S"),
+                  nextRunTime.strftime("%Y-%m-%d %H:%M:%S"), timeDelta))
+            return
+        
+
+
+
         if timeUnit == "days":
             timeDelta = datetime.timedelta(days=every)
         elif timeUnit == "weeks":
