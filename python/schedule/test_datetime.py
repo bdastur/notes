@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
+import calendar
 import datetime
 
 
@@ -14,6 +15,7 @@ def get_next_run_time(**options):
     every = options.get('every', 1)
     timeUnit = options.get('unit', None)
     day = options.get('day', None)
+    dayOfMonth = options.get('dayOfMonth', None)
     at = options.get('at', None)
 
     now = datetime.datetime.now()
@@ -24,43 +26,37 @@ def get_next_run_time(**options):
     if at is not None:
         newHour = int(at.split(":")[0])
         newMinute = int(at.split(":")[1])
-        print("Hour: %s, Min: %s" % (newHour, newMinute))
+        #print("Hour: %s, Min: %s" % (newHour, newMinute))
 
         curHour = now.hour
         curMin = now.minute
-        curYear = now.year
-        curMonth = now.month
         curDay = now.day
+        curMonth = now.month
+        curYear = now.year
         weekday = now.weekday()
 
         # Two supported options with 'at':
         # 1. 'day' - provide a specific day
         # 2.  every day - 'unit' day.
-
-        if day is not None:
-            dayDiff = (weekday - days[day] - 1) % 6
-            futureMinutes = dayDiff * 24 * 60
-
-            if newHour < curHour:
-                futureMinutes = futureMinutes - ((curHour - newHour) * 60)
+        if dayOfMonth is not None:
+            #print("Day of Month: ", dayOfMonth)
+            if now.day > dayOfMonth:
+                monthDays = calendar.monthrange(curYear, curMonth)[1]
+                #print("Month Days: ", monthDays)
+                dayDiff = dayOfMonth + (monthDays - now.day)
+                #print("HERE: dayDiff: ", dayDiff)
             else:
-                futureMinutes = futureMinutes + ((newHour - curHour) * 60)
+                dayDiff = dayOfMonth - now.day
+        elif day is not None:
+            print("Weekday: %d, days[day]: %d " % (weekday, days[day]))
+            dayDiff = (days[day] - weekday + 1) % 6
+            print("Here: Daydiff is: ", dayDiff)
+        else:
+            dayDiff = 1
+        print("Days till next run: ", dayDiff)
 
-            if newMinute < curMin:
-                futureMinutes = futureMinutes - (curMin - newMinute)
-            elif newMinute > curMin:
-                futureMinutes = futureMinutes + (newMinute - curMin)
-
-            timeDelta = datetime.timedelta(minutes=futureMinutes)
-            nextRunTime = now + timeDelta
-
-            print("Now: %s | Next Run: %s | Time Delta: %s" %
-                  (now.strftime("%Y-%m-%d %H:%M:%S"),
-               nextRunTime.strftime("%Y-%m-%d %H:%M:%S"), timeDelta))
-            return
-
-        dayDiff = 1
         futureMinutes = dayDiff * 24 * 60
+
         if newHour < curHour:
             futureMinutes = futureMinutes - ((curHour - newHour) * 60)
         else:
@@ -180,6 +176,17 @@ def main():
         'unit': 'days',
         'at': "8:25",
         'day': None
+    }
+    nextRun = get_next_run_time(**schedule)
+
+    print(seperator)
+    print("Run a job 15th of every Month at 8:25 every day")
+    schedule = {
+        'every': 1,
+        'unit': 'days',
+        'at': "8:25",
+        'day': None,
+        'dayOfMonth': 15
     }
     nextRun = get_next_run_time(**schedule)
 
