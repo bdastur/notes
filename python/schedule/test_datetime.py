@@ -7,6 +7,10 @@ import datetime
 
 
 def get_next_run_time(**options):
+    days = {'monday': 0, 'tuesday': 1, 'wednesday': 2, 'thursday': 3,
+            'friday': 4, 'saturday': 5, 'sunday': 6}
+
+    init = options.get('init', True)
     every = options.get('every', 1)
     timeUnit = options.get('unit', None)
     day = options.get('day', None)
@@ -14,6 +18,9 @@ def get_next_run_time(**options):
 
     now = datetime.datetime.now()
 
+    #----------------------------------
+    # Handling specific time.
+    #----------------------------------
     if at is not None:
         newHour = int(at.split(":")[0])
         newMinute = int(at.split(":")[1])
@@ -24,48 +31,52 @@ def get_next_run_time(**options):
         curYear = now.year
         curMonth = now.month
         curDay = now.day
-        weekday = now.weekday
+        weekday = now.weekday()
 
-        # Only supported timeunit is 'days' or 'weeks'
-        if timeUnit not in ["days", "weeks"]:
-            print("Only supported time unit is days and weeks for this schedule")
-            return
+        # Two supported options with 'at':
+        # 1. 'day' - provide a specific day
+        # 2.  every day - 'unit' day.
 
-        if newHour < curHour:
-            deltaHours = 24 - (curHour - newHour)
-            print("Delta hours: ", deltaHours)
-            deltaMins = 60 * deltaHours
-            if newMinute < curMin:
-                deltaMins = deltaMins + (curMin - newMinute)
+        if day is not None:
+            dayDiff = (weekday - days[day] - 1) % 6
+            futureMinutes = dayDiff * 24 * 60
+
+            if newHour < curHour:
+                futureMinutes = futureMinutes - ((curHour - newHour) * 60)
             else:
-                deltaMins = deltaMins + (newMinute - curMin)
-                #deltaMins = 60 - (curMin - newMinute)
-            print("Delta Mins: ", deltaMins)
-            timeDelta = datetime.timedelta(minutes=deltaMins)
-            print("Time delta: ", timeDelta)
+                futureMinutes = futureMinutes + ((newHour - curHour) * 60)
+
+            if newMinute < curMin:
+                futureMinutes = futureMinutes - (curMin - newMinute)
+            elif newMinute > curMin:
+                futureMinutes = futureMinutes + (newMinute - curMin)
+
+            timeDelta = datetime.timedelta(minutes=futureMinutes)
             nextRunTime = now + timeDelta
 
             print("Now: %s | Next Run: %s | Time Delta: %s" %
                   (now.strftime("%Y-%m-%d %H:%M:%S"),
-                  nextRunTime.strftime("%Y-%m-%d %H:%M:%S"), timeDelta))
+               nextRunTime.strftime("%Y-%m-%d %H:%M:%S"), timeDelta))
             return
-        
 
+        dayDiff = 1
+        futureMinutes = dayDiff * 24 * 60
+        if newHour < curHour:
+            futureMinutes = futureMinutes - ((curHour - newHour) * 60)
+        else:
+            futureMinutes = futureMinutes + ((newHour - curHour) * 60)
 
+        if newMinute < curMin:
+            futureMinutes = futureMinutes - (curMin - newMinute)
+        elif newMinute > curMin:
+            futureMinutes = futureMinutes + (newMinute - curMin)
 
-        if timeUnit == "days":
-            timeDelta = datetime.timedelta(days=every)
-        elif timeUnit == "weeks":
-            timeDelta = datetime.timedelta(weeks=every)
-
-        futureTime = datetime.datetime(curYear, curMonth, curDay, newHour, newMinute)
-        timeDelta = futureTime - now
+        timeDelta = datetime.timedelta(minutes=futureMinutes)
         nextRunTime = now + timeDelta
-        print("Future time: ", futureTime.strftime("%Y-%m-%d %H:%M:%S") )
-        print("Now: %s | Next Run: %s | Time Delta: %s" %
-          (now.strftime("%Y-%m-%d %H:%M:%S"),
-           nextRunTime.strftime("%Y-%m-%d %H:%M:%S"), timeDelta))
 
+        print("Now: %s | Next Run: %s | Time Delta: %s" %
+              (now.strftime("%Y-%m-%d %H:%M:%S"),
+           nextRunTime.strftime("%Y-%m-%d %H:%M:%S"), timeDelta))
         return
 
 
@@ -122,34 +133,52 @@ def main():
     }
     nextRun = get_next_run_time(**schedule)
 
-
     print(seperator)
-    print("Run a job at 11:30 every 2 days")
-    schedule = {
-        'every': 2,
-        'unit': 'days',
-        'at': "11:30",
-        'day': None
-    }
-    nextRun = get_next_run_time(**schedule)
-
-
-    print(seperator)
-    print("Run a job at 8:30 every 1 days")
+    print("Run a job at 11:30 every tuesday")
     schedule = {
         'every': 1,
         'unit': 'days',
-        'at': "8:30",
+        'at': "11:30",
+        'day': 'tuesday'
+    }
+    nextRun = get_next_run_time(**schedule)
+
+    print(seperator)
+    print("Run a job at 11:45 every tuesday")
+    schedule = {
+        'every': 1,
+        'unit': 'days',
+        'at': "11:45",
+        'day': 'tuesday'
+    }
+    nextRun = get_next_run_time(**schedule)
+
+    print(seperator)
+    print("Run a job at 20:45 every tuesday")
+    schedule = {
+        'every': 1,
+        'unit': 'days',
+        'at': "20:45",
+        'day': 'tuesday'
+    }
+    nextRun = get_next_run_time(**schedule)
+
+    print(seperator)
+    print("Run a job at 20:45 every day")
+    schedule = {
+        'every': 1,
+        'unit': 'days',
+        'at': "20:45",
         'day': None
     }
     nextRun = get_next_run_time(**schedule)
 
     print(seperator)
-    print("Run a job at 11:30 every 2 weeks")
+    print("Run a job at 8:25 every day")
     schedule = {
-        'every': 2,
-        'unit': 'weeks',
-        'at': "11:30",
+        'every': 1,
+        'unit': 'days',
+        'at': "8:25",
         'day': None
     }
     nextRun = get_next_run_time(**schedule)
