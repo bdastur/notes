@@ -369,6 +369,32 @@ Convert timestamp to date
 >>> print(date)
 2021-04-30 22:00:00
 
+```
 
+# Debugging subprocess  resource warning for unclosed file.
 
 ```
+ResourceWarning: unclosed file <_io.BufferedReader name=6>
+  ret, output = cmdObj.execute(cmd, cwd=self.codeStagingRoot, popen=True)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+```
+
+Enable tracemalloc by setting `PYTHONTRACEMALLOC` environment variable.
+
+```
+%~> export PYTHONTRACEMALLOC=1
+```
+
+Output now will show:
+```
+/Users/behzad.dastur/code/workbench_oct21/cloud_workbench/workbench/plugins/plugin_manager.py:112: ResourceWarning: unclosed file <_io.BufferedReader name=6>
+  ret, output = cmdObj.execute(cmd, cwd=self.codeStagingRoot, popen=True)
+Object allocated at (most recent call last):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.8/lib/python3.8/subprocess.py", lineno 844
+    self.stdout = io.open(c2pread, 'rb', bufsize)
+Ret: 128, Output: 
+
+```
+
+
+
