@@ -46,6 +46,7 @@ nm['10.10.10.6']
 * [Create project form cookiecutters - project templates](https://github.com/cookiecutter/cookiecutter)
 * [ViM settings for python](https://realpython.com/vim-and-python-a-match-made-in-heaven/#lets-make-an-ide)
 * [Boto3 sessions and why to use them](https://ben11kehoe.medium.com/boto3-sessions-and-why-you-should-use-them-9b094eb5ca8e)
+* [Python pathlib cookbook](https://miguendes.me/python-pathlib)
 
 Python profiling:
 * https://github.com/benfred/py-spy
