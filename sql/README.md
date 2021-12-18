@@ -25,4 +25,31 @@ DROP table products
 
 ### Indexing
 
-[sqlite indeex](https://www.sqlitetutorial.net/sqlite-index/)
+[sqlite index](https://www.sqlitetutorial.net/sqlite-index/)
+
+
+## Running mysql on MAC:
+
+Simplest way is to run it as a docker container
+
+```
+docker pull mysql
+```
+
+```
+docker run --name sqlserver -e MYSQL_ROOT_PASSWORD=<password> -d mysql:latest
+```
+
+You can exec into the container to access the server.
+```
+/# mysql -u root -p
+Enter password:
+:
+mysql> exit
+Bye
+root@d31f7768e6a5:/#
+
+```
+
+
+
