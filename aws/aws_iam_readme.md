@@ -390,12 +390,13 @@ role in / 'default' path or any other --path prefix.
 ```
 
 
-
-
-
-
 ---
+
+
+#---------------------------------------------------------------------
 ## AWS Directory Service:
+#---------------------------------------------------------------------
+* Family of managed services.
 * Provides directories that contain information about your org, including users
   groups, computers and other resources.
 * Designed to reduce identity management tasks.
@@ -414,6 +415,14 @@ role in / 'default' path or any other --path prefix.
 * Easily setup trust relationships with existing AD domains to extend
   those directories.
 
+ *Responsibilities*
+       AWS                                         Customer
+- multi az deployment                       - Users, groups & group policies
+- Patch, monitor, recover domain controller - Standard AD tools
+- Instance rotation, version upgrades       - Scale out Domain controllers
+- Snapshot & restore                        - Employ AD Trusts (resource forests)
+                                            - Mgmt of certificate authroties & Federation
+
 ### Simple AD:
 * Microsoft AD compatible directory service from AWS powered by Samba 4.
 * Supports: user accounts, group memberships, domain-joining EC2 instances
@@ -426,6 +435,7 @@ role in / 'default' path or any other --path prefix.
 * Features not supported: DNS dynamic update, schema extensions, MFA,
   communication over LDAP, AD cmdlets and transfer of flexible Single-Master
   operations roles.
+* Two sizes to deploy small (up to 500 users); Large (up to 5000 users)
 
 ### AD connector:
 * Proxy service for connecting your on-premise Microsoft AD to AWS without
@@ -449,11 +459,13 @@ role in / 'default' path or any other --path prefix.
 
 
 ### AD Compatible Services
+you can use:
 * Managed Microsoft AD
 * AD Connector
 * Simple AD
 
 ### Not AD Compatible services
+you can use:
 * Cloud Directory
 * Cognito user pools
 
