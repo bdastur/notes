@@ -24,16 +24,51 @@
 * A relational database can be categorized as either:
   - *Online Transaction processing* (OLTP) or
   - *Online Analytical Processing* (OLAP)
-  database system.
-* *OLTP*: Transaction oriented applications that are frequently writing
-  and changing data.
+
+* *OLTP*: Transaction oriented applications that are frequently writing and
+          changing data.
 
 * *OLAP*: Typically for data warehouses and refer to reporting or analyzing
-  large data sets.
+          large data sets.
 
 * Traditional RDBMS are difficult to scale beyond a single server without
   significant engineering cost.
 
+### Relational databases on AWS:
+ * SQL Server
+ * Oracle
+ * MySQL
+ * Aurora
+ * PostgresSQL
+ * MariaDB.
+
+### Key Features:
+ * Multi-AZ for Disaster recovery
+ * Read Replicas - for performance
+
+### Backup and Recovery
+*Two different types of backups for RDS:*
+ * Automated Backups
+ * Database Snapshots
+
+*Automated Backups*
+- Allow you to recover your DB to any point in time within a "retention period".
+- The retention period can be between 1 and 35 days.
+- Automated backups will take a full daily snapshot and will store transaction logs
+  throught the day.
+- For recovery, AWS will first choose the most recent daily backup and then apply
+  the transaction logs relevant to that day. This allows 'a point in time' recovery
+  down to a second, within the retention period.
+- Automated Backups are enabled by default. Backup data is stored in S3. You get
+  free storage space equal to the size of your database.
+- Storage I/O may be suspended during backup window, may experience elevated latency.
+
+*Database Snapshots*
+- DB snapshots are done manually (user initiated).
+- They are stored even after the RDS instance is deleted (unlike automated backups).
+
+* Whenever you restore either an Automated backup or a manual snapshot, the restored
+  version of the DB will be a new RDS instance with a new DNS endpoint.
 
 ### NoSQL Databases:
 * NoSQL allows horizontal scalability on commodity hardware.
@@ -49,10 +84,9 @@
 
 
 ## Amazon RDS (OLTP)
-* Amazon RDS is often used for OLTP workloads, but it can also be used for
-  OLAP.
-* Amazon Redshift is a high performance data warehouse designed specifically for
-  OLAP use cases.
+* Amazon RDS is often used for OLTP workloads, but it can also be used for OLAP.
+* *Amazon Redshift* is a high performance data warehouse designed specifically for
+  *OLAP* use cases.
 * Amazon manages the maintenance of DB instances.
 * There is no shell access to DB instances.
 * A DB instance is an isolated database environment deployed in your private
@@ -92,8 +126,8 @@
   available *only* under the BYOL model.
 
 ### Amazon Aurora:
-* Offers enterprise grade commercial database technology while offering
-  the simplicity and cost effectiveness of an open source database.
+* Offers enterprise grade commercial database technology while offering the
+  simplicity and cost effectiveness of an open source database.
 * Re-designed internal components of MySQL to take more service oriented approach.
 * MySQL compatible, and provides increased reliability and performance over
   standard MySQL deployments.
@@ -101,9 +135,9 @@
 * When you first create an Amazon Aurora instance, you create a DB cluster.
 * A DB cluster has one ore more instances and includes a cluster volume that
   manages the data for those instances.
-* A cluster volume is a virtual database storage volume that spans multiple
-* Aurora automatically maintains 6 copies of your data across 3 AZs.
-  AZs, with each AZ having a copy of the cluster data.
+* A cluster volume is a virtual database storage volume that spans multiple AZ.
+* Aurora automatically maintains 6 copies of your data across 3 AZs, with each
+  AZ having a copy of the cluster data.
 * Aurora DB cluster consist of two types of instances:
   - **Primary Instance**:
     * This is the main instance which supports read and write workloads.
@@ -179,8 +213,7 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 * Manual DB snapshots are not deleted when you delete the Db instance.
 
 #### Recovery:
-* RDS allows you to recover your DB quickly from automated or manual DB
-  snapshots.
+* RDS allows you to recover your DB quickly from automated or manual DB snapshots.
 * You cannot restore from a Db snapshot to an existing DB instance. A new
   DB instance is created when you restore.
 * When you restore a DB instance, only the default DB parameter and SG are
@@ -197,7 +230,7 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
   as are it's automated backups, read replicas and snapshots.
 
 ### High availability (Multi-AZ)
-* Provides HA and failover suppport for DB instances usin Multi-AZ deployments.
+* Provides HA and failover suppport for DB instances using Multi-AZ deployments.
 * RDS automatically provisions and maintains a synchronous standby replica in
   a different AZ.
 * The primary DB instance is synchronously replicated across AZs to a standby
@@ -205,9 +238,14 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
   latency spikes during system backups.
 * RDS can handle planned or unplanned outages to the DB instance. RDS
   automatically switches to a standby replica in another AZ.
+* Available for SQL Server, Oracle, MySQL Server, PostgresSQL, MariaDB.
+* You can force a failover from on AZ to another, by rebooting the RDS instance.
+* There is no charge associated to replicating data between AZs for your multi-az
+  deployment.
 
 
 ### Read Replicas:
+* Can be Multi-az.
 * Reduces load on primary DB instance by routing read queries to special
   DB instances called read replicas.
 * Servers read traffic when source DB instance is unavailable.
@@ -219,17 +257,15 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 * You can only create a read replica from an existing DB instance.
 * RDS uses asynchronous replication method for the DB engine to update the
   read replica whenever there is a change to primary DB instance.
+* Can be promoted to master. This will break the read replica.
 
 * Available for:
   - Mysql, postgres, mariadb, oracle, Aurora
 
 
-
-
-
-
-
+#--------------------------------------------------------------------
 ## DynamoDB
+#--------------------------------------------------------------------
 * A fully managed NoSQL database service that provides fast and low latency
   performance that scales with ease.
 * Amazon DynamoDB can provide consistent performance levels by automatically
@@ -242,6 +278,10 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
   within an AWS Region.
 * Data is stored on SSD.
 * Spread across 3 geographically distinct datacenters.
+
+*Two types of read models:*
+ - Eventual consistent reads (default)
+ - Strongly consistent reads
 
 ### Data Model:
 * Main components of DynamoDB are:
@@ -357,7 +397,7 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 * It has the same partition key attribute as the primary key of the table,
   but a different sort key.
 * Can only create a local secondary index during table creation.
-* Allow you to search a large table efficiently and avoid and expensive
+* Allow you to search a large table efficiently and avoid an expensive
   scan operation to find items with specific attributes.
 * You can only have one local secondary index.
 * DynamoDB updates each secondary index when an item is modified. These Updates
@@ -510,20 +550,22 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 
 
 
-
+#---------------------------------------------------------------------
 ## Amazon Redshift:
+#---------------------------------------------------------------------
 * Fast powerful, fully managed petabyte scale data warehouse service
 * Relational database designed for *OLAP* scenarios.
 * Optimized for high performance analysis and reporting very large datasets.
 * Uses standard SQL commands to query large datasets.
 * Start at just 0.25$ per hour with no commitments or upfront cost.
 * Scale to a petabyte or more for $1000 per terrabyte per year.
-* Backup enaabled by default wiith a 1 day retentionn period - Max of 35 days.
+* Backup enaabled by default wiith a 1 day retention period - Max of 35 days.
 * Redshift always attempts to maintain at least three copies of your data (
   the original and replica on compute nodes and a backup in S3)
 
-
+#---------------------------------------------------------------------
 ## ElastiCache:
+#---------------------------------------------------------------------
 * Improves application performance by storing the most frequently accessed
   data in memory.
 * Simplifies the setup and management of distributed in-memory caching
@@ -572,8 +614,7 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
   client library.
 
 ### Backup and Recovery
-* Redis allows you to persist your data from in-memory to disk and create a
-  snapshot.
+* Redis allows you to persist your data from in-memory to disk and create a snapshot.
 * Each snapshot is a full clone of the data that can be used to recover to a
   specific point in time.
 * Snapshots CANNOT be created for Memcached engine because it is purely
@@ -590,14 +631,14 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 
 ## AWS Database Migration Service (DMS):
 * Makes it easy to migrate relational databses, data warehouses, NoSQL
-  databases and other types od data stores.
+  databases and other types of data stores.
 * Can migrate data into AWS between on-prem instances or between combination
   of cloud and on-prem.
 * Supports homogenous and hetrogenous migration. Eg orcale DB on prem to
   Oracle DB RDS, or SQL Server on prem to Amazon Aurora
 
 
-## Cachingg strategies on AWS
+## Caching strategies on AWS
 * Cloudfront.
 * API Gateway
 * ElastiCache
@@ -613,7 +654,7 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
   * Additional tools or applications like Hive, Pig, Spark or Presto.
 
 * EMR node types:
- * *Master node*: 
+ * *Master node*:
    - A node that maanages the cluster. It tracks the status of tasks and
      monitors the health of the cluster.
    - Every cluster has a master node.
