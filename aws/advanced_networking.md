@@ -1,19 +1,17 @@
 # AWS Advanced Networking:
 
 ## Links
-- [Amazon VPC Limits](https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html)
-
-## Refresher on some basic concepts.
-
-### IP Addressing and Subnets:
-
-- [Cisco IP Addressing/Subnetting Tutorial](https://www.cisco.com/c/en/us/support/docs/ip/routing-information-protocol-rip/13788-3.html)
- - [Decimal to Binary converter](https://www.rapidtables.com/convert/number/decimal-to-binary.html)
+* [Amazon VPC Limits](https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html)
+* [Interactive IP add & CIDR Range visualizer](https://cidr.xyz/)
+* [VPC Introduction](http://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Introduction.html)
+* [VPC Documentation](https://docs.aws.amazon.com/vpc/index.html)                    
+* [VPC Invalid peering configs](https://docs.aws.amazon.com/vpc/latest/peering/invalid-peering-configurations.html#transitive-peering)
 
 
-## DNS 101:
-* Stands for Domain Name Service.
+## IP Addressing and Subnets:
 
+* [Cisco IP Addressing/Subnetting Tutorial](https://www.cisco.com/c/en/us/support/docs/ip/routing-information-protocol-rip/13788-3.html)
+* [Decimal to Binary converter](https://www.rapidtables.com/convert/number/decimal-to-binary.html)
 
 
 ## Networking with VPC:
@@ -23,17 +21,56 @@
 * VPC is the main environment that provides logical network isolation and
   grouping of resources such as EC2, ECS and other AWS services.
 
-* VPC CIDR range (/28 - /16)
-* Addressing in VPC defaults to IPV4, but IPV6 and dual stacks can run in
-  the VPC if required.
+* VPC CIDR range (/28 (16 ip addresses) - /16 (65536 ip addresses))
+* Addressing in VPC defaults to IPV4, but IPV6 and dual stacks can run in the VPC
+  if required.
 
 * Provisioning in VPC is irreversible - once provisioned it cannot be changed.
 * Considerations - some services running in the VPC are reserved by AWS - eg:
-  IP address will be consumedd by internet gateway, DHCP service, NAT gateway,
+  IP address will be consumed by internet gateway, DHCP service, NAT gateway,
   and reserved addresses AWS keeps unused for future services.
+* Default limit for Amazon VPCs in a region is 5.
+* Each subnet is mapped to a specific AZ. 
+* Security groups and Network ACLs can span multiple AZs.
+* When you create a VPC, all subnets within the VPC can communicate with each other
+  by default.
+* The first 4 ip addresses and last ip address **in each subnet CIDR block** is reserved,
+  not available to use:
+  - 10.0.0.0   == Network address
+  - 10.0.0.1   == Reserved by AWS for the VPC router
+  - 10.0.0.2   == Reserved by AWS for DNS
+  - 10.0.0.3   == Reserved by AWS for future use.
+  - 10.0.0.255 == Network broadcast address. We do not support broadcast VPC, hence
+                  we reserve this address. 
+
+## VPC Components:
+* Subnets
+* Route tables
+* DHCP option set
+* Security groups
+* Network ACLs
+And following optional components:
+* IGW
+* EIP address
+* ENI (Elastic network interface)
+* Endpoints
+* Peering
+* NAT instances and NAT gateway
+* VPC, customer gateways and VPNs.
+
+* IPsec is the security protocol supported by VPC.
 
 ### Private and public subnets:
-
+* 1 subnet == 1 AZ. 1 AZ however can have multiple subnets.
+* Subnets can be private, public or VPN only.
+* A public subjet is one in which the associated route table directs the subnet
+  traffic to the VPC's IGW.
+* A VPN-only subnet is one in which the route table directs the subnet traffic to
+  Amazon VPC's VPG and does not have a route to the IGW.
+* Regardless of the type of subnet, the internal IP address range of the subnet is
+  always private.
+* Minimum size subnet you can have in a VPC is /28
+* Maximum size subnet you can have in a VPC is /16
 * Two types of subnets within a VPC - public and private.
 * The only difference that makes a subnet public rather than private -
   instances running in a public network are  able to access the internet
@@ -48,7 +85,7 @@
   default, but can communicate with any instances running in all subnets
   within the VPC.
 * We can also control traffic between all subnets through the VPC's NACLs and
-  define rules that will prevent certain subnets from communicating from
+  define rules that will prevent certain subnets from communicating with
   each other.
 * private subnets - can connect to other networks via NAT gateway that allows
   outbound traffic, or through a VPN gateway or direct connect - to connect
@@ -65,7 +102,6 @@
 
 
 ### public, elastic and private IPs
-
 * Public IPs are sourced from one or more AWS controlled public IP address
   pools and are attached to the instance randomly whenever an instance is
   started.
@@ -184,11 +220,17 @@
   trafffic shaping and security checks, with packket inspection and firewalling
   software.
 
+* If you have resources in multiple AZs and they share one NAT gateway, in the event
+  that the NAT gateway's AZ is down, resources in other AZs loose internet access.
+* To create AZ independent architecture, create a NAT gateway in each AZ and
+  configure your routing to ensure that resources use NAT gateway in the same AZ.
 
 ### VPC endpoints and Privatelink
-* To allow access to AWS services like S3, SQS, KMS and DynamoDB from a private subnet, which does not have access to internet.
+* To allow access to AWS services like S3, SQS, KMS and DynamoDB from a private 
+  subnet, which does not have access to internet.
 * Enables you to create a private connection between your VPC and another AWS service
-  without requiring access over the internet, or a NAT interface, VPN connection or AWS direct connect.
+  without requiring access over the internet, or a NAT interface, VPN connection or 
+  AWS direct connect.
 * VPC endpoint currently supports S3 and dynamodb.
 * Does not require an IGW, Nat device, VPN connection or AWS direct connect connections.
 * Instances in your VPC do not require public IP addresses to communicate with resources in
@@ -207,7 +249,8 @@ CIDRS 51.44.0.0/22
 CIDRS 54.159.224.0/21
 ```
 
-* A VPC endpoint can connect to the VPC and allow for communication to the service within a private IP space.
+* A VPC endpoint can connect to the VPC and allow for communication to the service 
+  within a private IP space.
 
 * VPC endpoint connections come in two different types:
   - Gateway endpoints
@@ -223,7 +266,24 @@ CIDRS 54.159.224.0/21
   straight to the VPC subnet through the ENI.
 * Enables assigning a private IP address from the subnet pool directly to the
   service.
-* Can communicate with the service on prrivate network.
+* Can communicate with the service on private network.
+
+### Network ACLs:
+* Your VPC automatically comes with a default Network ACL, and by default it allows
+  all outbound and inbound traffic.
+* Operates at subnet level (second level of defense)
+* Supports allow and deny rules.
+* Stateless: Return traffic must be explicitly allowed by rules.
+* Processes rules in numbered order when deciding whether to allow traffic, starting
+  with the lowest numbered rule.
+* Automatically applied to all instances in the associated subnets.
+* When you create a custom network ACL, it's initial configuration will deny all
+  inbound and outbound traffic, until you create rules to allow otherwise.
+* Each subnet in your VPC must be associated with a network ACL. If you do not
+  explicitly associate a subnet with a network ACL, the subnet is automatically 
+  associated with the default network ACL.
+* You can associate a network ACL with multiple, subnets, however a subnet can be
+  associated to only one network ACL at a time.
 
 
 ### VPC peering
@@ -257,7 +317,7 @@ CIDRS 54.159.224.0/21
 * Flow log data is stored in Amazon cloudwatch logs.
 * You cannot enable flow logs for VPCs that are peered with your VPC unless the peer
   VPC is in your account.
-* You can tag flow llogs.
+* You can tag flow logs.
 * After you have created a flow log you cannot change it's configuration.
 
 ### Global Accelerator:
@@ -269,6 +329,39 @@ CIDRS 54.159.224.0/21
   IP subnet. Similar to availability zone, a network zone is an isolated unit with its
   own set of physical infrastructure.
 * When you configure an accelerator, by default it allocates two IPv4 addresses for it.
+* Includes the following components:
+  ---------------------------------
+  * Static IP addresses      * Listener
+  * Accelerator              * Endpoint Group
+  * DNS Name                 * Endpoint
+  * Network Zone
+
+* Listner:
+  * A listner processes inbound connections from clients to the Global Accelarator,
+    based on the port (or port range) and protocol you configure. It supports both
+    UDP and TCP protocols.
+  * Each listner has 1 or more endpoint groups associated, and traffic is forwarded
+    to endpoints in one of the groups.
+  * You associate endpoint with listner groups by specifying the regions that you
+    want to distribute traffic to.
+
+* Endpoint group:
+  * Each endpoint group is associatated with a specific AWS Region.
+  * Endpoint groups include one ore more endpoints in the Region.
+  * You can increase or reduce the percentage of traffic that would be otherwise
+    directed to an endpoint group by adjusting a setting called a traffic dial.
+  * The traffic dial lets you easily do performance testing or blue/green deployment
+    testing for new releases across different AWS regions.
+
+* Endpoints
+  * Endpoints can be Network LB, Application LBs, EC2 instances, or Elastic IP addr.
+  * An ALB endpoint can be internet-facing or internal. Traffic is routed to
+    endpoints based on configuration options that you choose, such as endpoint
+    weight.
+  * For each endpoint, you can configure weights, which are numbers that you can
+    use to specify the proportion of traffic to route to each one. This can be
+    useful, for example, to do performance testing within a Region.
+
 
 
 ### AWS Transit Gateway:
@@ -296,7 +389,6 @@ CIDRS 54.159.224.0/21
 * Traffic between instances within the same AZ is free, but flowing across AZs is 0.01$/Gb.
 * Traffic across regions will be charged at 0.02$/Gb (depending on regions)
 * Traffic going out to the internet will have a cost.
-
 
 
 ## VPC Network security
