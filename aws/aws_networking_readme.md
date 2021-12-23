@@ -196,7 +196,7 @@ And following optional components:
 
 #### Connecting private subnets to the internet
 
-* For IPV4 subneet - use a NAT gateway. The NAT gateway will allow all outgoing
+* For IPV4 subnet - use a NAT gateway. The NAT gateway will allow all outgoing
   traffic to pass to the internet.
 
 
@@ -215,9 +215,9 @@ And following optional components:
 
 * In case of IPv6, an egress-only internet gateway is needed.
 * The egress only gateway has all the characteristics of an internet gateway,
-  with the difference being that it blocks all incoming traffic to IPv6 addres space.
+  with the difference being that it blocks all incoming traffic to IPv6 address space.
 * You can manage your own EC2 instance as a NAT instance - allows any custom
-  trafffic shaping and security checks, with packket inspection and firewalling
+  traffic shaping and security checks, with packket inspection and firewalling
   software.
 
 * If you have resources in multiple AZs and they share one NAT gateway, in the event
@@ -454,8 +454,6 @@ some n/w layer attacks:
 
 
 
-
-
 ### Securing EC2
 
 ### operating systmes
@@ -479,7 +477,7 @@ mitigation:
 
 
 ## AWS WAF (Web Application Firewall)
-Lets you monitor and filter traffic thats intended for:
+Lets you monitor and filter traffic that is intended for:
 * HTTP/HTTPS web servers behind ALB in EC2
 * AWS API gateway
 * AWS Cloudfront distributions.
@@ -491,7 +489,7 @@ Lets you monitor and filter traffic thats intended for:
 **Web ACLs**:
 * You use Web ACLs to protect a set of AWS resources.
 * Create a Web ACL and define it's protection strategy by adding rules.
-* Rules define criteria for inspectin web requests and how to handle requests
+* Rules define criteria for inspecting web requests and how to handle requests
   that match the criteria.
 * Set a default action for the web ACL that indicates whether to allow or
   block those requests that pass the rules inspection.
@@ -516,7 +514,7 @@ AWS provides layer2 and layer3 connectivity options for connecting your private
 AWS subnet to on-prem.
 
 * **Direct connect:** low latency layer 2 connection on dedicated private links
-*** VPN with virtual gateway:** layer3 IPSec-encrypted connection over public internet.
+* **VPN with virtual gateway:** layer3 IPSec-encrypted connection over public internet.
 
 ### Steps to creating a direct connect connection
 * Create a virtual interface in the direct connect console. This is a Public virtual interface.
