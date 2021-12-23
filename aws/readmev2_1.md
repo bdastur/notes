@@ -15,6 +15,8 @@ NOTE:
 * [S3 - best practices design patterns](https://docs.aws.amazon.com/whitepapers/latest/s3-optimizing-performance-best-practices/introduction.html)
 * [S3 - blocking S3 traffic by VPC/IP](https://aws.amazon.com/premiumsupport/knowledge-center/block-s3-traffic-vpc-ip/)
 * [S3 VPC Endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-s3.html)
+* [S3 - Managing cross account access](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-walkthroughs-managing-access-example2.html)
+* [S3 cross account access](https://aws.amazon.com/premiumsupport/knowledge-center/cross-account-access-s3/)
 * []()
 * []()
 * []()
@@ -574,7 +576,7 @@ You are charged for:
 * Cross region replication pricing.
 
 --------------------------------------------------------------------------------
-**S3 Transfer Acceleration**
+##S3 Transfer Acceleration
 * Enables fast, easy and secure transfer of files over long distance between your
   end users and an S3 bucket.
 * Transfer acceleration takes advantage of Amazon CloudFront's globally distributed
@@ -582,10 +584,10 @@ You are charged for:
 * As the data arrives at an edge location, data is routed to Amazon S3 over an
   optimized network path.
 
-**S3 Security & Encryption**
+--------------------------------------------------------------------------------
+#S3 Security & Encryption
 * By default all newly created buckets are PRIVATE.
 
---------------------------------------------------------------------------------
 ## Access control:
 * By default when you create a bucket or object in S3, only you have access.
 * To allow access to others, S3 ACLs, Bucket policies, IAM polices can be configured.
@@ -762,6 +764,291 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/volume_helper.py?AWSAccessKeyI
    <bucketname>.s3-website-<aws region>.amazonaws.com
 * Create a friendly DNS name in your own domain for the website using a CNAME
   and you have your website available.
+
+--------------------------------------------------------------------------------
+## S3 Cross-account Access
+* [Managing cross account access](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-walkthroughs-managing-access-example2.html)
+* [cross account access](https://aws.amazon.com/premiumsupport/knowledge-center/cross-account-access-s3/)
+
+
+## Cross-Region Replication:
+* To enable CRR you need versioning enabled on source and destination buckets.
+* Existing objects will not be replicated, only new objects will be replicated.
+* Permissions also get replicated.
+* When you delete specific versions of an object or delete a delete marker,
+  it does not get replicated to the dest bucket, it's only when you delete
+  an object that it gets deleted from the replicated bucket.
+
+
+
+--------------------------------------------------------------------------------
+
+
+
+#--------------------------------------------------------------------------------
+## AWS Organizations
+#--------------------------------------------------------------------------------
+
+**Best Practices**
+* Always enable multi-factor authentication on root account.
+* Always use a strong complex password on root account.
+* Paying account should be used for billing purposes only. Do not deploy resources
+  into the paying account.
+* Enable/Disable AWS services using service control policies (SCP) either on OU or
+  on individual accounts.
+
+
+
+
+#--------------------------------------------------------------------------------
+## AWS DataSync  (On-prem services)
+#--------------------------------------------------------------------------------
+* Used to move large amounts of data from on-premises to AWS
+* Used with NFS and SMB compatible file sytems.
+* Replication can be done hourly, daily or weekly
+* Install Datasync agent to start replication.
+* Can be used to replicate EFS to EFS.
+
+
+
+#--------------------------------------------------------------------------------
+## AWS CloudFront
+#--------------------------------------------------------------------------------
+* It is a global content delivery network (CDN) service.
+* A CDN is a globally distributed network of caching servers that speed up the
+  downloading of web pages and other content.
+* CDNs use DNS geo-location to determine the geographic location of each request for
+  a web page, then serve that content from the edge caching servers closest to that
+  location.
+* CloudFront can be used to deliver your web content using Amazon's global network
+  of edge locations.
+* A request is first routed to the edge location that provides the lowest latency.
+  If the content is already in the edge location, CloudFront delivers it. If the
+  content is not present, then CloudFront retrieves it from the origin server.
+* CloudFront works with S3 buckets, S3 static websites, EC2, ELB and also
+  non AWS origin server such as on-premises web server.
+* CloudFront also integrates with Route53.
+* It supports all content that can be served over HTTP or HTTPS, including static
+  files, HTML files, images, JS, CSS, audio, video and media files or software
+  downloads, also supports media streaming using both HTTP and RTMP.
+
+## CloudFront Basics:
+Core concepts:
+
+**Distributions**
+* This is the name given to the CDN which consists of a collection of Edge locations.
+* You start by creating a distribution, which is identified by a DNS domain name
+  like 'd484222.cloudfront.net'
+* To serve files from CloudFront, you simply use the distribution domain name in
+  place of your website's domain name. Rest of the file path stays the same.
+* You can also create CNAME record in Route53 for DNS.
+
+**Origins**
+* This is the origin of all the files that the CDN will distribute.
+* You must specify the DNS domain name of the origin - S3 bucket, EC2 instance,
+  ELB, Route53  or HTTP server.
+
+**Edge Location**
+* This is the location where content will be cached. This is separate to an AWS
+  Region/AZ.
+* Edge locations are not just READ only - you can write to them too. (ie put an
+  object on to them.)
+
+**Cache Control**
+* Once requested and served from the edge location, objects stay in the Cache until
+  they expire or are evicted to make room for more frequently requested content.
+* By default objects expire from the cache after 24 hours.
+* You can control how long objects stay in CloudFront cache before expiring.
+* You can use cache-control headers set by your origin server or you can
+  set the min, max and default TTL for objects in your CloudFront distribution.
+* You can also remove copies of an object from all CloudFront edge locations
+  at any time by calling the invalidation API. This feature removes the object from
+  every CloudFront edge location regardless of the expiration period set on the
+  object on your origin server.
+* Instead of invalidating objects, it is best practice to use a version
+  identifier as part of the object path name.
+* When using versioning, users will always see the latest content through CloudFront
+  when you update your site. Old versions will expire from the cache automatically.
+
+## Advanced CloudFront Features
+* Can be setup to use more than one origins. You can control which requests are
+  served by which origin and how the requests are cached - using a feature
+  called "cache behaviors".
+* Cache Behaviors:
+  * Path patterns
+  * Which origin to forward requests to
+  * Whether to forward query strings to your origin
+  * Whether you need signed URL for specific files.
+  * Require HTTPS access
+* Cache behaviors are applied in order. If a request does not match the first path
+  pattern, it drops down to the next.
+**Signed URL and Signed Cookies**
+* Signed URLs
+  - Signed URL is for individual files.
+  - URLs that are valid only between certain times and optionally from certain IP
+    addresses.
+* Signed cookies
+  - A signed cookie is for multiple files.
+  - Require authentication via public and private keys.
+* Origin Access Identities: Restrict access to an S3 bucket only to a special
+  CloudFront user associated with your distribution.
+
+--------------------------------------------------------------------------------
+
+
+
+
+#--------------------------------------------------------------------------------
+## Snowball / Snowball Edge / Snowmobile
+#--------------------------------------------------------------------------------
+
+## Snowball
+* Petabyte scale data transport solution that uses secure appliances to transfer
+  large amounts of data into and out of AWS.
+* Addresses challenges with large scale data transfers including high n/w costs,
+  long transfer times and security concerns.
+* Uses Amazon provided shippable storage appliances, shipped through UPS.
+* Each snowball is protected by KMS and made physically rugged to secure and
+  protect your data while in transit.
+* Comes in two sizes: 50 TB and 80TB and varies by region.
+* Features:
+  - Import/export data between on-premise data storage and S3.
+  - Encryption is enforced.
+  - You don't buy and maintain your own hardware devices.
+  - Manage your jobs through AWS snowball console.
+
+
+## Snowball Edge:
+* 100TB data transfer device with onboard storage and compute capablities.
+* Snowball edge connects to your existing applications and infra using standard
+  storage interfaces.
+* It can cluster together to form a local storage tier and process your data
+  on-premize, ensuring applications continue to run even when they are not able
+  to access the cloud.
+
+
+## Snowmobile:
+* Petabyte and Exabyte amount of data.
+
+--------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------
+## Storage Gateway (On-prem services)
+#--------------------------------------------------------------------------------
+* [Storage gateway FAQ](https://aws.amazon.com/storagegateway/faqs/)
+* Connects on-prem software appliance with cloud based storage.
+* Provides seamless integration with data security between your data center and AWS
+  storage infrastructure.
+* AWS storage gateway offers
+  - file-based file gateways (Amazon S3 File and Amazon FSx File)
+  - Volume based (cached and stored)
+  - Tape based storage solutions.
+
+--------------------------------------------------------------------------------
+## S3 File Gateway:
+* Provides access to objects in S3 as files on NFS mount point.
+* It combines a service and virtual software appliance.
+* The appliance/gateway is deployed on the premise on a VMware ESXi, Microsoft
+  hyper-V or KVM.
+* The gatway provides access to S3 objects as NFS mounted files.
+* With file gateway you can:
+  * Store and retrieve files directly using NFS 3 or 4.1 protocol.
+  * Access your data directly in S3 from any cloud application or service.
+  * Manage your data in S3 using lifecycle policies, cross origin replication and
+    versioning.
+* It also provides low latency access to data through transparent local caching.
+* Max number of file shares/S3 bucket is 1. 1-1 mapping between a file share and S3
+  bucket.
+* Max number of fil shares per gateway is 10.
+* Max file size is 5 TB (Same as the limit for S3)
+
+## Amazon FSx File Gateway
+* Enables you to store and retrieve files in Amazon FSx for windows file server
+  using SMB protocol.
+--------------------------------------------------------------------------------
+
+## Volume gateway:
+* The volume interface presents your applications with disk volumes using the
+  iSCSI block protocol.
+* Data written to these volumes asynchronously backed up as point-in-time snapshots
+  of your volumes, and stored in the cloud as EBS snapshots.
+* Snapshots are incremental backups that capture only changed blocks. All snapshot
+  storage is also compressed to minimize your storage charges.
+
+**Cached Volumes:**
+* you store your data in S3 and retain a copy of frequently accessed data locally.
+* They offer substantial cost savings on primary storage and minimize need to
+  scale on-prem storage.
+* You also retain low-latency access to your frequently accessed data.
+* Max size of a cached volume is 32TB.
+* Max number of volumes/gateway is 32.
+* Total size of all volumes is 1024TB.
+
+**Stored Volumes:**
+* Provides durable and inexpensive offsite backups that you can recover to your
+  local data center or EC2.
+* You configure your on-prem gateway to store all data locally and then asynchronously
+  backup point-in-time EBS snapshots to S3.
+* Max size of a stored volume is 16TB.
+* Max number of volumes/gateway is 32.
+* Total size of all stored volumes is 512 TB.
+--------------------------------------------------------------------------------
+
+##Virtual Tape Gateway:
+* Cost-effectively and durably backup data in Amazon Glacier.
+* Provides a virtual tape infrastructure that scales seamlessly with your business
+  needs.
+* Minimum size of virtual tape: 100GB
+* Maximum size of a virtual tape: 2.5 TB
+* Maximum number of virtual tapes for a VTL (virtual tape library): 1500
+* Total size of all tapes in a VTL: 1 PB.
+* Maximum number of virtual tapes in archive: unlimited.
+
+
+
+
+#--------------------------------------------------------------------------------
+## Athena vs Macie
+#--------------------------------------------------------------------------------
+
+## Athena
+* Interactive query service which enabies you to analyze and query data located in
+  S3 using standard SQL.
+* Serverless, nothing to provision, pay per query / TB scanned.
+* No need to setup complex Extract/Transform/Load (ETL) processes.
+* Works directly with data stored in S3.
+* Data formats supported: JSON, Apache Parquet, Apache ORC.
+
+**What can Athena be used for**
+* Query log files stored in S3, eg ELB logs, S3 access logs, cloudtrail logs.
+* Generate business reports on data stored in S3
+* Analyze AWS cost and usage reports
+* Run queries on click-stream data
+
+--------------------------------------------------------------------------------
+
+## Macie
+
+**What is PII**
+* Personal data used to establish an individual's identity.
+
+* Machie is a security service which uses ML and NLP to discover, classify and
+  protect sensitive data stored in S3.
+* Uses AI to recognise if your S3 objects contain sensitive data such as PII
+* Dashboards, reporting and alerts
+* Works directly with data stored in S3.
+* Can only analyze CloudTrail logs
+* Great for PCI-DSS and preventing ID theft.
+
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
 
 
 
