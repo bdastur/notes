@@ -608,7 +608,7 @@ https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.ht
 
 ### ASG Components:
 
-**Launch configuration:** & **Configuration templates**
+**Launch configuration & Configuration templates**
 * A template that ASG uses to create new instances.
 * It is composed of config name, AMI, Instance type, SG, key pair.
 * Only a launch config name, AMI and instance type are required to create a
@@ -2972,6 +2972,9 @@ aws eks create-nodegroup \
   AWS using physical storage appliances, bypassing the internet.
 * A good choice if you have 16TB or less of data to import into S3 or EBS.
 * You can also export from S3 with AWS import/export.
+* Exporting as a VM is useful when you want to deploy a copy of an EC2 instance in
+  your on-site virtualization environment. You can export most EC2 instances to
+  Citrix Xen, Microsoft Hyper-V or VMware vSphere.
 
 ## Snowball:
 * Uses Amazon provided shippable storage appliances, shipped through UPS.
@@ -2994,6 +2997,40 @@ aws eks create-nodegroup \
 
 ## Snowmobile:
 * Petabyte and Exabyte amount of data.
+
+## Database Migration Service (DMS)  (On-prem services)
+* Helps migrate databases to AWS quickly and securely.
+* Source DB remains fully operational during the migration, minimizing downtime.
+* Supports homogenous migrations such as Oracle to Oracle, as well as hetrogenous
+  migrations between different database platforms, such as Oracle or MS SQL to
+  Amazon Aurora.
+* Can setup a one-time migration or on-going replication. on-going replication keeps
+  your source and target databases in sync.
+
+## Server Migration Service (SMS) (On-prem services)
+* Supports incremental replication of your on-premises servers in to AWS.
+* Can be used as a backup tool, multi-site strategy and a DR tool.
+
+## Application Discovery Service (On-prem services)
+* Helps migration to AWS by gathering information about on-premises data centers.
+* Collected data is retained in encrypted format in AWS application discovery service
+  data store.
+* The data is also available in AWS migration hub.
+* You install the AWS App Discovery Agentless Connector as a virtual appliance on
+  VMWare vCenter.
+* It will build a server utilization map and dependency map of your on-prem environment.
+
+## VM Import/Export (On-prem services)
+* Easily import virtual machine images from on-prem environment to EC2 instances,
+  and export them back.
+* Service that accelerates transferring large amounts of data in and out of
+  AWS using physical storage appliances, bypassing the internet.
+* A good choice if you have 16TB or less of data to import into S3 or EBS.
+* You can also export from S3 with AWS import/export.
+* Exporting as a VM is useful when you want to deploy a copy of an EC2 instance in
+  your on-site virtualization environment. You can export most EC2 instances to
+  Citrix Xen, Microsoft Hyper-V or VMware vSphere.
+
 
 
 ## HA Architecture:

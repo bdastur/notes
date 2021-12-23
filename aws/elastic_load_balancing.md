@@ -113,8 +113,20 @@
   of a client when using an HTTP or HTTPS load balancer.
 
 
+*Sticky sessions*
+* It allows you to bind a users's session to a specific EC2 instance.
+* Supported by classic LB. You can enable Sticky sessions for ALBs as well, but
+  the traffic will be sent at the target group level.
 
+*Cross Zone load balancing*
+* With cross-zone load balancing, each load balancer node for your classic LB
+  distributes requests evenly across the registered instances in all enabled AZs.
+* If cross zone load balancing is disabled, each load balancer node distributes
+  requests evenly across the registered instances in it's AZ only.
 
+*Path Patterns*
+* You can create listener with rules to forward requests based on the URL path.
+  This is known as path-based routing.
 
 
 
