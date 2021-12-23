@@ -9,6 +9,7 @@ NOTE:
 
 **Useful links:**
 * [AWS Well-architected framework](https://wa.aws.amazon.com/wat.concepts.wa-concepts.en.html)
+* [AWS How pricing works](https://docs.aws.amazon.com/whitepapers/latest/how-aws-pricing-works/introduction.html)
 * [S3 FAQ](https://aws.amazon.com/s3/faqs/)
 * [S3 - Deleting versioned objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/DeletingObjectVersions.html)
 * [S3 - multipart upload](http://docs.aws.amazon.com/AmazonS3/latest/API/mpUploadComplete.html)
@@ -17,8 +18,12 @@ NOTE:
 * [S3 VPC Endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-s3.html)
 * [S3 - Managing cross account access](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-walkthroughs-managing-access-example2.html)
 * [S3 cross account access](https://aws.amazon.com/premiumsupport/knowledge-center/cross-account-access-s3/)
-* []()
-* []()
+* [EC2 Burstable performance concept](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-credits-baseline-concepts.html)
+* [AMI - copy an AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html#ami-copy-steps)
+* [EC2 - spot instance advisor](https://aws.amazon.com/ec2/spot/instance-advisor/)           
+* [EC2 - spot instance pricing](https://aws.amazon.com/ec2/spot/pricing/#Spot_Instance_Prices)
+* [EC2 - spot fleet](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet.html)    
+* [EC2 - New spot pricing](https://aws.amazon.com/blogs/compute/new-amazon-ec2-spot-pricing/)
 * []()
 * []()
 * []()
@@ -1045,17 +1050,258 @@ Core concepts:
 
 
 
+#--------------------------------------------------------------------------------
+## AWS EC2
+#--------------------------------------------------------------------------------
+
+* Default maximum EC2 instance limit per region is 20.
+* Within each family of instance type, there are several choices that scale up
+  linearly in size. The hourly price for each size scales linearly as well.
+* When the host on which an EC2 instance restarts, the instance will stay with the
+  same EC2 host. But if the instance is stopped and then restarted or if AWS stops
+  the instance for maintenance etc on their end, then the instance will be
+  reassigned to another host in the same AZ.
+* AWS originally modified Xen Hypervisor to host EC2. Later it rolled out it's own
+  hypervisor called Nitro.
+* To attach an IAM role to an instance that has no role, the instance can be in the
+  stopped or running state.
+* To replace the IAM role on an instance that already has an attached IAM role,
+  the instance must be in the running state.
+
+* Instance metadata: http://169.254.169.254/latest/meta-data/
+* Instance user data: http://169.254.169.254/latest/user-data/
+
+**Termination Protection**
+* Prevents from accidental Termination from console, CLI or API.
+* It does not prevent termination triggered by an OS shutdown command,
+  termination from an ASG, or termination of a spot instance due to spot price
+  changes
+
+
+--------------------------------------------------------------------------------
+## Instance Types:
+**General purpose**
+* Provide a balance of compute, memory and networking resources and can be used
+  for a wide range of workloads.
+
+**T3**
+* Low cost general purpose
+* Burstable performance instances
+* Provide a baseline level of CPU performance with ability to burst above the
+  baseline.
+* The baseline performance and ability to burst are governed by CPU credits.
+* Uses: webservers, developer environments and databases.
+
+**T4**:
+* ARM based Gavitron2 processors. Deliver up to 40% better price performance over
+  T3 instances.
+
+**M5,M5a**:
+* Latest generation of general purpose instances.
+* Powered by Intel Xenon 8175M processors.
+* 25 Gbps network bandwidth using enhanced networking.
+* Instance storage offered via EBS or NVMe SSD that are physically attached to
+  the host server - provide block storage that is coupled to the lifetime of the
+  M5 instances.
+
+**M5zn**:
+* Bare metal instance.
+* Ideal for extremely high single threaded performance, high throughput & low latency
+  networking.
+* For Gaming, HPC, Simulation modeling.
+
+**MAC**:
+* Powered by Apple MAC mini computers and build on AWS Nitro system.
+
+--------------------------------------------
+**Compute Optimized**
+* Ideal for compute bound applications that benefit from high performance processors.
+
+**C5,C5n**:
+* Delivers cost-effective high performance at low price per compute ratio.
+* Requires HVM AMIs that include drivers for ENA and NVMe
+* Up to 25 Gbps of n/w bandwidtth and 19 Gbps of dedicated bw to Amazon EBS.
+
+**C6,C6gd, C6gn**:
+* AWS Graviton2 processors.
+
+--------------------------------------------
+**Memory Optimized**
+* Designed to deliver fast performance for workloads that process large data sets
+  in memory.
+
+**R5**
+* High Frequency Intel Xeon E5-2686 v4 (Broadwell) processors
+* DDR4 Memory
+* Support for Enhanced Networking
+* R5 delivers 5% additionnal memory per vCPU than R4.
+
+--------------------------------------------
+**Storage optimized**
+* Designed for workloads that require high, sequential read and write access to
+  very large data sets on local storage.
+
+**D2,D3**:
+* Optimized for applications that require high sequential I/O performance
+  and disk throughput.
+* Up to 48 TB of HDD instance storage.
+* D3 offers Up to 45% higher read and write disk throughput than D2 instances.
+
+**I3**:
+* Provides NVMe  SSD-backed instance storage, optimized for low latency,
+  very high random I/O performance, high sequential read throughput and high
+  IOPS at low cost.
+* I3 also provides bare metal instances (I3.metal)
+* Up to 25 Gbps of n/w bandwidth using ENA based enhanced networking.
+
+--------------------------------------------
+**Accelerated computing**:
+* Uses hardware accelarators, or co-processors to perform functions such as
+  floating point number calculations, graphics processing or data pattern match.
+
+**P2,P3, P4**
+* GPU based instances, provide highest performance for ML training and
+  HP computing in the cloud.
+* 400 Gbps instance networking support for Elastic Fiber Adapter and NVIDIA
+  GPUDirect RDMA (remote direct memory access)
+* 600 GB/s peer to peer GPU communication with NVIDIA NVswitch
+
+**F1**:
+* Offers customizable hardware  acceleration with field programmable gate
+  arrays (FPGA).
+
+
+--------------------------------------------------------------------------------
+## EC2 Pricing Models
+
+## On Demand
+* Allows you to pay a fixed rate by the hour (or by the second) with no commitments.
+
+## Reserved
+* Provides you with capacity reservation.
+* Offers a significant discount on the hourly charge.
+* Contract terms are 1 Year or 3 Years.
+**Standard Reserved Instances**
+* Offer up to 75% off on demand instances. The more you pay upfront and longer the
+  contract, the greater the discount.
+
+**Convertible Reserved Instances**
+* Offer up to 54% off on demand.
+* Capability to change the attributes of the RI as long as the exchange results in
+  the creation of RIs of equal or greater value.
+
+**Scheduled Reserved Instances**
+* Available to launch within the time windows you reserve. Allows you to match
+  your capacity reservation to a predictable recurring schedule that only requires
+  a fraction of a day, week or month.
+
+* Payment options:
+  * All upfront
+  * Partial upfront.
+  * No upfront.
+
+**Modifying your reserved instances:**
+* Modification does not change the remaining term of your reserved instances.
+  Their end dates remain the same. There is no fee and you do not receive a new
+  bill.
+**What can you modify?**
+* Change AZs within the same region.
+* Change the network from EC2 Classic to Amazon VPC and vice versa.
+* Change the scope from AZ to Region and vice versa
+* Change instance size within the same instance family (Linux only)
+
+## Spot
+* Enables you to bid whatever price you want for instance capacity.
+* If a spot instance is terminated by Amazon EC2, you will not be charged for
+  a partial hour of usage. However, if you terminate the instance yourself, you will
+  be charged for any hour in which the instance ran.
+
+* [spot instance advisor](https://aws.amazon.com/ec2/spot/instance-advisor/)           
+* [spot instance pricing](https://aws.amazon.com/ec2/spot/pricing/#Spot_Instance_Prices)
+* [spot fleet](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet.html)    
+* [New spot pricing](https://aws.amazon.com/blogs/compute/new-amazon-ec2-spot-pricing/)
+                       
+
+## Dedicated Hosts
+* Physical EC2 server dedicated for your use.
+* Can help reduce costs by allowing you to use your existing server bound
+  software licenses.
+
+
+--------------------------------------------------------------------------------
+## Burstable performance
+* Burstable performance instances provide a baseline level of CPU utilization with
+  the ability to burst CPU utilization above the baseline level.
+* Use credits for CPU usage.
+* Each burstable performance instance continuously earns credit when it stays below
+  the CPU baseline, and spends it when it burst above the baseline.
+* If there are no accrued creds remaining, then the instance gradually comes down
+  to baseline CPU utilization and cannot burst above baseline till it accrues more
+  credits.
+
+
+--------------------------------------------------------------------------------
+## AMIs:
+* AMIs define the initial software that will be on an instance when launched.
+* OS, initial state of any patches, applications or system software.
+
+**Four sources:**
+* Published by AWS
+* AWS Marketplace
+* Generated from existing instances
+* Uploaded virtual servers
+
+* When launching windows instance, EC2 generates a random password for the local
+  admin account and encrypts the password using a public key. initial access is
+  obtained by decrypting the password with the private key, either in the console
+  or using API.
+  The decrypted password can be used to login into the instance with local
+  admin account via RDP.
+
+**Creating an AMI**:
+You can create
+* An  EBS backed linux AMI
+* An Instance store backed Linux AMI
+
+**EBS Backed Linux AMI**
+*From EC2 instance.*
+--------------------
+Steps overview:
+* Launch an instance from an AMI (similar to one you like to create)
+* Customize the instance (install s/w, apps etc)
+* Stop the instance
+* Create the image
+* When you create an EBS backed AMI, Amazon will automatically register it for you.
+
+* During AMI creation, EC2 creates shanpshots of your instance's root volumes and
+  any other EBS volumes attached to your instance.
+* You are charged for the snapshots until you deregister the AMI and delete the
+  snapshots.
+* If any volumes attached to the instances are encrypted, the new AMI only launches
+  on instances that support Amazon EBS encryption.
+
+*From an EBS snapshot*
+---------------------
+* Select the snapshot from which to create the AMI.
+* Choose image name, architecture, root device name, virtualization type.
+* Customize block device mappings
+* create image.
+
+**Copying an AMI**
+* You can copy an Amazon AMI within or across AWS regions.
+* You can copy EBS backed and instance-store-backed AMIs.
+* You can copy AMIs with encrypted snapshots and also change encryption status
+  during the copy process.
+* You can copy AMIs that are shared with you.
 
 
 
+--------------------------------------------------------------------------------
+## EBS
+* Provide persistent block-level storage volumes for use with EC2 instances.
+* EBS volume is automatically replicated within it's AZ to provide HA and durability.
 
-
-
-
-
-
-
-
+**Types of EBS Volumes**
 
 
 
