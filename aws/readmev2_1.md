@@ -20,14 +20,19 @@ NOTE:
 * [S3 cross account access](https://aws.amazon.com/premiumsupport/knowledge-center/cross-account-access-s3/)
 * [EC2 Burstable performance concept](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-credits-baseline-concepts.html)
 * [AMI - copy an AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html#ami-copy-steps)
-* [EC2 - spot instance advisor](https://aws.amazon.com/ec2/spot/instance-advisor/)           
+* [EC2 - using spot instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html)
+* [EC2 - spot instance advisor](https://aws.amazon.com/ec2/spot/instance-advisor/)
 * [EC2 - spot instance pricing](https://aws.amazon.com/ec2/spot/pricing/#Spot_Instance_Prices)
-* [EC2 - spot fleet](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet.html)    
+* [EC2 - spot fleet](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet.html)
 * [EC2 - New spot pricing](https://aws.amazon.com/blogs/compute/new-amazon-ec2-spot-pricing/)
+* [EBS - volume types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
+* [Cloudwatch concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
 * []()
 * []()
 * []()
 * []()
+* []()
+
 
 
 ## Concepts:
@@ -1076,6 +1081,7 @@ Core concepts:
 * It does not prevent termination triggered by an OS shutdown command,
   termination from an ASG, or termination of a spot instance due to spot price
   changes
+* It is turned off by default, you must turn it on.
 
 
 --------------------------------------------------------------------------------
@@ -1216,11 +1222,11 @@ Core concepts:
   a partial hour of usage. However, if you terminate the instance yourself, you will
   be charged for any hour in which the instance ran.
 
-* [spot instance advisor](https://aws.amazon.com/ec2/spot/instance-advisor/)           
+* [spot instance advisor](https://aws.amazon.com/ec2/spot/instance-advisor/)
 * [spot instance pricing](https://aws.amazon.com/ec2/spot/pricing/#Spot_Instance_Prices)
-* [spot fleet](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet.html)    
+* [spot fleet](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet.html)
 * [New spot pricing](https://aws.amazon.com/blogs/compute/new-amazon-ec2-spot-pricing/)
-                       
+
 
 ## Dedicated Hosts
 * Physical EC2 server dedicated for your use.
@@ -1296,12 +1302,610 @@ Steps overview:
 
 
 
---------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------
 ## EBS
+#--------------------------------------------------------------------------------
 * Provide persistent block-level storage volumes for use with EC2 instances.
 * EBS volume is automatically replicated within it's AZ to provide HA and durability.
 
+--------------------------------------------------------------------------------
 **Types of EBS Volumes**
+
+## Solid state drives
+**General purpose SSD (gp3)**
+* 99.8 - 99.9% durability
+* Ranges from 1GB to 16TB volume size, and provides baseline performance of 3 IOPS
+  per gigabyte provisioned.
+* EG: For a 1 TB volume, you can expect a baseline performance of 3000 IOPS.
+* Under 1TB it has ability to burst up to 3000 IOPS for extend periouds of time.
+* When not using, IOPS are accumulated as I/O credits, which get used during
+  heavy traffic.
+* Use cases:
+ * system boot volumes
+ * small to medium sized DB
+ * Dev and test environments.
+* Max IOPS per volume: 16,000
+* Max throughput: 1,000 MiB/s
+
+
+**Provisioned IOPS SSD**
+* Designed to meet needs of I/O intensive workloads.
+* Ranges from 4 GB - 16 TB.
+* When provisioning, specify the size and desired IOPs, up to the lower of
+  maximum of 30 times the number of GB of volume or 64,000 IOPs.
+  NOTE IO2 Block express can go upto a Max of 256,000 IOPS.
+* EBS delivers within 10% of the provisioned IOPS 99.9% of the time over a
+  given year.
+* Price is on the provisioned size. Additional monthly fee is based on provisioned
+  IOPS (whether consumed or not).
+* Use cases:
+ * Critical business apps requiring sustained IOPS.
+ * Large DB workloads
+
+
+## HDD Hard disk drives
+
+**Throughput optimized HDD (st1)**
+* Sequential writes
+* Frequently accessed workloads.
+* Usually used for data warehouse apps.
+* Volume size 125GB - 16 TB.
+
+**Cold HDD (sc1)**
+* Less frequently accessed data.
+* Usually used for file servers.
+
+* st1 and sc1 cannot be used as root volumes.
+* HDD, magnetic - standard can be used for root volumes.
+* Termination protection is turned off by default, you must turn it on.
+* Default action for the root EBS volume is to be deleted when the instance is
+  terminated.
+
+
+## EBS Magnetic volumes (standard)
+* Lowest performance characteristics and lowest cost per gigabypte.
+* Great cost effective solution for appropriate workloads
+* Can range from 1 GB - 1 TB and average 100 IOPS, with ability to burst to
+  hunders of IOPs.
+* Use cases:
+ * Infrequently accessed data
+ * Sequential reads.
+ * Situation where low-cost storage is a requirement.
+* Billed based on provisioned space, regardless of how much data is actually
+  stored on the volume.
+
+--------------------------------------------------------------------------------
+
+## I/O credits and burst performance.
+* Performance of gp2 volumes is tied to volume size, which determines the baseline
+  performance level of the volume and how quickly it accumulates I/O credits.
+* I/O credits represent the available bandwidth that your gp2 volume can use to
+  burst large amounts of I/O when more than the baseline performance is needed.
+* Each volume receives an intial I/O credit of 5.4 million I/O credits - enough to
+  sustain a max burst performance of 3000 IOPS for atleast 30 minutes.
+* If your gp2 volume uses all it's I/O credit, the max IOPS performance of the
+  volume remains at the baseline IOPS performance level.
+
+--------------------------------------------------------------------------------
+## Protecting data
+
+**snapshots:**
+* Snapshots are incremental backups, meaning only the blocks on the device that have
+  changed since your most recent snapshot are saved.
+* Snapshots are saved in S3. They are point-in-time copies of the volume.
+* The action for taking a snapshot is free. You pay for the storage cost.
+* Snapshots are constrained to the region in which they are created. Meaning
+  you can use them to create new volumes only in the same region.
+* If you need to restore a snapshot in a different region, you can copy a
+  snapshot to another region.
+* To use a snapshot you create a new EBS volume from the snapshot. The volume
+  is created immediately, but data is loaded lazily - Means the volume can be
+  accessed upon creation, and if the data being requested is not yet restored, it
+  will be upon first request.
+* Snapshots can be used to increase the size of an EBS volume.
+* Snapshots of encrypted volumes are encrypted automatically.
+* Volumes restored from encrypted snapshots are encrypted automatically.
+* You can share snapshots, but only if they are unencrypted.
+* To create a snapshot for EBS volumes that serve as root devices, you should stop
+  the instance before taking the snapshot.
+
+--------------------------------------------------------------------------------
+
+**Encryption:**
+* EBS volumes can be encrypted. Uses AWS Key management service to handle key
+  management.
+* A new master key is created unless you select a master key.
+* Data and keys are encrypted using AES-256 algorithm.
+* Encryption happens on the servers that host the EC2 instance, so the data is
+  actually encrypted in transit between the host and the storage media and also
+  on the media.
+* Encryption is transparent, and you can expect same IOPS performance with minimal
+  effect on latency.
+* Snapshots from encrypted volumes are automatically encrypted, as are the volumes
+  created from encrypted snapshots.
+* EBS Root volumes of your default AMIs cannot be encrypted.
+* You can use 3rd party tools to encrypt the root volume, or it can be Done
+  when creating AMIs in the AWS console or using API.
+* You are not tied to the type of volume with snapshot. Meaning - you could have a
+  snapshot of a volume of type magnetic disk, and you can created a new volume from
+  this snapshot with a different volume type like SSD.
+
+* To move an EC2 volume from one AZ to another, take a snapshot of it, create an
+  AMI from the snapshot and then use the AMI to launch the EC2 instance in the
+  new AZ.
+--------------------------------------------------------------------------------
+
+## Instance stores:
+* Provides temporary block-level storage for your instance.
+* Located on disks that are physically attached to the host computer.
+* The size of an instance store as well as the number of devices available varies by
+  instance type.
+* Data in an instance store persists only during the lifetime of it's associated
+  instance.
+* If the instance reboots (intentionally or unintentionally), data in the instance
+  store persists.
+* Data in the instance store is lost when:
+  * The underlying disk drive fails.
+  * The instance is stopped.
+  * The instance terminates.
+* When you stop or terminate an instance, every block of storage in the instance
+  store is reset. Therefore data cannot be accessed through the instance store of
+  of another instance.
+* If you create an AMI from the instance, the data on it's instance store volumes
+  isn't preserved and isn't present on the instance store volumes of the instance
+  that you launched from the AMI.
+* You cannot create a snapshot of an instance store like you can for an EBS volume.
+
+--------------------------------------------------------------------------------
+
+## ENI vs ENA vs EFA
+
+## Elastic Network Interface (ENI):
+* An ENI is a virtual n/w interface that you can attach to an instance in a VPC.
+* ENIs are only available within a VPC and are associated with a subnet upon
+  creation.
+* They can have 1 public ip address and multiple private ip addresses. One of
+  them is primary.
+* Allows you to create dual-homed instances with workloads on distinct subnets.
+* Each instance has a default network interface, called the primary network
+  interface. You cannot detach a primary network interface from an instance.
+* You can enable/disable source destination checks. These checks are enabled by
+  default.
+
+
+## Enhanced Network (EN)
+* Enhanced networking uses single root I/o virtualization (SR-IOV) to provide
+  high performance networking capabilities on supported instance type.
+* Provides higher I/O performance and lower CPU utilization when compared to
+  traditional virtualized network interfaces.
+* There is no additional charge for using enhanced networking.
+* You can enable EN, using one of the following:
+  **Elastic Network Adapter (ENA)**
+  * ENA supports n/w speeds of up to 100 Gbps for suppored instance types.
+  * Supported by all instances except C4, D2 & M4 (smaller than m4.16xlarge)
+
+ **Intel 82599 Virtual Function (VF) Interface**
+ * Supports n/w speeds of up to 10 Gbps for supported instance types.
+ * Instance types that use VF: C3, D4, D2, I2, M4 (excluding M4.16xlarge), R3
+
+## Elastic Fabric Adapter
+* A network device that you can attach to your Amazon EC2 instance to accelerate
+  high performance computing (HPC) and machine learning applications.
+* Provides lower and more consistent latency and higher throughput than TCP
+  transport traditionally used in cloud-based HPC systems.
+* EFA can use OS-bypass. OS-bypass enables HPC and machine learning applications to
+  bypass the operating system kernel and communicate directly with the EFA device.
+  NOT supported with windows currently, only Linux.
+
+--------------------------------------------------------------------------------
+
+## Spot Instances
+* It is an instance that uses spare EC2 capacity that is available for less than
+  on-demand price.
+* You can request a spot instance at a steep discount as compared to on-demand.
+* The spot price for each instance type in each AZ is set by Amazon EC2 and is
+  adjusted based on long-term supply of and demand for spot instances.
+
+## Spot Instance Request
+* To use spot instance you create a spot instance request.
+* It should include:
+  * Desired number of instances
+  * AZ
+  * Maximum price
+  * Launch specification
+  * Request type: one-time | persistent.
+  * Valid from, valit until
+
+## Spot fleets
+* A collection of spot instances and optionally on-demand instances.
+* Attempts to launch the number of spot instances and on-demand instances to meet
+  the target capacity you specified in the spot fleet request.
+* Request for spot instances is fulfilled if there is available capacity and the
+  maximum price you specified in the request exceeds the current spot price.
+
+* strategies for spot fleets:
+
+**Capacity Optimized**
+* The spot instances come from the pool with optimal capacity.
+* It launches spot instances into the most available pools by looking at real-time
+  capacity data.
+* Possibility of fewer interruptions.
+
+**Lowest price**
+* This is the default strategy. Spot instances come from the pool with lowest cost.
+
+**Diversified**
+* Spot instances are distriuted across all pools.
+
+**InstancePoolsToUseCount**
+* Spot instances are distributed across the number of Spot pools that you specify.
+  This parameter is valid only when used in combination with lowestPrice.
+
+--------------------------------------------------------------------------------
+
+## EC2 Hibernate
+* EC2 hibernate preserves the in-memory RAM on persistent storage (EBS)
+* Much faster boot up because you do not need to reload the OS.
+* Instance RAM must be less than 150 GB.
+* Instances families, include C3-5, M3-5, R3-5.
+* Available for windows, Amazon Linux 2 AMI and ubuntu.
+* Instances can't be hibernated for more than 60 days.
+* Available for on-demand or reserved instances.
+* You are not charged for an instance usage for a hibernated instance when it is
+  in stopped state.
+
+--------------------------------------------------------------------------------
+
+## Security groups
+* A virtual firewall that controls inbound and outbound traffic to AWS resources
+  and EC2 instances.
+* Security groups are stateful, unlike Network ACLs which are stateless.
+* If a SG is not specified at launch, then the instance will be launched with a
+  default SG.
+* A default SG:
+  * Allows all outbound traffic
+  * Denies all inbound traffic
+  * Allows communication within the SG.
+* You can create up to 500 security groups per VPC.
+* You can add 50 inbound and 50 outbound rules to each SG.
+* You can specify allow rules but not deny rules in a SG.
+* Have sparate rules for inbound and outbound traffic.
+* By default all outbound traffic is allowed.
+* SGs are stateful - this means the responses to allowed inbound traffic are
+  allowed to flow outbound regardless of the outbound rules.
+* You can change the SG which is associated to an instance, and changes will take
+  effect immediately.
+* Security groups and Network ACLs can span multiple AZs.
+
+--------------------------------------------------------------------------------
+
+## Network ACLs
+* Your VPC automatically comes with a default network ACL, and by default it allows
+  all outbound and inbound traffic.
+* You can create a custom network ACL and associate it with a subnet. By default
+  it denies all inbound and outbound traffic, until you add rules.
+* Operates at subnet level (second level of defense)
+* Supports allow and deny rules.
+* It is stateless. Return traffic must be explicitly allowed by rules.
+* Processes rules in numbered order when deciding whether to allow traffic. Starting
+  with the lowest numbered rule.
+* Automatically applied to all EC2 instances in the associated subnet.
+* Each subnet in your VPC must be associated with a network ACL. If you do not
+  explicitly associate a subnet with a network ACL, the subnet is automatically
+  associated with the default network ACL.
+* You can associate network ACL with multiple subnets, but a subnet can be
+  associated to only one network ACL at a time.
+
+**Ephemeral ports**
+* To cover the different types of clients that might initiate traffic to public
+  facing instances in your VPC, you can open ephemeral ports 1025-65635. However
+  you can also add rules to your ACL to deny traffic on any malicious ports within
+  that range.
+* Remember to place DENY rules earlier in table than ALLOW rules that open the wide
+  range of ephemeral ports.
+
+--------------------------------------------------------------------------------
+
+
+
+#--------------------------------------------------------------------------------
+## CloudWatch:
+#--------------------------------------------------------------------------------
+
+Monitoring service to monitor your AWS resources, as well as the applications
+that you run on AWS.
+* Two plans: basic/standard and detailed.
+* Basic monitoring is default, sends data points to cloudwatch every 5 minutes for
+  limited number of metrics.
+* Detailed is to be explicitly enabled. Sends data points every minute and allows
+  data aggregation.
+* Limit of 500 alarms per AWS account.
+* Metrics data is retained for 2 weeks.
+* A cloudwatch log agent is available that provides an automated way to send log
+  data to cloudwatch logs. Install it on EC2 instance. It stays running until disabled.
+* Cloudwatch metrics provide hypervisor visible metrics.
+* By default it monitors host level metrics:
+  * CPU
+  * Network
+  * Disk
+  * Status check.
+
+## Cloudwatch concepts:
+**Namespaces:**
+* Is a container for cloudwatch metrics.
+* Metrics in different namespaces are isolated from each other.
+* There is no default namespace. You must specify a namespace for each
+  data point you publish to cloudwatch.
+* Names must contain valid XML characters and must be < 265 characters in length.
+**Metrics:**
+* Metrics are the fundamental concept in cloudwatch. It represents a time-ordered
+  set of data points that are published to cloudwatch.
+* Think of metrics as a variable to monitor, and data points as representing the
+  values of that variable over time.
+* Metrics exist in the region they were created.
+* Metrics cannot be deleted, but they automatically expire after 15 months if no new
+  data is published to them. Data points older than 15 months expirre on a rolling
+  basis, as new data points come in.
+**Timestamps:**
+* Each metric data point must be associated with a timestamp.
+* Timestamp can be 2 weeks in the past or upto two hours in the future.
+* If you do not provide a timestamp, Cloudwatch creates it for you based on the time
+  the data point was received.
+**Metrics Retention:**
+* Data points with a period of < 60 secods are available for 3 hours. These are high
+  resolution custom metrics.
+* Data points with a period of 60 seconds (1 min) are available for 15 days
+* Data points with a period of 300 seconds (5 min) are available for 63 days
+* Data points with a period of 3600 seconds (1 hour) are available for 455 days (15 months)
+**Dimensions:**
+* A dimension is a name/value pair that is part of the identity of a metric.
+* You can assign upto 10 dimensions to a metric.
+* Cloudwatch treats each unique combination of dimensions as a separate metric, even if
+  the metric have the same metric name.
+**Resolution**:
+* Each metric is either:
+  * Standard resolution, with data having a one-minute granularity.
+  * High resolution, with data at a granularity of one second.
+**Statistics:**
+* Statistics are metrics data aggregations over specified periods of time.
+
+--------------------------------------------------------------------------------
+
+## EC2 Placement groups:
+
+**Cluster placement group**
+* Group of instances within a single AZ.
+* Recommended for apps that need low network latency, high nw throughput
+* Only certain instances can be launched in a clustered placement group.
+
+**Spread placement group**
+* A group of instances that are each placed on distinct underlying hardware.
+* Are recomended for apps that have a small number of critical instances that
+  should be kept separate from each other.
+
+**Partitioned placement group**
+* Amazon EC2 divides each group into logical segments called partitions.
+* Each partition within a placement group has it's own set of racks.
+* Each rack has its own n/w and power source.
+* No two partitions within a placement group share the same rack.
+* Allows you to isolate the impact of hardware failure within your application.
+
+* Name you specify for a placement group must be unique within your AWS account.
+* Only certain type of instances can be launched in a placement group (Compute
+  optimized, GPU, Memory optimized, Storage optimized)
+* AWS recommends homogenous instances within clustered placement groups.
+* You can move an existing instance in to a PG. Before you move, the instance must
+  be in stopped state.
+
+
+--------------------------------------------------------------------------------
+
+## HPC on AWS
+HPC is used for industries such as genomics, finance and financial risk modeling,
+machine learning, weather prediction and even autonomous driving.
+
+What are the different services we can use to achive HPC on AWS?
+
+**Data transfer**
+* Snowball, Snowmobile (terabytes/petabytes worth of data)
+* AWS Datasync to store on S3, EFS, FSx for windows etc
+* Direct connect
+
+**Compute and Network services**
+* EC2 instances (GPU or CPU optimized)
+* EC2 fleets (spot instances or spot fleets)
+* Placement groups (cluster placement)
+* Enhanced networking
+* Elastic network adapters (ENA)
+* Elastic fabric adapters
+
+**Storage services**
+* EBS: scales up to 64000 IOPS with provisioned IOPS
+* Instance store: Scales up to millions of IOPS; low latency
+
+Network storage:
+* Amazon S3.
+* Amazon EFS
+* Amazon FSx for lustre.
+
+**Orchestration & Automation**
+*AWS Batch:*
+* Easily and efficiently run hunderes and thousands of batch computing jobs on AWS.
+* Supports multi-node parallel jobs, which allows you to run a single job that
+  spans multiple EC2 instances.
+* Easily schedule jobs and launch EC2 instances according to your needs.
+
+*AWS ParallelCluster*
+* Open-source cluster management tool - make sit easy to deploy and manage HPC
+  clusters on AWS.
+* Uses a simple text file to model and provision all the resources needed for HPC
+  applications
+* Automate creation of VPC, subnet, cluster type, and instance types.
+
+--------------------------------------------------------------------------------
+
+## AWS WAF (Web Application Firewall)
+* It's a layer 7 aware firewall.
+* AWS WAF lets you monitor the HTTP and HTTPs requests that are forwarded to API
+  gateway, Cloudfront or ALB.
+* It also lets you control access to your content.
+* WAF allows 3 different behaviors:
+ * Allow all requests except the ones you specify
+ * Block all requests except the ones you specify
+ * Count the requests that match the properties you specify (passive)
+* Configure filter rules to allow/deny traffic:
+ * IP address
+ * Query string parameters
+ * SQL query injection
+ * Cross-site scripting attacks.
+* Extra protection against web attacks using contitions you specify.
+ * IP addresses that request originate from
+ * Country that requests originate from.
+ * Values in request headers.
+ * Strings that appear in requests, either specific strings or string that match
+   regular expressions.
+ * Length of requests
+ * Presence of SQL code that is likely to be malicious (SQL injection)
+ * Presence of a script that is likely to be malicious (Known as cross-site scripting)
+
+
+--------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------
+# SQS Simple Queue Service
+#--------------------------------------------------------------------------------
+* A fast, reliable, scalable and fully managed queuing service.
+* Using SQS, you can decouple the components of an application so they run
+  independently.
+* Messages can contain up to 256KB of text in any format.
+* Makes it simple and cost effective to decouple components of your cloud application.
+* Makes a best effort, but Does not guarantee message delivery order (no FIFO)
+* If message order is required applications can handle that by passing a message
+  sequence id.
+* Ensures delivery of each message at least once and supports multiple readers and
+  writers interacting with the same queue.
+
+## Message lifecycle
+1. (Producer) Component 1 sends message A to a queue. The message is redundantly
+    distributed across the SQS servers.
+2. (Consumer) Component 2 retrieves the message from the queue and message A is
+   returned while message A is being processed, it remains in the queue and is not
+   returned to subsequent receive requests for a duration of the visibility timeout.
+3. (consumer) Component 2 deletes message A from the queue to prevent the message
+   from being received and processed again after the visibility timeout expires.
+
+## Delay queues and visibility timeouts:
+
+**Delay Queues**
+* Delay queues allow you to postpone the delivery of a new message in a queue for
+  specific number of seconds.
+* Any message that you send in that queue will be invisible to the consumer for the
+  duration of the delay period.
+* Delay period can range from 0 to 900 seconds (0 to 15 mins)
+* Default value of delay period is 0 seconds.
+* You can turn an existing queue into a delay queue using SetQueueAttributes to set
+  the queue's DelaySeconds attribute.
+
+**Visibility timeout**
+* Visibility timeout is the amount of time a message is invisible in the SQS queue
+  after a reader picks up the message. Provided the job is processed before the
+  visibility timeout expires, the message will then be deleted from the queue. If the
+  job is not processed within that time, the message will become visible again and another
+  reader will process it. This could result in same message being delivered twice.
+* Immediately after a message is received, it remains in the queue. SQS sets
+  visibility timeout, a perioud during which SQS prevents other consumers from
+  receiving and processing the message.
+* Default visibility timeout is 30 seconds. Min is 0 seconds, Max is 12 hours.
+* SQS automatically deletes messages that have been in the queue for more than
+  maximum message retention period.
+* Message retention periods: Default: 4 days, Shortest: 60 secs, Longest: 14 days.
+* Visibility timeout begins when SQS returns a message. During this time the
+  consumer processes and deletes the message.
+* If the consumer fails to delete the message within the visibility timeout, the
+  message becomes visibile to other consumers and is received again.
+
+**Message states**
+An SQS message has three basic states:
+1. Sent to a queue by a producer.
+* This message is considered 'stored' after it is sent to a queue by a producer, but
+  not yet received from the queue by a consumer.
+* There is no quota on stored messages (unlimited stored messages)
+
+2. Received from the queue by a consumer.
+* A message is considered 'in flight' after it is received by a consumer, but not yet
+  deleted from the queue.
+* There is a quota on inflight messages. A max of 120,000 messages can be inflight.
+
+3. Deleted from the queue.
+* A message is deleted by the consumer after processed.
+
+* SQS returns OverLimit error if the quotas are exceeded.
+
+## Queue operations, unique ids and metadata.
+* Some SQS Operations:
+  CreateQueue, ListQueues, DeleteQueue, SendMessage, SendMessageBatch,
+  ReceiveMessage, DeleteMessage,..
+* Messages are identified via a globally unique ID that SQS returns when the
+  message is delivered to the queue. The ID is useful for tracking whether a
+  particular message in the queue has been received.
+* When you receive a message from the queue, the response includes a receipt
+  handle, which you must provide when deleting the message.
+
+## Queue and message identifiers:
+* Three identifiers for SQS: queue URLs, message IDs and receipt handles.
+* When creating a new queue, you must provide a queue name that is unique within
+  the scope of all your queues. SQS assigns each queue an identifier called
+  the queue URL, which includes the queue name and other components that SQS
+  determines.
+* Provide the queue URL whenever you want to perform an action on the queue.
+
+* SQS assigns each message a unique ID, that it returns to you in the
+  SendMessage response.
+* The identifier is useful for identifying messages but not deleting it.
+
+* Each time you receive a message from a queue, you also get a receipt handle
+  for that message.
+* To delete the message you must provide the receipt handle.
+* Max length of the receipt handle is 1024 characters.
+
+## Message Attributes:
+* Provide structured metadata items about the message.
+* Each message can have up to 10 attributes.
+* Are optional and separate from, but sent along with the message body.
+* The receiver can use this information to help decide how to handle the message
+  without having to process the message body first.
+
+
+## Long polling:
+* To receive message the consumer invokes ReceiveMessage API.
+* ReceiveMessage will check for existence of a message in the queue and return
+  immediately, either with or without a message.
+* With long polling, you send WaitTimeSeconds argument to ReceiveMessage of up to
+  20 seconds.
+* If there is no message in the queue the call will wait up to WaitTimeSeconds
+  for a message before returning.
+* If a message appears before the time expires, the call will return with the
+  message right away.
+
+## Dead Letter Queues:
+* A queue that other queues can target to send messages that for some reason could
+  not be successfully processed.
+* Ability to sideline and isolate unsuccessfully processed messages.
+
+## FIFO queue
+* FIFO queue complements the standard queue.
+* Most important features are FIFO delivery and exactly-once processing. The order
+  in which the messages are sent and received is strictly preserved and a message
+  is delivered once and remains available until a consumer processes and deletes
+  it. Duplicates are not introduced into the queue.
+* FIFO queues also support message groups that allow multiple ordered message
+  groups within a single queue.
+* FIFO queues are limited to 300 transactions per second, but have all the
+  capabilities of a standard queue.
+
+--------------------------------------------------------------------------------
+
 
 
 
