@@ -27,7 +27,7 @@ NOTE:
 * [EC2 - New spot pricing](https://aws.amazon.com/blogs/compute/new-amazon-ec2-spot-pricing/)
 * [EBS - volume types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
 * [Cloudwatch concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
-* []()
+* [SQS - How it works](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-how-it-works.html)
 * []()
 * []()
 * []()
@@ -1682,6 +1682,7 @@ that you run on AWS.
 * A group of instances that are each placed on distinct underlying hardware.
 * Are recomended for apps that have a small number of critical instances that
   should be kept separate from each other.
+* Have a limitation of maximum of 7 running instances per AZ.
 
 **Partitioned placement group**
 * Amazon EC2 divides each group into logical segments called partitions.
@@ -1785,6 +1786,7 @@ Network storage:
   sequence id.
 * Ensures delivery of each message at least once and supports multiple readers and
   writers interacting with the same queue.
+* NOTE: SQS is pull based, not push based.
 
 ## Message lifecycle
 1. (Producer) Component 1 sends message A to a queue. The message is redundantly
@@ -1904,10 +1906,413 @@ An SQS message has three basic states:
 * FIFO queues are limited to 300 transactions per second, but have all the
   capabilities of a standard queue.
 
+
+--------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------
+## Simple Workflow Service (SWF):
+#--------------------------------------------------------------------------------
+* SWF makes it easy to coordinate work across distributed application components.
+* SWF enables applications for a range of use cases, including media processing,
+  web application backends, business process workflows and analytics pipelines,
+  designed to coordinate tasks.
+* In SWF task represents a logical unit of work that is performed by a component
+  of your application.
+* You implement the workers to perform tasks.
+* Workers can run either on EC2 or on-premises instances/servers.
+* You can create long running tasks that might fail, timeout or require restart
+  or tasks that can complete with varying throughput and latency.
+* SWF stores tasks, and assigns them to workers when they are ready, monitor
+  their process and maintain their state, including details on their completion.
+* To coordinate tasks you write a program that gets the latest state of each
+  task from SWF and uses it to initiate subsequent tasks.
+* SWF workflow executions can last up to 1 year.
+
+## Workflows:
+* In SWF you can implement distributed, asynchronous applications as workflows.
+* Workflows coordinate and manage execution of activities that can be run
+  asynchronously across multiple computing devices and that can feature both
+  sequential and parallel processing.
+
+## Workflow Domains:
+* Workflows in different domains cannot interact with one another.
+* Domains are a way of scoping SWF resources within your AWS account.
+
+## Workflow history:
+* Is a detailed, complete and consistent record of every event that occurred
+  since the workflow execution started.
+
+## Actors:
+* Programatic features are known as actors.
+* They can be **workflow starters**, **deciders** or **activity workers**.
+* Actors communicate with SWF through it's API.
+* You can develop actors in any programming language.
+* A workflow starter is an app that initiates workflow executions - like a
+  website or a mobile application.
+* A decider is the logic that coordinates the tasks in a workflow. The decider
+  also processes events that arrive while the workflow is in progress.
+* An activity worker is a single computer process (or thread) that performs
+ the activity task in your workflow.
+
+
+## Tasks:
+* Three types of tasks:
+  * Activity tasks:
+    * tells and activity worker to perform it's function.
+  * AWS Lambda tasks:
+    * Similar to activity task, but executes an AWS Lambda function
+  * Decision tasks:
+    * Tells a decider that the state of the workflow execution has changed
+      to determine the next activity that needs to be performed.
+
 --------------------------------------------------------------------------------
 
 
 
+#--------------------------------------------------------------------------------
+## Simple Notification Service (SNS):
+#--------------------------------------------------------------------------------
+* A web service for mobile and enterprise messaging that enables you to setup,
+  operate and send notifications.
+* It follows the publish-subscribe messaging paradigm, with notifications being
+  delivered to clients using push mechanism that eliminates the need to check
+  periodically for new updates.
+* You can use SNS to send short message service (SMS) messages to mobile devices
+  in the US or to email recipients worldwide.
+* Two client types:
+  * **Publishers** and **Subscribers**.
+
+* Publishers communicate to Subscribers asynchronously by sending a message to
+  a topic.
+* A topic is simply a logical access point/communication channel that contains
+  a list of subscribers and the methods used to communicate to them.
+* When you send a message to a topic it is automatically forwarded to each
+  subscriber of that topic using the communication method configured for that
+  subscriber.
+* Topic names should typically be available for reuse approx 30 - 60 seconds
+  after the previous topic with same name is deleted. Topics with larger
+  subscription lists may take longer.
+* After a message has been successfully published to a topic, it cannot be
+  recalled.
+* Protocols included: HTTP, HTTPS, EMAIL, EMAIL-JSON, Amazon SQS, Application.
+
+### Common SNS scenarios:
+* Fanout:
+  A SNS message is sent to a topic and then replicated and pushed to
+  multiple SQS queues, HTTP endpoints or email addresses.
+* Application and System Alerts:
+  They are SMS and/or email notifications that are triggered by predefined
+  thresholds.
+* Push Email and Text messaging:
+  Two ways to transmit messages to individuals or groups via email and/or SMS.
+* Mobile push notifications:
+  Enables you to send messages directly to mobile applications.
+
+--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+## Elastic Transcoder
+#--------------------------------------------------------------------------------
+* Media transcoder in the cloud.
+* Convert media files from original source into different formats that will play
+  on smartphones, tables, PCs etc.
+
+
+#--------------------------------------------------------------------------------
+## API Gateway
+#--------------------------------------------------------------------------------
+* Fully managed service that makes it easy for developers to publish, maintan,
+  monitor and secure APIs at any scale.
+**what can it do?**
+* Exposes HTTPs endpoints to define a restful api.
+* Serverless-ly connect to services like lambda and dynamodb.
+* Send each API endpoint to a different target.
+* Run efficiently with low cost.
+* Scale effortlessly
+* Track and control usage by API key.
+* Throttle requests to prevent attacks
+* Connect to cloudwatch to log all requests for monitoring.
+* Maintain multiple versions of API.
+* You can throttle API GW to prevent attacks
+* If you are using JS/AJAX that uses multiple domains with API GW, ensure that
+  you have enabled CORS on API GW.
+
+**API Gateway Caching**
+* You can enable API caching to cache your endpoint's response.
+* With caching you can reduce the number of calls made to your endpoint and also
+  improve latency of the requests to your API.
+* When you enable caching for a stage, API GW caches responses from your endpoint
+  for a specified time-to-live period, in seconds.
+* Then API GW responds to the request by looking up the endpoint response from the
+  cache instead of making a request to your endpoint.
+
+### Same origin policy & CORS
+* In computing, the same-origin policy is an important concept in the web application
+  security model.
+* Under the policy, a web browser permits scripts contained in a first web page
+  to access data in a second web page, but only if both web pages have the same
+  origin (only if they have same domain name).
+* This is done to prevent cross-site scripting (XSS) attacks.
+* CORS is one way the server at the other end (not the client code in the browser),
+  can relax the same-origin policy.
+* Cross-Origin resource sharing (CORS) is a mechanism that allows restricted
+  resources on a web page to be requested from another domain outside the domain
+  from which the first resource was served.
+
+--------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------
+## Amazon Kinesis
+#--------------------------------------------------------------------------------
+
+* Platform for handling massive streaming data on AWS
+
+## Kinesis Firehose
+* Amazon's data-ingestion product.
+* It is used to capture and load streaming data into other AWS services like S3 and
+  Redshift.
+* Clients write data to stream using API call and data is automatically sent to
+  proper destination.
+* When configured to save to S3, firehose sends data directly to S3. For Redshift
+  data is first send to S3 and then Redshift copy command is executed to load
+  data to Redshift.
+* Firehose can also write data to Elasticsearch, with option to back it up in S3.
+* There is no data persistence in Kinesis firehose.
+
+
+## Kinesis Streams
+* you can use Kinesis Data Streams for rapid and cntinuous data intake and
+  aggregation.
+* Type of data can be: IT infra log data,, appln logs, social media, market data
+  feeds and web clickstream data.
+* Capable of capturing large amounts of data from data producers and streaming
+  it into custom applications for data processing and analysis.
+* You can scale to support limitless data streams by distributing incoming data
+  across number of shads.
+* The processing is then executed on consumers which read data from shards and run
+  the kinesis stream application.
+* Allows you to persistently store data for 24 hours up to 7 days.
+* Kinesis streams consist of shads
+ - 5 transactions per second for reads, up to a max total data read rate of 2 MB/sec
+   and up to 1000 records per second for warites, up to a max total data write rate
+   of 1 MB/ sec (including partition keys)
+
+Producers        Kinesis Streams         Consumers
+
+EC2 -----------> Shard  ------------->  EC2               DynamoDB, S3
+Mobile --------> Shard  ------------->  EC2      -------> EMR, Redshift
+IOT    --------> Shard  ------------->  EC2
+
+
+## Kinesis Analytics
+* Enables you to analyze streaming data real time with standard SQL.
+* Works with Firehose or Streams.
+
+--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+## Web Identity Federation & Cognito
+#--------------------------------------------------------------------------------
+* Web identity federation lets you give your users access to AWS resources
+  after they have successfully authenticated with a web-based identity provider
+  like Amazon, Facebook or Google.
+* Following successful authentication, the user receives and authentication code
+  from the Web ID provider, which they can trade for temporary AWS security
+  credentials.
+
+**Cognito**
+* Amazon Cognito provides web identity federation with following features:
+ * Sign-up and sign-in to your apps
+ * Access for guest users.
+ * Acts as an identity broker between your application and Web ID providers, so
+   you don't need to write any code.
+ * Synchronizes user data for multiple devices.
+ * Recomended for all mobile applications AWS services.
+* Cognito brokers between the app and Facebook or Google to provide temporary
+  credentials which map to an IAM role allowing access to the required resources.
+* No need for applications to embed or store AWS credentials locally on the device
+  and it gives users a seamless experience across all mobile devices.
+
+**Cognito userpools**
+* User pools are user directories used to manage sign-up and sign-in functionality
+  for mobile and web applications.
+* Users can sign-in directly to the user pool, or using facebook, amazon or Google.
+* Cognito acts as an Identity broker between the identiy provider and AWS.
+  Successful authentication generates a JSON Web token (JWTs).
+
+**Cognito Identity pools**
+* Identity pools enable provide temporary AWS credentials to access AWS services
+  like S3 or DynamoDB.
+
+**Cognito Synchornization**
+* Cognito tracks the association between user identity and the various different
+  devices they sign-in from. In order to provide a seamless user experience for
+  your application.
+* It uses push synchronization to push updates and synchronize user data across
+  multiple devices.
+* Cognito uses SNS to send a notification to all devices associated with a given
+  user identity whenever data stored in the cloud changes.
+
+--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+## Amazon EMR
+#--------------------------------------------------------------------------------
+
+* Fully managed on-demand Hadoop framework, to process and analyze vast amounts of
+  data.
+* Central component of EMR is the cluster. Each instance in the cluster is a node.
+* node types:
+  * Master node: A node that manages the cluster.
+  * Core node: A node with sw components that run tasks and store data in HDFS.
+               (atleast one)
+  * Task node: A node with sw components that only run tasks and do not store data.
+
+* When you launch an EMR cluster you specify:
+  * Instance type
+  * Number of nodes in the cluster
+  * Version of Hadoop to run
+  * Additional tools or applications like Hive, Pig, Spark or Presto.
+* You can use EMR with a customized version of hive with connectivity to DynamoDB
+  to perform operations on data stored in DynamoDB.
+
+* Storage types when using EMR:
+**Hadoop Distributed File System (HDFS)**
+* Standard file system that comes with hadoop.
+* All data is replicated across multiple instances for durability
+* Can use instance storage or EBS.
+
+**EMR File System (EMRFS)**
+* Is an implementation of HDFS that allows clusters to store data on S3.
+* You get durability and low cost while preserving your data even if the cluster
+  shuts down.
+* Key factor is whether cluster is persistent.
+
+* For persistent clusters HDFS is appropriate.
+
+* For some use cases like big data workloads, which are run infrequently, it can
+  be cost effective to turn off the cluster when not in use.
+* These are called **transient clusters**.
+* EMRFS is well suited for such clusters as data persist independent of the
+  lifecycle of the cluster.
+
+**Use cases:**
+  * Log processing: large number of unstructured logs to get useful insights.
+  * Clickstream analysis: to segment users and understand user preferences.
+  * Genomics and life sciences: Process vas amounts of genomic data and
+    other large scientific datasets quickly and efficiently.
+
+--------------------------------------------------------------------------------
+
+## AWS Data pipeline:
+* A web servie that helps you reliably process and move data between different
+  compute and storage services and also on-premise data sources at specified
+  intervals.
+* It is best for regular batch processing instead of continuous data streams.
+
+--------------------------------------------------------------------------------
+
+## OpsWorks
+* A configuration management service that helps you configure and operate apps
+  in a cloud by using Puppet or Chef.
+* Can work with any application, and is independent of any architectural patterns.
+* You can define an application's architecture and specification of each component,
+  including package installation, configuration and resources such as storage.
+* Supports both linux and windows servers, including existing EC2 instances and
+  servers running in private data center.
+**OpsWorks for Puppet Enterprise**
+* Lets you create AWS managed Puppet master servers.
+
+**OpwsWorks for Chef Automate**
+* Lets you create AWS-managed Chef servers that include Chef Automate premium
+  features, and use the Chef DK and other Chef tooling to manage them.
+
+**OpsWorks for Stacks**
+* Provides a simple and flexible way to create and manage stacks and applications.
+* A stack is a group of instances like EC2 instances and RDS instances.
+
+--------------------------------------------------------------------------------
+
+## AWS Cloudformation
+* Provides an easy way to create and manage a collection of related AWS resources,
+  provisioning and updating them in a orderly and predictable manner.
+* CF Template formats: JSON or YAML.
+
+## concepts:
+**Templates**
+* A template is a blueprint for building your AWS resources. It is defined in
+  a JSON or YAML formatted text file.
+**Stacks**
+* You manage related resources using a single unit called a stack.
+* You create update and delete resources, by creating, updating & deleting stacks.
+**change sets**
+* To make changes to resources in a stack, you update the stack.
+* Before making changes to your resources, you can generate a change set, which is
+  a summary of your proposed changes.
+
+## Template anatomy:
+
+**Format Version** (optional)
+* Identifies the capabilities of the template. Latest format version: '2010-09-09'
+
+**Description** (optional)
+* A text string, describing the template.
+
+**Metadata** (optional)
+* Objects that provide additional info about the template.
+
+**Parameters** (optional)
+* Values to pass to your template at runtime.
+
+**Rules** (optional)
+* Validates a parameter or a combination of parameters passed to a template during
+  a stack creation or stack update.
+
+**Mappings** (optional)
+* A mapping of keys and associated values that you can use to specify conditional
+  parameter values.
+
+**Conditions** (optional)
+* Conditions that control whether certain resources are created or whether certain
+  properties are assigned a value during stack creation or update.
+
+**Transform** (optional)
+* For serverless applications, specifies version of the SAM to use.
+
+**Resources** (required)
+* Specifies the stack resources and their properties. This is the only component
+  that is required.
+
+**Outputs** (optional)
+* Describes the values that are returned whenever you view your stack's properties.
+
+--------------------------------------------------------------------------------
+
+## AWS Elastic Beanstalk:
+* Fastest way to get application up and running
+* Developers simply upload their application code and the service automatically
+  handles details like resource provisioning, load balancing, auto scaling
+  and monitoring.
+* An Elastic Beanstalk application is a logical collection of these AWS
+  beanstalk components.
+* An application is conceptually similar to a folder.
+* An application version refers to a specific labeled iteration of deployable
+  code.
+* An application version points to an S3 object that contains deployable code.
+* An environment is an application version that is deployed on AWS resources.
+* Each environment runs only a single application version at a time. However
+  the same version or different version can run in many different environments
+  at the same time.
+* An environment configuration identifies a collection of parameters and
+  settings that define how an environment and it's resources behave.
+* When env configurations are updated, Elastic beanstalk applies those changes
+  to existing resources or deletes and deploys new resources.
+* The environment tier that is chosen determines whether AWS elastic beanstalk
+  provisions resources to support a web application that handles http/s
+  requests or an application that has background processing tasks. Web server
+  tier, or worker tier as they are called.
 
 
 
@@ -1917,6 +2322,38 @@ An SQS message has three basic states:
 
 
 
+
+
+
+
+
+
+
+
+
+#--------------------------------------------------------------------------------
+## Follow ups
+#--------------------------------------------------------------------------------
+
+* AWS Support plans: Basic, Developer, Business & Enterprise
+
+* S3 URLS
+* path style url: https://s3.Region.amazonaws.com/bucket-name/key
+* virtual-host style url: https://bucket-name.s3.Region.amazonaws.com/key
+* Path-Style URLs will be eventually deprecated in favor of virtual hosted-style URLs for S3 bucket access
+
+* You can change the instance tenancy attribute of a VPC from dedicated to default.
+  Modifying the instance tenancy of the VPC does not affect the tenancy of any
+  existing instances in the VPC. The next time you launch an instance in the VPC,
+  it has a tenancy of default, unless you specify otherwise during launch.
+
+* Since Amazon ElastiCache for Memcached is multithreaded, it can make use of
+  multiple processing cores. This means that you can handle more operations by
+  scaling up compute capacity. Amazon ElastiCache for Redis doesn't support this feature.
+* Amazon ElastiCache offers a fully managed Memcached and Redis service. Although
+  the name only suggests caching functionality, the Redis service in particular can
+  offer a number of operations such as Pub/Sub, Sorted Sets and an In-Memory Data
+  Store. However, Amazon ElastiCache for Redis doesn't support multithreaded architectures.
 
 
 
