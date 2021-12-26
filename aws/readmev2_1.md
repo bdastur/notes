@@ -1772,6 +1772,20 @@ Network storage:
 
 --------------------------------------------------------------------------------
 
+## AWS Firewall Manager
+* Centrally configure and manage firewall rules across an AWS organization.
+* Using firewall manager you can adminster tasks across multiple accounts and
+  resources for different protections including AWS WAF< AWS Shield Advanced,
+  VPC Security groups, Network firewall and Route53 resolver DNS firewall.
+* You setup protections once and service automatically applies them across your
+  accounts and resources, even as you add new accounts and resources.
+
+
+
+
+
+
+
 
 #--------------------------------------------------------------------------------
 # SQS Simple Queue Service
@@ -2079,7 +2093,7 @@ An SQS message has three basic states:
   data is first send to S3 and then Redshift copy command is executed to load
   data to Redshift.
 * Firehose can also write data to Elasticsearch, with option to back it up in S3.
-* There is no data persistence in Kinesis firehose.
+* There is **no data persistence** in Kinesis firehose.
 
 
 ## Kinesis Streams
@@ -2093,10 +2107,10 @@ An SQS message has three basic states:
   across number of shads.
 * The processing is then executed on consumers which read data from shards and run
   the kinesis stream application.
-* Allows you to persistently store data for 24 hours up to 7 days.
-* Kinesis streams consist of shads
+* Allows you to **persistently store data for 24 hours up to 7 days.**
+* Kinesis streams consist of shards
  - 5 transactions per second for reads, up to a max total data read rate of 2 MB/sec
-   and up to 1000 records per second for warites, up to a max total data write rate
+   and up to 1000 records per second for writes, up to a max total data write rate
    of 1 MB/ sec (including partition keys)
 
 Producers        Kinesis Streams         Consumers
@@ -2165,10 +2179,11 @@ IOT    --------> Shard  ------------->  EC2
   data.
 * Central component of EMR is the cluster. Each instance in the cluster is a node.
 * node types:
-  * Master node: A node that manages the cluster.
-  * Core node: A node with sw components that run tasks and store data in HDFS.
-               (atleast one)
-  * Task node: A node with sw components that only run tasks and do not store data.
+  * **Master node**: A node that manages the cluster.
+  * **Core node**:   A node with software components that run tasks and store data
+                     in HDFS. (atleast one)
+  * **Task node**:   A node with software components that only run tasks and do
+                     not store data.
 
 * When you launch an EMR cluster you specify:
   * Instance type
@@ -2295,8 +2310,8 @@ IOT    --------> Shard  ------------->  EC2
 * Developers simply upload their application code and the service automatically
   handles details like resource provisioning, load balancing, auto scaling
   and monitoring.
-* An Elastic Beanstalk application is a logical collection of these AWS
-  beanstalk components.
+* An Elastic Beanstalk application is a logical collection of these AWS beanstalk
+  components.
 * An application is conceptually similar to a folder.
 * An application version refers to a specific labeled iteration of deployable
   code.
@@ -2314,16 +2329,105 @@ IOT    --------> Shard  ------------->  EC2
   requests or an application that has background processing tasks. Web server
   tier, or worker tier as they are called.
 
+--------------------------------------------------------------------------------
+
+## AWS Config:
+* Service that provides you with AWS resource inventory, configuration history,
+  configuration change notification.
+* Gives detailed view of configuration of AWS resources, including how resources
+  are related and how they were configured in the past, and shows how relationships
+  and configurations changed over time.
+* When you turn on AWS config, it first discovers the supported AWS resources and
+  generates a configuration item for each resource.
+* The configuration item include metadata, attributes, relationships, current
+  configuration and related events.
+* By default AWS config creates config items for every supported resource in the
+  region. You can override that by specifying the resource type you want to it
+  to track.
+
+**Usecases:**
+* Discovery
+* Change management
+* Continous audit and compliance
+* Troubleshooting
+* Security and incident analysis
+
+--------------------------------------------------------------------------------
 
 
+#--------------------------------------------------------------------------------
+# ## Serverless (Lambda)
+#--------------------------------------------------------------------------------
+
+**Links**:
+* http://docs.aws.amazon.com/lambda/latest/dg/welcome.html
+* http://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
+* http://docs.aws.amazon.com/lambda/latest/dg/limits.html
 
 
+* Server-less way to run your application
+* Allows you to run code without provisioning or managing servers.
+* Executes your code only when needed and scales automatically from few requests
+  per day to thousands per second.
+* Supports synchronous and asynchronous invocation of a lambda function.
+* You can control the invocation type only when you invoke a lambda function.
+* When the lambda function is invoked from another aws service, the invocation
+  type is pre-determined.
+* languages supported: C#, Java, Node.js, Python.
+* Lambda billing is based on both, the MB of RAM reserved and the execution duration
+  in 100ms units.
 
 
+## Creating a Lamda layer with python.
+
+Lambda layers need to follow a specific [directory structure](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
+The PATH variable includes specific folders in the /opt directory. If you define the
+same folder structure in your layer .zip file, your function code can access the layer
+content without the need to specify the path.
+
+For python : python
+
+## Creating a zip file for the layer
+```
+mkdir tempdir
+cd tempdir
+python3 -m venv python
+source ./python/bin/activate
+pip3 install requests
+zip -r py38_layer.zip python
+```
+
+## Creating or updating a lambda layer.
+
+The same CLI works for creating a new layer or updating an existing layer. If the
+layer already exists, it's version will be bumped up by 1.
+
+```
+aws lambda publish-layer-version \
+    --layer-name py38_layer \
+    --compatible-runtimes python3.8 \
+    --zip-file fileb://py38_layer.zip \
+    --profile test \
+    --region us-west-2
+
+```
+
+## Listing lamda layers:
+
+```
+aws lambda list-layers --profile dev1 --region us-west-2
+```
+
+#### Deleting lambda layers.
+You will need to delete all versions of the lambda layer.
+```
+aws lambda delete-layer-version --layer-name py38_layer --version-number 3 --profile dev1 --region us-west-2
+aws lambda delete-layer-version --layer-name py38_layer --version-number 2 --profile dev1 --region us-west-2
+aws lambda delete-layer-version --layer-name py38_layer --version-number 1 --profile dev1 --region us-west-2
+```
 
 
-
-
+--------------------------------------------------------------------------------
 
 
 
