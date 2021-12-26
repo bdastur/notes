@@ -242,6 +242,9 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 * You can force a failover from on AZ to another, by rebooting the RDS instance.
 * There is no charge associated to replicating data between AZs for your multi-az
   deployment.
+* DB instances using multi-az DB deployments can have increased write and commit
+  latency compared to single AZ deployments.
+* Failover tiems from active to standby are typically 60 - 120 seconds.
 
 
 ### Read Replicas:
