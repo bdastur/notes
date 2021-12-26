@@ -2786,6 +2786,30 @@ aws lambda delete-layer-version --layer-name py38_layer --version-number 1 --pro
   Store. However, Amazon ElastiCache for Redis doesn't support multithreaded architectures.
 
 
+* Which AWS service can meet this need by exporting data from DynamoDB and importing data into DynamoDB?
+* Can you delete or change rules of default security group
+
+* What you are currently testing is removing the ENI from the legacy instance and attaching it to the EC2 instance. You want to attempt a warm attach. What does this mean?
+
+You are working as a Solutions Architect in a large healthcare organization. You have many Auto Scaling Groups that you need to create. One requirement is that you need to reuse some software licenses and therefore need to use dedicated hosts on EC2 instances in your Auto Scaling Groups. What step must you take to meet this requirement?
+
+Use a launch template with your Auto Scaling Group.
+
+Make sure your launch configurations are using Dedicated Hosts.
+
+. You want to attempt a cold attach. What does this mean?
+Attach ENI to an instance when it's running.
+Attach ENI before the public IP address is assigned.
+Attach ENI when it’s stopped.
+Attach ENI when the instance is being launched.
 
 
+. You have determined and will recommend that the best DR configuration to meet the cost and RT/RP Objectives will be to have a minimal version of the application always running in another Region. Which AWS disaster recovery plan will best meet these requirements?
 
+Backup and restore
+
+Pilot light
+
+Multi-site
+
+Warm standby
