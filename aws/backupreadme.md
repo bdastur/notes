@@ -2706,29 +2706,7 @@ IOT    --------> Shard  ------------->  EC2
 >> Moved to readmeV2
 
 ## AWS Elastic Beanstalk:
-* Fastest way to get application up and running
-* Developers simply upload their application code and the service automatically
-  handles details like resource provisioning, load balancing, auto scaling
-  and monitoring.
-* An Elastic Beanstalk application is a logical collection of these AWS
-  beanstalk components.
-* An application is conceptually similar to a folder.
-* An application version refers to a specific labeled iteration of deployable
-  code.
-* An application version points to an S3 object that contains deployable code.
-* An environment is an application version that is deployed on AWS resources.
-* Each environment runs only a single application version at a time. However
-  the same version or different version can run in many different environments
-  at the same time.
-* An environment configuration identifies a collection of parameters and
-  settings that define how an environment and it's resources behave.
-* When env configurations are updated, Elastic beanstalk applies those changes
-  to existing resources or deletes and deploys new resources.
-* The environment tier that is chosen determines whether AWS elastic beanstalk
-  provisions resources to support a web application that handles http/s
-  requests or an application that has background processing tasks. Web server
-  tier, or worker tier as they are called.
-
+>> Moved to readmeV2
 
 ## Trusted Advisor:
 * Trusted Advisor provides 4 checks at no cost:
@@ -2743,142 +2721,21 @@ IOT    --------> Shard  ------------->  EC2
 
 
 ## AWS Config:
-* service that provides you with AWS resource inventory, configuration history
-  configuration change notification.
-* Gives detailed view of configuration of AWS resources. Including how resources
-  are related and how they were configured in the past, and shows how
-  relationships and configurations changed over time.
-* When you turn on AWS config, it first discovers the supported AWS resources
-  and generates a configuration item for each resource.
-* The configuration item include metadata, attributes, relationships,
-  current configuration and related events.
-* By default AWS config creates config items for every supported resource in
-  the region. You can override that by specifying the resource type you want
-  it to track.
-**Usecases:**
-  * Discovery
-  * Change management
-  * Continous audit and compliance
-  * Troubleshooting
-  * Security and Incident analysis
+>> Moved to readmeV2
+
 
 ## API Gateway:
-**What can it do?**
-  - Expose HTTPS endpoints to define a restful api.
-  - Serverless-ly connect to services like lambda and dynamodb.
-  - Send each API endpoint to a different target
-  - Run efficiently with low cost
-  - Scale effortlessly
-  - Track and control usage by API key.
-  - Throttle requests to prevent attacks
-  - Connect to cloudwatch to log all requests for monitoring.
-  - maintain multiple versions of api.
-
-### Same origin policy & CORS
-* In computing, the same-origin policy is an important concept in the web application
-  security model. Under the policy, a web browser permits scripts contained in a
-  first web page to access data in a second web page, but only if both web pages
-  have the same origin.
-* This is done to prevent cross-site scripting (XSS) attacks.
-* CORS is one way the server at the other end (not the client code in the browser),
-  can relax the same-origin policy.
-* Cross-Origin resource sharing (CORS) is a mechanism that allows restricted
-  resources on a web page to be requested from another domain outside the domain
-  from which the first resource was served.
-
+>> Moved to readmeV2
 
 ## AWS WAF (web application firewall)
-* AWS WAF lets you monitor the HTTP and HTTPS requests that are forwarded to
-  API gateway, Cloudfront or ALB.
-* It also lets you control access to your content.
-* WAF allows 3 different behaviours:
-  - Allow all requests except the ones you specify
-  - Block all requests except the ones you specify
-  - Count the requests that match the properties you specify
-* Configure filter rules to allow/deny traffic:
-  - IP address
-  - Query string parameters
-  - SQL query injection.
-  - Cross-site scripting attacks.
+>> Moved to readmeV2
 
 ## AWS Firewall manager
-* Centrally configure and manage firewall rules across an AWS organization.
-* Using Firewall manager you can deploy WAF rules for
-  - ALB, API Gateways, CLoudFront distributions.
-* YOu can also configure security grous for EC2 and ENIs.
-
+>> Moved to readmeV2
 
 
 ## Serverless (Lambda):
-
-
-**Links**:
-* http://docs.aws.amazon.com/lambda/latest/dg/welcome.html
-* http://docs.aws.amazon.com/lambda/latest/dg/best-practices.html
-* http://docs.aws.amazon.com/lambda/latest/dg/limits.html
-
-
-* Server-less way to run your application
-* Allows you to run code without provisioning or managing servers.
-* Executes your code only when needed and scales automatically from few
-  requests per day to thousands per second.
-* Supports synchronous and asynchronous invocation of a lambda function.
-* You can control the invocation type only when you invoke a lambda function.
-* When the lambda function is invoked from another aws service, the invocation
-  type is pre-determined.
-* languages supported: C#, Java, Node.js, Python.
-* Lambda billing is based on both, the MB of RAM reserved and the execution duration
-  in 100ms units.
-
-
-### Creating a Lamda layer with python.
-
-Lambda layers need to follow a specific [directory structure](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
-The PATH variable includes specific folders in the /opt directory. If you define the
-same folder structure in your layer .zip file, your function code can access the layer
-content without the need to specify the path.
-
-For python : python
-
-#### Creating a zip file for the layer
-```
-mkdir tempdir
-cd tempdir
-python3 -m venv python
-source ./python/bin/activate
-pip3 install requests
-zip -r py38_layer.zip python
-```
-
-#### Creating or updating a lambda layer.
-
-The same CLI works for creating a new layer or updating an existing layer. If the
-layer already exists, it's version will be bumped up by 1.
-
-```
-aws lambda publish-layer-version \
-    --layer-name py38_layer \
-    --compatible-runtimes python3.8 \
-    --zip-file fileb://py38_layer.zip \
-    --profile test \
-    --region us-west-2
-
-```
-
-#### Listing lamda layers:
-
-```
-aws lambda list-layers --profile dev1 --region us-west-2
-```
-
-#### Deleting lambda layers.
-You will need to delete all versions of the lambda layer.
-```
-aws lambda delete-layer-version --layer-name py38_layer --version-number 3 --profile dev1 --region us-west-2
-aws lambda delete-layer-version --layer-name py38_layer --version-number 2 --profile dev1 --region us-west-2
-aws lambda delete-layer-version --layer-name py38_layer --version-number 1 --profile dev1 --region us-west-2
-```
-
+>> Moved to readmeV2
 
 
 ## Elastic Container Service (ECS):
