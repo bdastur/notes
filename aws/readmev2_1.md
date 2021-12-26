@@ -354,6 +354,116 @@ Supported record types:
 
 
 #--------------------------------------------------------------------------------
+## AWS Autoscaling (ASG)
+#--------------------------------------------------------------------------------
+* Allows automatic scaling of EC2 instances based on criteria.
+* Scaling in or scaling out.
+
+## ASG scaling options
+**Maintain current levels**
+* Maintain a minimum or specified number of running instances at all times.
+* When ASG finds an unhealthy instance it terminates it and launches a new one.
+
+**Scale Manually**
+* Most basic way to scale your resources.
+* Specify the change in max, min & desired capacity of your ASG group.
+* ASG maintains the process of creating or terminating instances to maintain the
+  updated capacity.
+
+**Scale based on schedule**
+* Scaling actions are performed automatically as a functio of time and date.
+
+**Dynamic scaling/Scale based on demain**
+* Create a scaling policy based on criteria like n/w bandwidth or CPU measured
+  by cloudwatch.
+* Useful for scaling in response to changing conditions, when you don't know when
+  those conditions will change.
+
+**Predictive scaling**
+* Predicting based on previous EC2 usage, with decision based on billions of data
+  points drawn from observations.
+* Well suited for situations where you have:
+  * Cyclical traffic, such as high resource usage during business hours.
+  * Recurring on-and-off workload patters - batch processing, testing, etc.
+  * Apps that take a long time to initialize
+
+## ASG Components:
+**Launch configuration & Configuration templates**
+* A template that ASG uses to create new instances.
+* It is composed of config name, AMI, Instance type, SG, key pair.
+* Only a launch config name, AMI and instance type are required to create a
+  launch configuration. key pair, SG, block device mapping are optional elements.
+* Default limit for launch configs is 100 per region.
+
+* ASG can use on-demand or spot instances as EC2 instances it manages.
+* on-demand is default, but spot instances can be used by referencing a max
+  bid price in the launch config.
+* A launch config can reference on-demand or spot instances but not both.
+* Launch configuration templates are the new version of launch configuration.
+* You can create new versions of launch templates unlike launch configuration.
+* **Launch tempaltes** provide more advanced EC2 configuration options - like using
+  **Dedicated hosts with an ASG**.
+
+
+**Autoscaling group:**
+* ASG is a collection of EC2 instances managed by ASG service.
+* An Autoscaling group must have minimum size and launch configuration defined
+  in order to be created.
+
+**Scaling policy:**
+* You can associate cloudwatch alarms and scaling policies to an ASG group
+  to adjust dynamically.
+* The policy is a set of instructions that tell ASG whether to scale out or in.
+* You can associate more than one scaling policy to an ASG group.
+
+* You are billed for a full hour of running time even for EC2 instances that
+  are launched and terminated within the hour.
+
+* A good ASG best practice is to scale out quickly when needed but to scale in
+  more slowly to avoid having to relaunch new and separate EC2 instances for
+  a spike in workload that fluctuates up and down within minutes.
+* It is important to consider bootstrapping for EC2 instances launched by
+  ASG.
+* It takes time to configure each EC2 instance before the instance is
+  healthy and capable of accepting traffic.
+* Instances that are more stateless instead of stateful will more gracefully
+  enter and exit an ASG group.
+
+## ASG Limits
+* Default launch configurations per region: 200
+* Default ASG groups per region:            200
+* Default scaling policies per ASG:         50
+* Default scheduled actions per ASG:        125
+* Default SNS topics per ASG:               10
+* Default Classic LBs per ASG:              50
+* Default Target groups per ASG:            50
+* Step adjustments per scaling policy:      20
+
+**Default Termination Policy**
+* AWS applies a number of criteria in deciding instance termination during a scale-in
+  event, but the most basic is **use the oldest launch template or configuration**
+
+* [ASG instance termination](https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html)
+
+**Scale-in protection**
+* You can enable instance scale-in protection at the ASG level or an individual
+  ASG instance.
+* An instance inherits the scale-in protection of the ASG when it is launched.
+* You can change the scale-in protection setting from an ASG or an ASG instance
+  at any time.
+* If you detach an instance that is protected from scale-ins, it looses it's
+  scale in protection setting.
+* It does not prevent ASG instances from the following:
+  * Manual termination of EC2 instances.
+  * Health check replacement if the instance fails health checks.
+  * Spot instance interruptions.
+
+
+
+--------------------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------------------
 ## AWS Identify and Access Management
 #--------------------------------------------------------------------------------
 
@@ -1798,6 +1908,22 @@ Steps overview:
 * You can enable/disable source destination checks. These checks are enabled by
   default.
 
+* **Hot attach**: Attaching a network interface to an instance when it's running
+* **warm attach**: Attaching a network interface to an instance when it's stopped
+* **cold attach**: Attaching a network interface to an instance when it's launching
+
+* You can detach secondary n/w interfaces when the instance is running or stopped.
+* You cannot detach a primary netork interface.
+* You can move an ENI from one instance to another if they are in the same AZ 
+  and VPC but in different subnets.
+* When launching an Amazon Linux or Windows instance with multiple ENIs, automatically
+  configures interfaces, private IPV4 addresses and route tables on the OS.
+* A warm or hot attach of an ENI may require you to manually bring up the interface,
+  configure the ipv4 address and modify the route table.
+* Attaching a second ENI cannot be used as a method to increase network bandwidth
+  to/from the dual-homed instance.
+
+
 
 ## Enhanced Network (EN)
 * Enhanced networking uses single root I/o virtualization (SR-IOV) to provide
@@ -1902,6 +2028,8 @@ Steps overview:
 * You can change the SG which is associated to an instance, and changes will take
   effect immediately.
 * Security groups and Network ACLs can span multiple AZs.
+* Your VPC includes a default security group. You can't delete this group, but you
+  can change the group rules.
 
 --------------------------------------------------------------------------------
 
