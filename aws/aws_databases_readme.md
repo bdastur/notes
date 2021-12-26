@@ -52,16 +52,16 @@
  * Database Snapshots
 
 *Automated Backups*
-- Allow you to recover your DB to any point in time within a "retention period".
-- The retention period can be between 1 and 35 days.
-- Automated backups will take a full daily snapshot and will store transaction logs
+* Allow you to recover your DB to any point in time within a "retention period".
+* The retention period can be between 1 and 35 days.
+* Automated backups will take a full daily snapshot and will store transaction logs
   throught the day.
-- For recovery, AWS will first choose the most recent daily backup and then apply
+* For recovery, AWS will first choose the most recent daily backup and then apply
   the transaction logs relevant to that day. This allows 'a point in time' recovery
   down to a second, within the retention period.
-- Automated Backups are enabled by default. Backup data is stored in S3. You get
+* Automated Backups are enabled by default. Backup data is stored in S3. You get
   free storage space equal to the size of your database.
-- Storage I/O may be suspended during backup window, may experience elevated latency.
+* Storage I/O may be suspended during backup window, may experience elevated latency.
 
 *Database Snapshots*
 - DB snapshots are done manually (user initiated).
@@ -133,8 +133,8 @@
   standard MySQL deployments.
 * Can deliver up to 5 times the performance of MySQL.
 * When you first create an Amazon Aurora instance, you create a DB cluster.
-* A DB cluster has one ore more instances and includes a cluster volume that
-  manages the data for those instances.
+* A DB cluster has one ore more instances and includes a cluster volume that manages
+  the data for those instances.
 * A cluster volume is a virtual database storage volume that spans multiple AZ.
 * Aurora automatically maintains 6 copies of your data across 3 AZs, with each
   AZ having a copy of the cluster data.
@@ -178,12 +178,12 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 
 ### Backup and Restore
 * *Recovery point Objective (RPO)*:
-  * Defined as the maximum period of data loss that is acceptable in the
-    event of a failure or incident.
+  * Defined as the maximum period of data loss that is acceptable in the event of
+    a failure or incident.
 
 * *Recovery Time Objective (RTO)*:
-  * Defined as the maximum amount of downtime that is permitted to Recovery
-    from backup and to resume processing.
+  * Defined as the maximum amount of downtime that is permitted to Recovery from
+    backup and to resume processing.
 
 * For large databases, it can take hours to restore from a full backup.
 * In the event of failure, you can reduce your RTO to minutes by failing over
