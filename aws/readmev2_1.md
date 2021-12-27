@@ -945,7 +945,7 @@ you can use:
 
 --------------------------------------------------------------------------------
 **Data consistency**
-- Readr-after-write consistency for PUTS of new objects (new Key) - Means if you
+- Read-after-write consistency for PUTS of new objects (new Key) - Means if you
   upload a file to S3, you will be able to read it immediately.
 - Eventual consistency for overwrites/updates PUTS and DELETES (can take some
   time to propogate) - let's say you have version 1 of a file, and you upload
@@ -959,7 +959,7 @@ you can use:
 **S3 Standard**
 * 99.99% availability
 * 99.99999999999% durability (11 9s durability)
-* Stored redundancly across multiple devices in multiple facilities, and
+* Stored redundantly across multiple devices in multiple facilities, and
   designed to sustain the loss of 2 facilities concurrently.
 
 **S3 IA**
@@ -1094,8 +1094,8 @@ You are charged for:
   - You protect objects against being deleted by most users, but you can still grant
     some users permissions to later retention settings or delete the object.
 * Compliance Mode:
-  - In this mode protected object version can be overwritten or delete by any user,
-    including the root user.
+  - In this mode protected object version can not be overwritten or delete by any
+    user, including the root user.
   - Objects can be overwritten, deleted for the duration of the retention period.
 
 **Glacier Vault lock**
@@ -1479,7 +1479,7 @@ Core concepts:
 **What is PII**
 * Personal data used to establish an individual's identity.
 
-* Machie is a security service which uses ML and NLP to discover, classify and
+* Macie is a security service which uses ML and NLP to discover, classify and
   protect sensitive data stored in S3.
 * Uses AI to recognise if your S3 objects contain sensitive data such as PII
 * Dashboards, reporting and alerts
@@ -1925,8 +1925,8 @@ Steps overview:
 
 
 
-## Enhanced Network (EN)
-* Enhanced networking uses single root I/o virtualization (SR-IOV) to provide
+## Enhanced Networking (EN)
+* Enhanced networking uses single root I/O virtualization (SR-IOV) to provide
   high performance networking capabilities on supported instance type.
 * Provides higher I/O performance and lower CPU utilization when compared to
   traditional virtualized network interfaces.
@@ -2935,9 +2935,23 @@ Attach ENI when the instance is being launched.
 . You have determined and will recommend that the best DR configuration to meet the cost and RT/RP Objectives will be to have a minimal version of the application always running in another Region. Which AWS disaster recovery plan will best meet these requirements?
 
 Backup and restore
-
 Pilot light
-
 Multi-site
-
 Warm standby
+
+----
+Additional services:
+AWS Glue
+AWS SSO
+ECS, Fargate
+
+
+Skip:
+section 2 - IAM
+Section 3 - EC2
+Section 5 - someparts - parts of serverless.
+
+
+
+
+
