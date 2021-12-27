@@ -102,11 +102,10 @@ And following optional components:
 
 
 ### public, elastic and private IPs
-* Public IPs are sourced from one or more AWS controlled public IP address
-  pools and are attached to the instance randomly whenever an instance is
-  started.
-* When an instance using a public IP address fails and is recreated or
-  shut down and restarted, it will not maintain the same public IP address.
+* Public IPs are sourced from one or more AWS controlled public IP address pools
+  and are attached to the instance randomly whenever an instance is started.
+* When an instance using a public IP address fails and is recreated or shut down
+  and restarted, it will not maintain the same public IP address.
 
 * An Elastic IP address is associated with your account and is persistent.
 * A public or EIP attachment means that a virtual 1:1 DNAT connection between
@@ -123,7 +122,7 @@ And following optional components:
   that can be increased.
 * However we are limited to only one IPv6 CIDR block per vpc - This is a hard
   limit.
-  * A VPC can only have one DHCP options set attached at any time
+* A VPC can only have one DHCP options set attached at any time
 
 
 
@@ -184,7 +183,7 @@ And following optional components:
   that is connected to the subnet.
 
 **Enabling Internet Access:**
-* Attach and IGW to your VPC
+* Attach an IGW to your VPC
 * Add a route to the routing table that directs internet-bound traffic to
   the IGW.(A subnet that has this route is a public subnet)
 * Ensure - instances in the subnet have a globally unique IP addr.
