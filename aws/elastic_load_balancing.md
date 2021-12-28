@@ -3,6 +3,7 @@
 ## Links
 * [Loadbalancer FAQ](https://aws.amazon.com/elasticloadbalancing/faqs/?nc=sn&loc=5)
 * [AWS NLBs and mixed up TCP connections](https://www.niels-ole.com/cloud/aws/linux/2020/10/18/nlb-resets.html)
+* [Appln loadbalacing - cloud & on-prem](https://aws.amazon.com/blogs/aws/new-application-load-balancing-via-ip-address-to-aws-on-premises-resources/)
 
 
 * ELB service allows you to distribute traffic across a group of EC2 instances in one
@@ -46,6 +47,17 @@
   IPV6.
 * Internal ELB: as name suggest is not exposed to the web.
 
+**Route to IP Addresses**
+* ALBs can now route traffic directly to IP addresses. These can be:
+  * in the same VPC as the ALB,
+  * A peer VPC in same region,
+  * On an EC2 instance connected to a VPC by way of ClassicLink or
+  * On-premises resources at the other end of a VPN connection or Direct connect
+* A target group has a 'target type' attribute:
+ * Instance: Targets are registered by way of EC2 instance IDs.
+ * Ip: Targets are registered as IP addresses.
+* Similar health checks can be configured for both 'instance' and 'ip' target types.
+
 
 **Overview**
 * Functions at layer 7.
@@ -85,9 +97,9 @@
 * Supports maximum transmission unit (MTU) size of 8500 bytes.
 * GW load balancers use GW load balancer endpoints to securely exchange traffic
   across VPC boundaries.
-* A Gateway Load Balancer endpoint is a VPC endpoint that provides private connectivity 
-  between virtual appliances in the service provider VPC and application servers in the 
-  service consumer VPC. 
+* A Gateway Load Balancer endpoint is a VPC endpoint that provides private connectivity
+  between virtual appliances in the service provider VPC and application servers in the
+  service consumer VPC.
 
 
 

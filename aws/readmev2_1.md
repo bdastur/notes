@@ -853,11 +853,11 @@ role in / 'default' path or any other --path prefix.
 *Shared Responsibilities*
 
           AWS                                      Customers
-- Multi-az deployment                        - Users, groups & group policies
-- Patch, monitor, recover domain controller  - Standard AD tools
-- Instance rotation, version upgrades        - Scale out Domain controllers
-- snapshot and restore                       - Employ AD Trusts (resource forests)
-                                             - Mgmt of certificate authorities & Federation
+ Multi-az deployment                         Users, groups & group policies
+ Patch, monitor, recover domain controller   Standard AD tools
+ Instance rotation, version upgrades         Scale out Domain controllers
+ snapshot and restore                        Employ AD Trusts (resource forests)
+                                             Mgmt of certificate authorities & Federation
 
 **Simple AD**
 * Microsoft AD compatible directory service from AWS powered by Samba 4.
@@ -1197,7 +1197,6 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/volume_helper.py?AWSAccessKeyI
 * When you delete specific versions of an object or delete a delete marker,
   it does not get replicated to the dest bucket, it's only when you delete
   an object that it gets deleted from the replicated bucket.
-
 
 
 --------------------------------------------------------------------------------
@@ -1618,19 +1617,29 @@ Core concepts:
 
 ## On Demand
 * Allows you to pay a fixed rate by the hour (or by the second) with no commitments.
+* Good for flexibility, short-term use or testing the waters.
 
 ## Reserved
 * Provides you with capacity reservation.
 * Offers a significant discount on the hourly charge.
 * Contract terms are 1 Year or 3 Years.
+* Good for: Predictable usage, specific capacity requirements
+
 **Standard Reserved Instances**
-* Offer up to 75% off on demand instances. The more you pay upfront and longer the
+* Offer up to 72% off on demand instances. The more you pay upfront and longer the
   contract, the greater the discount.
+* Enables you to modify AZ, scope, networking type and instance size within the same
+  instance type of your RI.
 
 **Convertible Reserved Instances**
 * Offer up to 54% off on demand.
 * Capability to change the attributes of the RI as long as the exchange results in
   the creation of RIs of equal or greater value.
+* Enables you to exchange one or more convertible RIs for another convertible RI
+  with a different configuration, including instance family, OS and tenancy.
+* There are no limits to how many times you can perform an exchange as long as the
+  target RI is of an equal or higher value than the convertible RI that you are
+  exchanging.
 
 **Scheduled Reserved Instances**
 * Available to launch within the time windows you reserve. Allows you to match
@@ -1653,7 +1662,7 @@ Core concepts:
 * Change instance size within the same instance family (Linux only)
 
 ## Spot
-* Enables you to bid whatever price you want for instance capacity.
+* Enables you to purchase unused capacity at a discount of up to 90%.
 * If a spot instance is terminated by Amazon EC2, you will not be charged for
   a partial hour of usage. However, if you terminate the instance yourself, you will
   be charged for any hour in which the instance ran.
@@ -1668,7 +1677,16 @@ Core concepts:
 * Physical EC2 server dedicated for your use.
 * Can help reduce costs by allowing you to use your existing server bound
   software licenses.
+**Usecases**
+- compliance: Regulatory requirements that may not support multi-tenancy.
+- licensing: which does not support multi-tenancy
 
+
+## Savings Plans
+* Three types: 
+  * Compute savings Plan: apply to usage on EC2, Lambda and AWS Fargate.
+  * EC2 savings plan: apply to EC2 usage
+  * SageMaker savings plan: apply to SageMaker usage.
 
 --------------------------------------------------------------------------------
 ## Burstable performance
@@ -1739,10 +1757,12 @@ Steps overview:
 
 
 #--------------------------------------------------------------------------------
-## EBS
+## EBS (Elastic Block Storage)
 #--------------------------------------------------------------------------------
 * Provide persistent block-level storage volumes for use with EC2 instances.
 * EBS volume is automatically replicated within it's AZ to provide HA and durability.
+* you can dynamically increase capacity and change volume type with no downtime or
+  performance impact to live systems.
 
 --------------------------------------------------------------------------------
 **Types of EBS Volumes**
@@ -1768,28 +1788,41 @@ Steps overview:
 * Designed to meet needs of I/O intensive workloads.
 * Ranges from 4 GB - 16 TB.
 * When provisioning, specify the size and desired IOPs, up to the lower of
-  maximum of 30 times the number of GB of volume or 64,000 IOPs.
+  maximum of 30 times the number of GB of volume or **64,000 IOPs.**
   NOTE IO2 Block express can go upto a Max of 256,000 IOPS.
 * EBS delivers within 10% of the provisioned IOPS 99.9% of the time over a
   given year.
 * Price is on the provisioned size. Additional monthly fee is based on provisioned
   IOPS (whether consumed or not).
-* Use cases:
+**Use cases:**
  * Critical business apps requiring sustained IOPS.
  * Large DB workloads
 
+**IO2**
+* Lagest generation of provisioned IOPs
+* Higher durability and performant.
+* 500 IOPS per GIG
+* 99.999% durability instead of 99.8 - 99.9 % durability
+* I/O intensive apps, large DBs and latency sensitive workloads.
+
 
 ## HDD Hard disk drives
-
 **Throughput optimized HDD (st1)**
+* baseline throughput of 40 MB/s per TB.
+* Burst up to 250 MB/s per TB with Max throughput of 500 MB/s per TB.
 * Sequential writes
 * Frequently accessed workloads.
-* Usually used for data warehouse apps.
+* Usually used for data warehouse apps, throughput-intensive workloads, Big Data,
+  ETL and log processing.
 * Volume size 125GB - 16 TB.
+* Cannot be a boot volume.
 
 **Cold HDD (sc1)**
+* Baseline throughput of 12 MB/s per TB.
+* Ability to burst up to 80 MB/s per TB with Max throughput of 250 MB/s per TB.
 * Less frequently accessed data.
 * Usually used for file servers.
+* Cannot be a boot volume.
 
 * st1 and sc1 cannot be used as root volumes.
 * HDD, magnetic - standard can be used for root volumes.
@@ -1914,7 +1947,7 @@ Steps overview:
 
 * You can detach secondary n/w interfaces when the instance is running or stopped.
 * You cannot detach a primary netork interface.
-* You can move an ENI from one instance to another if they are in the same AZ 
+* You can move an ENI from one instance to another if they are in the same AZ
   and VPC but in different subnets.
 * When launching an Amazon Linux or Windows instance with multiple ENIs, automatically
   configures interfaces, private IPV4 addresses and route tables on the OS.
@@ -2883,10 +2916,43 @@ aws lambda delete-layer-version --layer-name py38_layer --version-number 1 --pro
 
 --------------------------------------------------------------------------------
 
+## CLI Pagination.
+* You can control the number of items included in the output when you run a
+  CLI command.
+* By default, the AWS CLI uses a page size of 1000. i.e: if you run the
+  `aws s3api list-objects <bucket name>` command on a bucket which has 3000 objects,
+  the CLI actually makes 3 API calls to S3, but displays the entire output in one
+  go.
+* 'max-items' is The  total number of items to return in the command's output
+  If the total number of items available is more than the value specified, a NextToken 
+  is provided in the command's output. To resume pagination provide the NextToken 
+  value in the starting-token argument of a subsequent command. 
+  Do not use the NextToken response element directly outside of the AWS CLI.
 
 
 
+#--------------------------------------------------------------------------------
+## AWS Glue
+#--------------------------------------------------------------------------------
+* Fully managed ETL service (extract, transform and load) that makes it simple
+  and cost effective to categorize, clean, enrich and move your data between
+  various data stores and data streams.
+* It consist of a central metadata repo known as AWS Glue catalog that automatically
+  generates Python or Scala code and a scheduler to handle dependency resolution,
+  job monitoring and retries.
+* AWS Glue is serverless, so no need to manage infrastructure.
+* Designed to work with semi-structured data.
 
+--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+## AWS Single Sign-on (SSO)
+#--------------------------------------------------------------------------------
+* Cloud-based SSO service that makes it easy to centrally manage SSO access to all
+  your AWS accounts and cloud applications.
+* Helps manage SSO access and user permissions across all your AWS accounts in
+  AWS organization.
+ 
 
 
 #--------------------------------------------------------------------------------
