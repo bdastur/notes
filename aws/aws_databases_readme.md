@@ -577,28 +577,29 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 
 ### Memcached vs Redis
 
-||          Requirement      || Memcached || Redis ||
-|Simple cache to offload DB   | yes | yes |
-|Ability to scale horizontally| yes | yes |
-|Multi-threaded performance   | yes | No  |
-|Advanced data types          | no  | yes |
-|Ranking/Sorting data sets    | no  | yes |
-|Pub/Sub capabilities         | no  | yes |
-|Persistence                  | no  | yes |
-|Multi-AZ                     | no  | yes |
+|          Requirement        | Memcached | Redis |
+| --------------------------- |:---------:|:-----:|
+|Simple cache to offload DB   | yes       | yes   |
+|Ability to scale horizontally| yes       | yes   |
+|Multi-threaded performance   | yes       | No    |
+|Advanced data types          | no        | yes   |
+|Ranking/Sorting data sets    | no        | yes   |
+|Pub/Sub capabilities         | no        | yes   |
+|Persistence                  | no        | yes   |
+|Multi-AZ                     | no        | yes   |
 
 #### Memcached
 * Provides a simple interface that allows you to write and read objects into
   in-memory key/value data stores.
-* You can elastically grow and shrink a cluster of memcached nodes to meet
-  your demands.
-* You can partition your cluster into shards and parallelize operations for
-  very high performance throughput.
+* You can elastically grow and shrink a cluster of memcached nodes to meet your
+  demands.
+* You can partition your cluster into shards and parallelize operations for very
+  high performance throughput.
 
 
 #### Redis
-* Beyond the object support provided in Memcached, Redis supports a rich
-  set of data types like strings, lists and sets.
+* Beyond the object support provided in Memcached, Redis supports a rich set of
+  data types like strings, lists and sets.
 * Unlike Memcached, Redis supports the ability to persist the in-memory data
   on to disks. This allows creating snapshots that backup data and then
   recover or replicate from the backups.
