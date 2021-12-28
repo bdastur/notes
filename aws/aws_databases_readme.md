@@ -571,8 +571,7 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 #---------------------------------------------------------------------
 * Improves application performance by storing the most frequently accessed
   data in memory.
-* Simplifies the setup and management of distributed in-memory caching
-  environments.
+* Simplifies the setup and management of distributed in-memory caching environments.
 * You can choose from Memcached or Redis protocol-compliant cache engine and
   quickly launch a cluster within minutes.
 
