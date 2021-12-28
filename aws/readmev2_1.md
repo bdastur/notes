@@ -853,11 +853,11 @@ role in / 'default' path or any other --path prefix.
 *Shared Responsibilities*
 
           AWS                                      Customers
- Multi-az deployment                         Users, groups & group policies
- Patch, monitor, recover domain controller   Standard AD tools
- Instance rotation, version upgrades         Scale out Domain controllers
- snapshot and restore                        Employ AD Trusts (resource forests)
-                                             Mgmt of certificate authorities & Federation
+*  Multi-az deployment                         * Users, groups & group policies
+*  Patch, monitor, recover domain controller   * Standard AD tools
+*  Instance rotation, version upgrades         * Scale out Domain controllers
+*  snapshot and restore                        * Employ AD Trusts (resource forests)
+                                               * Mgmt of certificate authorities & Federation
 
 **Simple AD**
 * Microsoft AD compatible directory service from AWS powered by Samba 4.
@@ -1683,7 +1683,7 @@ Core concepts:
 
 
 ## Savings Plans
-* Three types: 
+* Three types:
   * Compute savings Plan: apply to usage on EC2, Lambda and AWS Fargate.
   * EC2 savings plan: apply to EC2 usage
   * SageMaker savings plan: apply to SageMaker usage.
@@ -2924,9 +2924,9 @@ aws lambda delete-layer-version --layer-name py38_layer --version-number 1 --pro
   the CLI actually makes 3 API calls to S3, but displays the entire output in one
   go.
 * 'max-items' is The  total number of items to return in the command's output
-  If the total number of items available is more than the value specified, a NextToken 
-  is provided in the command's output. To resume pagination provide the NextToken 
-  value in the starting-token argument of a subsequent command. 
+  If the total number of items available is more than the value specified, a NextToken
+  is provided in the command's output. To resume pagination provide the NextToken
+  value in the starting-token argument of a subsequent command.
   Do not use the NextToken response element directly outside of the AWS CLI.
 
 
@@ -2952,7 +2952,36 @@ aws lambda delete-layer-version --layer-name py38_layer --version-number 1 --pro
   your AWS accounts and cloud applications.
 * Helps manage SSO access and user permissions across all your AWS accounts in
   AWS organization.
- 
+
+
+#--------------------------------------------------------------------------------
+## Systems Manager parameter store
+#--------------------------------------------------------------------------------
+* AWS Systems manager is a service that you can use to view and control your
+  infrastructure on AWS.
+* It supports EC2 instances, edge devices and on-prem servers and VMs.
+
+**Parameter store**
+* Provides secure, hierarchical storage for configuration data and secrets mgmt.
+* Can store data such as passwords, database strings, AMI IDs, license codes as
+  parameter values.
+* Parameter store is also integrated with Secrets manager.
+* Consist of standard and advanced parameters.
+* Standard parameters - no additional cost
+* Advanced parameters - changed based on number of parameters and per API interaction.
+                        (0.05 per parameter/month prorated hourly)
+
+|----------------------------------------------------------| -------- | -------- |
+| Description                                              | standard | Advanced |
+| -------------------------------------------------------  | -------- | -------- |
+| Total no of parameters allowed per aws account and region| 10,000   | 100,000  |
+| Max size of a parameter value                            | 4kb      |   8kb    |
+| Parameter policies                                       |    No    |   yes    |
+| Cost                                                     | No cost  |   Yes    |
+| -------------------------------------------------------- | -------- | -------- |
+
+
+
 
 
 #--------------------------------------------------------------------------------
