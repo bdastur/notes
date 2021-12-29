@@ -28,6 +28,9 @@ NOTE:
 * [EBS - volume types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
 * [Cloudwatch concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
 * [SQS - How it works](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-how-it-works.html)
+* [KMS - multiple master key encryption](https://aws.amazon.com/blogs/security/new-aws-encryption-sdk-for-python-simplifies-multiple-master-key-encryption/)
+* []()
+* []()
 * []()
 * []()
 * []()
@@ -2979,6 +2982,199 @@ aws lambda delete-layer-version --layer-name py38_layer --version-number 1 --pro
 | Parameter policies                                       |    No    |   yes    |
 | Cost                                                     | No cost  |   Yes    |
 | -------------------------------------------------------- | -------- | -------- |
+
+
+
+#--------------------------------------------------------------------------------
+## AWS Key Management Service (KMS)
+#--------------------------------------------------------------------------------
+* Makes it easy to create and control the cryptographic keys used to protect your
+  data.
+* Deals with generation, exchange, storage, use and replacement of keys.
+* Two services are offered: KMS and CloudHSM.
+* You can use KMS directly in your application or through cloud services that are
+  integrated with KMS.
+* Enables you to control, who can use your keys and gain access to encrypted data.
+
+**Symmetric and Asymmetric keys**
+* When you create an AWS KMS key, by default you get a symmetric key.
+* A symmetric KMS key represents a 256 bit encryption key that never leaves KMS
+  unencrypted.
+* The same key is used for encryption and decryption.
+* Most times, you will use this key type.
+* AWS services integrated with KMS use symmetric keys.
+* You can also create multi-region KMS symmetric keys.
+
+* An asymmetric KMS key represents a mathematically related public key and
+  private key.
+* Private key does not leave KMS unencrypted. To use private key you must call KMS.
+* You can use the public key by calling KMS or you can download the public key.
+
+## Customer managed keys:
+* KMS uses a type of key called customer master key to encrypt/decrypt data.
+* CMKs are the fundamental resource that KMS manages.
+* They can be used inside KMS to encrypt/decrypt up to 4KB of data directly.
+* They can also be used to encrypt generated data keys that are then used to
+  encrypt/decrypt large amount of data outside of the service.
+* CMKs can never leave KMS unencrypted, but data keys can.
+
+## Data keys:
+* Data keys are used to encrypt large data objects in your application (outside of
+  KMS)
+* GenerateDataKey API call - kms returns a plaintext version of the key and
+  ciphertext that contains the key encrypted under the specified CMK.
+* AWS tracks which CMK was used to encrypt the data key.
+* You use the plaintext data key in your application to encrypt data, and you
+  typically store the encrypted key alongside the encrypted data.
+* Remove the plaintext key from memory as soon as possible.
+* To decrypt data pass the encrypted data key to the decrypt function. AWS uses
+  the CMK to decrypt and retrieve your plaintext data key. Use this plaintext key
+  to decrypt your data and then remove the key from memory.
+
+
+## Envelope Encryption:
+* KMS uses envelope encryption to protect data.
+* You can retrieve a plaintext data key only if you have the encrypted data key
+  and have permissions to use the corresponding master key.
+* Used for encrypting anything over 4KB.
+
+Encryption:
+(Customer master
+    key)              (Envelope key)            (unencrypted data)
+   |CMK|---------------> |Data key| -------------> |your data| ---> |encrpted data|
+        Generate data                  Encrypts
+             key
+
+Decryption:                                        (Decrypted
+ (Envelope key)                                     plaintext)
+{ |Data key| + |Encrypted data|} -> |CMK| -------> |Data key| --------> |decrypted data|
+                                          Decrypts          Decrypts your
+                                          envelope key       data
+
+* KMS does not store the data key, instead the encrypted copy of the data key
+  is stored with the data.
+* Once data is decrypted, plain text key is deleted from memory.
+
+**Why use envelope encryption?**
+* Network and performance:
+ * When you encrypt data directly with KMS, it needs to be transferred over the 
+   network.
+ * With envelope encryption only the data key goes over the network, not your data,
+   avoiding transfer of large amounts of data to KMS.
+
+
+## Encryption context:
+* All KMS cryptographic operations accept an optional key/value map of additional
+  contextual information called encryption context.
+* Context must be the same for both encrypt and decrypt operations or decryption
+  will fail.
+* The encryption context is logged and can be used for auditing, and is available
+  as context in AWS policy language for fine-grained policy based authentication.
+
+## KMS operations:
+
+* Creating a new KMS customer key:
+
+```
+aws kms create-key \
+    --profile dev1 --region us-west-2 \
+    --description "Customer test key"
+KEYMETADATA 111111111111    arn:aws:kms:us-west-2:1111111:key/839-f1114-1411-02222228   122409.9    Customer test key   True    83118   CUSTOMER    Enabled ENCRYPT_DECRYPT AWS_KMS
+
+```
+
+* List key policies:
+
+```
+$ aws kms list-key-policies \
+    --key-id 81xx9-15-41-111011 \
+    --profile dev1 --region us-west-2
+POLICYNAMES default
+
+```
+
+
+* Get Key policy:
+
+```
+$ aws kms get-key-policy \
+    --key-id 811-15111a1-1111 \
+    --policy-name default \
+    --profile dev1 --region us-west-2
+{
+  "Version" : "2012-10-17",
+  "Id" : "key-default-1",
+  "Statement" : [ {
+    "Sid" : "Enable IAM User Permissions",
+    "Effect" : "Allow",
+    "Principal" : {
+      "AWS" : "arn:aws:iam::111111111111:root"
+    },
+    "Action" : "kms:*",
+    "Resource" : "*"
+  } ]
+}
+
+```
+
+An alias makes it easy to identify the key.
+* Create an alias.
+
+```
+$ aws kms create-alias \
+    --alias-name alias/brdtestkey \
+    --target-key-id 1x11-15-1-1-11  \
+    --profile dev1 --region us-west-2
+
+```
+
+
+Now let's use are new key to encrypt and decrypt data. We will use the alias 
+created instead of the long convoluted key-id:
+
+* Encrypt user data.
+You can encrypt up to 4 kilobytes (4096 bytes) of arbitrary data such
+as an RSA key, a database password, or other sensitive information.
+
+The ciphertext that is returned by a successful  encrypt  command  is
+base64-encoded text. You must decode this text before you can use
+the AWS CLI to decrypt it.
+
+```
+$ aws kms encrypt \
+    --key-id alias/brdtestkey \
+    --plaintext fileb://testfile \
+    --query CiphertextBlob \
+    --profile dev1 --region us-west-2 \
+    --output text | base64 --decode > encrypted_data
+
+```
+
+* Decrypt data.
+
+```
+$ aws kms decrypt \
+    --ciphertext-blob fileb://encrypted_data \
+    --output text \
+    --query Plaintext \
+    --profile dev1 --region us-west-2 | base64 --decode > decodedfile
+
+$ cat decodedfile
+THis is a test document
+THis is a second line in the document.
+{
+ "Somesecret": "Blah"
+}
+
+```
+
+## AWS CLoudHSM:
+* Service providing secure cryptographic key storage by making hardware security
+  modules (HSM) in the cloud.
+* A HSM is a hardware appliance that provides secure key storage and cryptographic
+  operations within a temper-resistant hardware module.
+
+--------------------------------------------------------------------------------
 
 
 
