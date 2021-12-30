@@ -2793,6 +2793,16 @@ IOT    --------> Shard  ------------->  EC2
 **Outputs** (optional)
 * Describes the values that are returned whenever you view your stack's properties.
 
+## Cloudformation Nested Stacks
+
+Uses Resource:
+`AWS::CloudFormation::Stack`
+
+* Allows you to re-use your CF code.
+* Useful for frequently used configurations like load balancers, web or appln 
+  servers.
+* Reference it using the 'Stack' resource type.
+
 --------------------------------------------------------------------------------
 
 ## AWS Elastic Beanstalk:
@@ -2915,6 +2925,15 @@ aws lambda delete-layer-version --layer-name py38_layer --version-number 3 --pro
 aws lambda delete-layer-version --layer-name py38_layer --version-number 2 --profile dev1 --region us-west-2
 aws lambda delete-layer-version --layer-name py38_layer --version-number 1 --profile dev1 --region us-west-2
 ```
+
+--------------------------------------------------------------------------------
+
+## Serverless Application Model (SAM)
+* Extension to cloudformation used to define serverless applications.
+* Provides a simplified syntax for defining serverless resources; APIs, Lambda
+  functions, DynamoDB tables etc.
+* It has it's own CLI called the 'SAM CLI' to package your deployment code, upload
+  to S3 and deploy your serverless application.
 
 
 --------------------------------------------------------------------------------
