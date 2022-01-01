@@ -2546,10 +2546,18 @@ An SQS message has three basic states:
 * You can enable API caching to cache your endpoint's response.
 * With caching you can reduce the number of calls made to your endpoint and also
   improve latency of the requests to your API.
+* Default TTL for caching is 300 seconds (5 mins).
 * When you enable caching for a stage, API GW caches responses from your endpoint
   for a specified time-to-live period, in seconds.
 * Then API GW responds to the request by looking up the endpoint response from the
   cache instead of making a request to your endpoint.
+
+**API Gateway Throttling**
+* Prevents your API from being overwhelmed by too many requests.
+* API GW limits the steady-state request rate to 10,000 requests per second, per
+  region by default.
+* Maximum concurrent requests is 5,000 requests across all APIs per region.
+* If you exceed these limits, you will get a '429 Too Many Requests' error.
 
 ### Same origin policy & CORS
 * In computing, the same-origin policy is an important concept in the web application
@@ -2799,7 +2807,7 @@ Uses Resource:
 `AWS::CloudFormation::Stack`
 
 * Allows you to re-use your CF code.
-* Useful for frequently used configurations like load balancers, web or appln 
+* Useful for frequently used configurations like load balancers, web or appln
   servers.
 * Reference it using the 'Stack' resource type.
 
@@ -2935,6 +2943,50 @@ aws lambda delete-layer-version --layer-name py38_layer --version-number 1 --pro
 * It has it's own CLI called the 'SAM CLI' to package your deployment code, upload
   to S3 and deploy your serverless application.
 
+## Lambda versions.
+* $LATEST is always the last version of code you uploaded to Lambda
+* use Lambda versioning and aliases to point your apps to a specific version, if
+  you don't want to use $LATEST.
+  `arn:aws:lambda:us-west-2:4783832992883:function:mylambda:Prod`
+  `arn:aws:lambda:us-west-2:4783832992883:function:mylambda:$LATEST`
+* If you appln uses an alias, instead of $LATEST, remember that it will not
+  automatically use new code when you upload it.
+
+## Lambda concurrent executions.
+* Safety feature to limit the number of concurrent executions across all functions
+  in a given region per account.
+* Default is 1000 concurrent executions per region. Once hit you will get a
+  'TooManyRequestsException' and HTTP Status code: 429.
+* You can get this limit increased.
+* Reserved concurrency gurantees a set number of executions which will always be
+  available for your critical function, however this also acts as a limit.
+
+## Lambda and VPC access
+* Lambda function needs to have access to 'CreateNetworkInterface' in order to
+  begin communicating with resources in your VPC.
+* To allow lambda access to VPC - provide VPC config to function - private subenet
+  id, security group id.
+* Lambda uses VPC information to setup ENIs using an IP from the private subnet
+  CIDR range.
+
+
+## Weighted alias
+* A lambda alias allows you to direct traffic to one or more versions of a function.
+  You can shift traffic between two versions based on weights (%), which you assign.
+
+--------------------------------------------------------------------------------
+
+## AWS X-Ray
+* Helps developers analyze and debug distributed applications.
+* Provides a visualization of your application's underlying components.
+
+## X-Ray service map:
+* Provides an end-to-end view of requests as they travel through your appln. Can
+  be used to troubleshoot connectivity and performance issues.
+* You will need three things:
+  * X-Ray SDK.
+  * X-Ray daemon installed on your EC2
+  * Instrument your app using the SDK to send required data to X-Ray.
 
 --------------------------------------------------------------------------------
 
@@ -3076,7 +3128,7 @@ Decryption:                                        (Decrypted
 
 **Why use envelope encryption?**
 * Network and performance:
- * When you encrypt data directly with KMS, it needs to be transferred over the 
+ * When you encrypt data directly with KMS, it needs to be transferred over the
    network.
  * With envelope encryption only the data key goes over the network, not your data,
    avoiding transfer of large amounts of data to KMS.
@@ -3148,7 +3200,7 @@ $ aws kms create-alias \
 ```
 
 
-Now let's use are new key to encrypt and decrypt data. We will use the alias 
+Now let's use are new key to encrypt and decrypt data. We will use the alias
 created instead of the long convoluted key-id:
 
 * Encrypt user data.
