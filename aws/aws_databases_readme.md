@@ -5,7 +5,7 @@
 * [Amazon Aurora-Under the hood](https://aws.amazon.com/blogs/database/amazon-aurora-under-the-hood-quorum-and-correlated-failure/)
 * [Dynamodb Getting started](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStarted.html)
 * [DynamoDB best practices](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/best-practices.html)
-
+* [Epoch Convertor](https://www.epochconverter.com/)
 
 
 * Can be categorized into two broad groups:
@@ -367,14 +367,14 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
       It can be used to represent any JSON object.
 
 ### Provisioned Capacity:
-* When creating a DynamoDB table, you are required to provision certain
-  read and write capacity to handle expected workloads.
-* DynamoDB will provision the right amount of infrastructure capacity to meet
-  the provisioned capacity configured.
+* When creating a DynamoDB table, you are required to provision certain read and
+  write capacity to handle expected workloads.
+* DynamoDB will provision the right amount of infrastructure capacity to meet the
+  provisioned capacity configured.
 * Provisioned capacity can be scaled up or down later as well depending on
   changing needs.
-* The specific amount of capacity units consumed depends largely on the size
-  of the item, but other factors apply as well.
+* The specific amount of capacity units consumed depends largely on the size of the
+  item, but other factors apply as well.
 * For read operations, the amount of capacity consumed also depends on the read
   consistency selected in the request.
 * For eg, given a table without a local secondary index, you will consume
@@ -385,6 +385,12 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
   the number of capacity units.
 * You can use Amazon Cloudwatch to monitor your DynamoDB capacity and make
   scaling decisions.
+
+**Read capacity Unit**
+* 1 RCU = 1 item read per second (< 4KB) strongly consistent read.
+* Multiply RCU by 2 for eventually consistent read.
+* 1 WCU = 1 item written per second (< 1KB).
+
 
 ### Secondary Indexes:
 * You can optionally define one or more secondary indexes on a table, along with
@@ -397,18 +403,24 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
   those on the table.
 * You can create/delete a global secondary index on a table at any time.
 * You can have multiple global secondary indexes on a table.
+* Initial quota of 20 global secondary indexes per table. You can request an
+  increase to that.
 
 #### Local Secondary Index:
+
 * It has the same partition key attribute as the primary key of the table,
   but a different sort key.
 * Can only create a local secondary index during table creation.
-* Allow you to search a large table efficiently and avoid an expensive
-  scan operation to find items with specific attributes.
+* you cannot add, remove or modify the local secondary index after the table is
+  created.
+* Allow you to search a large table efficiently and avoid an expensive scan
+  operation to find items with specific attributes.
 * You can only have one local secondary index.
 * DynamoDB updates each secondary index when an item is modified. These Updates
   consume write capacity units from the main table, while global secondary
   indexes maintain their own provisioned throughput settings separate from
   the table.
+* You can define a maximum of 5 local secondary indexes.
 
 ### Reading and Writing Data:
 
@@ -459,14 +471,35 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 #### Scan:
 * Scan operation will read every item in a table or a secondary index.
 * By default scan operation returns all of the data attributes of every item
-  in the table or index.
+  in the table or index. You can use the 'ProjectionExpression' parameter to only
+  return specific attributes you want.
 * Each request can return up to 1MB of data.
+* With a scan operation, even when applying a filter, scan will read every item
+  in the table.
 * This can be resource intensive.
+* **You can improve the performance by:**
+  * Reducing the page size - to return less number of items in a batch. Running
+    a larger number of smaller operations, will allow other requests to succeed
+    without throttling.
+  * Avoid scans if you can. Design your tables to use Query, Get, or BatchGetItem
+    APIs.
+  * You can use parallel scans - Default it's sequential, returning 1MB increments.
+    Scans one partition at a time. Can configure DynamoDB to use parallel scans
+    by logically diving the table or index into segments and scanning each segment
+    in parallel.
+    NOTE: Avoid parallel scans on a busy table, as it may impact other read/write
+          activity from other applications on the table.
 
 #### Query:
 * Query is the primary search operation to find item in a table or a
   secondary index using only primary key attribute values.
 * Results are automatically sorted by the primary key and are limited to 1MB.
+* By default a query returns all attributes for the item. But you can use the
+  'ProjectionExpression' parameter to only return specific attributes you want.
+* Results are always sorted by the sort key. You can reverse the order by setting
+  'ScanIndexForward' parameter to false.
+* By default all queries are eventually consistent, you can set the query to be
+  strongly consistent.
 
 ### Scaling and Partitioning:
 * A DynamoDb table can scale horizontally using partitions to meet the storage
@@ -505,11 +538,37 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 ## DynamoDB Advanced Features:
 
 ### DynamoDB Accelerator (DAX)
-* Fully managed, highly available in-memory cache
+* Fully managed, highly available, clustered in-memory cache
 * 10x performance improvement
+* Microsecond performance for millions of requests per second.
 * Reduces request time from milliseconds to microseconds - even under load
-* No need for developers to manage caching loic
+* Ideal of read-heavy and bursty workloads like auction apps, gaming, retail sites
+  during promotions.
+* No need for developers to manage caching logic.
 * Compatible with DynamoDB API calls.
+* Reduced the read load on the DynamoDB tables - in some cases you may be able to
+  reduce the provisioned capacity on the table.
+**Limitations**:
+* Caters for **eventually consistent reads only**. Not suitable for apps that require
+  strongly consistent reads.
+* Not suitable for write intensive applications.
+* Not suitable for apps that don't perform many read operations.
+* Apps that dont require microsecond response times.
+
+**How it works**
+* Dax is a write-through caching services.
+* Data is writtent to the cache and the backend store at the same time.
+* It allows you to point your api calls at the DAX cluster.
+* If the item you are querying is in the cache (cache hit), DAX returns the result.
+* If the item is not available in DAX, it performs an eventually consistent GetItem
+  operation against the DynamoDB table and returns the result of the API call.
+
+## DynamoDB TTL:
+* Time to Live - defines an expirty time for your data. Expired items are marked for
+  deletion.
+* Great for removing irrelevant or old data.
+* Reduces the cost of your table by automatically removing unwanted data.
+* TTL is expressed in Epoch time (https://www.epochconverter.com/)
 
 ### Transactions
 * DynamoDB transactions provide atomicity, consistency, isolation, and
@@ -523,7 +582,8 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 * Transactions can operate on up to 25 items or 4 MB of  data.
 
 ### On-Demand Capacity
-* Provides Pay-per-request pricing.
+* For unpredictable workloads, provides Pay-per-request pricing.
+* DynamoDB instantly scales up and down based on the activity of your application.
 * No charge for read/write - only storage and backups.
 * Pay more per request than with provisioned capacity
 
@@ -539,14 +599,17 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 * Incremental backups
 * Not enabled by default.
 
-### Streams
-* Time-ordered sequence of item-level changes in a table.
-* Stored for 24 hours.
+### DynamoDB Streams
+* Time-ordered sequence of item-level changes in a table.(Eg: insert, update, delete)
+* Encrypted at rest and stored for 24 hours.
 * Provides a stream of inserts, updates and deletes to the table items.
 * Stream contains stream record - A stream records represents a single data
   modification in the table.
 * Each stream record is assigned a seq number reflecting the order
 * Stream records are organized in to groups or shards.
+* By default, the primary key is recored, but you can also store before and after
+  images. (State of the item before the change and after the change)
+*
 
 ### Global tables
 * Managed multi-maaster, multi-region replication.
@@ -703,6 +766,64 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
   * Clickstream analysis: to segment users and understand user preferences.
   * Genomics and life sciences: Process vas amounts of genomic data and
     other large scientific datasets quickly and efficiently.
+
+
+
+
+--------------------------------------------------------------------------------
+
+## Followups:
+Using the AWS Console, you are trying to scale DynamoDB past its pre-configured maximums. Which service limits can you increase by raising a ticket to AWS support?
+
+Choose 2
+Global Secondary Indexes per table
+Provisioned throughput limits
+Local Secondary Indexes
+Item Sizes
+
+--------------------------------------------------------------------------------
+Which DynamoDB feature can be used to define an expiry date and time for a data record in your table?
+Ans: TTL.
+
+--------------------------------------------------------------------------------
+
+You are running a query on your Customers table in DynamoDB, however you only want
+the query to return CustomerID and EmailAddress for each item in the table, how can
+you refine the query so that it only includes the required attributes?
+
+Ans: Use the ProjectionExpression parameter
+
+--------------------------------------------------------------------------------
+
+You have an application that needs to read 25 items per second and each item is
+13KB in size. Your application uses eventually consistent reads. What should you
+set the read throughput to?
+
+Ans: 50 RCU
+
+Each Read Capacity Unit is 1 x 4KB strongly consistent read. 13KB/4KB = 3.25,
+rounded to 4 x 25 = 100 - for strongly consistent reads. Divide that by 2 for
+eventual consistency = 50 RCU
+
+--------------------------------------------------------------------------------
+You have a motion sensor which writes 600 items of data every minute. Each item
+consists of 5KB. What should you set the write throughput to?
+
+ANS: 50
+
+One write request unit represents one write for an item of up to 1 KB size.
+For 600 writes per minute = 10 writes per second for 1KB or less.
+
+So 5 x 10 = 50 write capacity units
+
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
 
 
 
