@@ -287,6 +287,7 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
  - Strongly consistent reads
 
 ### Data Model:
+* Supports key-value data models. Document formats supported: JSON, XML & HTML.
 * Main components of DynamoDB are:
   * Tables:
     DynamoDB stores data in tables.
@@ -314,14 +315,15 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
     DynamoDB supports two types of primary keys:
 
     **Partition Key**:
+    * Based on a unique attribute, like a productID, email id, customer id.
     * A simple primary key, composed of one attribute known as the partition key.
     * DynamoDB uses the partition key's value as input to an internal hash
-      function. The output from the hash function determines the partition
-      where the item is stored.
+      function. The output from the hash function determines the partition or the
+      physical location where the item is stored.
     * No two items in a table can have the same partition key value.
 
 
-    **Partition key and sort key**:
+    **Composite key: Partition key + sort key**:
     * A composite primary key, composed of two attributes. First attribute is
       the partition key and the second one is the sort key.
     * All the items with the same partition key are stored together, in sorted
@@ -448,6 +450,9 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 * DynamoDb also provides batch write and read operations.
 * BatchGetItem and BatchWriteItem. Using BatchWriteItem you can perform up to
   25 item creates or updates with a single operation.
+
+## DynamoDB Transactions.
+* DynamoDB now supports ACID transactions. (Atomic, Consistent, Isolated, Durable)
 
 ### Searching Items:
 
