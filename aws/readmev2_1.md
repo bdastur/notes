@@ -29,9 +29,9 @@ NOTE:
 * [Cloudwatch concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
 * [SQS - How it works](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-how-it-works.html)
 * [KMS - multiple master key encryption](https://aws.amazon.com/blogs/security/new-aws-encryption-sdk-for-python-simplifies-multiple-master-key-encryption/)
-* []()
-* []()
-* []()
+* [Lambda - Best practices](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html)
+* [DynamoDB - designing partition keys](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-uniform-load.html)
+* [DynamoDB - choosing partition key](https://aws.amazon.com/blogs/database/choosing-the-right-dynamodb-partition-key/)
 * []()
 * []()
 * []()
@@ -2284,6 +2284,9 @@ Network storage:
 * Using SQS, you can decouple the components of an application so they run
   independently.
 * Messages can contain up to 256KB of text in any format.
+* To manage large messages you can use S3 and SQS Extended client library for Java.
+  Useful for storing and consuming messages up to 2 GB. You can't do this with
+  AWS CLI, console, HTTP API or any other AWS SDK.
 * Makes it simple and cost effective to decouple components of your cloud application.
 * Makes a best effort, but Does not guarantee message delivery order (no FIFO)
 * If message order is required applications can handle that by passing a message
@@ -2472,6 +2475,17 @@ An SQS message has three basic states:
 
 --------------------------------------------------------------------------------
 
+
+
+#--------------------------------------------------------------------------------
+## Simple Email Service (SES):
+#--------------------------------------------------------------------------------
+* Provides an easy, cost-effective way to send and receive email using your
+  own email addresses and domains.
+* Can trigger a lambda function or SNS notification.
+* Can be used for both incoming and outgoing email.
+* Email address is all that is required to start sending messages.
+--------------------------------------------------------------------------------
 
 
 #--------------------------------------------------------------------------------
@@ -2836,7 +2850,7 @@ Uses Resource:
   provisions resources to support a web application that handles http/s
   requests or an application that has background processing tasks. Web server
   tier, or worker tier as they are called.
-
+* It does not support applications developed in C++.
 --------------------------------------------------------------------------------
 
 ## AWS Config:
@@ -2969,10 +2983,16 @@ aws lambda delete-layer-version --layer-name py38_layer --version-number 1 --pro
 * Lambda uses VPC information to setup ENIs using an IP from the private subnet
   CIDR range.
 
-
 ## Weighted alias
 * A lambda alias allows you to direct traffic to one or more versions of a function.
   You can shift traffic between two versions based on weights (%), which you assign.
+
+## Lambda best practices
+* Seperate lambda handler from core logic - reusable code.
+* Initialize SDK clients and DB connections outside of function handler, and cache
+  static assets locally in /tmp directory.
+* To avoid data leaks across invocations, don't use the execution environment to
+  store user data, events or other info with security implications.
 
 --------------------------------------------------------------------------------
 
@@ -3247,8 +3267,14 @@ THis is a second line in the document.
 
 --------------------------------------------------------------------------------
 
+#--------------------------------------------------------------------------------
+## AWS Developer tools
+#--------------------------------------------------------------------------------
 
 
+
+
+--------------------------------------------------------------------------------
 
 
 #--------------------------------------------------------------------------------
@@ -3307,11 +3333,121 @@ AWS Glue
 AWS SSO
 ECS, Fargate
 
+--------------------------------------------------------------------------------
+Your organization is developing a CI/CD environment to improve software delivery of
+your applications. It has already adopted a plan to execute the various phases of
+the CI/CD pipeline from continuous integration to continuous deployment. There are
+now discussions around restructuring the team make-up to implement a CI/CD environment.
+How would you recommend creating developer teams as a best practice to support this
+change in the long run?
 
-Skip:
-section 2 - IAM
-Section 3 - EC2
-Section 5 - someparts - parts of serverless.
+Ans: Set up an application team to develop applications. Set up an infrastructure
+team to create and configure the infrastructure to run the applications. Set up a
+tools team to build and manage the CI/CD pipeline.
+
+https://d0.awsstatic.com/whitepapers/DevOps/practicing-continuous-integration-continuous-delivery-on-AWS.pdf
+
+--------------------------------------------------------------------------------
+You are developing an online auction application which uses SQS to exchange messages
+between application components. Some of the messages are between 1GB and 2GB in size.
+What is the AWS recommended way of managing large messages in SQS?
+
+Ans: Use the Amazon SQS Extended Client Library for Java to manage SQS messages
+     Store message in S3.
+
+https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-s3-messages.html
+
+--------------------------------------------------------------------------------
+You are developing a online-banking website which will be accessed by a global
+customer base. You are planning to use CloudFront to ensure users experience good
+performance regardless of their location. The Security Architect working on the
+project asks you to ensure that all requests to CloudFront are encrypted using
+HTTPS. How can you configure this?
+
+ANS: Set the Viewer Protocol Policy to redirect HTTP to HTTPS
+https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/using-https-viewers-to-cloudfront.html
+
+--------------------------------------------------------------------------------
+Which of the following approaches can improve the performance of your Lambda function?
+
+ANS: Only include the libraries you need to minimize the size of your deployment package
+     Establish your database connections from within the Lambda execution environment to enable connection reuse
+
+--------------------------------------------------------------------------------
+You want users to receive an email notification whenever they push code to their
+AWS CodeCommit repositories. How can you configure this?
+
+ANS: Configure Notifications in the console, this will create a CloudWatch Events
+rule to send a notification to an SNS topic which will trigger an email to be sent
+to the user
+
+SES is not  valid target for CloudWatch events.
+
+--------------------------------------------------------------------------------
+A developer is configuring CodeDeploy to deploy an application to an EC2 instance.
+The application's source code is stored within AWS CodeCommit.
+
+How do you need to set up and configure your IAM Policy to allow CodeDeploy to
+perform the deployment to EC2?
+
+ANS:
+Create an IAM policy with an action to allow codecommit:GitPull on the required
+repository. Attach the policy to the EC2 instance profile role.
+
+CodeDeploy interacts with EC2 via the CodeDeploy Agent, which must be installed and
+running on the EC2 instance. During a deployment, the CodeDeploy Agent running on
+EC2 pulls the source code from CodeCommit. The EC2 instance accesses CodeCommit
+using the permissions defined in its instance profile role; therefore, it is the
+EC2 instance itself that needs CodeCommit access.
+
+--------------------------------------------------------------------------------
+Upon creating your code repository, you remember that you want to receive
+recommendations on improving the quality of the Java code for all pull requests in
+the repository. Which of the following services provide this ability?
+
+ANS:
+CodeGuru Reviewer for Java
+
+--------------------------------------------------------------------------------
+You need to find a source code repository that everyone can use, and that will allow
+developers to continue to work on their code even when they are not connected to the
+internet. Which of the following would you suggest to the team?
+
+ANS:
+Use CodeCommit to manage your source code.
+
+--------------------------------------------------------------------------------
+A content publishing organization runs its own platform, which uses DynamoDB as its
+data store. A bug report has come in from the content team. They say that when two
+editors are working on the same content they frequently overwrite each other's changes.
+
+What DynamoDB feature would prevent the most number of overwrite bug reports?
+
+ANS:
+Include a condition-expression in the UpdateItem command.
+
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
