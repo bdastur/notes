@@ -32,10 +32,12 @@ NOTE:
 * [Lambda - Best practices](https://docs.aws.amazon.com/lambda/latest/dg/best-practices.html)
 * [DynamoDB - designing partition keys](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-uniform-load.html)
 * [DynamoDB - choosing partition key](https://aws.amazon.com/blogs/database/choosing-the-right-dynamodb-partition-key/)
+* [CI/CD AWS - Whitepaper](https://docs.aws.amazon.com/whitepapers/latest/practicing-continuous-integration-continuous-delivery/practicing-continuous-integration-continuous-delivery.pdf)
+* [Cloudformation templates](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/CHAP_TemplateQuickRef.html)
 * []()
 * []()
 * []()
-
+* []()
 
 
 ## Concepts:
@@ -2766,6 +2768,9 @@ IOT    --------> Shard  ------------->  EC2
 * Provides an easy way to create and manage a collection of related AWS resources,
   provisioning and updating them in a orderly and predictable manner.
 * CF Template formats: JSON or YAML.
+* By default 'automatic rollback on error' feature is enabled. This will direct
+  CF to only create/udpate all resources in your stack if all operations succeed.
+  If they do not, CF reverts the stack to the last known stable configuration.
 
 ## concepts:
 **Templates**
@@ -2807,6 +2812,8 @@ IOT    --------> Shard  ------------->  EC2
 
 **Transform** (optional)
 * For serverless applications, specifies version of the SAM to use.
+* To re-use code located in S3.
+* Transform: AWS::Serverless-2016-10-31 is required for AWS SAM template files.
 
 **Resources** (required)
 * Specifies the stack resources and their properties. This is the only component
@@ -2851,6 +2858,15 @@ Uses Resource:
   requests or an application that has background processing tasks. Web server
   tier, or worker tier as they are called.
 * It does not support applications developed in C++.
+
+**Elastic Beanstalk and Docker containers**
+* Elastic Beanstalk supports deployment of Docker containers.
+* It handles the capacity provisioning, load balancing, scaling and application
+  health monitoring.
+* You can run single Docker container on an ec2 instance provisioned by ElBs.
+* You can run multiple Docker containers by using an ECS cluster and deploy
+  multiple Docker containers on each instance.
+
 --------------------------------------------------------------------------------
 
 ## AWS Config:
@@ -3270,12 +3286,124 @@ THis is a second line in the document.
 #--------------------------------------------------------------------------------
 ## AWS Developer tools
 #--------------------------------------------------------------------------------
+AWS tools for CI/CD:
 
+* **CodeCommit**   (Continous Integration)
+  * Source control service enabling teams to collaborate on code.
 
+* **CodeBuild**    (Continous Delivery)
+ * Automated build service - compiles source code, run tests and proces packages
+   that are ready to deploy
+
+* **CodeDeploy**   (Continous Delivery)
+  * Automates code deployments to any instance, include EC2, Lambda and on-prem.
+
+* **CodePipeline** (Continous Deployment)
+  * End-to-end solution to build, test and deploy your appln every time there is a
+    code change
+
+--------------------------------------------------------------------------------
+
+## CodeCommit (Continous Integration)
+* Source control service enabling teams to collaborate on code.
+* Source code, binaries, images, libraries.
+* Based on Git.
+* You can configure notifications using SNS and CloudWatch, to send notifications to
+  subscribers.
+
+--------------------------------------------------------------------------------
+
+## CodeBuild  (Continous delivery)
+* Automated build service - compiles source code, runs tests and produces packages
+  that are ready to deploy
+
+--------------------------------------------------------------------------------
+
+## CodeDeploy (Continous delivery)
+* Automates code deployments to any instance, include EC2, lambda and on-premises.
+* There are two deployment approaches: In-place deployment, Blue/Green deployment.
+
+**In-place**
+* The appln is stopped on each instance and the new release is installed.
+* Also known as rolling update.
+* Capacity is reduced during the deployment.
+* Lambda is not supported
+* There is no easy way to rollback to previous revision if there is an issue with
+  the new version of software. Requires a re-deploy.
+* Great when deploying first time.
+
+**Blue-Green**
+* New release is installed on new instances.
+* Blue represents the active deployment, green is the new release.
+* No capacity reduction.
+* Green instances can be created ahead of time.
+* Easy to switch between old and new.
+* You pay for 2 environments until you terminate the old instances.
+
+**AppSpec File**
+* Configuration file that defines the parameters to be used during a CodeDeploy
+  deployment.
+* For EC2 and on-prem systems, YAML only.
+* For Lambda based deployment - supports JSON and YAML.
+* Should be saved to the root of your revision directory.
+
+**File structure**
+* Version: Currently the allowed value is 0.0
+* OS: Operating system version
+* Files: Location of appln files that need to be copied and where to copy.
+* Hooks: Scripts which need to run at set points in deployment lifecycle.
+         They have a very specific run order.
+         order: BeforeInstall, AfterInstall, ApplicationStart, ValidateService
+
+* Run order for In-Place Deployment:
+ De-register phase (from the LB):
+ * BeforeBlockTraffic
+ * BlockTraffic
+ * AfterBlockTraffic
+ * ApplicationStop
+ Application Install:
+ * DownloadBundle
+ * BeforeInstall
+ * Install
+ * AfterInstall
+ * ApplicationStart
+ * ValidateService
+ Re-register with LB:
+ * BeforeAllowTraffic
+ * AllowTraffic
+ * AfterAllowTraffic
+
+--------------------------------------------------------------------------------
+
+## CodePipeline (Continous deployment)
+* End-to-end solution, build, test, and deploy your application every time there is
+  a code change.
+* Fully managed CI/CD service.
+* The pipeline is triggered every time there is a code change.
+* Integrates with: CodeCommit, CodeBuild, CodeDeploy, Github,Jenkins, EBS, CF,
+  Lambda, ECS.
 
 
 --------------------------------------------------------------------------------
 
+
+#--------------------------------------------------------------------------------
+## Elastic Container Service (ECS)
+#--------------------------------------------------------------------------------
+* Fully managed container orchestration service, which supports Docker and Windows
+  containers.
+* Two ways to run:
+ * Cluster of Virtual machines:
+   ECS will run your containers on clusters of virtual machines.
+ * Fargate for Serverless:
+   Use Fargate for Serverless containers and you don't need to worry about the
+   underlying EC2 instances.
+
+**ECR Elastic Container Registry**
+* Registry of container services
+* Services that use ECS: Sagemaker, Amazon Lex, Amazon.com
+
+--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
 ## Follow ups
