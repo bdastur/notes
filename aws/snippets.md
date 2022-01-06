@@ -116,9 +116,9 @@ aws dynamodb put-item --table-name brdtest \
 
 ```
 ~> cat /tmp/items.json
-{"cluster_name": {"S": "test2"}, 
- "creation_date": {"S": "2021-12-21"}, 
- "owner": {"S": "john"}, 
+{"cluster_name": {"S": "test2"},
+ "creation_date": {"S": "2021-12-21"},
+ "owner": {"S": "john"},
  "status": {"S": "inprogress"}
 }
 > aws dynamodb put-item --table-name brdtest --item file:///tmp/items.json --profile dev1
@@ -137,7 +137,7 @@ aws dynamodb put-item --table-name brdtest \
 ## DynamoDB Query operation.
 
 ```
-> cat /tmp/attributes.json 
+> cat /tmp/attributes.json
 {
   ":name": {"S": "test1"},
   ":date": {"S": "2021-12-21"}
@@ -167,9 +167,53 @@ aws dynamodb put-item --table-name brdtest \
     "ScannedCount": 1,
     "ConsumedCapacity": null
 }
-(py38) (N/A:default)√[behzad.dastur] ~ %~> 
 
 ```
+
+## DynamoDB batch-write items:
+```
+%~> cat /tmp/items.json
+{
+    "brdtest": [
+    {
+        "PutRequest": {
+            "Item": {
+                "cluster_name": {"S": "test3"},
+                "creation_date": {"S": "2022-01-21"},
+                "owner": {"S": "John Smith"},
+                "status": {"S": "inprogress"}
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "cluster_name": {"S": "test4"},
+                "creation_date": {"S": "2022-01-21"},
+                "owner": {"S": "John Smith"},
+                "status": {"S": "inprogress"}
+            }
+        }
+    },
+    {
+        "PutRequest": {
+            "Item": {
+                "cluster_name": {"S": "test5"},
+                "creation_date": {"S": "2022-01-21"},
+                "owner": {"S": "John Smith"},
+                "status": {"S": "inprogress"}
+            }
+        }
+    }
+]
+}
+%~> aws dynamodb batch-write-item --request-items file:///tmp/items.json --profile dev1
+{
+    "UnprocessedItems": {}
+}
+
+```
+
 
 
 ## EBS Volumes. Find available volumes.
