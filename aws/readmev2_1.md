@@ -2298,13 +2298,13 @@ Network storage:
 * NOTE: SQS is pull based, not push based.
 
 ## Message lifecycle
-1. (Producer) Component 1 sends message A to a queue. The message is redundantly
-    distributed across the SQS servers.
-2. (Consumer) Component 2 retrieves the message from the queue and message A is
-   returned while message A is being processed, it remains in the queue and is not
+1. (Producer) sends message A to a queue. The message is redundantly distributed
+   across the SQS servers.
+2. (Consumer) retrieves the message from the queue and message A is returned
+   .While message A is being processed, it remains in the queue and is not
    returned to subsequent receive requests for a duration of the visibility timeout.
-3. (consumer) Component 2 deletes message A from the queue to prevent the message
-   from being received and processed again after the visibility timeout expires.
+3. (consumer) deletes message A from the queue to prevent the message from being
+   received and processed again after the visibility timeout expires.
 
 ## Delay queues and visibility timeouts:
 
