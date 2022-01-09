@@ -149,7 +149,7 @@
       a primary instance.
     * Helps increase performance by distributing the read workloads among various
       instances.
-    * You can locate your Aurora replicas in multiple AZs to increate DB availability.
+    * You can locate your Aurora replicas in multiple AZs to increase DB availability.
 
 * *Aurora Serverless* - provides a simple cost effective option for infrequent,
   intermittent or unpredictable workloads.
@@ -239,19 +239,19 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 * RDS can handle planned or unplanned outages to the DB instance. RDS
   automatically switches to a standby replica in another AZ.
 * Available for SQL Server, Oracle, MySQL Server, PostgresSQL, MariaDB.
-* You can force a failover from on AZ to another, by rebooting the RDS instance.
+* You can force a failover from one AZ to another, by rebooting the RDS instance.
 * There is no charge associated to replicating data between AZs for your multi-az
   deployment.
 * DB instances using multi-az DB deployments can have increased write and commit
   latency compared to single AZ deployments.
-* Failover tiems from active to standby are typically 60 - 120 seconds.
+* Failover times from active to standby are typically 60 - 120 seconds.
 
 
 ### Read Replicas:
 * Can be Multi-az.
-* Reduces load on primary DB instance by routing read queries to special
-  DB instances called read replicas.
-* Servers read traffic when source DB instance is unavailable.
+* Reduces load on primary DB instance by routing read queries to special DB
+  instances called read replicas.
+* Serves read traffic when source DB instance is unavailable.
 * Must have automatic backups turned on in order to deploy a read replica.
 * Can have up to 5 RR copies of any database.
 * You can have read replicas of read replicas (watch out for latency)

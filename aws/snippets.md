@@ -282,5 +282,85 @@ Execute cli:
 
 
 
+## Cognito userpools
+
+**List user pools**
+```
+~> aws cognito-idp list-user-pools --profile dev1 --max-results 5 --output text
+USERPOOLS	1641738585.975	us-west-2_0VwrsEoVZ	1641738585.975	testuserpool
+```
+
+```
+
+**List users in a cognito user pool**
+
+```
+> aws cognito-idp list-users --user-pool-id us-west-2_0VwrsEoVZ --profile dev1 --output text
+USERS	True	1641738784.888	1641738784.888	FORCE_CHANGE_PASSWORD	b2dcee5b-aae4-4e3b-93d7-34ac7c1bbe17
+ATTRIBUTES	sub	b2dcee5b-aae4-4e3b-93d7-34ac7c1bbe17
+ATTRIBUTES	email_verified	true
+ATTRIBUTES	email	xxxxxx@xxxx.xxx
+
+```
+
+**Create a user pool client**
+
+```
+aws cognito-idp create-user-pool-client --user-pool-id us-west-2_BLcbQ9DHK --client-name testclient1 --profile dev1
+{
+    "UserPoolClient": {
+        "UserPoolId": "us-west-2_BLcbQ9DHK",
+        "ClientName": "testclient1",
+        "ClientId": "8ik2s2uk8d9ekh7k3s1hstlgt",
+        "LastModifiedDate": 1641740003.101,
+        "CreationDate": 1641740003.101,
+        "RefreshTokenValidity": 30,
+        "TokenValidityUnits": {},
+        "AllowedOAuthFlowsUserPoolClient": false,
+        "EnableTokenRevocation": true
+    }
+}
+```
+
+**User sign-up**
+This command will send an email to the email provided, with a confirmation code,
+which will be used in the subsequent confirm signup step.
+
+```
+aws cognito-idp sign-up --client-id 8ik2s2uk8d9ekh7k3s1hstlgt \
+--username xyz@acme.com --password xxxxx  \
+--user-attributes Name="email",Value="xxxx@acme.com" --profile dev1
+{
+    "UserConfirmed": false,
+    "CodeDeliveryDetails": {
+        "Destination": "x***@x***.xxx",
+        "DeliveryMedium": "EMAIL",
+        "AttributeName": "email"
+    },
+    "UserSub": "9301f852-88c2-4613-b70a-7b67ccb1fe92"
+}
+```
+
+**User confirm signup**
+```
+~> aws cognito-idp confirm-sign-up --client-id 8ik2s2uk8d9ekh7k3s1hstlgt \
+--username xxxxxx@acme.xxx \
+--confirmation-code 821489 --profile dev1
+%~> 
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

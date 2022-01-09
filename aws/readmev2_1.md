@@ -469,7 +469,7 @@ Supported record types:
 
 
 #--------------------------------------------------------------------------------
-## AWS Identify and Access Management
+## AWS Identify and Access Management (IAM)
 #--------------------------------------------------------------------------------
 
 **Useful Links:**
@@ -1093,15 +1093,15 @@ You are charged for:
   object lock for an existing bucket, contact AWS support.
 * If you create bucket with object lock enabled, you cannot suspend versioning or
   disable object lock for the bucket.
-* Governance Mode:
-  - In this mode, users can't overwrite or delete an object or later it's lock
+* *Governance Mode*:
+  - In this mode, users can't overwrite or delete an object or later change it's lock
     settings unless they have special permissions.
   - You protect objects against being deleted by most users, but you can still grant
-    some users permissions to later retention settings or delete the object.
-* Compliance Mode:
-  - In this mode protected object version can not be overwritten or delete by any
+    some users permissions to later change retention settings or delete the object.
+* *Compliance Mode*:
+  - In this mode protected object version can not be overwritten or deleted by any
     user, including the root user.
-  - Objects can be overwritten, deleted for the duration of the retention period.
+  - Objects can't be overwritten, deleted for the duration of the retention period.
 
 **Glacier Vault lock**
 * Easily deploy and enforce compliance controls for individual S3 Glacier vaults with
@@ -3556,6 +3556,10 @@ Include a condition-expression in the UpdateItem command.
 
 --------------------------------------------------------------------------------
 
+KMS
+Step functions, Lambda
+API GW, LAMBDA
+Cognito.
 
 
 
