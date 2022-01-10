@@ -350,8 +350,96 @@ aws cognito-idp sign-up --client-id 8ik2s2uk8d9ekh7k3s1hstlgt \
 
 ```
 
+**Login initiate Authentication**
+```
+~> aws cognito-idp initiate-auth \
+--client-id 8ik2s2uk8d9ekh7k3s1hstlgt \
+--auth-flow USER_PASSWORD_AUTH \
+--auth-parameters USERNAME=behzad.dastur@workday.com,PASSWORD=Password@1 --profile dev1
+{
+    "ChallengeParameters": {},
+    "AuthenticationResult": {
+        "AccessToken": "whYhsUITzQQ3eBXAwI6VX7Gi7Dmv2eP3T1w",
+        "ExpiresIn": 3600,
+        "TokenType": "Bearer",
+        "RefreshToken": "RwrB-FIu6ZaQkv3AP_htR9QhD.hHZoXervix8HcvMnyi8oVw",
+        "IdToken": "Ngf2ZbCZZ-FJwY-7ptPGpKMdA7NjjYVX8hM7DA"
+    }
+}
+
+```
 
 
+
+## Cognito Identity pools.
+
+**Create a new Identity pool**
+```
+ %~> aws cognito-identity create-identity-pool \
+--identity-pool-name testidentitypool \
+--no-allow-unauthenticated-identities \
+--cognito-identity-providers \
+ProviderName="cognito-idp.us-west-2.amazonaws.com/us-west-2_BLcbQ9DHK",ClientId="8ik2s2uk8d9ekh7k3s1hstlgt"
+{
+    "IdentityPoolId": "us-west-2:7ee6b627-f894-4b3b-bc7c-1107c054e6de",
+    "IdentityPoolName": "testidentitypool",
+    "AllowUnauthenticatedIdentities": false,
+    "CognitoIdentityProviders": [
+        {
+            "ProviderName": "cognito-idp.us-west-2.amazonaws.com/us-west-2_BLcbQ9DHK",
+            "ClientId": "8ik2s2uk8d9ekh7k3s1hstlgt",
+            "ServerSideTokenCheck": false
+        }
+    ],
+    "IdentityPoolTags": {}
+}
+
+```
+
+**Delete identity pool**
+```
+aws cognito-identity delete-identity-pool \
+--identity-pool-id us-west-2:c5d8e930-89ff-49df-b097-d6672ab39b05 \
+--profile dev1
+```
+**Set identity pool roles**
+```
+> aws cognito-identity set-identity-pool-roles \
+--identity-pool-id us-west-2:7ee6b627-f894-4b3b-bc7c-1107c054e6de \
+--roles authenticated=arn:aws:iam::461168169469:role/Cognito_testidentitypoolAuth_Role
+
+```
+
+**Get Cognito identity pool Identity Id**
+The login information is available from the `aws cognito-idp initate-auth` CLI
+IdToken value.
+
+```
+ %~> aws cognito-identity get-id \
+--identity-pool-id us-west-2:7ee6b627-f894-4b3b-bc7c-1107c054e6de \
+--login  cognito-idp.us-west-2.amazonaws.com/us-west-2_BLcbQ9DHK=eyJraWQiOiJlMF.....Z20mCsfhv4RHy0GSdJxLvZkZ-w10Gloz8cApb71QrvxY2vPvqq0klDvWzeA
+{
+    "IdentityId": "us-west-2:bbc7f768-1a17-4c02-8f48-56d2e84c3947"
+}
+
+```
+
+**Get cognito identity credentials**
+Use the IdentityId from the get-id command
+```
+~> aws cognito-identity get-credentials-for-identity \
+--identity-id us-west-2:bbc7f768-1a17-4c02-8f48-56d2e84c3947 \
+--login  cognito-idp.us-west-2.amazonaws.com/us-west-2_BLcbQ9DHK=eyJraWQ......sj5bOd3hu824g --profile dev1
+{
+    "IdentityId": "us-west-2:bbc7f768-1a17-4c02-8f48-56d2e84c3947",
+    "Credentials": {
+        "AccessKeyId": "AS....O57QPE",
+        "SecretKey": "f....CJsfDV5Y2jW",
+        "SessionToken": "IQWvwc.......BDXm+5khWB5m/NWYUbf7leZ/Sk2f2y4Le",
+        "Expiration": 1641857034.0
+    }
+}
+```
 
 
 
