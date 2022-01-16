@@ -38,6 +38,8 @@
 * [change data capture tool](https://debezium.io/)
 * [How to set default github branch from master to main](https://stevenmortimer.com/5-steps-to-change-github-default-branch-from-master-to-main/)
 * [The Twelve Factors](https://12factor.net/)
+* [Microservice or Distributed Monolith pitfall](https://www.gremlin.com/blog/is-your-microservice-a-distributed-monolith/)
+* [CNCF CLoud Native Lanscape](https://landscape.cncf.io/?grouping=no&sort=stars)
 
 # Linux tips:
 
