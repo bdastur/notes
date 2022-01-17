@@ -1,0 +1,13 @@
+/* Define standard variables and values for website */
+/* Use the variables */
+body {
+  background-color: lightblue;
+  color: darkblue;
+  font-size: 18px;
+}
+
+.bg-blue-100 {
+  background-color: #cfe2ff;
+}
+
+/*# sourceMappingURL=test.css.map */
