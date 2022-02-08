@@ -103,6 +103,15 @@ aws dynamodb scan --table-name TestData \
 --profile dev --output json --max-items 5000
 ```
 
+Using contains expression.
+```
+> aws dynamodb scan --table-name TestTable \
+--filter-expression "contains(LockID, :li)" \
+--expression-attribute-values '{":li": {"S": "myprodenv"} }' \
+--profile prod --region ca-central-1
+```
+
+
 ## DynamoDB put-item example
 
 ```
