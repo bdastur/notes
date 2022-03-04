@@ -9,6 +9,7 @@ serverless deserves a new folder.
 * [AWS Lambda - best practices](http://docs.aws.amazon.com/lambda/latest/dg/best-practices.html)
 * [AWS Lamda quotas](http://docs.aws.amazon.com/lambda/latest/dg/limits.html)
 * [AWS Lambda Powertools Python](https://awslabs.github.io/aws-lambda-powertools-python/latest/)
+* [Lambda event resources](https://michaelbrewer.github.io/aws-lambda-events/#objectives)
 
 * Run code/service without provisioning or managing servers.
 * Pay only for the compute time that you consume.
