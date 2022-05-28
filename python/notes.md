@@ -85,6 +85,7 @@ Python tools:
 * [Python Schedule Library](https://www.geeksforgeeks.org/python-schedule-library/)     
 * [ReadTheDocs - Python Schedule Library](https://schedule.readthedocs.io/en/stable/index.html)
 * [Python Import: Advanced techniques](https://realpython.com/python-import/)
+* [Memray: memory profiler for Python](https://github.com/bloomberg/memray) 
 
 
 ### command sample:
