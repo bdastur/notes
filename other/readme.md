@@ -40,6 +40,7 @@
 * [The Twelve Factors](https://12factor.net/)
 * [Microservice or Distributed Monolith pitfall](https://www.gremlin.com/blog/is-your-microservice-a-distributed-monolith/)
 * [CNCF CLoud Native Lanscape](https://landscape.cncf.io/?grouping=no&sort=stars)
+* [ytt: CLI for patching and templating yaml files](https://carvel.dev/ytt/docs/v0.39.0/)
 
 # Linux tips:
 
