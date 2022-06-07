@@ -291,9 +291,9 @@
       "id": "JXxlJ0ngmgEj7ar0tRLcI",
       "type": "text",
       "x": 753.6411743164062,
-      "y": 220.706787109375,
-      "width": 505,
-      "height": 48,
+      "y": 225.206787109375,
+      "width": 404,
+      "height": 39,
       "angle": 0,
       "strokeColor": "#000000",
       "backgroundColor": "#fa5252",
@@ -305,8 +305,8 @@
       "groupIds": [],
       "strokeSharpness": "sharp",
       "seed": 341112050,
-      "version": 74,
-      "versionNonce": 55011314,
+      "version": 77,
+      "versionNonce": 2057063854,
       "isDeleted": false,
       "boundElements": [
         {
@@ -314,15 +314,15 @@
           "type": "arrow"
         }
       ],
-      "updated": 1654564246425,
+      "updated": 1654564637271,
       "link": null,
       "locked": false,
       "text": "Bandwidth measures capacity\n(A bigger pipe would mean higher bandwidth)",
-      "fontSize": 20,
+      "fontSize": 16,
       "fontFamily": 3,
       "textAlign": "left",
       "verticalAlign": "top",
-      "baseline": 44,
+      "baseline": 35,
       "containerId": null,
       "originalText": "Bandwidth measures capacity\n(A bigger pipe would mean higher bandwidth)"
     },
