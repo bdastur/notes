@@ -67,3 +67,15 @@ subsequent requests - effect known as head-of-line blocking.
 ![Alt text](./ddia_ch1_scalability.svg)
 ![Alt text](./ddia_ch1_maintainability.svg)
 
+
+## Imperative vs Declarative.
+![Alt text](./ddia_ch2_imperative_declarative.svg)    
+
+
+## Storage and Retrieval.
+![Alt text](./ddia_ch2_storage_retrieval_1_hash_indexes.svg)
+![Alt text](./ddia_ch2_storage_retrieval_2_sstables.svg)
+
+
+
+
