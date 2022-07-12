@@ -7,6 +7,7 @@
 ## Best Practices
 * [Naming](https://prometheus.io/docs/practices/naming/)
 * [Prometheus Instrumentation](https://prometheus.io/docs/practices/instrumentation/#counter-vs-gauge-summary-vs-histogram)
+* [How much RAM does prometheus 2.x need?](https://www.robustperception.io/how-much-ram-does-prometheus-2-x-need-for-cardinality-and-ingestion/)
 
 
 ### Naming:
