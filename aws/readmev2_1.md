@@ -39,7 +39,7 @@ NOTE:
 * [Cognito Authentication-2](http://mobile.awsblog.com/post/Tx2FL1QAPDE0UAH/Understanding-Amazon-Cognito-Authentication-Part-2-Developer-Authenticated-Ident)
 * [Cognito Authentication-3](http://mobile.awsblog.com/post/Tx1OSMBRHZVM9V0/Understanding-Amazon-Cognito-Authentication-Part-3-Roles-and-Policies)
 * [Cognito Authentication-4](https://aws.amazon.com/blogs/mobile/understanding-amazon-cognito-authentication-part-4-enhanced-flow/)
-* []()
+* [AWS Extend Switch Roles](https://github.com/tilfinltd/aws-extend-switch-roles)
 * []()
 * []()
 * []()
