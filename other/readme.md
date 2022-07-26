@@ -41,6 +41,7 @@
 * [Microservice or Distributed Monolith pitfall](https://www.gremlin.com/blog/is-your-microservice-a-distributed-monolith/)
 * [CNCF CLoud Native Lanscape](https://landscape.cncf.io/?grouping=no&sort=stars)
 * [ytt: CLI for patching and templating yaml files](https://carvel.dev/ytt/docs/v0.39.0/)
+* [Measuring engineering productivity](https://abseil.io/resources/swe-book/html/ch07.html)
 
 # Linux tips:
 
