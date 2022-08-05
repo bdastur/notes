@@ -40,7 +40,7 @@ NOTE:
 * [Cognito Authentication-3](http://mobile.awsblog.com/post/Tx1OSMBRHZVM9V0/Understanding-Amazon-Cognito-Authentication-Part-3-Roles-and-Policies)
 * [Cognito Authentication-4](https://aws.amazon.com/blogs/mobile/understanding-amazon-cognito-authentication-part-4-enhanced-flow/)
 * [AWS Extend Switch Roles](https://github.com/tilfinltd/aws-extend-switch-roles)
-* []()
+* [cli tool for AWS login](https://github.com/Versent/saml2aws)
 * []()
 * []()
 * []()
