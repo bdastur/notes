@@ -3,6 +3,7 @@
 * [Opensource linux - fork of RHEL](https://github.com/AlmaLinux)
 * [AlmaLinnux - centos replacement](https://almalinux.org/blog/almalinux-os-stable-release-is-live/)
 * [OSQuery - Query your OS has a high performance relational DB](https://github.com/osquery/osquery)
+* [Linux Performance tools](https://www.brendangregg.com/linuxperf.html)
 
 
 ## Bash completion not working.
