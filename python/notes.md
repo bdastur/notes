@@ -86,6 +86,7 @@ Python tools:
 * [ReadTheDocs - Python Schedule Library](https://schedule.readthedocs.io/en/stable/index.html)
 * [Python Import: Advanced techniques](https://realpython.com/python-import/)
 * [Memray: memory profiler for Python](https://github.com/bloomberg/memray) 
+* [Persistent key/value store dbm](https://remusao.github.io/posts/python-dbm-module.html)
 
 
 ### command sample:
