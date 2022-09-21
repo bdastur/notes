@@ -87,6 +87,7 @@ Python tools:
 * [Python Import: Advanced techniques](https://realpython.com/python-import/)
 * [Memray: memory profiler for Python](https://github.com/bloomberg/memray) 
 * [Persistent key/value store dbm](https://remusao.github.io/posts/python-dbm-module.html)
+* [Slack Machine: Slack bot framework](https://github.com/DonDebonair/slack-machine)
 
 
 ### command sample:
