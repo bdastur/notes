@@ -88,6 +88,7 @@ Python tools:
 * [Memray: memory profiler for Python](https://github.com/bloomberg/memray) 
 * [Persistent key/value store dbm](https://remusao.github.io/posts/python-dbm-module.html)
 * [Slack Machine: Slack bot framework](https://github.com/DonDebonair/slack-machine)
+* [Plotext - plotting on terminal (plots, bar charts)](https://github.com/piccolomo/plotext)    
 
 
 ### command sample:
