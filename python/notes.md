@@ -89,7 +89,7 @@ Python tools:
 * [Persistent key/value store dbm](https://remusao.github.io/posts/python-dbm-module.html)
 * [Slack Machine: Slack bot framework](https://github.com/DonDebonair/slack-machine)
 * [Plotext - plotting on terminal (plots, bar charts)](https://github.com/piccolomo/plotext)    
-
+* [Ziti Python - n/w security](https://openziti.io/openziti-python-sdk-introduction)
 
 ### command sample:
 
