@@ -43,7 +43,7 @@ NOTE:
 * [Cognito Authentication-4](https://aws.amazon.com/blogs/mobile/understanding-amazon-cognito-authentication-part-4-enhanced-flow/)
 * [AWS Extend Switch Roles](https://github.com/tilfinltd/aws-extend-switch-roles)
 * [cli tool for AWS login](https://github.com/Versent/saml2aws)
-* []()
+* [Serverless snippets collection](https://serverlessland.com/snippets)
 * []()
 * []()
 
