@@ -44,7 +44,7 @@ NOTE:
 * [AWS Extend Switch Roles](https://github.com/tilfinltd/aws-extend-switch-roles)
 * [cli tool for AWS login](https://github.com/Versent/saml2aws)
 * [Serverless snippets collection](https://serverlessland.com/snippets)
-* []()
+* [https://workshops.aws/](AWS Workshops)
 * []()
 
 
