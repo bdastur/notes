@@ -12,6 +12,7 @@ serverless deserves a new folder.
 * [Lambda event resources](https://michaelbrewer.github.io/aws-lambda-events/#objectives)
 * [Testing lambda container images locally](https://docs.aws.amazon.com/lambda/latest/dg/images-test.html)
 * [Serverless snippets collection](https://serverlessland.com/snippets)
+* [Complete AWS SAM Workshop](https://catalog.workshops.aws/complete-aws-sam/en-US)
 
 * Run code/service without provisioning or managing servers.
 * Pay only for the compute time that you consume.
