@@ -43,7 +43,7 @@
 * [ytt: CLI for patching and templating yaml files](https://carvel.dev/ytt/docs/v0.39.0/)
 * [Measuring engineering productivity](https://abseil.io/resources/swe-book/html/ch07.html)
 * [Google Software Engineering book](https://abseil.io/resources/swe-book/html/toc.html)
-
+* [chatGPT Usecases](https://cookup.ai/chatgpt/usecases/#assistant)
 
 # Linux tips:
 
