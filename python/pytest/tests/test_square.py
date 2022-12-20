@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
+import time
 import math
 import pytest
 
@@ -24,3 +25,18 @@ def equality_test():
 @pytest.mark.invalid
 def test_greater():
     assert 11 > 10
+
+def test_thatTakesAwhile_1():
+    for x in range(4):
+        print(".", end="")
+        time.sleep(1)
+
+def test_thatTakesAwhile_2():
+    for x in range(4):
+        print("x", end="")
+        time.sleep(1)
+
+def test_thatTakesAwhile_3():
+    for x in range(5):
+        print("o", end="")
+        time.sleep(1)
