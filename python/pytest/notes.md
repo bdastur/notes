@@ -17,7 +17,7 @@ or `*_test.py` in the current directory or subdirectories.
 ```
 
 Execute all tests in tests/ folder
-> python -m pytest tests 
+> python -m pytest tests
 
 Execute tests in specific file (-v for verbose flag):
 > python -m pytest tests/test_square.py -v
@@ -66,7 +66,7 @@ To use the fixture:
 
 ```
 def test_calculateSquare(inputNum):
-    assert 
+    assert
 ```
 
 You can organize your fixtures in a seperate file, by creating a file called
@@ -74,7 +74,7 @@ You can organize your fixtures in a seperate file, by creating a file called
 
 eg:
 ```
-~> cat tests/conftest.py 
+~> cat tests/conftest.py
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -84,10 +84,10 @@ import pytest
 def inputString():
     value = "This is a test"
     return value
-(py39) √[bdastur] python/pytest %~> 
+(py39) √[bdastur] python/pytest %~>
 
 
-> cat tests/conftest.py 
+> cat tests/conftest.py
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -99,7 +99,7 @@ def inputString():
     return value
 
 -----------------------
-(py39) √[bdastur] python/pytest %~> more tests/test_fixtures.py 
+(py39) √[bdastur] python/pytest %~> more tests/test_fixtures.py
 #!/usr/bin/env python3
 
 
@@ -109,6 +109,56 @@ def test_reverseString(inputString):
     assert len(reverseString) == len(inputString)
 
 ```
+
+## Parameterize your tests.
+A simpler way to provide multiple input sets to test against.
+
+```
+
+import pytest
+
+@pytest.mark.parametrize("num, output", [(1, 11), (2, 22), (3, 35), (4, 44)])
+def test_multiplication_11(num, output):
+    assert 11*num == output
+
+```
+
+
+## Xfail/Skip tests.
+
+The `@pytest.mark.xfail` and `@pytest.mark.skip` can be used to skip tests.
+
+The tests marked `xfail` will run, but will not be considered part of the failed tests.
+The tests marked `skip` will be skipped.
+
+
+## Stopping tests after certain number of failures.
+
+```
+pytest --maxfail = <num>
+
+```
+
+## Running tests in parallel.
+
+By default pytest runs tests in a sequential order. With pytest you have option to run
+tests in parallel.
+
+You will need the plugin `pytest-xdist`:
+
+```
+pip install pytest-xdist
+```
+
+Running tests in parallel:
+
+```
+pytest n <num>
+```
+
+
+
+
 
 
 

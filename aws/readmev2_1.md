@@ -46,6 +46,7 @@ NOTE:
 * [Serverless snippets collection](https://serverlessland.com/snippets)
 * [https://workshops.aws/](AWS Workshops)
 * [awslabs - flexible snapshot proxy](https://github.com/awslabs/flexible-snapshot-proxy)
+* [AWS Samples - github](https://github.com/aws-samples)
 
 
 ## Concepts:
