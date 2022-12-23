@@ -2,6 +2,8 @@
 
 * [AWS CDK Guide](https://docs.aws.amazon.com/cdk/v2/guide/home.html)
 * [AWS CDK Python Modules](https://docs.aws.amazon.com/cdk/api/v1/python/modules.html)
+* [Construct Hub](https://constructs.dev/search?q=&cdk=aws-cdk&cdkver=2&sort=downloadsDesc&offset=0)
+* [AWS Construct Library](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html)
 
 ---
 
