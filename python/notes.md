@@ -48,6 +48,7 @@ nm['10.10.10.6']
 * [Boto3 sessions and why to use them](https://ben11kehoe.medium.com/boto3-sessions-and-why-you-should-use-them-9b094eb5ca8e)
 * [Python pathlib cookbook](https://miguendes.me/python-pathlib)
 
+
 Python profiling:
 * https://github.com/benfred/py-spy
 
@@ -90,6 +91,8 @@ Python tools:
 * [Slack Machine: Slack bot framework](https://github.com/DonDebonair/slack-machine)
 * [Plotext - plotting on terminal (plots, bar charts)](https://github.com/piccolomo/plotext)    
 * [Ziti Python - n/w security](https://openziti.io/openziti-python-sdk-introduction)
+* [syntatic type checker for python](https://mypy.readthedocs.io/en/stable/)
+
 
 ### command sample:
 
