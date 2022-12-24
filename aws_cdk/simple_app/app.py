@@ -13,6 +13,10 @@ This cdk app gives an example of
 import os
 import aws_cdk as cdk
 import constructs
+from aws_cdk import (
+    aws_iam as iam,
+    aws_s3 as s3
+)
 
 
 
@@ -21,9 +25,9 @@ class SimpleAppStack(cdk.Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # Create an S3 bucket
-        bucket = cdk.aws_s3.Bucket(self, "MyCDKBucket", versioned=False,
-                                   removal_policy=cdk.RemovalPolicy.DESTROY,
-                                   auto_delete_objects=True)
+        bucket = s3.Bucket(self, "MyCDKBucket", versioned=False,
+                           removal_policy=cdk.RemovalPolicy.DESTROY,
+                           auto_delete_objects=True)
         self.myBucket = bucket
 
         print(bucket.bucket_name)
@@ -36,15 +40,15 @@ class SimpleAppStack2(cdk.Stack):
         super().__init__(scope, constructor_id, **kwargs)
 
         # Create another S3 bucket.
-        bucket = cdk.aws_s3.Bucket(self, "My2CDKBucket", versioned=False,
-                                   removal_policy=cdk.RemovalPolicy.DESTROY,
-                                   auto_delete_objects=True)
+        bucket = s3.Bucket(self, "My2CDKBucket", versioned=False,
+                           removal_policy=cdk.RemovalPolicy.DESTROY,
+                           auto_delete_objects=True)
 
         # Create Role.
-        role = cdk.aws_iam.Role(self, "AppRole2",
-                                assumed_by=cdk.aws_iam.AccountPrincipal("727820809195"),
-                                description="This is a sample role",
-                                role_name="SampleAppRole")
+        role = iam.Role(self, "AppRole2",
+                        assumed_by=iam.AccountPrincipal("727820809195"),
+                        description="This is a sample role",
+                        role_name="SampleAppRole")
 
         bucket.grant_read_write(role)
 
@@ -89,20 +93,20 @@ class SimpleAppStack2(cdk.Stack):
             "arn:aws:iam::aws:policy/AmazonDynamoDBReadOnlyAccess",
             "arn:aws:iam::aws:policy/AWSCertificateManagerReadOnly"
             ]
-        ddbPolicy = cdk.aws_iam.CfnRole.PolicyProperty(
+        ddbPolicy = iam.CfnRole.PolicyProperty(
             policy_document=ddbPolicyDocument,
             policy_name="ddbTestPolicy")
         # Create Role (Cfn Construct)
-        roleCfn = cdk.aws_iam.CfnRole(self,
-                                     "AppRole22",
-                                     role_name="SampleAppRole22",
-                                     assume_role_policy_document=policyDocument,
-                                     policies=[ddbPolicy],
-                                     managed_policy_arns=managedPolicyArns)
+        roleCfn = iam.CfnRole(self,
+                              "AppRole22",
+                              role_name="SampleAppRole22",
+                              assume_role_policy_document=policyDocument,
+                              policies=[ddbPolicy],
+                              managed_policy_arns=managedPolicyArns)
 
         print("Role cfn path: %s" % roleCfn.path)
-        print("Is cfn element: %s" % cdk.aws_iam.CfnRole.is_cfn_element(roleCfn))
-        print("Is cfn resource: ", cdk.aws_iam.CfnRole.is_cfn_resource(roleCfn))
+        print("Is cfn element: %s" % iam.CfnRole.is_cfn_element(roleCfn))
+        print("Is cfn resource: ", iam.CfnRole.is_cfn_resource(roleCfn))
 
         print(bucket.bucket_name)
 
