@@ -14,11 +14,13 @@ import aws_cdk as cdk
 
 from stacks.SimpleStackOne import SimpleAppStack
 from stacks.SimpleStackTwo import SimpleAppStack2
+from stacks.SimpleStackWithParams import SimpleStackWithParameter
 
 
 app = cdk.App()
 stackOne = SimpleAppStack(app, "SimpleAppStack")
 stackTwo = SimpleAppStack2(app, "Stack2", myBucket=stackOne.myBucket)
+stackThree = SimpleStackWithParameter(app, "Stack3")
 
 app.synth()
 

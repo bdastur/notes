@@ -49,3 +49,8 @@ command.
  * `cdk docs`        open CDK documentation
 
 Enjoy!
+
+# Stack3 is parameterized. To deploy execute:
+```
+cdk deploy Stack3 --parameters uploadBucketName=brd100testbucket1001
+```
