@@ -14,14 +14,14 @@ from aws_cdk import (
 
 class AppRole(constructs.Construct):
     def __init__(self, scope: constructs.Construct, id: str,
-                 roleName=None, policies=[],
+                 accountPrincipal, roleName=None, policies=[],
                  **kwargs):
         super().__init__(scope, id, **kwargs)
 
         statement = {
             "Effect": "Allow",
             "Principal": {
-                "AWS": "arn:aws:iam::727820809195:root"
+                "AWS": "arn:aws:iam::%s:root" % accountPrincipal
             },
             "Action": "sts:AssumeRole"
         }
