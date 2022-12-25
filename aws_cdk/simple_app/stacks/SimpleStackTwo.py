@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import os
 import aws_cdk as cdk
 import constructs
 from aws_cdk import (
@@ -21,9 +22,11 @@ class SimpleAppStack2(cdk.Stack):
                            removal_policy=cdk.RemovalPolicy.DESTROY,
                            auto_delete_objects=True)
 
+        # One way to avoid hardcoding values is using environment variables.
+        accountPrincipal = os.getenv("ACCOUNTID")
         # Create Role.
         role = iam.Role(self, "AppRole2",
-                        assumed_by=iam.AccountPrincipal("727820809195"),
+                        assumed_by=iam.AccountPrincipal(accountPrincipal),
                         description="This is a sample role",
                         role_name="SampleAppRole")
 
@@ -39,7 +42,7 @@ class SimpleAppStack2(cdk.Stack):
                 {
                     "Effect": "Allow",
                     "Principal": {
-                        "AWS": "arn:aws:iam::727820809195:root"
+                        "AWS": "arn:aws:iam::%s:root" % accountPrincipal
                     },
                     "Action": "sts:AssumeRole"
                 }
@@ -56,7 +59,7 @@ class SimpleAppStack2(cdk.Stack):
                         "dynamodb:GetItem",
                         "dynamodb:GetRecords"
                     ],
-                    "Resource": "arn:aws:dynamodb:*:462972568455:table/*"
+                    "Resource": "arn:aws:dynamodb:*:%s:table/*" % accountPrincipal
                 },
                 {
                     "Sid": "VisualEditor1",
@@ -71,7 +74,7 @@ class SimpleAppStack2(cdk.Stack):
             "arn:aws:iam::aws:policy/AWSCertificateManagerReadOnly"
             ]
 
-        
+
 
         ddbPolicy = iam.CfnRole.PolicyProperty(
             policy_document=ddbPolicyDocument,
@@ -91,4 +94,4 @@ class SimpleAppStack2(cdk.Stack):
         print(bucket.bucket_name)
 
         # New role from Construct.
-        newRole1 = AppRole(self, "AppRoleCustom")
+        newRole1 = AppRole(self, "AppRoleCustom", accountPrincipal)
