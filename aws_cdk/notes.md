@@ -4,6 +4,8 @@
 * [AWS CDK Python Modules](https://docs.aws.amazon.com/cdk/api/v1/python/modules.html)
 * [Construct Hub](https://constructs.dev/search?q=&cdk=aws-cdk&cdkver=2&sort=downloadsDesc&offset=0)
 * [AWS Construct Library](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html)
+* [Construct HUB](https://constructs.dev/)
+* [Construct HUB - DLM Construct library](https://constructs.dev/packages/@aws-cdk/aws-dlm/v/1.185.0/api/ActionProperty?lang=python)
 
 ---
 
