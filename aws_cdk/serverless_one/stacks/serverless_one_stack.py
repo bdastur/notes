@@ -1,6 +1,6 @@
 from aws_cdk import (
     Stack,
-    aws_apigatewayv2 as apigw2
+    aws_apigateway as apigw
 )
 from constructs import Construct
 
@@ -10,4 +10,4 @@ class ServerlessOneStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         # Create a Rest API.
-
+        restApi = apigw.CfnRestApi(self, "MyCfnRestAPI",)

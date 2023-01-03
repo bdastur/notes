@@ -48,6 +48,13 @@ NOTE:
 * [awslabs - flexible snapshot proxy](https://github.com/awslabs/flexible-snapshot-proxy)
 * [AWS Samples - github](https://github.com/aws-samples)
 
+**Walkthroughs exercises**:
+* [Serverless Lab](https://github.com/saha-rajdeep/serverless-lab)
+* [Event driven architecture - Eventbridge](https://catalog.us-east-1.prod.workshops.aws/workshops/63320e83-6abc-493d-83d8-f822584fb3cb/en-US/eventbridge)
+* [Run infra as code with Jenkins](https://www.youtube.com/watch?v=XnRqGMSCQyY)
+* [GitOps](https://www.youtube.com/watch?v=o4QG_kqYvHk&t=0s)
+* [Static website on S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html)
+* [Static website with cloudfront and route53](https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-cloudfront-walkthrough.html)
 
 ## Concepts:
 
