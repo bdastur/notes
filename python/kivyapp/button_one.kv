@@ -1,0 +1,23 @@
+# Button one KV file.
+<Button>:
+    text: "Button One!"
+    font_size: 50
+<Button>:
+    text: "Button Two!"
+    color: [126/255, 45/255, 210/255, 1]
+    background_color: [130/255, 180/255, 10/255, 1]
+    background_normal: ''
+# <Button>:
+#     text: "Button Three!"
+#     font_size: 60
+#     on_press: self.font_size = 100; self.text = "Pressed"
+#     on_release: self.font_size = 60; self.text = "Button Three!"
+<Button>:
+    text: "Button Four!"
+    font_size: 80
+    on_press:
+        self.font_size += 10
+        self.text = "Pressed!"
+    on_release:
+        if self.font_size > 150: self.font_size = 80
+        self.text = "Button Four!"

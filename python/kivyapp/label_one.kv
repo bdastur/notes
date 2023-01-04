@@ -1,0 +1,26 @@
+# Labels kv properties.
+# Note, only the last label definition takes effect.
+<Label>:
+    text: "Hello Label Example!"
+    font_size: 12
+<Label>:
+    text: "Second label. Font size: 50"
+    font_size: 50
+    color: [0.56, 0.82, 0.18, 1]
+<Label>:
+    text: "Third lable. Font 60, color: [126/255, 80/255, 100/255, 1]"
+    font_size: 60
+    color: [126/255, 80/255, 100/255, 1]
+<label>:
+    text: "Fourth Label. [b]Bold[/b], [i]Italic[/i], \n A new line: [u]Underlined[/u], [s]Strikethrough[/s],[sub]Subscript[/sub], [color=#ff0f]Yellow[/color]"
+    font_size: 40
+    color: [126/255, 180/255, 100/255, 1]
+    markup: True
+<label>:
+    text: "Fifth label: Bold, Underlined. Align: top, right\n[ref=https://www.google.com]Google[/ref]"
+    font_size: 40
+    bold: True
+    underline: True
+    halign: 'right'
+    valign: 'top'
+    markup: True
