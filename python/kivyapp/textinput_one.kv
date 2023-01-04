@@ -1,0 +1,8 @@
+<TextInput>:
+    text: "Text input box"
+    multiline: False
+    hint_text: "Type some text"
+    halign: "center"
+    on_touch_down: print("Touch Down: ", self.text); self.text = self.text.upper()
+    on_touch_up: print("Touch up: ", self.text); self.text = self.text.lower()
+    on_double_tap: print("Double tapped"); self.font_size += 10
