@@ -55,6 +55,7 @@ NOTE:
 * [GitOps](https://www.youtube.com/watch?v=o4QG_kqYvHk&t=0s)
 * [Static website on S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/HostingWebsiteOnS3Setup.html)
 * [Static website with cloudfront and route53](https://docs.aws.amazon.com/AmazonS3/latest/userguide/website-hosting-cloudfront-walkthrough.html)
+* [Convert cloudformation templates to diagrams](https://github.com/mhlabs/cfn-diagram)
 
 ## Concepts:
 
