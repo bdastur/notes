@@ -11,7 +11,7 @@ from kivy.properties import OptionProperty
 class BoxLayoutApp(App):
     def build(self):
 
-        layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
+        layout = BoxLayout(orientation='horizontal', padding=10, spacing=10)
         buttons = []    
         for i in range(5):
             buttonText = "Button %d" % i
