@@ -2,8 +2,16 @@
     color: kivy.utils.get_color_from_hex("#7feb8d")
 
 <CustomPageLayout>:
+    button3: _testButton
+
     CustomButton:
-        text: "KV Button 1"
+        id: "mycustomButton"
+        text: "Custom Button"
     Button:
-        text: "KV Button 2"
+        id: "myStandardButton"
+        text: "Standard Button"
+    Button:
+        id: _testButton
+        text: "KV Button 3."
+
 
