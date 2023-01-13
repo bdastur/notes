@@ -1,0 +1,27 @@
+# With an AnchorLayout, you can anchor an item horizontally and vertically
+# horizontal: left , center, right
+# vertical: top, center, bottom.
+# You cant have multiple items within an anchor layout as they will overlap.
+# You can however have nested layouts.
+# <AnchorLayoutExample>
+#     testButton: _testButton
+#     anchor_x: 'right'
+#     anchor_y: 'bottom'
+#     Button:
+#         id: _testButton
+#         text: "test button"
+#         size: 40, 20
+
+<AnchorLayoutExample>
+    testButton: _testButton
+    anchor_x: 'left'
+    anchor_y: 'top'
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1.0, 0.08
+        Button:
+            id: _testButton
+            text: "Button 1"
+        Button:
+            text: "Button 2"
+        

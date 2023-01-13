@@ -1,0 +1,43 @@
+<CustomButton@Button>
+    background_color: kivy.utils.get_color_from_hex("#36d14a")
+    background_normal: ""
+
+<CustomLayout>:  
+    pageOneButton: _pageOneButton
+    pageTwoButton: _pageTwoButton
+    pageThreeButton: _pageThreeButton
+    pageFourButton: _pageFourButton
+
+    layoutPage: _layoutPage
+    orientation: 'vertical'
+    AnchorLayout:
+        anchor_x: 'left'
+        anchor_y: 'top'
+        size_hint: 1.0, 0.1
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing_x: 15
+            CustomButton:
+                id: _pageOneButton
+                text: "Dashboard"
+            CustomButton:
+                id: _pageTwoButton
+                text: "Widgets"
+            CustomButton:
+                id: _pageThreeButton
+                text: "Account Setup"
+            CustomButton:
+                id: _pageFourButton
+                text: "Reports"
+    PageLayout:
+        id: _layoutPage
+        Button:
+            text: "Dashboard"
+        Button:
+            text: "Widgets page"
+        Button:
+            text: "Account setup page"
+        Button:
+            text: "Reports page"
+
+
