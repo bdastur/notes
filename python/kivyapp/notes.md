@@ -6,6 +6,9 @@
 * [Kivy tutorial](https://www.geeksforgeeks.org/python-checkbox-widget-in-kivy/)
 * [Buildozer Docker repo](https://github.com/kivy/buildozer/blob/master/Dockerfile)
 * [Kivy tutorial](https://www.netguru.com/blog/building-cross-platform-gui-applications-in-kivy)
+* [KivyMD tutorial - github](https://github.com/attreyabhatt/KivyMD-Basics)
+* [KivyMD - Github](https://github.com/kivymd/KivyMD)
+* [KivyMD - components github wiki](https://github.com/kivymd/KivyMD/wiki)
 
 resorces to learn kivy python
 

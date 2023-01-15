@@ -1,0 +1,27 @@
+MDScreen:
+    MDCard:
+        orientation: "vertical"
+        padding: 0, 0, 0, "36dp"
+        size_hint: 0.5, 0.5
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        elevation: 4
+        shadow_radius: 6
+        shadow_offset: 0, 2
+    
+        MDLabel:
+            text: "Theme Style %s" % (app.theme_cls.theme_style)
+            halign: "center"
+            valigh: "center"
+            spacing: 50
+            bold: True
+            font_style: "H5"
+        
+        MDRaisedButton:
+            text: "Set Theme"
+            on_release: app.switch_theme_style()
+            pos_hint: {"center_x": 0.5}
+            padding: 10
+        MDRaisedButton:
+            text: "Set Pallet"
+            on_release: app.switch_theme_pallette()
+            pos_hint: {"center_x": 0.5}
