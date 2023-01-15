@@ -14,7 +14,65 @@ Builder.load_file("./banner_two.kv")
 class ExampleBanner(MDScreen):
     def __init__(self, *args, **kwargs):
         super(ExampleBanner, self).__init__(*args, **kwargs)
-       
+        self.bannerActive = False
+
+        banner = ObjectProperty()
+        self.banner.detect_visible = False
+        self.banner.bind(on_enter=self.bannerEnter)
+        self.banner.bind(on_release=self.bannerRelease)
+
+        listItemOne = ObjectProperty()
+        listItemTwo = ObjectProperty()
+        listItemThree = ObjectProperty()
+
+        self.listItemOne.bind(on_press=self.itemOnePress)
+        self.listItemTwo.bind(on_press=self.itemTwoPress)
+        self.listItemThree.bind(on_press=self.itemThreePress)
+    
+    def bannerEnter(self, bannerItem):
+        print("Banner on enter: ", bannerItem.text)
+
+    def bannerRelease(self, bannerItem):
+        print("Banner release: ", bannerItem.text)
+        self.bannerActive = False
+
+    def itemOnePress(self, item):
+        if not self.bannerActive:
+            self.banner.type = "one-line"
+            self.banner.text = ["One line banner"]
+            self.banner.left_action = ["cancel", lambda x: None]
+            self.banner.right_action = ["close", lambda x: self.banner.hide()]
+            self.banner.show()
+            self.bannerActive = True
+    
+    def itemTwoPress(self, item):
+        if not self.bannerActive:
+            self.banner.type = "one-line-icon"
+            self.banner.text = ["One line string text example without actions."]
+            self.banner.left_action = []
+            self.banner.right_action = []
+            self.banner.show()
+            self.bannerActive = True
+
+    
+    def itemThreePress(self, item):
+        self.banner.type = "two-line-icon"
+        self.banner.text = [ 
+            "One line string text example with two actions.",
+            "This is the second line of the banner message."]
+        if not self.bannerActive:
+            # print("BRD: here 1")
+            # self.banner.type = "two-line-icon"
+            # self.banner.text = [ 
+            #     "One line string text example with two actions.",
+            #     "This is the second line of the banner message."]
+            self.banner.left_action = ["CANCEL", lambda x: None]
+            self.banner.right_action = ["CLOSE", lambda x: self.banner.hide()]
+            self.banner.show()
+            self.bannerActive = True
+
+
+
 
 
 class MainApp(MDApp):

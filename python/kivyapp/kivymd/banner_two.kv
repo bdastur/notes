@@ -3,6 +3,10 @@
 
 <ExampleBanner>
     banner: _banner
+    listItemOne: _listItemOne
+    listItemTwo: _listItemTwo
+    listItemThree: _listItemThree
+
     MDBanner:
         id: _banner
         over_widget: _scroll
@@ -29,33 +33,16 @@
             spacing: "10dp"
 
             OneLineListItem:
+                id: _listItemOne
                 text: "ThreeLineBanner"
-                on_release:
-                    _banner.type = "three-line"
-                    _banner.text = ["line one", "line two", "line three"]
-                    _banner.left_action = ["cancel", lambda x: None]
-                    _banner.right_action = ["close", lambda x: _banner.hide()]
-                    _banner.show()
+                
             OneLineListItem:
+                id: _listItemTwo
                 text: "Banner without actions"
-                on_release:
-                    _banner.type = "one-line-icon"
-                    _banner.text = ["One line string text example without actions."]
-                    _banner.left_action = []
-                    _banner.right_action = []
-                    _banner.show()
             OneLineListItem:
+                id: _listItemThree
                 text: "TwoLineIconBanner"
-                on_release:
-                    _banner.type = "two-line-icon"
-                    _banner.text = \
-                    [\
-                    "One line string text example with two actions.", \
-                    "This is the second line of the banner message.", \
-                    ]
-                    _banner.left_action = ["CANCEL", lambda x: None]
-                    _banner.right_action = ["CLOSE", lambda x: _banner.hide()]
-                    _banner.show()
+                
 
 
     
