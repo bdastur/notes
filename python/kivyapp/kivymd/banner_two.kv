@@ -1,0 +1,61 @@
+#:import Factory kivy.factory
+
+
+<ExampleBanner>
+    banner: _banner
+    MDBanner:
+        id: _banner
+        over_widget: _scroll
+        vertical_pad: _toolbar.height
+
+    MDTopAppBar:
+        id: _toolbar
+        title: app.title
+        md_bg_color: app.theme_cls.primary_color
+        elevation: 2
+        left_action_items: [["dots-vertical", lambda x: None]]
+        pos_hint: {"top": 1}
+    
+    ScrollView:
+        id: _scroll
+        size_hint_y: None
+        height: Window.height - _toolbar.height
+
+        MDGridLayout:
+            id: _grid
+            cols: 1
+            adaptive_height: True
+            padding: "10dp"
+            spacing: "10dp"
+
+            OneLineListItem:
+                text: "ThreeLineBanner"
+                on_release:
+                    _banner.type = "three-line"
+                    _banner.text = ["line one", "line two", "line three"]
+                    _banner.left_action = ["cancel", lambda x: None]
+                    _banner.right_action = ["close", lambda x: _banner.hide()]
+                    _banner.show()
+            OneLineListItem:
+                text: "Banner without actions"
+                on_release:
+                    _banner.type = "one-line-icon"
+                    _banner.text = ["One line string text example without actions."]
+                    _banner.left_action = []
+                    _banner.right_action = []
+                    _banner.show()
+            OneLineListItem:
+                text: "TwoLineIconBanner"
+                on_release:
+                    _banner.type = "two-line-icon"
+                    _banner.text = \
+                    [\
+                    "One line string text example with two actions.", \
+                    "This is the second line of the banner message.", \
+                    ]
+                    _banner.left_action = ["CANCEL", lambda x: None]
+                    _banner.right_action = ["CLOSE", lambda x: _banner.hide()]
+                    _banner.show()
+
+
+    

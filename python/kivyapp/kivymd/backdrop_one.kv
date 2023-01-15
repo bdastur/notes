@@ -1,0 +1,22 @@
+<MyBackDrop>:
+    backdrop: _backdrop
+    backdropBackLayer: _backdropBackLayer
+    backdropFrontLayer: _backdropFrontLayer
+
+    id: _backdrop
+    right_action_items: [['menu', lambda x: self.open()]]
+    title: "Example Backdrop1"
+    radius_left: "10dp"
+    radius_right: "0dp"
+    header_text: "Menu:"        
+
+    MDBackdropBackLayer:
+        id: _backdropBackLayer
+        Button: 
+            text: "Mybackdrop back layer button"
+    
+    MDBackdropFrontLayer:
+        id: _backdropFrontLayer
+        Button:
+            text: "Mybackdrop front layer."
+        

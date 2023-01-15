@@ -1,0 +1,28 @@
+<ExampleBanner>
+    banner: _banner
+
+    MDTopAppBar:
+        id: _toolbar
+        title: "Top App Bar"
+        elevation: 2
+        pos_hint: {'top': 1}
+
+    MDBoxLayout:
+        id: _screen
+        orientation: "vertical"
+        size_hint_y: None
+        height: Window.height - _toolbar.height
+        OneLineListItem:
+            text: "Banner without actions"
+            on_release: 
+                print("THis is a test")
+                _banner.show()
+        Widget:
+    
+    MDBanner:
+        id: _banner
+        type: "one-line"
+        text: ["One line string for this banner"]
+        left_action: ["cancel", lambda x: None]
+        over_widget: _screen
+        vertical_pad: _toolbar.height

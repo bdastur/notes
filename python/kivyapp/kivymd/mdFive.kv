@@ -1,0 +1,41 @@
+# <MyBoxLayout>:
+#     orientation: 'vertical'
+
+#     MDTopAppBar:
+#         title: app.title
+    
+#     MDTabs:
+#         id: android_tabs
+#         on_tab_switch: app.on_tab_switch(*args)
+#         size_hint_y: None
+#         height: "48dp"
+#         tab_indicator_anim: False
+    
+#     RecycleView:
+#         id: rv
+#         key_viewclass: "viewclass"
+#         key_size: "height"
+
+#         RecycleBoxLayout:
+#             default_size: None, dp(48)
+#             default_size_hint: 1, None
+#             size_hint_y: None
+#             height: self.minimum_height
+#             orientation: "vertical"
+
+# <ItemColor>
+#     size_hint_y: None
+#     height: "42dp"
+
+#     MDLabel:
+#         text: root.text
+#         halign: "center"
+
+# <Tab>
+
+#     MDRectangleFlatButton:
+#         text: "Box 1"
+#         size_hint_x: 1.0
+#     MDRectangleFlatButton:
+#         text: "Box 2"
+

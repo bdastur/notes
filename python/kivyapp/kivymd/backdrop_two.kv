@@ -1,0 +1,54 @@
+#:import NoTransition kivy.uix.screenmanager.NoTransition
+#:import Window kivy.core.window.Window
+#:import IconLeftWidget kivymd.uix.list.IconLeftWidget
+
+<ItemBackdropBackLayer>
+    adaptive_height: True
+    spacing: "10dp"
+    md_bg_color:
+        root.theme_cls.primary_dark \
+        if root.selected_item \
+        else root.theme_cls.primary_color
+
+    MDIconButton:
+        icon: root.icon
+        theme_text_color: "Custom"
+        text_color: (1, 1, 1, .5) if not root.selected_item else (1, 1, 1, 1)
+
+    MDLabel:
+        text: root.text
+        color: (1, 1, 1, .5) if not root.selected_item else (1, 1, 1, 1)
+
+<MyBackdropBackLayer@ScreenManager>
+    transition: NoTransition()
+
+    MDScreen:
+        name: "one screen"
+        
+        ScrollView:
+            MDGridLayout:
+                adaptive_height: True
+                cols: 1
+                padding: "5dp"
+                ItemBackdropBackLayer:
+                    icon: "theater"
+                    text: "TV & Home Theaters"
+
+               
+
+
+<MyBackdrop>:
+    MDBackdrop:
+        id: _backdrop
+        on_open: print("On open")
+        on_close: print("On close")
+        title: app.title
+        header_text: "Menu: " 
+        
+        MDBackdropBackLayer:
+            MyBackdropBackLayer:
+                
+        
+        MDBackdropFrontLayer:
+            Label:
+                text: "front layer"
