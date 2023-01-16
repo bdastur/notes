@@ -6,6 +6,7 @@ An example using screen manager
 """
 
 from kivy.app import App
+from kivymd.app import MDApp
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import ScreenManager, Screen, FadeTransition 
 from kivy.properties import ObjectProperty
@@ -22,7 +23,7 @@ class SettingsScreen(Screen):
 
      
 
-class MainApp(App):
+class MainApp(MDApp):
     def build(self):
         sm = ScreenManager(transition=FadeTransition())
         sm.add_widget(MenuScreen(name='menu'))

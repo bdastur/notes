@@ -1,20 +1,34 @@
 <MenuScreen>:
-    BoxLayout:
-        Button:
+    MDBoxLayout:
+        spacing: 5
+        padding: [10, 10, 10, 10]
+        MDRaisedButton:
             text: "Goto Settings"
-            on_press: 
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            size_hint: (1.0, 1.0)
+            md_bg_color: "orange"
+            on_press:
                 root.manager.current = "settings"
                 root.manager.transition.direction = "down"
-        Button:
+        MDRaisedButton:
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            size_hint: (1.0, 1.0)
+            md_bg_color: "orange"
             text: "Quit"
 
 <SettingsScreen>:
     BoxLayout:
-        Button:
+        MDRaisedButton:
             text: "My settings button"
-        Button:
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            size_hint: (1.0, 1.0)
+            md_bg_color: "orange"
+        MDRaisedButton:
             text: "Back to Menu"
-            on_press: 
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            size_hint: (1.0, 1.0)
+            md_bg_color: "orange"
+            on_press:
                 root.manager.current = "menu"
                 root.manager.transition.direction = "up"
-        
+

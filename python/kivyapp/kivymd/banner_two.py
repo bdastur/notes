@@ -33,24 +33,23 @@ class ExampleBanner(MDScreen):
         print("Banner on enter: ", bannerItem.text)
 
     def bannerRelease(self, bannerItem):
-        print("Banner release: ", bannerItem.text)
         self.bannerActive = False
 
     def itemOnePress(self, item):
+        self.banner.type = "one-line"
+        self.banner.text = ["One line banner"]
+        self.banner.left_action = ["cancel", lambda x: None]
+        self.banner.right_action = ["close", lambda x: self.banner.hide()]
         if not self.bannerActive:
-            self.banner.type = "one-line"
-            self.banner.text = ["One line banner"]
-            self.banner.left_action = ["cancel", lambda x: None]
-            self.banner.right_action = ["close", lambda x: self.banner.hide()]
             self.banner.show()
             self.bannerActive = True
     
     def itemTwoPress(self, item):
+        self.banner.type = "one-line-icon"
+        self.banner.text = ["One line string text example without actions."]
+        self.banner.left_action = []
+        self.banner.right_action = []
         if not self.bannerActive:
-            self.banner.type = "one-line-icon"
-            self.banner.text = ["One line string text example without actions."]
-            self.banner.left_action = []
-            self.banner.right_action = []
             self.banner.show()
             self.bannerActive = True
 
@@ -60,17 +59,12 @@ class ExampleBanner(MDScreen):
         self.banner.text = [ 
             "One line string text example with two actions.",
             "This is the second line of the banner message."]
-        if not self.bannerActive:
-            # print("BRD: here 1")
-            # self.banner.type = "two-line-icon"
-            # self.banner.text = [ 
-            #     "One line string text example with two actions.",
-            #     "This is the second line of the banner message."]
-            self.banner.left_action = ["CANCEL", lambda x: None]
-            self.banner.right_action = ["CLOSE", lambda x: self.banner.hide()]
+        self.banner.left_action = ["CANCEL", lambda x: None]
+        self.banner.right_action = ["CLOSE", lambda x: self.banner.hide()]
+
+        if not self.bannerActive:    
             self.banner.show()
             self.bannerActive = True
-
 
 
 
