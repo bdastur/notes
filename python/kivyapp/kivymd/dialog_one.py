@@ -4,6 +4,8 @@
 from kivymd.app import MDApp
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
+from kivy_garden.graph import Graph
+
 
 from kivy.lang.builder import Builder
 
