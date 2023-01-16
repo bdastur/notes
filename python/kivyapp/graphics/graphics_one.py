@@ -10,11 +10,22 @@ import kivy.graphics as graphics
 class MyWidget(Widget):
     def __init__(self, **kwargs):
         super(MyWidget, self).__init__(**kwargs)
-        with self.canvas:
-            graphics.Color(1., 1, 0)
+        # with self.canvas:
+        graphics.Color(1., 1, 0)
 
-            # Add a rectangle
-            graphics.Rectangle(pos=kwargs['pos'], size=kwargs['size'])
+        # Add a rectangle
+        graphics.Rectangle(pos=kwargs['pos'], size=kwargs['size'])
+    
+    def on_touch_down(self, touch):
+        print("Touch down")
+        if self.collide_point(*touch.pos):
+            self.text: "Touch Down"
+            print("My Widget  Touch down")
+            return False
+
+        print("Touch down elsewhere")
+        return super().on_touch_down(touch)
+        
 
 
 class MyLayout(BoxLayout):

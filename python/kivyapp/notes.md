@@ -4,6 +4,7 @@
 * [Kivy framework](https://kivy.org/doc/stable/gettingstarted/events.html)
 * [A mobile app with Kivy](https://realpython.com/mobile-app-kivy-python/#using-the-kv-language)
 * [Kivy tutorial](https://www.geeksforgeeks.org/python-checkbox-widget-in-kivy/)
+* [handling touch events in kivy](https://pythontic.com/app/kivy/touch)
 * [Buildozer Docker repo](https://github.com/kivy/buildozer/blob/master/Dockerfile)
 * [Kivy tutorial](https://www.netguru.com/blog/building-cross-platform-gui-applications-in-kivy)
 * [KivyMD tutorial - github](https://github.com/attreyabhatt/KivyMD-Basics)
