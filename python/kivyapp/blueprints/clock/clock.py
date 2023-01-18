@@ -17,6 +17,10 @@ KV = """
     font_size: 90
     markup: True
 
+<RobotButton@Button>:
+    font_name: "Roboto"
+    font_size: 42
+
 BoxLayout:
     orientation: "vertical"
 
@@ -29,18 +33,15 @@ BoxLayout:
         spacing: 20
         size_hint: (0.4, 0.2)
         pos_hint: {"center_x": 0.5, "center_y": 0.5}
-        Button:
+        RobotButton:
             id: _startStopButton
             text: "Start"
-            font_name: "Roboto"
-            font_size: 42
             color: kivy.utils.get_color_from_hex("#e6ecf7")
             background_color: kivy.utils.get_color_from_hex("#961703")
             on_press: app.startStop()
-        Button:
+        RobotButton:
             id: _resetButton
             text: "Reset"
-            font_size: 42
             color: kivy.utils.get_color_from_hex("#e6ecf7")
             background_color: kivy.utils.get_color_from_hex("#961703")
             on_press: app.resetStopwatch()
@@ -95,10 +96,10 @@ def main():
     Window.clearcolor = get_color_from_hex("#101216")
 
     LabelBase.register(name="Roboto",
-        fn_regular="./Roboto-Regular.ttf",
-        fn_bold="./Roboto-Bold.ttf",
-        fn_italic="./Roboto-Italic.ttf",
-        fn_bolditalic="./Roboto-BoldItalic.ttf")
+        fn_regular="/tmp/kivy/Roboto-Regular.ttf",
+        fn_bold="/tmp/kivy/Roboto-Bold.ttf",
+        fn_italic="/tmp/kivy/Roboto-Italic.ttf",
+        fn_bolditalic="/tmp/kivy/Roboto-BoldItalic.ttf")
     ClockApp().run()
 
 
