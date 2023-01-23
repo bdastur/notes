@@ -4,9 +4,11 @@
 
 from kivy.app import App
 from kivy.core.text import LabelBase
+from kivy.core.window import Window
 from kivy.uix.button import Button
 from kivy.utils import get_color_from_hex as C
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.scrollview import ScrollView
 from kivy.properties import ObjectProperty
 from kivy.lang.builder import Builder
 
@@ -23,9 +25,7 @@ KV = """
     color: C("#ffffff") 
 
 <DisplayIcons>:
-    cols: 18
-    orientation: "lr-tb"
-    
+       
     
 # GridLayout:
 #     cols: 6
@@ -59,10 +59,14 @@ KV = """
 Builder.load_string(KV)
 
 
-class DisplayIcons(GridLayout):
+class DisplayIcons(ScrollView):
     def __init__(self, **kwargs):
         super(DisplayIcons, self).__init__(**kwargs)
-        
+        # self.size_hint=(1, None)
+        # self.size = (Window.width, Window.height)
+        self.do_scroll_y = True
+        gridLayout = GridLayout(cols=22, orientation="lr-tb")
+        gridLayout.bind(minimum_height=gridLayout.setter('height'))
         #alphabets = string.ascii_lowercase + string.ascii_uppercase + string.digits
         alphabets = string.printable
 
@@ -70,9 +74,10 @@ class DisplayIcons(GridLayout):
             print("Letter: ", letter)
             text = "[font=ModernPictograms][size=120]%c[/size][/font] \n%c"  % (letter, letter)
             btn = Button(text=text, markup=True, halign="center", background_color=C("#0f0369"), 
-                         background_normal="", color=("#ffffff"))
-            self.add_widget(btn)
+                         background_normal="", color=("#ffffff"), size=[40, 80])
+            gridLayout.add_widget(btn)
 
+        self.add_widget(gridLayout)
 
 class CustomButton(Button):
     icon = ObjectProperty()
