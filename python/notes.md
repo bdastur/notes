@@ -93,7 +93,7 @@ Python tools:
 * [Plotext - plotting on terminal (plots, bar charts)](https://github.com/piccolomo/plotext)    
 * [Ziti Python - n/w security](https://openziti.io/openziti-python-sdk-introduction)
 * [syntatic type checker for python](https://mypy.readthedocs.io/en/stable/)
-
+* [Awesome design patterns (multiple languages)](https://github.com/DovAmir/awesome-design-patterns)
 
 ### command sample:
 
