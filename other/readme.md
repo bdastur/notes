@@ -45,6 +45,9 @@
 * [Google Software Engineering book](https://abseil.io/resources/swe-book/html/toc.html)
 * [chatGPT Usecases](https://cookup.ai/chatgpt/usecases/#assistant)
 * [CLI Command line tools](https://dev.to/lissy93/cli-tools-you-cant-live-without-57f6)
+* [Software Architecture Design Patterns](https://www.redhat.com/architect/14-software-architecture-patterns)
+
+
 # Linux tips:
 
 * [Linux n/w troubleshooting](https://www.redhat.com/sysadmin/beginners-guide-network-troubleshooting-linux)
