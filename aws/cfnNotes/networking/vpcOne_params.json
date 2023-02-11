@@ -1,0 +1,14 @@
+[
+    {
+        "ParameterKey": "VpcName",
+        "ParameterValue": "vpcOne"
+    },
+    {
+        "ParameterKey": "EnvType",
+        "ParameterValue": "prod"
+    },
+    {
+        "ParameterKey": "Owner",
+        "ParameterValue": "bdastur"
+    }
+]
