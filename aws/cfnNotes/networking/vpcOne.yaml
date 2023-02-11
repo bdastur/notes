@@ -1,0 +1,49 @@
+Parameters:
+  VpcName:
+    Type: String
+    Description: "VPC Name"
+    MaxLength: "32"
+    MinLength: "3"
+    ConstraintDescription: "Name of the VPC (min: 3, max: 32)"
+  EnvType:
+    Type: String
+    Description: "Environment type"
+    AllowedValues: [prod, dev, staging]
+    Default: dev
+  Owner:
+    Type: String
+    Description: "Name/alias of owner"
+    MaxLength: "32"
+    MinLength: "3"
+  CidrBlock:
+    Type: String
+    Description: "CIDR Block for VPC"
+    Default: "10.0.0.0/16"
+
+    
+Resources:
+  vpcOne:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref CidrBlock
+      EnableDnsHostnames: 'true'
+      EnableDnsSupport: 'true'
+      InstanceTenancy: 'default'
+      Tags:
+        - Key: Name 
+          Value: !Ref VpcName 
+        - Key: Stack 
+          Value: !Ref EnvType 
+        - Key: Owner
+          Value: bdastur
+  subnetOne:
+    Type: AWS::EC2::Subnet
+    Properties:
+      AvailabilityZone: us-east-1a
+      CidrBlock: "10.0.0.0/24"
+      VpcId: !Ref vpcOne
+      Tags:
+        - Key: Name
+          Value: "SubnetOne"
+        - Key: Stack
+          Value: !Ref EnvType
