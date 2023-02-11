@@ -1,0 +1,118 @@
+Description: "Sample AWS Cloudformation ervice role. The purpose is to
+              demonstrate some  cfn functions, like join, Ref, Conditions."
+
+Parameters:
+  RoleNamePrefix:
+    Type: String
+    Description: "Role name prefix"
+    MaxLength: "16"
+    MinLength: "1"
+    ConstraintDescription: "This is a constraint description. Role name maxlen is 16"
+  EnvType:
+    Type: String
+    Description: "Specify environment type (prod/dev)"
+    AllowedValues: [prod, dev]
+    ConstraintDescription: "Values should be dev or prod"
+
+Conditions:
+  CreateProdCondition: !Equals [!Ref EnvType, prod]
+  CreateDevCondition: !Equals [!Ref EnvType, dev]
+
+
+Mappings:
+  RegionMap:
+    us-east-1:
+      AMI: "ami-0aa7d40eeae50c9a9"
+    us-east-2:
+      AMI: "ami-34567"
+
+Resources:
+  CFNRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Join ["_", [!Ref RoleNamePrefix, "XYZ" ]]
+      Description: "CFN Service Role"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - cloudformation.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: "/"
+      Policies:
+      - PolicyName: "testPolicy"
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Action:
+                - 'cloudformation:Describe*'
+                - 'cloudformation:List*'
+                - 'cloudformation:Get*'
+              Resource: '*'
+      - PolicyName: "testPolicy2"
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Action:
+                - 'cloudformation:Describe*'
+                - 'cloudformation:Get*'
+              Resource: '*'
+  CFNProdOnlyRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Join ["_", [!Ref RoleNamePrefix, !If [CreateProdCondition, "PRODONLY", "NOTPRODOTHER"]]]
+      Description: "CFN Prod Only Role"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - cloudformation.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: "/"
+
+  CFNDevOnlyRole:
+    Condition: CreateDevCondition
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Join ["_", [!Ref RoleNamePrefix, !If [CreateDevCondition, "DEVONLY", "NOTDEVOTHER"]]]
+      Description: "CFN Prod Only Role"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - cloudformation.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: "/"
+  ProdInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !FindInMap [RegionMap, !Ref "AWS::Region", AMI]
+      InstanceType: !If [CreateProdCondition, t3.medium, t2.small]
+      KeyName: testkey
+
+Outputs:
+  CFNRoleArn:
+    Description: "Role ARN"
+    Value: !GetAtt ["CFNRole", "Arn"]
+  CFNRoleName:
+    Description: "Role name"
+    Value: !Join [" ", ["My Role name is: ", !Ref CFNRole]]
+  ImageIdused:
+    Description: "Output the image id for the specific region"
+    Value: !FindInMap [RegionMap, !Ref "AWS::Region", AMI]
+  EnvType:
+    Description: "Environment type"
+    Value: !If [CreateProdCondition, "This is Prod", "This is Dev"]
+
+
