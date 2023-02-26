@@ -31,7 +31,7 @@ class LampstackStack(Stack):
             "enable_dns_hostnames": False,
             "enable_dns_support": False,
             "instance_tenancy": "default"
-        } 
+        }
         vpcOptions["tags"] = [{"Key": "Name", "Value": "vpcOne"},
                 {"Key": "Description", "Value": "Test description"}]
 
@@ -43,9 +43,47 @@ class LampstackStack(Stack):
                                   vpc_id=vpcOne.ref, availability_zone="us-east-1a")
 
         # Creating a security group.
-        #secGroupIngress = ec2.CfnSecurityGroupIngress(
-        #        self, "ingressGroup", ip_protocol="tcp",
-        #        cidr_ip="10.0.0.0/24", from_port=22, to_port=22)
+        securityGroupOptions = {
+            "vpc_id": vpcOne.ref,
+            "ingress_rules": [
+                {
+                    "ip_protocol": "tcp",
+                    "from_port": 22,
+                    "to_port": 22,
+                    "cidr_ip": "10.0.0.0/28"
+                },
+                {
+                    "ip_protocol": "tcp",
+                    "from_port": 443,
+                    "to_port": 443,
+                    "cidr_ip": "10.0.1.0/28"
+                }
+            ],
+            "egress_rules": [
+                {
+                    "ip_protocol": "tcp",
+                    "from_port": 45050,
+                    "to_port": 45050,
+                    "cidr_ip": "0.0.0.0/0"
+                },
+                {
+                    "ip_protocol": "tcp",
+                    "from_port": 34533,
+                    "to_port": 34533,
+                    "cidr_ip": "0.0.0.0/0",
+                    "description": "A test rule"
+                },
+            ],
+            "tags": [
+                {"Key": "Name", "Value": "SampleSecurityGroup"},
+                {"Key": "Description", "Value": "A test security group"}
+            ]
+        }
+        secGroup = networking.SecurityGroup(
+                self, "secGroupOne", "Test Description", **securityGroupOptions)
+
+
+        """
         secGroupOne = ec2.CfnSecurityGroup(
                 self, "secGroupOne", group_name="Mysecuritygroup",
                 group_description="This is a cdk test", vpc_id=vpcOne.ref,
@@ -57,5 +95,6 @@ class LampstackStack(Stack):
                             ip_protocol="tcp", cidr_ip="10.0.0.0/16",
                             from_port=443, to_port=443)
                     ])
+        """
 
 
