@@ -1,5 +1,6 @@
 import aws_cdk as cdk
 import aws_cdk.aws_s3 as s3
+import aws_cdk.aws_ec2 as ec2
 
 from aws_cdk import (
     # Duration,
@@ -18,6 +19,7 @@ class HelloCdkStack(Stack):
                            removal_policy=cdk.RemovalPolicy.DESTROY,
                            versioned=True,
                            auto_delete_objects=True)
+
 
 
 

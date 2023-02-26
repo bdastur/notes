@@ -20,13 +20,23 @@ Install NPM.
 sudo npm install -g aws-cdk
 ```
 
-## Bootstrap:
+## Basic Usage.
+
+### Bootstrap:
+You will need to do this once per account/region if you have not already.
+This will create the required CFN stack and resources required for CDK to 
+work.
+
+
+```
+cdk bootstrap --profile dev --region us-east-1
+```
 
 ```
 cdk bootstrap aws://xxxxxxxxxxxxx/us-east-1
 ```
 
-## Creating a new CDK based App.
+### Creating a new CDK based App.
 
 ```
 mkdir newapp
@@ -36,5 +46,31 @@ cdk init app --language python
 source ./venv/bin/activate
 pip install -r requirements.txt
 ```
+
+### Deploying your app.
+
+```
+cdk deploy --profile dev --region us-east-1
+```
+
+### Destroying the stack
+
+```
+cdk destroy HelloCdkStack --profile dev --region us-east-1
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
