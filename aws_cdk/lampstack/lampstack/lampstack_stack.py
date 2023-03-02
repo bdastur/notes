@@ -57,6 +57,13 @@ class LampstackStack(Stack):
                     "from_port": 443,
                     "to_port": 443,
                     "cidr_ip": "10.0.1.0/28"
+                },
+                {
+                    "ip_protocol": "tcpu",
+                    "from_port": 43434,
+                    "to_port": 43434,
+                    "cidr_ip": "10.0.0.2/24",
+                    "description": "This is a test rule"
                 }
             ],
             "egress_rules": [

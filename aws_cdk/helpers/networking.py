@@ -40,7 +40,31 @@ class SecurityGroup(object):
         self.groupDescription = groupDescription
         self.sgOptions = options
 
-        self.create()
+        delayCreate = options.get("delay_create", False)
+       
+        if not delayCreate:
+            self.create()
+
+    def addIngressRule(self, ingressRule):
+        validProtocols = ["tcp", "udp", "icmp", "icmpv6"]
+        
+        ipProtocol = ingressRule["ip_protocol"]
+        fromPort = ingressRule["from_port"]
+        toPort = ingressRule["to_port"]
+        cidrIp = ingressRule["cidr_ip"]
+        description = ingressRule.get("description", "")
+
+        if ipProtocol not in validProtocols: 
+            raise TypeError("ip_protocol must be one of %s" % validProtocols)
+
+
+        self.securityGroupIngress.append(
+                ec2.CfnSecurityGroup.IngressProperty(
+                    ip_protocol=ipProtocol,
+                    from_port=fromPort,
+                    to_port=toPort,
+                    cidr_ip=cidrIp,
+                    description=description))
 
     def create(self):
         groupName = self.sgOptions.get("group_name", None)
@@ -50,15 +74,9 @@ class SecurityGroup(object):
         ingressRules = self.sgOptions.get("ingress_rules", [])
         egressRules = self.sgOptions.get("egress_rules", [])
 
-        securityGroupIngress = []
+        self.securityGroupIngress = []
         for ingressRule in ingressRules:
-            securityGroupIngress.append(
-                    ec2.CfnSecurityGroup.IngressProperty(
-                        ip_protocol=ingressRule['ip_protocol'],
-                        from_port=ingressRule["from_port"],
-                        to_port=ingressRule["to_port"],
-                        cidr_ip=ingressRule["cidr_ip"]
-                    ))
+            self.addIngressRule(ingressRule)
 
         securityGroupEgress = []
         for egressRule in egressRules:
@@ -78,7 +96,7 @@ class SecurityGroup(object):
         self.securityGroup = ec2.CfnSecurityGroup(
             self.scope, self.id, group_description=self.groupDescription,
             vpc_id=vpcId, 
-            security_group_ingress=securityGroupIngress,
+            security_group_ingress=self.securityGroupIngress,
             security_group_egress=securityGroupEgress,
             tags=cfnTags)
 
