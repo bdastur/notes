@@ -27,25 +27,26 @@ class LampstackStack(Stack):
         #                  ip_addresses=ec2.IpAddresses.cidr("10.0.0.0/16"))
 
         cidrBlock = options["cidrBlock"]
+        vpcRef = options["vpcRef"]
 
-        vpcOptions = {
-            "enable_dns_hostnames": False,
-            "enable_dns_support": False,
-            "instance_tenancy": "default"
-        }
-        vpcOptions["tags"] = [{"Key": "Name", "Value": "vpcOne"},
-                {"Key": "Description", "Value": "Test description"}]
+        #vpcOptions = {
+        #    "enable_dns_hostnames": False,
+        #    "enable_dns_support": False,
+        #    "instance_tenancy": "default"
+        #}
+        #vpcOptions["tags"] = [{"Key": "Name", "Value": "vpcOne"},
+        #        {"Key": "Description", "Value": "Test description"}]
 
-        vpcOne = networking.createVpc(self, "vpcOne", cidrBlock, **vpcOptions)
+        #vpcOne = networking.createVpc(self, "vpcOne", cidrBlock, **vpcOptions)
 
 
         # Using vpcOne.ref to refrence the vpc created.
         subnetOne = ec2.CfnSubnet(self, "subnetOne", cidr_block="10.0.0.0/24",
-                                  vpc_id=vpcOne.ref, availability_zone="us-east-1a")
+                                  vpc_id=vpcRef, availability_zone="us-east-1a")
 
         # Creating a security group.
         securityGroupOptions = {
-            "vpc_id": vpcOne.ref,
+            "vpc_id": vpcRef,
             "ingress_rules": [
                 {
                     "ip_protocol": "tcp",
