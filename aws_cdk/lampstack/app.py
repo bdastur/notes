@@ -4,6 +4,7 @@ import os
 import aws_cdk as cdk
 
 from lampstack.lampstack_stack import LampstackStack
+from lampstack.stack2 import LampStack2
 
 
 app = cdk.App()
@@ -12,7 +13,12 @@ options = {
     "cidrBlock": "10.0.0.0/16"
 }
 
-LampstackStack(app, "LampstackStack", options,
+secondStack = LampStack2(app, "LampStack2", options)
+
+options["vpcRef"] = secondStack.vpcTwo.ref
+    
+
+lampStack = LampstackStack(app, "LampstackStack", options,
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
