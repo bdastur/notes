@@ -34,6 +34,9 @@ def createVpc(scope, id, cidrBlock, **options):
 class SecurityGroup(object):
     def __init__(self, scope, id, groupDescription, **options):
         self.securityGroup = None
+        self.securityGroupIngress = []
+        self.securityGroupEgress = []
+        self.cfnTags = []
         # Parse options.
         self.scope = scope
         self.id = id
@@ -57,7 +60,6 @@ class SecurityGroup(object):
         if ipProtocol not in validProtocols: 
             raise TypeError("ip_protocol must be one of %s" % validProtocols)
 
-
         self.securityGroupIngress.append(
                 ec2.CfnSecurityGroup.IngressProperty(
                     ip_protocol=ipProtocol,
@@ -65,6 +67,30 @@ class SecurityGroup(object):
                     to_port=toPort,
                     cidr_ip=cidrIp,
                     description=description))
+
+    def addEgressRule(self, egressRule):
+        validProtocols = ["tcp", "udp", "icmp", "icmpv6"]
+
+        ipProtocol = egressRule["ip_protocol"]
+        fromPort = egressRule["from_port"]
+        toPort = egressRule["to_port"]
+        cidrIp = egressRule["cidr_ip"]
+        description = egressRule.get("description", "")
+
+        if ipProtocol not in validProtocols:
+            raise TypeError("ip_protocol must be one of %s" % validProtocols)
+
+        self.securityGroupEgress.append(
+                ec2.CfnSecurityGroup.EgressProperty(
+                    ip_protocol=ipProtocol,
+                    from_port=fromPort,
+                    to_port=toPort,
+                    cidr_ip=cidrIp,
+                    description=description))
+
+    def setTags(self, tags):
+        for tag in tags:
+            self.cfnTags.append(addTag(tag["Key"], tag["Value"]))
 
     def create(self):
         groupName = self.sgOptions.get("group_name", None)
@@ -78,28 +104,19 @@ class SecurityGroup(object):
         for ingressRule in ingressRules:
             self.addIngressRule(ingressRule)
 
-        securityGroupEgress = []
+        self.securityGroupEgress = []
         for egressRule in egressRules:
-            securityGroupEgress.append(
-                    ec2.CfnSecurityGroup.EgressProperty(
-                        ip_protocol=egressRule["ip_protocol"],
-                        from_port=egressRule["from_port"],
-                        to_port=egressRule["to_port"],
-                        cidr_ip=egressRule["cidr_ip"],
-                    ))
+            self.addEgressRule(egressRule)
 
-        cfnTags = []
-        for tag in tags:
-            print("set tags: ", tag["Key"], tag["Value"])
-            cfnTags.append(addTag(tag["Key"], tag["Value"]))
+        self.cfnTags = []
+        self.setTags(tags)
 
         self.securityGroup = ec2.CfnSecurityGroup(
             self.scope, self.id, group_description=self.groupDescription,
             vpc_id=vpcId, 
             security_group_ingress=self.securityGroupIngress,
-            security_group_egress=securityGroupEgress,
-            tags=cfnTags)
-
+            security_group_egress=self.securityGroupEgress,
+            tags=self.cfnTags)
 
 
 

@@ -4,6 +4,7 @@ from aws_cdk import (
     aws_ec2 as ec2
     # aws_sqs as sqs,
 )
+
 from constructs import Construct
 
 import helpers.networking as networking
@@ -59,7 +60,7 @@ class LampstackStack(Stack):
                     "cidr_ip": "10.0.1.0/28"
                 },
                 {
-                    "ip_protocol": "tcpu",
+                    "ip_protocol": "tcp",
                     "from_port": 43434,
                     "to_port": 43434,
                     "cidr_ip": "10.0.0.2/24",
