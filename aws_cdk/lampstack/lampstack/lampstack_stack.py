@@ -7,7 +7,7 @@ from aws_cdk import (
 
 from constructs import Construct
 
-import helpers.networking as networking
+import helpers.ec2 as libec2 
 
 class LampstackStack(Stack):
 
@@ -29,6 +29,8 @@ class LampstackStack(Stack):
         cidrBlock = options["cidrBlock"]
         vpcRef = options["vpcRef"]
 
+        vpcOne = ec2.Vpc.from_lookup(self, "NewVpc", tags={"Name": "vpcOne"})
+
         #vpcOptions = {
         #    "enable_dns_hostnames": False,
         #    "enable_dns_support": False,
@@ -42,7 +44,7 @@ class LampstackStack(Stack):
 
         # Using vpcOne.ref to refrence the vpc created.
         subnetOne = ec2.CfnSubnet(self, "subnetOne", cidr_block="10.0.0.0/24",
-                                  vpc_id=vpcRef, availability_zone="us-east-1a")
+                                  vpc_id=vpcOne.vpc_id, availability_zone="us-east-1a")
 
         # Creating a security group.
         securityGroupOptions = {
@@ -88,7 +90,7 @@ class LampstackStack(Stack):
                 {"Key": "Description", "Value": "A test security group"}
             ]
         }
-        secGroup = networking.SecurityGroup(
+        secGroup = libec2.SecurityGroup(
                 self, "secGroupOne", "Test Description", **securityGroupOptions)
 
 
