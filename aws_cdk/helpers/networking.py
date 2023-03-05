@@ -31,6 +31,18 @@ def createVpc(scope, id, cidrBlock, **options):
     return vpc
 
 
+class Vpc(object):
+    def __init__(self, scope, id, **options):
+        pass
+
+    def create(self):
+        pass
+
+    def setTags(self, tags):
+        pass
+
+
+
 class SecurityGroup(object):
     def __init__(self, scope, id, groupDescription, **options):
         self.securityGroup = None
