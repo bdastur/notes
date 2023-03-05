@@ -1,0 +1,8 @@
+{
+  "vpc-provider:account=462972568455:filter.tag:Name=vpcOne:region=us-east-1:returnAsymmetricSubnets=true": {
+    "vpcId": "vpc-0dc1b6ce93421f25a",
+    "vpcCidrBlock": "10.0.0.0/16",
+    "availabilityZones": [],
+    "subnetGroups": []
+  }
+}

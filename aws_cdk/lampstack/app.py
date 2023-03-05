@@ -9,16 +9,22 @@ from lampstack.stack2 import LampStack2
 
 app = cdk.App()
 
+region = os.environ["CDK_DEFAULT_REGION"]
+account = os.environ["CDK_DEFAULT_ACCOUNT"]
+print("Region: ", region, " Account: ", account)
+
+cdkEnv = cdk.Environment(account=account, region=region)
+
 options = {
     "cidrBlock": "10.0.0.0/16"
 }
 
-secondStack = LampStack2(app, "LampStack2", options)
+secondStack = LampStack2(app, "LampStack2", options, env=cdkEnv)
 
 options["vpcRef"] = secondStack.vpcTwo.ref
     
 
-lampStack = LampstackStack(app, "LampstackStack", options,
+lampStack = LampstackStack(app, "LampstackStack", options, env=cdkEnv,
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
