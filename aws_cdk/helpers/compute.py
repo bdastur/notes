@@ -4,43 +4,7 @@
 
 import aws_cdk
 from aws_cdk import aws_ec2 as ec2
-
-
-def addTag(key, value):
-    return aws_cdk.CfnTag(key=key, value=value)
-
-
-def createVpc(scope, id, cidrBlock, **options):
-
-    # Parse options.
-    enableDnsHostnames = options.get("enable_dns_hostnames", False)
-    enableDnsSupport = options.get("enable_dns_support", False)
-    instanceTenancy = options.get("instance_tenancy", "default")
-    tags = options.get("tags", None)
-    cfnTags = []
-
-    if tags is not None:
-        for tag in tags:
-            cfnTags.append(addTag(tag['Key'], tag['Value']))
-
-    vpc = ec2.CfnVPC(scope, id, cidr_block=cidrBlock, 
-                     enable_dns_support=enableDnsSupport, 
-                     enable_dns_hostnames=enableDnsHostnames, 
-                     instance_tenancy=instanceTenancy, 
-                     tags=cfnTags) 
-    return vpc
-
-
-class Vpc(object):
-    def __init__(self, scope, id, **options):
-        pass
-
-    def create(self):
-        pass
-
-    def setTags(self, tags):
-        pass
-
+import aws_cdk.aws_lambda as awslambda
 
 
 class SecurityGroup(object):
@@ -102,7 +66,7 @@ class SecurityGroup(object):
 
     def setTags(self, tags):
         for tag in tags:
-            self.cfnTags.append(addTag(tag["Key"], tag["Value"]))
+            self.cfnTags.append(aws_cdk.CfnTag(key=tag["Key"], value=tag["Value"]))
 
     def create(self):
         groupName = self.sgOptions.get("group_name", None)
@@ -132,17 +96,57 @@ class SecurityGroup(object):
 
 
 
-def createSecurityGroup(scope, id, groupDescription, **options):
-    # Parse options
-    groupName = options.get("group_name", None)
-    vpcId = options.get("vpc_id", None)
-   
-    ingressRules = [
-        ec2.CfnSecurityGroup.IngressProperty(
-            ip_protocol="tcp", from_port=22, to_port=22, cidr_ip="10.0.0.0/24")
-    ]
 
-    securityGroup = ec2.CfnSecurityGroup(
-            scope, id, group_description=groupDescription, 
-            vpc_id=vpcId, security_group_ingress=ingressRules)
+class AWSLambda(object):
+    def __init__(self, scope, id, **options):
+        self.scope = scope
+        self.id = id
+        self.options = options
+
+
+        delayCreate = options.get("delay_create", False)
+
+        if not delayCreate:
+            self.create()
+
+
+    def create(self):
+        print("options: ", self.options)
+
+        try:
+            runTime = self.options["runtime"]
+            handler = self.options["handler"]
+            role = self.options["role"]
+        except KeyError as err:
+            print("Required arguments missing [%s]" % err)
+            return
+
+        functionName = self.options.get("function_name", None)
+        description = self.options.get("description", None)
+
+        # Get code type. Note there can be only one type.
+        # "code_property": { "zip_file": "path to file" }
+        codeType = list(self.options["code_property"].keys())[0]
+        print("Code type: ", codeType)
+
+        if codeType == "zip_file":
+            with open("lambdas/hello.py", encoding="utf8") as inFile:
+                lambdaCode = inFile.read()
+
+            self.codeProperty = awslambda.CfnFunction.CodeProperty(
+                    zip_file=lambdaCode)    
+
+        lambdaFunction = awslambda.CfnFunction(
+                self.scope, self.id, code=self.codeProperty,
+                handler=handler, runtime=runTime,
+                role=role,
+                function_name=functionName, description=description)
+
+
+
+
+
+
+
+
 

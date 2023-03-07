@@ -7,7 +7,8 @@ from aws_cdk import (
 
 from constructs import Construct
 
-import helpers.ec2 as libec2 
+import helpers.networking as networking
+import helpers.compute as compute
 
 class LampstackStack(Stack):
 
@@ -90,7 +91,7 @@ class LampstackStack(Stack):
                 {"Key": "Description", "Value": "A test security group"}
             ]
         }
-        secGroup = libec2.SecurityGroup(
+        secGroup = compute.SecurityGroup(
                 self, "secGroupOne", "Test Description", **securityGroupOptions)
 
 
