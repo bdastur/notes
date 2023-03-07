@@ -6,6 +6,7 @@
 * [AWS Construct Library](https://docs.aws.amazon.com/cdk/api/v2/docs/aws-construct-library.html)
 * [Construct HUB](https://constructs.dev/)
 * [Construct HUB - DLM Construct library](https://constructs.dev/packages/@aws-cdk/aws-dlm/v/1.185.0/api/ActionProperty?lang=python)
+* [Construct Hub - Lambda ](https://constructs.dev/packages/aws-cdk-lib/v/2.64.0?submodule=aws_lambda&lang=python)
 
 ---
 
@@ -184,7 +185,33 @@ cdk synth/deploy LampstackStack --region us-east-1 --profile dev
 ```
 
 
+### How to for CDK Lambdas.
 
+A most basic lambda stack:
+```
+from aws_cdk import Stack 
+from constructs import Construct                                                     
+import aws_cdk.aws_lambda as awslambda
+
+class LambdaStack(Stack):
+    def __init__(self, scope: Construct, construct_id: str, options, **kwargs) -> None:
+        super().__init__(scope, construct_id, **kwargs)
+
+        # We have the hello.py defined under lambdas/ folder.
+        with open("lambdas/hello.py", encoding="utf8") as inFile:
+            handler_code = inFile.read()
+
+        # Here we use the zip_file method to zip the code
+        codeProperty = awslambda.CfnFunction.CodeProperty(zip_file=handler_code)
+
+        myFunc = awslambda.CfnFunction(
+                self, "MyFunction", code=codeProperty, 
+                handler="index.handler", function_name="FIrstCDKFunction",
+                runtime="python3.9",
+                role="arn:aws:iam::462972568455:role/service-role/helloLambda-role-c1tirmu9")
+
+
+```
 
 
 

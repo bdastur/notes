@@ -7,7 +7,7 @@ from aws_cdk import (
 
 from constructs import Construct
 
-import helpers.ec2 as ec2
+import helpers.networking as networking 
 
 class LampStack2(Stack):
 
@@ -24,6 +24,6 @@ class LampStack2(Stack):
         vpcOptions["tags"] = [{"Key": "Name", "Value": "vpcOne"},
                 {"Key": "Description", "Value": "Test description"}]
 
-        self.vpcTwo = ec2.createVpc(self, "vpcTwo", cidrBlock, **vpcOptions)
+        self.vpcTwo = networking.createVpc(self, "vpcTwo", cidrBlock, **vpcOptions)
 
 
