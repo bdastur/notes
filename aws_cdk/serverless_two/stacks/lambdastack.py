@@ -3,9 +3,10 @@ from aws_cdk import (
     Stack,
     # aws_sqs as sqs,
 )
-import aws_cdk.aws_iam as iam
+import aws_cdk.aws_iam as awsiam
 
 import helpers.compute as compute
+import helpers.iam as iam
 
 from constructs import Construct
 
@@ -13,20 +14,45 @@ class LambdaStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, options, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        # A new IAM.
-        policyDocument = {
+
+        # Role creation: 
+        # Scenario 1: Most basic. The client provides the policy document.
+        accountPrincipal = kwargs["env"].account
+        ddbPolicy = {"policy_document": {
             "Version": "2012-10-17",
             "Statement": [
                 {
+                    "Sid": "VisualEditor0",
                     "Effect": "Allow",
-                     "Principal": {
-                         "Service": "lambda.amazonaws.com"
-                     },
-                     "Action": "sts:AssumeRole"
+                    "Action": [
+                        "dynamodb:GetItem",
+                        "dynamodb:GetRecords"
+                    ],
+                    "Resource": "arn:aws:dynamodb:*:%s:table/*" % accountPrincipal
+                },
+                {
+                    "Sid": "VisualEditor1",
+                    "Effect": "Allow",
+                    "Action": "dynamodb:ListTables",
+                    "Resource": "*"
                 }
             ]
+        },
+            "policy_name": "ddpPolicy"
         }
-        newRole = iam.CfnRole(self, "myRole", assume_role_policy_document=policyDocument)
+
+        options = {
+            "trusted_entity": "aws_service",
+            "service_principal": "lambda",
+            "account_principal": accountPrincipal,
+            "policies": [ddbPolicy]
+        }
+        myRole = iam.IAM(self, "Mynewrole", **options)
+
+        # Role creation.
+        # Using delay create (no role should be created).
+        options["delay_create"] = True
+        myRole2 = iam.IAM(self, "Mysecondrole", ** options)
 
 
         # A new lambda.
