@@ -11,8 +11,11 @@ app = cdk.App()
 
 options = {}
 
+region = os.environ["CDK_DEFAULT_REGION"]
+account = os.environ["CDK_DEFAULT_ACCOUNT"]
+cdkEnv = cdk.Environment(account=account, region=region)
 
-LambdaStack(app, "LambdaStack", options,)
-ApiGatewayStack(app, "ApiGatewayStack",)
+LambdaStack(app, "LambdaStack", options, env=cdkEnv)
+ApiGatewayStack(app, "ApiGatewayStack", env=cdkEnv)
 
 app.synth()
