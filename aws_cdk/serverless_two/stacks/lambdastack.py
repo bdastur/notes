@@ -52,7 +52,12 @@ class LambdaStack(Stack):
         # Role creation.
         # Using delay create (no role should be created).
         options["delay_create"] = True
-        myRole2 = iam.IAM(self, "Mysecondrole", ** options)
+        myRole2 = iam.IAM(self, "Mysecondrole", **options)
+
+
+        # Managed Policy creation.
+        policy = iam.createManagedPolicy(self, "MyManagedPolicy", **options)
+
 
 
         # A new lambda.

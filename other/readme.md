@@ -23,7 +23,7 @@
 * [Writing Github Profile Readme](https://dev.to/m0nica/how-to-create-a-github-profile-readme-1paj)
 * [Elements of a beautiful README](https://github.com/matiassingers/awesome-readme)
 * [Markdown Cheetsheet](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf)
-
+* [JSON Crack - Visualize JSON data](https://github.com/AykutSarac/jsoncrack.com)
 * [Dan McKinley - Data Driven Done Right. Talk at lean startup conference](https://mcfunley.com/data-driven-products-lean-startup-2014)
 * [Dan McKinley - Choose boring tech](https://mcfunley.com/choose-boring-technology)
 * [Camille Fournier - Make boring plans](https://skamille.medium.com/make-boring-plans-9438ce5cb053)
