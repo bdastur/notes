@@ -28,6 +28,7 @@ NOTE:
 * [EC2 - spot instance pricing](https://aws.amazon.com/ec2/spot/pricing/#Spot_Instance_Prices)
 * [EC2 - spot fleet](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-fleet.html)
 * [EC2 - New spot pricing](https://aws.amazon.com/blogs/compute/new-amazon-ec2-spot-pricing/)
+* [Using IMDS V2](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-service.html)
 * [EBS - volume types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html)
 * [Cloudwatch concepts](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/cloudwatch_concepts.html)
 * [SQS - How it works](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-how-it-works.html)
@@ -47,6 +48,7 @@ NOTE:
 * [https://workshops.aws/](AWS Workshops)
 * [awslabs - flexible snapshot proxy](https://github.com/awslabs/flexible-snapshot-proxy)
 * [AWS Samples - github](https://github.com/aws-samples)
+* [AWS Skillbuilder site](https://explore.skillbuilder.aws/learn/signin)
 
 **Walkthroughs exercises**:
 * [Serverless Lab](https://github.com/saha-rajdeep/serverless-lab)
@@ -1533,6 +1535,27 @@ Core concepts:
 
 * Instance metadata: http://169.254.169.254/latest/meta-data/
 * Instance user data: http://169.254.169.254/latest/user-data/
+
+**NOTE**:
+The older way of accessing the instance metadata is being replaced with a more secure
+method, known as IMDSv2.
+
+IMDSv2 uses session oriented requests. You can create a session token that defines
+the session duration, which can be from 1 sec to 6 hours.
+
+Example:
+
+creating a token:
+```
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" \
+       -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+```
+
+Using the token to query metadata service
+```
+curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/
+```
+
 
 **Termination Protection**
 * Prevents from accidental Termination from console, CLI or API.
