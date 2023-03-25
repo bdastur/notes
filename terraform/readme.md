@@ -8,6 +8,7 @@
 * [Static analysis of terraform templates to spot security issues](https://github.com/aquasecurity/tfsec)
 * [Collection of git hooks for Terraform](https://github.com/antonbabenko/pre-commit-terraform)
 * [Terraform version manager](https://github.com/tfutils/tfenv)
+* [Mineiros - github repo with collection of terraform utilities](https://github.com/mineiros-io)
 
 ## Variables:
 * Terraform automatically loads any variable definition files if they are
