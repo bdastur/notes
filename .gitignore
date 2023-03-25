@@ -115,6 +115,7 @@ go/interfaces/bin/
 **terraform.tfstate
 **terraform.tfstate.backup
 .terraform
+**.terraform.*
 
 frontend/d3examples/static/thirdparty/*
 python/diagram/web_service.ps
