@@ -20,3 +20,5 @@ echo "Output: "
 cat output.json | jq
 
 rm payload.json output.json
+
+
