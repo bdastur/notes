@@ -1,0 +1,41 @@
+/*
+ * HTTP API.
+ */
+
+resource "aws_apigatewayv2_api" "simpleApi" {
+  name          = "simple-http-api"
+  protocol_type = "HTTP"
+}
+
+
+resource "aws_apigatewayv2_integration" "simpleApiIntegration" {
+  api_id             = aws_apigatewayv2_api.simpleApi.id
+  description        = "Simple API Integration"
+  integration_type   = "AWS_PROXY"
+  integration_method = "POST"
+  integration_uri    = aws_lambda_function.test_lambda.invoke_arn
+  connection_type    = "INTERNET"
+}
+
+
+resource "aws_apigatewayv2_route" "simpleApiRoute" {
+  api_id = aws_apigatewayv2_api.simpleApi.id
+  route_key = "ANY /test/{proxy+}"
+
+  target = "integrations/${aws_apigatewayv2_integration.simpleApiIntegration.id}"
+}
+
+
+resource "aws_apigatewayv2_stage" "dev" {
+  api_id = aws_apigatewayv2_api.simpleApi.id
+  name = "dev"
+
+}
+
+resource "aws_apigatewayv2_deployment" "stagingDeployment" {                         
+  depends_on = [aws_apigatewayv2_route.simpleApiRoute]
+
+  api_id      = aws_apigatewayv2_api.simpleApi.id                                    
+  description = "Staging Deployment"                                                 
+}        
+
