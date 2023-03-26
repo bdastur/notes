@@ -29,6 +29,7 @@ resource "aws_apigatewayv2_route" "simpleApiRoute" {
 resource "aws_apigatewayv2_stage" "dev" {
   api_id = aws_apigatewayv2_api.simpleApi.id
   name = "dev"
+  auto_deploy = true
 
 }
 
@@ -38,4 +39,16 @@ resource "aws_apigatewayv2_deployment" "stagingDeployment" {
   api_id      = aws_apigatewayv2_api.simpleApi.id                                    
   description = "Staging Deployment"                                                 
 }        
+
+
+output "apiendpoint" {
+    value = aws_apigatewayv2_api.simpleApi.api_endpoint
+}
+
+/*
+resource "local_file" "outputfile" {
+    content = aws_apigatewayv2_api.simpleApi.api_endpoint 
+    filename = "./apiendpoint"
+}
+*/
 
