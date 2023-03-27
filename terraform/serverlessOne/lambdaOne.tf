@@ -21,7 +21,9 @@ resource "aws_iam_role" "lambda_role" {
 }
 
 /*****************************************
- *
+ * A simple lambda function.
+ * Python 3.9.
+ * Local file system source.
  *****************************************/
 data "archive_file" "lambda" {
   type = "zip"
@@ -41,6 +43,10 @@ resource "aws_lambda_function" "test_lambda" {
   
 }
 
+/*****************************************
+ * Permissions to allow api gateway to 
+ * call the lambda function.
+ *****************************************/
 resource "aws_lambda_permission" "apigw" {
   statement_id  = "AllowAPIGatewayInvoke"
   action        = "lambda:InvokeFunction"

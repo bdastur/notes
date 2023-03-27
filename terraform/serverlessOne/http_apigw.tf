@@ -31,6 +31,26 @@ resource "aws_apigatewayv2_stage" "dev" {
   name = "dev"
   auto_deploy = true
 
+  default_route_settings {
+    detailed_metrics_enabled = true
+  }
+
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.simpleApiLogGroup.arn
+    format          = jsonencode(
+      {
+        httpMethod     = "$context.httpMethod"
+        ip             = "$context.identity.sourceIp"
+        protocol       = "$context.protocol"
+        requestId      = "$context.requestId"
+        requestTime    = "$context.requestTime"
+        responseLength = "$context.responseLength"
+        routeKey       = "$context.routeKey"
+        status         = "$context.status"
+      }
+    )
+  }
+
 }
 
 resource "aws_apigatewayv2_deployment" "stagingDeployment" {                         
