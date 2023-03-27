@@ -5,6 +5,14 @@ provider "aws" {
 }
 
 terraform {
+  required_providers {
+    local = {
+      source = "hashicorp/local"
+    }
+  }
+}
+
+terraform {
   backend "s3" {
     bucket = "cwbench-terraform-state-us-east-1"
     key    = "tfstates/sample/sample.tfstate"
