@@ -33,6 +33,8 @@ resource "aws_apigatewayv2_stage" "dev" {
 
   default_route_settings {
     detailed_metrics_enabled = true
+    throttling_burst_limit = 5
+    throttling_rate_limit = 2
   }
 
   access_log_settings {
