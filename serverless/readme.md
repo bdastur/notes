@@ -15,6 +15,7 @@ serverless deserves a new folder.
 * [Complete AWS SAM Workshop](https://catalog.workshops.aws/complete-aws-sam/en-US)
 * [Message translator pattern](https://serverlessland.com/event-driven-architecture/visuals/message-translator-pattern)
 * [Event driven patterns](https://serverlessland.com/event-driven-architecture/visuals)
+* [Inside event driven architectures](https://serverlessland.com/event-driven-architecture/visuals/inside-event-driven-architectures)
 
 * Run code/service without provisioning or managing servers.
 * Pay only for the compute time that you consume.

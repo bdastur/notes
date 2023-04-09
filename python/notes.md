@@ -94,6 +94,7 @@ Python tools:
 * [Ziti Python - n/w security](https://openziti.io/openziti-python-sdk-introduction)
 * [syntatic type checker for python](https://mypy.readthedocs.io/en/stable/)
 * [Awesome design patterns (multiple languages)](https://github.com/DovAmir/awesome-design-patterns)
+* [Tips and Techniques for Flask apps](https://pgjones.dev/blog/modern-flask-2023/)
 
 ### command sample:
 

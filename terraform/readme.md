@@ -6,6 +6,7 @@
 * [Infra cost - Get cost estimates for terraform projects](https://github.com/infracost/infracost)
 * [Terratest - terraform testing framework](https://terratest.gruntwork.io/docs/getting-started/quick-start/)
 * [Static analysis of terraform templates to spot security issues](https://github.com/aquasecurity/tfsec)
+* [Static analysis for terraform - Checkov](https://github.com/bridgecrewio/checkov)
 * [Collection of git hooks for Terraform](https://github.com/antonbabenko/pre-commit-terraform)
 * [Terraform version manager](https://github.com/tfutils/tfenv)
 * [Mineiros - github repo with collection of terraform utilities](https://github.com/mineiros-io)
