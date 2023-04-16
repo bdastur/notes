@@ -3,6 +3,7 @@
 
 ## Useful links
 * [System design primer](https://github.com/donnemartin/system-design-primer)
+* [Tech interview handbook](https://github.com/yangshun/tech-interview-handbook)
 
 
 
