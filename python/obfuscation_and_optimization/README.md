@@ -30,5 +30,14 @@ we can take to improve python performance.
 
 ```
 
+## Cython.
+
+### Installing cython:
+
+```
+sudo xcode-select --install
+pip install cython
+```
+
 
 
