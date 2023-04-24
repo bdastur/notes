@@ -149,6 +149,20 @@ BUILD SUCCESSFUL in 3m 25s
 
 ```
 
+## Adding AWS SDK dependencies to an application:
+
+Modify the app/build.gradle file:
+Add the following dependencies. Note you will need to add the specific  package
+dependencies for any service's SDK you want to use in the application.
+
+```
+    // AWS SDK modules and packages to include.                                      
+    implementation platform("software.amazon.awssdk:bom:2.20.37")                    
+    implementation "software.amazon.awssdk:s3"                                       
+    implementation "software.amazon.awssdk:dlm"    
+
+```
+
 
 
 
