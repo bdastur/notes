@@ -22,6 +22,11 @@ dependencies {
 
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
+
+    // AWS SDK modules and packages to include.
+    implementation platform("software.amazon.awssdk:bom:2.20.37")
+    implementation "software.amazon.awssdk:s3"
+    implementation "software.amazon.awssdk:dlm"
 }
 
 application {
