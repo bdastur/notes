@@ -223,6 +223,14 @@ aws dynamodb put-item --table-name brdtest \
 
 ```
 
+## DynamoDB update items:
+```
+aws dynamodb update-item --table-name TestTable --key '{"resourceId": {"S": "abc-1112221"}}' \
+  --update-expression "SET #LS = :ls" \
+  --expression-attribute-names '{"#LS": "lastSorted"}' \
+  --expression-attribute-values '{":ls": {"N": "1482727701837"}}' \
+  --profile dev --region us-west-2
+```
 
 
 ## EBS Volumes. Find available volumes.
