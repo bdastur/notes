@@ -126,5 +126,6 @@ python/diagram/webservice.png
 *.tfstate.backup
 *.vscode
 
+**/app/bin
 
 *.buildozer
