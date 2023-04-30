@@ -93,9 +93,66 @@ aws ec2 describe-instances \
   --query 'Reservations[].Instances[?LaunchTime>=`2020-06-04`][].{id: InstanceId, type: InstanceType, launched: LaunchTime}'
 ```
 
+## DynamoDB create table:
+
+NOTE: During table creation only specify the primary key and one non-key attribute
+you might use for secondary index. You do not need to specify any non-key attributes
+
+
+ddb_table_definition json file:
+Note you do not need to specify any attributes 
+```
+%~> cat ddb_table_definition.json 
+{
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "EmployeeId",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "Tenure",
+            "AttributeType": "N"
+        }
+    ],
+    "TableName": "employee_table",
+    "KeySchema": [
+        {
+            "AttributeName": "EmployeeId",
+            "KeyType": "HASH"
+        },
+        {
+            "AttributeName": "Tenure",
+            "KeyType": "RANGE"
+        }
+    ],
+    "BillingMode": "PROVISIONED",
+    "ProvisionedThroughput": {
+        "ReadCapacityUnits": 1,
+        "WriteCapacityUnits": 2
+    },
+    "SSESpecification": {
+        "Enabled": false
+    },
+    "Tags": [
+        {
+            "Key": "Application",
+            "Value": "ddbtesting"
+        }
+    ],
+    "TableClass": "STANDARD"
+}
+
+```
+
+
+```
+%~> aws dynamodb create-table \
+  --cli-input-json file://ddb_table_definition.json \
+  --profile dev --region us-east-1
+
+```
 
 ## DynamoDB scan with filter
-
 ```
 aws dynamodb scan --table-name TestData \
 --filter-expression "build_status = :bs or build_status = :bs2" \
@@ -222,6 +279,55 @@ aws dynamodb put-item --table-name brdtest \
 }
 
 ```
+**Another Example**
+
+```
+{
+    "RequestItems": {
+        "employee_table": [
+            {
+                "PutRequest": {
+                    "Item": {
+                        "EmployeeId": {"S": "00103"},
+                        "Tenure": {"N": "4"},
+                        "Name": {"S": "John Loui"},
+                        "Skills": {"SS": ["Java", "C++", "programming"]},
+                        "Details": {"M": {
+                            "Title": {"S": "Sofware Engineer III"},
+                            "Rating": {"S": "Above Average"}
+                        }}
+                    }
+                }
+            },
+            {
+                "PutRequest": {
+                    "Item": {
+                        "EmployeeId": {"S": "00104"},
+                        "Tenure": {"N": "3"},
+                        "Name": {"S": "Jack Smith"},
+                        "Skills": {"SS": ["Python", "C++", "programming"]},
+                        "Details": {"M": {
+                            "Title": {"S": "Sofware Engineer IV"},
+                            "Rating": {"S": "Above Average"}
+                        }}
+                    }
+                }
+            }
+        ]
+    },
+    "ReturnConsumedCapacity": "INDEXES",
+    "ReturnItemCollectionMetrics": "SIZE"
+}
+
+%~> aws dynamodb batch-write-item \
+    --cli-input-json file://putitems.json \
+    --profile dev --region us-east-1
+
+```
+
+
+
+
 
 ## DynamoDB update items:
 ```
