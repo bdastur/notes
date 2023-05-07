@@ -47,6 +47,7 @@
 * [CLI Command line tools](https://dev.to/lissy93/cli-tools-you-cant-live-without-57f6)
 * [Software Architecture Design Patterns](https://www.redhat.com/architect/14-software-architecture-patterns)
 * [Tool - gitprecommit/gitcommit - prevents from comitting secrets, passwords etc](https://github.com/awslabs/git-secrets)
+* [Tool - create ephemeral preview environments.](https://github.com/livecycle/preevy)
 
 
 # Linux tips:
