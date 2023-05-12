@@ -48,7 +48,7 @@
 * [Software Architecture Design Patterns](https://www.redhat.com/architect/14-software-architecture-patterns)
 * [Tool - gitprecommit/gitcommit - prevents from comitting secrets, passwords etc](https://github.com/awslabs/git-secrets)
 * [Tool - create ephemeral preview environments.](https://github.com/livecycle/preevy)
-
+* [Blog - What do metrics tell you? challenge and be skeptical](https://www.scarletink.com/be-skeptical-challenging-beliefs-underlying-everything/)
 
 # Linux tips:
 
