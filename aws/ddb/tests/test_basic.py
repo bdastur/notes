@@ -100,6 +100,52 @@ def test_createDDBItem():
 
 
 
+def test_scanDDBTable():
+    tableName = "brd_table"
+    _, client = ddbsimple.getDDBClient("dev", regionName="us-east-1")
+
+    # get table.
+    ret, tableInfo = ddbsimple.getDDBTable(client, tableName)
+    assert ret == 00
+
+    # Scan table.
+    data = client.scan(TableName=tableName)
+    print("All scanned items")
+    print(data["Items"])
+    print("")
+
+    # Scan table, and filter results.
+    filter = {
+        "MillionsSold": {
+            "AttributeValueList": [{"N": "11"}],
+            "ComparisonOperator": "GE"
+        }
+    }
+    data = client.scan(TableName=tableName, ScanFilter=filter)
+    print("Scanned items GE 11 Mill albums sold")
+    print(data["Items"])
+    print("")
+
+    # Scan table, multiple filters.
+    filter = {
+        "MillionsSold": {
+            "AttributeValueList": [{"N": "11"}],
+            "ComparisonOperator": "GE"
+        },
+        "Album": {
+            "AttributeValueList": [{"S": "Who cares"}],
+            "ComparisonOperator": "EQ"
+        }
+    }
+    data = client.scan(TableName=tableName, 
+                       ScanFilter=filter, 
+                       ConditionalOperator="AND",
+                       ReturnConsumedCapacity="INDEXES")
+    print("Scanned items GE 11 Mill albums sold and album contains 'cares'")
+    print(data["Items"])
+    print("")
+
+
 def test_queryDDBTable():
     tableName = "brd_table"
     _, client = ddbsimple.getDDBClient("dev", regionName="us-east-1")
