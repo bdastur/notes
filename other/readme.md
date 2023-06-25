@@ -49,6 +49,7 @@
 * [Tool - gitprecommit/gitcommit - prevents from comitting secrets, passwords etc](https://github.com/awslabs/git-secrets)
 * [Tool - create ephemeral preview environments.](https://github.com/livecycle/preevy)
 * [Blog - What do metrics tell you? challenge and be skeptical](https://www.scarletink.com/be-skeptical-challenging-beliefs-underlying-everything/)
+* [List of vim bundles](https://github.com/sharpicx/dotfiles/tree/main/.vim/plugged)
 
 # Linux tips:
 
