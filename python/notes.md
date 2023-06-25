@@ -48,6 +48,7 @@ nm['10.10.10.6']
 * [Boto3 sessions and why to use them](https://ben11kehoe.medium.com/boto3-sessions-and-why-you-should-use-them-9b094eb5ca8e)
 * [Python pathlib cookbook](https://miguendes.me/python-pathlib)
 * [Generate sequence diagrams from run](https://dev.to/appmap/auto-magically-generate-sequence-diagrams-of-your-codes-runtime-behavior-597a) 
+* [An async task queue in python](https://testdriven.io/blog/developing-an-asynchronous-task-queue-in-python/)
 
 
 Python profiling:
@@ -95,6 +96,7 @@ Python tools:
 * [syntatic type checker for python](https://mypy.readthedocs.io/en/stable/)
 * [Awesome design patterns (multiple languages)](https://github.com/DovAmir/awesome-design-patterns)
 * [Tips and Techniques for Flask apps](https://pgjones.dev/blog/modern-flask-2023/)
+* [pyright - type checker for python](https://github.com/microsoft/pyright)
 
 ### command sample:
 
