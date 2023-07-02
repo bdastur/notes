@@ -2528,6 +2528,38 @@ An SQS message has three basic states:
 * Can trigger a lambda function or SNS notification.
 * Can be used for both incoming and outgoing email.
 * Email address is all that is required to start sending messages.
+
+### Sample operations with SES.
+
+**Send an email (Raw format)**
+
+```
+ %~> aws sesv2 send-email \
+    --destination ToAddresses=bdastur@acme.com --content file://message.json \
+    --from-email-address bdastur@acme.com \
+    --cli-binary-format raw-in-base64-out  --profile dev --region us-east-1
+```
+
+The message.json file looks like this:
+```
+ %~> more message.json 
+{
+    "Raw": {
+        "Data": "This is a test message - raw email from CLI"
+    }
+}
+
+```
+
+NOTE: Here the the option '--cli-binary-format raw-in-base64-out' was to workaround
+the following error when executing send-email cli:
+```
+Invalid base64: "THis is a test message - raw email from CLI"
+
+Git issue: https://github.com/aws/aws-cli/issues/6657
+```
+
+
 --------------------------------------------------------------------------------
 
 
