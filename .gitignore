@@ -127,5 +127,6 @@ python/diagram/webservice.png
 *.vscode
 
 **/app/bin
+**bin/
 
 *.buildozer
