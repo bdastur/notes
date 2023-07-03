@@ -95,10 +95,27 @@ resource "aws_iam_role_policy" "cwLogsPermissions" {
     })
 }
 
+/*************************************************************
+ * Cloudwatch eventbridge timer rule to trigger lambda at regular
+ * interval.
+ *************************************************************/
+resource "aws_cloudwatch_event_rule" "timerRule" {
+    name = "timer-rule"
+    schedule_expression = "rate(20 minutes)"
+}
 
 
+resource "aws_cloudwatch_event_target" "targetLambda" {
+    rule = aws_cloudwatch_event_rule.timerRule.name
+    arn = aws_lambda_function.mainLambda.arn
+}
 
-
+resource "aws_lambda_permission" "allow_cw_to_call_lambda" {
+    action = "lambda:InvokeFunction"
+    function_name = aws_lambda_function.mainLambda.function_name
+    principal = "events.amazonaws.com"
+    source_arn = aws_cloudwatch_event_rule.timerRule.arn
+}
 
 
 
