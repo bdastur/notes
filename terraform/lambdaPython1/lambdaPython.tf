@@ -33,16 +33,6 @@ resource "aws_iam_role_policy" "mainLambdaRolePermissions" {
                 ],
                 Effect = "Allow"
                 Resource = "*"
-            },
-            {
-                Action = [
-                    "logs:CreateLogGroup",
-                    "logs:CreateLogStream",
-                    "logs:PutLogEvents"
-                ],
-                Effect = "Allow",
-                Resource = "arn:aws:logs:us-east-1:462972568455:log-group:*:*"
-
             }
         ]
 
@@ -74,9 +64,36 @@ resource "aws_lambda_function" "mainLambda" {
 }
 
 
+// Enable Lambda logging to cloudwatch.
+
+resource "aws_cloudwatch_log_group" "mainLambdaLogGroup" {
+    name = join("/", ["/aws/lambda", aws_lambda_function.mainLambda.function_name])
+    retention_in_days = 7
+}
 
 
+resource "aws_iam_role_policy" "cwLogsPermissions" {
+    name = "main_lambda_cwLogsPermissions"
+    role = aws_iam_role.mainLambdaRole.id
 
+    # Policy definition.
+    policy = jsonencode ({
+        Version = "2012-10-17"
+        Statement = [
+            {
+                Action = [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                ],
+                Effect = "Allow",
+                Resource = join("", [aws_cloudwatch_log_group.mainLambdaLogGroup.arn, "*"])
+
+            }
+        ]
+
+    })
+}
 
 
 
