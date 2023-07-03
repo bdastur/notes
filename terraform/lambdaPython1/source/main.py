@@ -6,6 +6,7 @@ import boto3
 import botocore
 import json
 import os
+import awslibs.s3_helper as s3_helper
 
 
 def handler(event, context):
@@ -16,7 +17,8 @@ def handler(event, context):
     # Get environment variables.
     region = os.environ.get("region", "us-east-1")
 
-    bucketList = listBuckets(region, event)
+    bucketList = s3_helper.listBuckets(region, event)
+
     body = "List of buckets: %s" % (bucketList["Buckets"])
 
     returnValue = {
@@ -28,18 +30,6 @@ def handler(event, context):
     }
 
     return returnValue
-
-
-def listBuckets(region, event):
-
-    if event.get("local", False):
-        session = boto3.Session(profile_name="dev", region_name=region)
-    else:
-        session = boto3.Session(region_name=region)
-
-    client = session.client("s3")
-    ret = client.list_buckets()
-    return ret
 
 
 # Test Locally.
