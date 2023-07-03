@@ -29,7 +29,7 @@ resource "aws_iam_role_policy" "mainLambdaRolePermissions" {
             {
                 Action = [
                     "s3:*",
-                    "sns: *"
+                    "sns:*"
                 ],
                 Effect = "Allow"
                 Resource = "*"
@@ -117,8 +117,29 @@ resource "aws_lambda_permission" "allow_cw_to_call_lambda" {
     source_arn = aws_cloudwatch_event_rule.timerRule.arn
 }
 
+/*************************************************************
+ * SNS notification from main Lambda.
+ *************************************************************/
+resource "aws_sns_topic" "errNotificationTopic" {
+    name = "err_notification_topic"
+    display_name = "Error Notification"
+}
 
+resource "aws_sns_topic_subscription" "emailSubscription" {
+    endpoint = "bdastur@amazon.com"
+    protocol = "email"
+    topic_arn = aws_sns_topic.errNotificationTopic.arn
+}
 
+resource "aws_lambda_function_event_invoke_config" "lambdaSNSInvoke" {
+    function_name = aws_lambda_function.mainLambda.function_name
+
+    destination_config {
+        on_failure {
+            destination = aws_sns_topic.errNotificationTopic.arn
+        }
+    }
+}
 
 
 
