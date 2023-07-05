@@ -54,6 +54,7 @@
 # Linux tips:
 
 * [Linux n/w troubleshooting](https://www.redhat.com/sysadmin/beginners-guide-network-troubleshooting-linux)
+* [Shell script static analysis tool](https://www.shellcheck.net/wiki/Home)
 
 
 ## How to terminate a unresponsive ssh connection.
