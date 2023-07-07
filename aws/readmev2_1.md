@@ -49,6 +49,7 @@ NOTE:
 * [awslabs - flexible snapshot proxy](https://github.com/awslabs/flexible-snapshot-proxy)
 * [AWS Samples - github](https://github.com/aws-samples)
 * [AWS Skillbuilder site](https://explore.skillbuilder.aws/learn/signin)
+* [EC2 instance connect - a better way to ssh into EC2 instances](https://aws.amazon.com/blogs/compute/secure-connectivity-from-public-to-private-introducing-ec2-instance-connect-endpoint-june-13-2023/)
 
 **Walkthroughs exercises**:
 * [Serverless Lab](https://github.com/saha-rajdeep/serverless-lab)
