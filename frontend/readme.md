@@ -46,6 +46,7 @@ http://holderjs.com/
 ## Javascript
 * [A great repo for Javascript algorithms](https://github.com/trekhleb/javascript-algorithms)
 * [Apache Echarts - charting library](https://echarts.apache.org/handbook/en/get-started/)
+* [ACE - code editor in JS to embed in web pagers](https://github.com/ajaxorg/ace)
 
 ## Bootstrap 3:
 
