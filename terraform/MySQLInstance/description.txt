@@ -1,0 +1,2 @@
+This template creates a MySQL EC2 Instance, it has the corresponding IAM permissions
+to communicate with Systems Manager.
