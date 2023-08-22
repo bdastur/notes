@@ -51,11 +51,13 @@
 * [Blog - What do metrics tell you? challenge and be skeptical](https://www.scarletink.com/be-skeptical-challenging-beliefs-underlying-everything/)
 * [List of vim bundles](https://github.com/sharpicx/dotfiles/tree/main/.vim/plugged)
 * [PlantUML - generate diagrams](https://plantuml.biz/en/guide)
+* [Large collection of opensource frameworks/tools/libraries](https://free-for.dev/#/)
 
 # Linux tips:
 
 * [Linux n/w troubleshooting](https://www.redhat.com/sysadmin/beginners-guide-network-troubleshooting-linux)
 * [Shell script static analysis tool](https://www.shellcheck.net/wiki/Home)
+* [Computer Architecture](https://cpu.land/the-basics)
 
 
 ## How to terminate a unresponsive ssh connection.
