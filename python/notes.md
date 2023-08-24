@@ -49,6 +49,8 @@ nm['10.10.10.6']
 * [Python pathlib cookbook](https://miguendes.me/python-pathlib)
 * [Generate sequence diagrams from run](https://dev.to/appmap/auto-magically-generate-sequence-diagrams-of-your-codes-runtime-behavior-597a) 
 * [An async task queue in python](https://testdriven.io/blog/developing-an-asynchronous-task-queue-in-python/)
+* [Watch directories and log events](https://pypi.org/project/watchdog/)
+* [Streamlit - create web apps for ML and data science](https://docs.streamlit.io/library/get-started)
 
 
 Python profiling:
