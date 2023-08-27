@@ -51,7 +51,7 @@ nm['10.10.10.6']
 * [An async task queue in python](https://testdriven.io/blog/developing-an-asynchronous-task-queue-in-python/)
 * [Watch directories and log events](https://pypi.org/project/watchdog/)
 * [Streamlit - create web apps for ML and data science](https://docs.streamlit.io/library/get-started)
-
+* [Python multiprocessing tutorial](https://superfastpython.com/multiprocessing-pool-python/)
 
 Python profiling:
 * https://github.com/benfred/py-spy
