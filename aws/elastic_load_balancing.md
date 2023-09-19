@@ -100,6 +100,11 @@
 * A Gateway Load Balancer endpoint is a VPC endpoint that provides private connectivity
   between virtual appliances in the service provider VPC and application servers in the
   service consumer VPC.
+* Allows you to load balance workloads for third-party virtual appliances running
+  in AWS, such as:
+  - Virtual appliances purchased using AWS marketplace.
+  - Virtual firewalls from companies like Fortinet, Palo alto, Juniper, Cisco
+  - IDS/IPS systems from companies like Trend Micro, Checkpoint, etc.
 
 
 
@@ -142,8 +147,22 @@
 
 
 
+## ELB Error Messages.
 
+Server side errors:
+* HTTP 502: Bad gateway - The target host is unreachable.
+* HTTP 503: service unavailable - No registered targets.
+* HTTP 504: Gateway timeout - The ELB could not establish a connection to the target.
+CLient Side errors:
+* HTTP 400: Bad request - Request is malformed.
+* HTTP 408: Request timeout - The client did not send data before the idle timeout
+                              period expired.
+* HTTP 464 - Incoming request protocol is incompatible with the target group
+             protocol.
 
+## ELB Metrics:
+* HealthyHostCount, UnHealthyHostCount, RequestCount, TargetResponseTime,
+  HTTPStatusCodes
 
 
 
