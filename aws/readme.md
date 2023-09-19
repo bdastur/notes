@@ -313,22 +313,21 @@ VPC SG         -- Control outgoing and incoming instance traffic.
 
 **Types of EBS Volumes:**
 
-**General purpose SSD (gp2):**
-* Strong performance at a moderate price.
-* Ranges from 1GB to 16TB and provides baseline performance of 3 IOPS per
-  gigabyte provisioned.
-* Caping at 16,000 IOPS.
-  EG: for a 1 TB volume, you can expect a baseline performance of 3000 IOPS
-* Under 1TB, it has ability to burst upto 3000 IOPS for extended periods of
-  time.
+**General purpose SSD (gp2 & gp3):**
+* Balance of price & performance.Strong performance at moderate price.
+* Volume size: ranges from 1 GB to 16TB.
+* provides a baseline performance of 3 IOPS per GiB, up to a max of 16,000 IOPS i
+  per volume. Burst of up to 3,000 IOPS for extended periods of time.
+* With 1 TB volume size you can expect baseline performance of 3000 IOPS.
 * When not using IOPS are accumulated as I/O credits, which get used during
   heavy traffic.
 * Use cases:
   * System boot volumes
   * Small to medium sized DB.
   * Development and test environments.
+* gp3 volumes are ~20% cheaper than gp2 (0.08/GB-month vs 0.125/GB-month)
 
-**Provisioned IOPS SSD (io1):**
+**Provisioned IOPS SSD (io1, io2):**
 * Designed to meet needs of I/O intensive workloads.
 * Range from 4GB to 16TB.
 * When provisioning specify the size and desired IOPS, up to the lower of
@@ -340,6 +339,9 @@ VPC SG         -- Control outgoing and incoming instance traffic.
 * Use cases:
   * Critical business apps requiring sustained IOPS performance.
   * Large DB workloads.
+* io2 provides a highter durability with 99.999% volume durability.
+* with io1 you get 50 IOPS/GB vs io2 gives 500 IOPS/GB performance.
+
 
 **EBS Magnetic volumes (standard):**
 * Lowest performance characteristics and lowest cost per gigabyte.
@@ -356,8 +358,12 @@ Use cases:
 
 **Throughput optimized HDD (ST1):**
 * Sequential writes.
+* Cannot be boot volumes.
 * frequently accessed workloads.
-* Usually used for data warehouse apps.
+* Used to store large amounts of data. Usually used for data warehouse apps.
+* Baseline throughput of 40 MB/s per TB. Ability to burst up to 250 MB/S per TB, 
+  with MAX throughput of 500 MB/s per volume.
+* Pricing: 0.045 /GB-mo
 
 
 **Cold HDD (SC1):**
@@ -369,6 +375,10 @@ Use cases:
 * Termination protection is turned off by default, you must turn it on.
 * Default action for the root EBS volume is to be deleted when the instance
   is terminated.
+* Baseline throughput of 12 MB/s per TB. Ability to bust to 80 MB/S per TB, with
+  MAX throughput of 250 MB/s per TB.
+* Pricing: 0.015/GB-month
+
 
 **Protecting data:**
 **Snapshots:**

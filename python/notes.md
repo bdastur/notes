@@ -51,6 +51,7 @@ nm['10.10.10.6']
 * [An async task queue in python](https://testdriven.io/blog/developing-an-asynchronous-task-queue-in-python/)
 * [Watch directories and log events](https://pypi.org/project/watchdog/)
 * [Streamlit - create web apps for ML and data science](https://docs.streamlit.io/library/get-started)
+* [Vega-Altair - declarative statistical visualization library for python](https://altair-viz.github.io/getting_started/overview.html)
 * [Python multiprocessing tutorial](https://superfastpython.com/multiprocessing-pool-python/)
 
 Python profiling:
@@ -99,6 +100,7 @@ Python tools:
 * [Awesome design patterns (multiple languages)](https://github.com/DovAmir/awesome-design-patterns)
 * [Tips and Techniques for Flask apps](https://pgjones.dev/blog/modern-flask-2023/)
 * [pyright - type checker for python](https://github.com/microsoft/pyright)
+* [Textual - build python terminal UI](https://textual.textualize.io/)
 
 ### command sample:
 
