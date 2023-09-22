@@ -1,0 +1,20 @@
+# Textual.
+
+## Useful links.
+* [Textual guide](https://textual.textualize.io/guide/devtools/)
+
+
+
+## Notes:
+* if you start the textual app with the --dev switch you appln will run in development
+  mode.
+
+```
+textual run --dev swatch01.py
+```
+
+In dev mode, you can live edit CSS files. Any changes to css will be reflected
+within milliseconds on the terminal.
+
+
+
