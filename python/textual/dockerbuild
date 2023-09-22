@@ -1,0 +1,12 @@
+    4  apt-get update
+    5  apt-get install python3.9
+    9  which python3
+   12  apt install python3.19-venv
+   14  apt-get install python3-pip
+   15  pip3 install virtualenv
+   18  virtualenv -p python3 myenv
+   20  source ./myenv/bin/activate
+   21  deactivate
+   22  pip3 install textual
+   26  apt-get install vim
+
