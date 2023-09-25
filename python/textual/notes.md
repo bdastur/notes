@@ -2,6 +2,7 @@
 
 ## Useful links.
 * [Textual guide](https://textual.textualize.io/guide/devtools/)
+* [Textual - dev.to - guide](https://dev.to/wiseai/textual-the-definitive-guide-part-1-1i0p)
 
 
 
