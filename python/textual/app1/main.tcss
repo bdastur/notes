@@ -1,0 +1,75 @@
+
+#main-screen {
+    layout: horizontal;
+    background: black; 
+    border: red;
+}
+
+#left-sidebar {
+    layout: vertical;
+    border: green;
+    width: 1fr;
+}
+
+#content-area {
+    layout: grid;
+    grid-size: 3 3;
+    width: 3fr;
+    border: green;
+}
+
+Placeholder {
+    padding: 2;
+    margin-bottom: 1;
+    height: 10%;
+}
+
+#ph1 {
+    height: 20%;
+    row-span: 2;
+    background: gray;
+}
+
+#ph2 {
+    height: 20%;
+    row-span: 1;
+    background: darkgray;
+}
+
+.phc {
+    height: 95%;
+    row-span: 1;
+    padding: 1;
+    margin-left: 1;
+}
+
+/*
+#phc1 {
+    row-span: 1;
+    padding: 1;
+    margin-left: 1;
+}
+
+#phc2 {
+    row-span: 1;
+    padding: 1;
+    margin-left: 1;
+}*/
+
+#iad {
+    align: center middle;
+    width: auto;
+    height: auto;
+    border: round blue;
+
+}
+
+#title {
+    width: 1fr;
+    border: green;
+}
+
+#any-key {
+    width: 1fr;
+    border: green;
+}
