@@ -43,18 +43,10 @@ Placeholder {
     margin-left: 1;
 }
 
-/*
-#phc1 {
-    row-span: 1;
-    padding: 1;
-    margin-left: 1;
+.collapse01 {
+    width: 100%;
+    background: black;
 }
-
-#phc2 {
-    row-span: 1;
-    padding: 1;
-    margin-left: 1;
-}*/
 
 #iad {
     align: center middle;

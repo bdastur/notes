@@ -101,6 +101,7 @@ Python tools:
 * [Tips and Techniques for Flask apps](https://pgjones.dev/blog/modern-flask-2023/)
 * [pyright - type checker for python](https://github.com/microsoft/pyright)
 * [Textual - build python terminal UI](https://textual.textualize.io/)
+* [A framework to build web apps from Data/AI algorithms](https://github.com/Avaiga/taipy)
 
 ### command sample:
 
