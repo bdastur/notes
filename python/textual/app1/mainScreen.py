@@ -6,7 +6,14 @@ from textual.app import ComposeResult
 from textual.screen import Screen
 from textual.containers import Container, VerticalScroll
 from textual.widget import Widget
-from textual.widgets import Checkbox, Placeholder, Header, Footer, Collapsible, Label, Static
+from textual.widgets import Checkbox, Placeholder, Header, \
+                            Footer, Collapsible, Label, Button
+
+
+class RegionSelectButton(Button):
+    checked = False
+    def on_click(self) -> None:
+        print("BRD: REgion Select Button clicked", self.id)
 
 
 class RegionCheckBox(Checkbox):
@@ -34,6 +41,8 @@ class RegionSelector(Collapsible):
         }
     }
 
+    envObjs = []
+
     def __init__(self) -> None:
         super().__init__()
         self.envObjs = []
@@ -45,32 +54,42 @@ class RegionSelector(Collapsible):
             for envId in self.environments:
                 env = self.environments[envId]
                 envString ="%s %s" % (env["region"], env["account_id"])
-                obj = RegionCheckBox(envString, id=envId)
+                obj = RegionCheckBox(envString, id=envId, classes="envCheckbox")
                 self.envObjs.append(obj)
                 yield obj
+            yield RegionSelectButton(name="Regionfoo")
                 
-            # yield RegionCheckBox("us-east-1 (iad)", id="iad")
-            # iadCheck = RegionCheckBox("us-west-2", id="pdx")
-            # #yield RegionCheckBox("us-west-2", id="pdx")
-            # yield iadCheck
+           
  
 
 class SideBar(VerticalScroll):
+   
+    regionSelector = None
     def compose(self) -> ComposeResult:
         yield Placeholder("Placeholder for P1", id="ph1")
         yield Placeholder("Placeholder for P2", id="ph2")
         yield Placeholder("Placeholder for P3", id="p3")
         yield Collapsible(Label("Environment Selection"))
-        regionSelector = RegionSelector()
-        yield regionSelector
+        self.regionSelector = RegionSelector()
+        yield self.regionSelector
+        yield Button(label="Submit")
+        yield RegionSelectButton(label="Testing")
         
 
-    def on_checkbox_changed(sidebar):
-        print("BRD:   checkbox changed", sidebar)
+    def on_button_pressed(self, event: Button.Pressed):
+        print("BRD: Button pressed: ", event.button.id)
+        print("BRD Environments: ", self.regionSelector.envObjs, len(self.regionSelector.envObjs))
+        for env in self.regionSelector.envObjs:
+            print("Selected env: ", env.checked)
+
+
+    def on_checkbox_changed(self, sidebar):
+        print("BRD:  checkbox changed", sidebar)
         
 
-    def on_click(event):
-        print("BRD: Onclick: ", event)
+    def on_click(self, event: Button.Pressed) -> None:
+        print("BRD: Onclick: ", event.button)
+
 
 class ContentScreen(Container):
     def compose(self) -> ComposeResult:
