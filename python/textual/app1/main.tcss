@@ -45,7 +45,13 @@ Placeholder {
 
 .collapse01 {
     width: 100%;
-    background: black;
+    background: $boost;
+}
+
+.envCheckbox {
+    width: 50;
+    background: $boost;
+    border: $boost;
 }
 
 #iad {

@@ -1,0 +1,35 @@
+
+$color_pallet_shade1: #caf0f8;
+$color_pallet_shade2: #ade8f4;
+$color_pallet_shade3: #90e0ef;
+$color_pallet_shade4: #48cae4;
+$color_pallet_shade5: #00b4d8;
+$color_pallet_shade6: #0096c7;
+$color_pallet_shade7: #0077b6;
+$color_pallet_shade8: #023e8a;
+$color_pallet_shade9: #03045e;
+
+#btn1 {
+    background: red;
+    color: white;
+}
+
+#btn1:hover {
+    background: green;
+    color: gray;
+}
+
+#btn:enabled {
+    background: yellow;
+    color: white;
+}
+
+#tbtn1 {
+    background: $color_pallet_shade8;
+    color: white;
+}
+
+.toggleOn {
+    background: $color_pallet_shade9;
+    color: white;
+}
