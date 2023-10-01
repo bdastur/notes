@@ -1,0 +1,80 @@
+$color_pallet_shade1: #caf0f8;
+$color_pallet_shade2: #ade8f4;
+$color_pallet_shade3: #90e0ef;
+$color_pallet_shade4: #48cae4;
+$color_pallet_shade5: #00b4d8;
+$color_pallet_shade6: #0096c7;
+$color_pallet_shade7: #0077b6;
+$color_pallet_shade8: #023e8a;
+$color_pallet_shade9: #03045e;
+
+ #cwLogsScreen {
+    layout: horizontal;
+ }
+
+ #sideMenuBar {
+    width: 1fr;
+    layout: vertical;
+    scrollbar-color: green;
+}
+
+#contentArea {
+    layout: vertical;
+    width: 3fr;
+    padding-left: 1;
+}
+
+#inputArea {
+    layout: grid;
+    grid-size: 2 1;
+    height: 5;
+    margin-top: 1;
+}
+
+#input01 {
+    border: heavy $accent;
+
+}
+
+#resultAreaVerticalScroll {
+    layout: vertical;
+}
+
+#resultArea {
+    layout: vertical;
+    grid-size: 3 3;
+}
+
+#resultAreaTwo {
+    layout: grid;
+}
+
+.menuItems {
+    height: 5;
+    padding: 1;
+    margin-bottom: 1;
+}
+
+.resultItems {
+    height: 5;
+    margin-right: 1;
+    margin-bottom: 1;
+}
+
+#regionSelector {
+    background: $color_pallet_shade8;
+}
+
+.btnToggleOff {
+    width: 100%;
+    background: $color_pallet_shade8;
+    color: white;
+    margin-right: 1;
+}
+
+.btnToggleOn {
+    width: 100%;
+    background: $color_pallet_shade9;
+    color: white;
+    margin-right: 1;
+}
