@@ -57,12 +57,13 @@ $color_pallet_shade9: #03045e;
     border: green;
 }
 
-#filterInputArea {
+#inputArea {
     layout: grid;
     grid-size: 2 1;
-    height: 15%;
-    border: green;
+    height: 5;
+    margin-top: 1;
 }
+
 
 #results {
     align: left top;
