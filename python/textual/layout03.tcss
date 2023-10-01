@@ -21,18 +21,22 @@
     margin-top: 1;
 }
 
+#input01 {
+    border: heavy $accent;
+
+}
+
 #resultAreaVerticalScroll {
     layout: vertical;
 }
 
 #resultArea {
-    layout: grid;
+    layout: vertical;
     grid-size: 3 3;
 }
 
 #resultAreaTwo {
     layout: grid;
-    grid-size: 4 3;
 }
 
 .menuItems {
@@ -42,6 +46,7 @@
 }
 
 .resultItems {
+    height: 5;
     margin-right: 1;
     margin-bottom: 1;
 }

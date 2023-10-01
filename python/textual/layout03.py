@@ -3,7 +3,7 @@
 
 from textual.app import App, ComposeResult
 from textual.screen import Screen
-from textual.containers import Container, Horizontal, VerticalScroll
+from textual.containers import Container, Horizontal, VerticalScroll, ScrollableContainer
 from textual.widgets import Header, Static, Placeholder, Input, Label, Button
 
 
@@ -30,13 +30,8 @@ class InputArea(Container):
         yield Input(placeholder="Text input", id="input01")
         yield Button("Submit", id="button01")
 
-class ResultAreaVerticalScroll(VerticalScroll):
-    def compose(self) -> ComposeResult:
-        yield ResultArea(id="resultArea")
-        yield ResultAreaTwo(id="resultAreaTwo")
 
-
-class ResultArea(Container):
+class ResultArea(ScrollableContainer):
     def compose(self) -> ComposeResult:
         yield Placeholder("Result Item one", classes="resultItems")
         yield Placeholder("Result Item two", classes="resultItems")
@@ -54,23 +49,11 @@ class ResultArea(Container):
         yield Placeholder("Result Item twelve", classes="resultItems")
 
 
-class ResultAreaTwo(Container):
-    def compose(self) -> ComposeResult:
-        # Note that since Result area is a grid, it does not scroll. 
-        # we should probably put this within a vertical scroll
-        yield Placeholder("Result Item ten", classes="resultItems")
-        yield Placeholder("Result Item eleven", classes="resultItems")
-        yield Placeholder("Result Item twelve", classes="resultItems")
-        yield Placeholder("Result Item thrteen", classes="resultItems")
-        yield Placeholder("Result Item fourteen", classes="resultItems")
-        yield Placeholder("Result Item fifteen", classes="resultItems")
-
 
 class ContentArea(Container):
     def compose(self) -> ComposeResult:
         yield InputArea(id="inputArea")
-        yield ResultAreaVerticalScroll(id="resultAreaVerticalScroll")
-        #yield ResultArea(id="resultArea")
+        yield ResultArea(id="resultArea")
 
 
 class MainScreen(Screen):
@@ -80,7 +63,7 @@ class MainScreen(Screen):
 
 
 class MainApp(App):
-    CSS_PATH = "layout02.tcss"
+    CSS_PATH = "layout03.tcss"
     def on_mount(self) -> None:
         self.push_screen(MainScreen(id="mainScreen"))
 
