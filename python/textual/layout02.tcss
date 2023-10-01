@@ -1,0 +1,32 @@
+ #mainScreen {
+    layout: horizontal;
+ }
+
+ #sideMenuBar {
+    width: 1fr;
+    layout: vertical;
+}
+
+#contentArea {
+    layout: vertical;
+    width: 3fr;
+    padding-left: 1;
+}
+
+#inputArea {
+    layout: grid;
+    grid-size: 2 1;
+    border: blue;
+    height: 5;
+}
+
+#resultArea {
+    layout: grid;
+    grid-size: 3 3;
+}
+
+.menuItems {
+    height: 5;
+    padding: 1;
+    margin-bottom: 1;
+}

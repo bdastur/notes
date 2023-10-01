@@ -104,9 +104,10 @@ class ContentScreen(Container):
 class MainScreen(Screen):
     sideBar = None
     content = None
+    CSS_PATH = "main.tcss"
 
     def compose(self) -> ComposeResult:
-        yield Header("ToolBox")
+        yield Header(name="ToolBox")
         yield Footer()
         self.sideBar = SideBar(id="left-sidebar")
         yield self.sideBar

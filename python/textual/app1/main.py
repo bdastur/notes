@@ -13,12 +13,15 @@ import cwLogsScreen
 class MainApp(App):
     CSS_PATH = "main.tcss"
     SCREENS = {"main": mainScreen.MainScreen(id="main-screen"),
-               "cwlogs": cwLogsScreen.CWLogsScreen(id="cwlogs-screen") } 
+               "cwlogs": cwLogsScreen.CWLogsScreen(id="cwlogsScreen") } 
     BINDINGS=[("m", "switch_screen('main')", "MainScreen"),
                ("c", "switch_screen('cwlogs')", "CWLogsScreen")]
     
     def on_mount(self) -> None:
+        self.title = "Cloud Tools"
+        #self.push_screen(cwLogsScreen.CWLogsScreen(id="cwlogsScreen"))
         self.push_screen(mainScreen.MainScreen(id="main-screen"))
+        #self.switch_screen(cwLogsScreen.CWLogsScreen(id="cwlogsScreen"))
 
 
 def main():

@@ -1,0 +1,22 @@
+{
+    "cloud-aws": {
+        "dev": {
+            "region": "us-east-1",
+            "description": "Dev environment",
+            "accountId": "000000000000",
+            "profile": "dev0"
+        },
+        "stage": {
+            "region": "us-west-2",
+            "description": "Staging environment for ACME service",
+            "accountId": "000000000000",
+            "profile": "dev0"
+        }
+    },
+    "cloud-mycloud": {
+        "dev": {
+            "zone": "us-east",
+            "env": "Staging"
+        }
+    }
+}
