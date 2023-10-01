@@ -30,3 +30,8 @@
     padding: 1;
     margin-bottom: 1;
 }
+
+.resultItems {
+    margin-right: 1;
+    margin-bottom: 1;
+}

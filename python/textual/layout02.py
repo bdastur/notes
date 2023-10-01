@@ -24,11 +24,22 @@ class InputArea(Container):
 
 class ResultArea(VerticalScroll):
     def compose(self) -> ComposeResult:
-        yield Placeholder("Result Item one")
-        yield Placeholder("Result Item one")
-        yield Placeholder("Result Item one")
-        yield Placeholder("Result Item one")
-        yield Placeholder("Result Item one")
+        yield Placeholder("Result Item one", classes="resultItems")
+        yield Placeholder("Result Item two", classes="resultItems")
+        yield Placeholder("Result Item three", classes="resultItems")
+        yield Placeholder("Result Item four", classes="resultItems")
+        yield Placeholder("Result Item five", classes="resultItems")
+        yield Placeholder("Result Item six", classes="resultItems")
+        yield Placeholder("Result Item seven", classes="resultItems")
+        yield Placeholder("Result Item eight", classes="resultItems")
+        yield Placeholder("Result Item nine", classes="resultItems")
+        # Note that since Result area is a grid, it does not scroll. 
+        # we should probably put this within a vertical scroll
+        yield Placeholder("Result Item ten", classes="resultItems")
+        yield Placeholder("Result Item eleven", classes="resultItems")
+        yield Placeholder("Result Item twelve", classes="resultItems")
+        
+
 
 
 class ContentArea(Container):
