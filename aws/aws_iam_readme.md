@@ -12,6 +12,7 @@
 * [Example policies](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_examples.html)
 * [Example of policy summaries](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_policy-summary-examples.html)
 * [S3 condition key examples](https://docs.aws.amazon.com/AmazonS3/latest/userguide/amazon-s3-policy-keys.html)
+* [Forward access sessions](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_forward_access_sessions.html)
 
 ## AWS Arn:
 
