@@ -52,6 +52,7 @@
 * [List of vim bundles](https://github.com/sharpicx/dotfiles/tree/main/.vim/plugged)
 * [PlantUML - generate diagrams](https://plantuml.biz/en/guide)
 * [Large collection of opensource frameworks/tools/libraries](https://free-for.dev/#/)
+* [Convert shell script to compiled C code - https://github.com/neurobin/shc](https://neurobin.github.io/shc/)
 
 # Linux tips:
 
