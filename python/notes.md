@@ -176,6 +176,15 @@ __________ summary ____________
 
 ## Documentation tools:
 
+### pdoc3:
+Fastest way to generate python documentation.
+
+```
+pip install pdoc3
+> pdoc3 -html .
+
+```
+
 ### Sphinx.
 **Links:**
 http://www.sphinx-doc.org/en/stable/tutorial.html
