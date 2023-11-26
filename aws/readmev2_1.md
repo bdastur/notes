@@ -9,8 +9,8 @@ NOTE:
 
 **Useful links:**
 * [AWS Well-architected framework](https://wa.aws.amazon.com/wat.concepts.wa-concepts.en.html)
-* [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html) 
-* [AWS Architecture Center](https://aws.amazon.com/architecture/) 
+* [AWS Well-Architected Framework](https://docs.aws.amazon.com/wellarchitected/latest/framework/welcome.html)
+* [AWS Architecture Center](https://aws.amazon.com/architecture/)
 * [AWS How pricing works](https://docs.aws.amazon.com/whitepapers/latest/how-aws-pricing-works/introduction.html)
 * [S3 FAQ](https://aws.amazon.com/s3/faqs/)
 * [S3 - Deleting versioned objects](https://docs.aws.amazon.com/AmazonS3/latest/userguide/DeletingObjectVersions.html)
@@ -20,7 +20,7 @@ NOTE:
 * [S3 VPC Endpoint](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints-s3.html)
 * [S3 - Managing cross account access](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-walkthroughs-managing-access-example2.html)
 * [S3 cross account access](https://aws.amazon.com/premiumsupport/knowledge-center/cross-account-access-s3/)
-* [S3 thread model](https://controlcatalog.trustoncloud.com/dashboard/aws/s3) 
+* [S3 thread model](https://controlcatalog.trustoncloud.com/dashboard/aws/s3)
 * [EC2 Burstable performance concept](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-credits-baseline-concepts.html)
 * [AMI - copy an AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/CopyingAMIs.html#ami-copy-steps)
 * [EC2 - using spot instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html)
@@ -641,6 +641,31 @@ Example 3:
         "Resource": "*",
         "Condition": {"BoolIfExists": {"aws:MultiFactorAuthPresent": "false"}}
     }]
+}
+```
+
+Example 4:
+* This example policy allows access to dynamodb:GetItem, but only between
+  Jul 1, 2020 and Dec 31, 2020 and if initiated from a specific vpc.
+```
+{
+    "Version": "2012-10-17",
+    "Statement": {
+        "Effect": "Allow",
+        "Action": "dynamodb:GetItem",
+        "Resource": "*",
+        "Condition": {
+            "DateGreaterThan": {
+                "aws:CurrentTime": "2020-07-01T00:00:00Z"
+            },
+            "DateLessThan": {
+                "aws:CurrentTime": "2020-12-31T23:59:59Z"
+            }
+        },
+        "StringEquals": {
+            "aws:SourceVpc": "vpc-111bbb22"
+        }
+    }
 }
 ```
 
@@ -2543,7 +2568,7 @@ An SQS message has three basic states:
 
 The message.json file looks like this:
 ```
- %~> more message.json 
+ %~> more message.json
 {
     "Raw": {
         "Data": "This is a test message - raw email from CLI"
