@@ -25,9 +25,13 @@
 * To replace the IAM role on an instance that already has an attached IAM 
   role, the instance must be in the running state.
 
-
+## Instance metadata
+*Version 1*
 * Instance metadata: http://169.254.169.254/latest/meta-data/                                
 * Instance user data: http://169.254.169.254/latest/user-data/
+
+*Version 2*
+
 
                                                                                 
 **Termination Protection**                                                      

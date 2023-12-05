@@ -50,6 +50,8 @@ NOTE:
 * [AWS Samples - github](https://github.com/aws-samples)
 * [AWS Skillbuilder site](https://explore.skillbuilder.aws/learn/signin)
 * [EC2 instance connect - a better way to ssh into EC2 instances](https://aws.amazon.com/blogs/compute/secure-connectivity-from-public-to-private-introducing-ec2-instance-connect-endpoint-june-13-2023/)
+* [Cloud design patterns](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/acl.html)
+
 
 **Walkthroughs exercises**:
 * [Serverless Lab](https://github.com/saha-rajdeep/serverless-lab)
@@ -61,6 +63,7 @@ NOTE:
 * [Convert cloudformation templates to diagrams](https://github.com/mhlabs/cfn-diagram)
 * [A collection of projects](https://github.com/acantril/learn-cantrill-io-labs/blob/master/get-paid-to-create-projects.md)
 * [Python SDK Code examples (Dynamodb)](https://docs.aws.amazon.com/code-library/latest/ug/python_3_dynamodb_code_examples.html)
+
 
 ## Concepts:
 
@@ -3504,6 +3507,24 @@ AWS tools for CI/CD:
 * Services that use ECS: Sagemaker, Amazon Lex, Amazon.com
 
 --------------------------------------------------------------------------------
+### Cloud design patterns.
+* [AWS Architecture Center](https://aws.amazon.com/architecture/compute-hpc/?docec2_rl1/index.html&cards-all.sort-by=item.additionalFields.sortDate&cards-all.sort-order=desc&awsf.content-type=*all&awsf.methodology=*all)
+* [Cloud design patterns](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/acl.html)
+
+1. Anti-corruption layer pattern.
+2. API routing patterns
+    2.1 Hostname routing
+    2.2 Path routing
+    2.3 Header-based routing.
+3. Circuit breaker pattern
+4. Event sourcing pattern
+5. Publish-subscribe pattern
+6. Retry with backoff pattern
+7. Saga pattern
+8. Strangler fig pattern
+9. Transactional outbox pattern
+
+
 
 #--------------------------------------------------------------------------------
 ## Follow ups
