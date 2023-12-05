@@ -445,6 +445,33 @@ $              # end word
 ```
 
 
+## How to stub boto3 APIs.
+
+* [stackoverflow answers](https://stackoverflow.com/questions/37143597/mocking-boto3-s3-client-method-python)
+
+```
+import boto3
+from botocore.stub import Stubber
+
+session = boto3.Session(profile_name="dev", region_name="us-east-1")
+client = session.client("dynamodb")
+
+# This invocation will work as intended.
+ret = client.list_tables()
+
+# Now to stub.
+stubber = Stubber(client)
+stubber.add_client_error("list_tables")
+stubber.activate()
+
+# This invocation will return a boto exception.
+ret = client.list_tables()
+
+# To deactivate the stubber.
+stubber.deactivate()
+
+
+```
 
 
 
