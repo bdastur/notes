@@ -6,10 +6,23 @@
 * [AWS Cloudformation getting started](https://aws.amazon.com/cloudformation/getting-started/)
 
 
+* 'Resources' is the only mandatory section in a CFN template.
 * Naming an IAM resource can cause an unrecoverable error if you reuse the same
   template in multiple Regions. To prevent AWS recommends using Fn::Join and AWS::Region
   to create Region-specific name. eg: {"Fn::Join": ["", [{"Ref": "AWS::Region"},
                                                          {"Ref": "MyResourceName"}]]}.
+
+## Sections.
+*Parameters*
+*Mappings*
+*Conditions*
+- Provision resources based on conditions.
+
+*Transform*
+- Allows you to reference code located in S3, eg Lambda code or reusable snippets
+  of CloudFormation code.
+*Resources*
+*Output*
 
 
 ## Creating a new Stack.
@@ -262,6 +275,42 @@ your template. Use them the same way as you would a parameter usign !Ref functio
 AWS::AccountId
 
 AWS::NotificationARNs
+
+
+## Cloudformation StackSet.
+* Create, delete and update your CFN stacks across multiple AWS accounts & regions
+  using a single operation.
+* Requires cross-account roles - create IAM role in admin account and create
+  service roles in target accounts, allowing the admin account role to assume the
+  service role.
+
+
+## Stack Policy
+Defines the resources that you want to protect from unintentional updates during a stack update.
+
+Example:
+example stack policy that allows update to all resources, but explicitly sets a deny to
+update the ProductionDatabase resource.
+
+```
+{
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "Update:*",
+      "Principal": "*",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Deny",
+      "Action": "Update:*",
+      "Principal": "*",
+      "Resource": "LogicalResourceId/ProductionDatabase"
+    },
+  ]
+
+}
+```
 
 
 

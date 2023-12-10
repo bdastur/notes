@@ -31,7 +31,26 @@
 * Instance user data: http://169.254.169.254/latest/user-data/
 
 *Version 2*
+* Why IMDSv2.
+Using IMDSv2 offers additional protections against:
+ - Open Website Application Firewalls
+ - Open reverse proxies
+ - SSRF vulnerabilities
+ - Open layer 3 firewalls and NATS
 
+Using:
+IMDSv2 uses session oriented requests. You create a session token that defines the
+session duration, with minimum 1 second and max 6 hours. 
+
+* Create a session token
+```
+TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
+```
+
+* Use the generated token.
+```
+curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/
+```
 
                                                                                 
 **Termination Protection**                                                      
@@ -237,8 +256,7 @@ Compute and n/w services that allow HPC:
 * PG
 * Elastic fabric adapters
 
-## Spot Instances.
-* Enables you to purchase unused capacity at a discount of up to 90%.
+
 
 
 

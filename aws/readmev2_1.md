@@ -980,7 +980,7 @@ you can use:
 --------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-## Simple Storage Service (S3):
+## Service: Simple Storage Service (S3):
 #--------------------------------------------------------------------------------
 
 * Secure, durable, highly scalable object storage.
@@ -1099,6 +1099,35 @@ You are charged for:
         }]
      }
 ```
+
+* Another bucket policy example:
+allow access to a bucket only from certain IP addresses.
+```
+    {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowFromMyNetworkOnly",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::mybucket/path/to/object/*"
+            ],
+            "Condition": {
+                "IpAddress": {"aws:SourceIp": "10.0.12.0/24"},
+                "NotIpAddress": {
+                    "aws:SourceIp": [
+                        "192.168.2.40/32",
+                        "172.22.10.0/28"
+                    ]
+                }
+            }
+        }]
+     }
+```
+IpAddress condition explicitly allows access to bucket from specific addresses.
+
 
 **Additional docs**
 * [AWS Doc on blocking S3 traffic by VPC or IP](https://aws.amazon.com/premiumsupport/knowledge-center/block-s3-traffic-vpc-ip/)
@@ -1253,8 +1282,9 @@ u'https://my-test-bucket.s3.amazonaws.com/scripts/volume_helper.py?AWSAccessKeyI
   it does not get replicated to the dest bucket, it's only when you delete
   an object that it gets deleted from the replicated bucket.
 
-
 --------------------------------------------------------------------------------
+
+## S3 Inventory
 
 
 
@@ -1407,7 +1437,7 @@ Core concepts:
 
 
 #--------------------------------------------------------------------------------
-## Storage Gateway (On-prem services)
+## Service: Storage Gateway (On-prem services)
 #--------------------------------------------------------------------------------
 * [Storage gateway FAQ](https://aws.amazon.com/storagegateway/faqs/)
 * Connects on-prem software appliance with cloud based storage.
@@ -1419,7 +1449,7 @@ Core concepts:
   - Tape based storage solutions.
 
 --------------------------------------------------------------------------------
-## S3 File Gateway:
+## Service: S3 File Gateway:
 * Provides access to objects in S3 as files on NFS mount point.
 * It combines a service and virtual software appliance.
 * The appliance/gateway is deployed on the premise on a VMware ESXi, Microsoft
@@ -1441,7 +1471,7 @@ Core concepts:
   using SMB protocol.
 --------------------------------------------------------------------------------
 
-## Volume gateway:
+## Service: Volume gateway:
 * The volume interface presents your applications with disk volumes using the
   iSCSI block protocol.
 * Data written to these volumes asynchronously backed up as point-in-time snapshots
@@ -1502,17 +1532,25 @@ Core concepts:
 --------------------------------------------------------------------------------
 
 
-
-
+## Service: Amazon OpenSearch
+* Service domain consist of Master Notes and Data Nodes.
+* master nodes: review health monitoring data, track nodes in cluster, maintain
+  routing info, update the cluster state after changes.
+* data nodes: store the data in shards. Perform searches, query requests, and
+  CRUD operations.
+* When you create a OpenSearch cluster you can make it public or keep it private to
+  your VPC. If you create a domain with a public endpoint you can not later
+  place it within a VPC. Similarly if you create a domain in VPC, you can not add a
+  public endpoint later.
 
 
 
 
 #--------------------------------------------------------------------------------
-## Athena vs Macie
+## Service: Athena vs Macie
 #--------------------------------------------------------------------------------
 
-## Athena
+## Service: Athena
 * Interactive query service which enabies you to analyze and query data located in
   S3 using standard SQL.
 * Serverless, nothing to provision, pay per query / TB scanned.
@@ -2846,7 +2884,7 @@ IOT    --------> Shard  ------------->  EC2
 
 --------------------------------------------------------------------------------
 
-## OpsWorks
+## Service: OpsWorks
 * A configuration management service that helps you configure and operate apps
   in a cloud by using Puppet or Chef.
 * Can work with any application, and is independent of any architectural patterns.
@@ -2864,6 +2902,7 @@ IOT    --------> Shard  ------------->  EC2
 **OpsWorks for Stacks**
 * Provides a simple and flexible way to create and manage stacks and applications.
 * A stack is a group of instances like EC2 instances and RDS instances.
+* Each layer (eg: DB, app services, LB) of the stack is configured using Chef recipes.
 
 --------------------------------------------------------------------------------
 
@@ -2972,7 +3011,7 @@ Uses Resource:
 
 --------------------------------------------------------------------------------
 
-## AWS Config:
+## Service: AWS Config:
 * Service that provides you with AWS resource inventory, configuration history,
   configuration change notification.
 * Gives detailed view of configuration of AWS resources, including how resources
@@ -3681,6 +3720,28 @@ KMS
 Step functions, Lambda
 API GW, LAMBDA
 Cognito.
+
+--------------------------------------------------------------------------------
+## Service: EC2 Image Builder.
+---------------------------
+*Components:*
+
+* Image pipeline
+  * Image Recipies - describes the base image, user data, build & test components
+  * Infrastructure configuration - specify the instance type, iam role, VPC, SG etc.
+  * Distribution settings - output AMI name, encryption, target accounts and regions to
+                            copy
+* Image pipeline is free to use, however you incur changes for resources that are
+  created and using during image build, as well as cost of EBS volumes, snapshots
+  created.
+
+## Service: AWS Backup.
+----------------------
+* Create backup plan - add one or more rules that define the backup.
+* Assing resources you want oto backup
+* Backup vault - after backup job is complete, it will appear in the backup vault.
+
+
 
 
 
