@@ -483,14 +483,53 @@ xvdk    202:160  0 1000G  0 disk
 
 
 
-## Elastic File System (EFS:)
+## Service: Elastic File System (EFS:)
+* Highly available and scalable shared file system for Linux based workloads.
+* You can enable encryption in transit and at rest. You will need to enable
+  encryption at rest during creation time. You cannot enable Encryption at rest
+  on an EFS that has already been created.
+  Linux based workloads.
 * Supports NFS V4 protocol.
-* You only pay for the storage you use.
 * You can scale up to petabytes.
 * Can support thousand of concurrent NFS connections.
-* Data is stored across multiple AZs within a region.
 * Read after write consistency
 * Great use case for a file server.
+
+
+*EFS Storage Classes*
+                             Use case           Durability Availability  AZs     Considerations
+- EFS Standard             Frequently accessed      11 9's    99.99%      >= 3       N/A
+                           data, needs highest
+                           availability
+- EFS Standard-Infrequent  Infrequently accessed    11 9's    99.99%      >= 3   Per GB retrieval fees
+  Access (IA)              needs highest 
+                           availability
+- EBS One Zone             Frequently accessed       11 9s    99.90%       1     Not resilient to the loss
+                           data, doesn't require                                 of AZ
+                           highest availability 
+- EFS One Zone IA          Infrequently accesse      11 9s    99.90%       1     Not resilient to the loss
+                           data, doesen't require                                of AZ.
+                           highest availability                                  Per GB retrieval fees
+
+*Throughput Mode*
+  * Bursting: Default mode, scales as your file system grows, supports perioding bursting to
+    cater to peaks.
+    - All EFS filesystems can burst to atleast 100 MiB/S.
+    - Filesystems > 1 TB in size of standard storage class can burst to 100 MiB/s per
+      TB of data stored. (eg a 10 TiB filesystem can burst to 10 x 100 MiB/s of metered
+      throughput)
+    - The larger the file system, the greater the bursting throughput and longer the
+      duration it will be able to burst for.
+
+  * Provisioned: Define the throughput you want. For apps that need consistenly high
+    performance.
+
+* If using EFS One-Zone storage class, you can only create one mount target in the
+  same AZ as your EFS file system. You will incur data access charges for 
+  instances located in different AZ to the mount target.
+
+
+
 
 ## Amazon FSx for Luster:
 * Designed for fast processing of workloads like ML, HPC, video processing,
