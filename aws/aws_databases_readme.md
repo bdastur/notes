@@ -622,7 +622,7 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
 
 
 #---------------------------------------------------------------------
-## Amazon Redshift:
+## Service: Amazon Redshift:
 #---------------------------------------------------------------------
 * Fast powerful, fully managed petabyte scale data warehouse service
 * Relational database designed for *OLAP* scenarios.
@@ -635,7 +635,7 @@ Burst duration = (credit balance) / (burst IOPS) - 3 x (storage size in GiB)
   the original and replica on compute nodes and a backup in S3)
 
 #---------------------------------------------------------------------
-## ElastiCache:
+## Service: ElastiCache: (deprecate)
 #---------------------------------------------------------------------
 * Improves application performance by storing the most frequently accessed
   data in memory.

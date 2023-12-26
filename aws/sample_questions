@@ -1,0 +1,460 @@
+Monitoring, Logging and Remediation
+Reliability and Business Continuity
+Deployment, Provisioning and AUtomation
+ - Create and manage AMIs (Image Builder)
+ - use CFN proficiently
+ - Provision resources across multipe regions and accounts (AWS resource access manager, CFN stacksets, IAM cross account roles)
+ - Selected deployment scenarios and services (blue/green, rolling deployments)
+ - Fix deployment issues
+ - opsworks, SSM, EVB, AWS config
+
+
+Security and compliance
+Networking and content delivery
+Cost and performance optimization
+
+
+1. A company has a VPC that has a private IP address space of 10.0.0.0/16. The company has used up all the existing private IP space. A SysOps administrator must resolve this issue with a solution that minimizes complexity and maximizes cost-effectiveness.
+
+Which solution meets these requirements?
+
+2. Question
+A telecommunications company is developing a new application. A third-party vendor is passing observability log files through Amazon EventBridge to invoke an AWS Lambda function. The Lambda function processes the log files and then writes the results to an Amazon S3 bucket. In testing, EventBridge is sending all log files immediately to an Amazon Simple Queue Service (Amazon SQS) dead-letter queue instead of attempting any retry.
+
+Which step should the SysOps administrator take to troubleshoot this issue?
+
+
+3. Question
+A company hosts an internal application on Amazon EC2 instances. All application data and requests route through an AWS Site-to-Site VPN connection between the on-premises network and AWS. The company must monitor the application for changes that allow network access outside of the corporate network. Any change that exposes the application externally must be restricted automatically. 
+
+Which solution meets these requirements in the MOST operationally efficient manner?
+
+4. Question
+An Amazon EC2 instance is running in a private subnet. A SysOps administrator is able to use SSH to connect to the EC2 instance from a bastion host instance that runs inside the same VPC subnet.
+
+When the SysOps administrator attempts to ping the EC2 instance from the bastion host instance, no response is received. ICMP traffic must be allowed, according to company policy.
+
+What should the SysOps administrator do to troubleshoot this issue?
+
+5. Question
+On a weekly basis, the administrator for a photo sharing website receives an archive of all files that users have uploaded the previous week. These file archives can be as large as 10 TB in size. For legal reasons, these archives must be saved in such a way that no one can delete or modify them. Occasionally, there might be a need to view the contents, but retrieval can take 3 or more hours.
+
+What should the administrator do with the weekly archive to meet these requirements?
+
+6. Question
+A SysOps administrator needs a secure way to connect to AWS Key Management Service (AWS KMS) within a VPC. The SysOps administrator must ensure that connections to AWS KMS do not traverse the internet.
+
+What is the MOST secure solution that meets these requirements?
+
+7. Question
+A company is hosting a web application on a fleet of Amazon EC2 instances behind an Application Load Balancer. The instances run in an Amazon EC2 Auto Scaling group.
+
+The company decides that it does not want the number of instances to scale. Instead, the company wants the number of instances to be 10.
+
+Which solution meets this requirement and is the MOST operationally efficient?
+
+
+8. Question
+A real estate company is deploying a legacy web application on Amazon EC2 instances. The instances run in an Amazon EC2 Auto Scaling group. The application uses an Amazon RDS for MySQL DB instance for its database. The company needs the database to be highly available.
+
+How can a SysOps administrator meet these requirements?
+
+
+9. Question
+A SysOps administrator has restored an Amazon Elastic Block Store (Amazon EBS) volume from an EBS snapshot. The new EBS volume initially experienced high latency that resolved over time.
+
+What can the SysOps administrator do to avoid this latency in the future?
+
+
+10. Question
+A company uses a shared Amazon S3 bucket to store data for several customers. The company wants to report on S3 storage costs for each customer.
+
+All objects in the shared S3 bucket have a tag that is named Customer, and the tag value is set to the customer's company name. The Customer tag is already turned on as a cost allocation tag and is used to track other resource types such as Amazon EC2 and Amazon Elastic Block Store (Amazon EBS).
+
+When the finance team uses Cost Explorer, the team can group and filter EC2 costs and EBS costs by Tag=Customer. However, the team cannot see S3 object costs by Tag=Customer.
+
+What is the MOST likely reason for the team's inability to see the S3 object costs?
+
+11. Question
+A company hosts a data processing application on a fleet of 50 Amazon EC2 instances that are all running from the same Amazon Linux 2 Amazon Machine Image (AMI). Each instance is tagged with the application name.
+
+A new operating system security patch needs to be applied to all 50 instances. A SysOps administrator must apply the patch to the instances by using automation tools. The SysOps administrator also must automate future patching with as little human interaction as possible. After the patches are applied, a report must be generated to show which instances are in compliance with the latest security patch.
+
+Which solution meets these requirements?
+
+12. Question
+A SysOps administrator wants to encrypt an existing Amazon RDS DB instance with AWS Key Management Service (AWS KMS).
+
+How should the SysOps administrator accomplish this goal?
+
+13. Question
+A company is running a site on Amazon EC2 instances. The application stores data in an Amazon RDS for MySQL DB instance and has implemented read caching by using an Amazon ElastiCache for Redis (cluster mode enabled) cluster to improve read times. An event is happening over the weekend, and a SysOps administrator expects website traffic to triple.
+
+What can be done to ensure improved read times for users during the event?
+
+
+14. Question
+A company's audit shows that users have been changing cost-related tags on Amazon EC2 instances after deployment. The company has an organization in AWS Organizations with many AWS accounts.
+
+The company needs a solution to detect the EC2 instances automatically. The solution must require the least possible operational overhead.
+
+Which solution meets these requirements?
+
+15. Question
+A robotics company is building an application that uses an Apache Cassandra cluster. The cluster runs on Amazon EC2 instances that will be deployed into a placement group. A SysOps administrator must design for maximum resiliency of the compute layer.
+
+Which deployment strategy meets this requirement?
+
+16. Question
+A company is running an application on Amazon EC2 instances that are located in a private subnet. The application requires access to data that is stored in an Amazon S3 bucket.
+
+Which solution meets this requirement with the LEAST operational overhead?
+
+
+17. Question
+A company needs to deploy a web application on two Amazon EC2 instances behind an Application Load Balancer (ALB). Two EC2 instances will also be deployed to host the database. The infrastructure needs to be designed across Availability Zones (AZs) for high availability and must limit public access to the instances as much as possible.
+
+How should this be achieved within a VPC?
+
+18. Question
+A company has received a notification in its AWS Health Dashboard that one of its Amazon EBS-backed Amazon EC2 instances is on hardware that is scheduled for maintenance. The instance runs a critical production workload that must be available during normal business hours.
+
+Which step will ensure that the instance maintenance does not produce an outage?
+
+
+19. Question
+A SysOps administrator needs to configure a solution that will deliver digital content to a set of authorized users through Amazon CloudFront. Unauthorized users must be restricted from access.
+
+Which solution will meet these requirements?
+
+20. Question
+A team is responsible for managing multiple Amazon RDS DB instances with different database engines. The team members need to be immediately notified when any of the DB instances are stopped or restarted.
+
+Which solution will meet these requirements with the LEAST amount of operational overhead?
+
+
+21. Question
+A company is hosting a website on an Amazon EC2 instance that runs in a public subnet inside a VPC. The company uses Amazon CloudWatch Logs for web server log analysis.
+
+A SysOps administrator has installed and configured the CloudWatch Logs agent on the EC2 instance and has confirmed that the agent is running. However, logs are not showing up in CloudWatch Logs.
+
+Which solution will resolve this issue?
+
+
+22. Question
+A company is requesting build statistics from its development teams. These development teams use AWS CodePipeline with AWS CodeCommit, AWS CodeBuild, and AWS CodeDeploy for the continuous integration/continuous delivery (CI/CD) process.
+
+Which solution creates this report with the LEAST amount of effort?
+
+23. Question
+A SysOps administrator has set up a new Amazon EC2 Auto Scaling group. The desired capacity is 20 instances during the day, but a job changes the desired capacity to 10 instances overnight.
+
+When CPU utilization is below 20% across the instances, a single instance must be automatically removed every 400 seconds when the condition applies.
+
+What is the MOST operationally efficient way to configure this change?
+
+24. Question
+A SysOps administrator uses the aws s3 ls s3://bucketname command and receives an empty response for an Amazon S3 bucket that needs to be deleted. When the SysOps administrator runs the aws s3 rb s3://bucketname command on the S3 bucket, Amazon S3 returns a BucketNotEmpty error and does not remove the S3 bucket.
+
+Why is the SysOps administrator unable to delete the S3 bucket?
+
+
+25. Question
+A company runs a mobile app that hosts photos. Users from all over the world use their mobile devices to upload photos to the app for storage. The app makes API calls to Amazon S3 for image storage. The S3 bucket that the company uses for image uploads is hosted in one AWS Region. All the supporting AWS resources for the app also are hosted in that Region.
+
+Users who are located physically far away from the Region where the app is hosted are reporting high latency with the image upload feature. A SysOps administrator must reduce latency for image uploads without making any changes to the app.
+
+Which solution meets these requirements?
+
+
+26. Question
+A company needs to meet a new compliance standard that prohibits unrestricted access to SSH on its Amazon EC2 instances. A SysOps administrator must configure a monitoring solution that includes auto-remediation if unrestricted SSH ports are identified.
+
+Which solution will meet these requirements?
+
+
+27. Question
+A company has several AWS member accounts in an organization in AWS Organizations. The company has chosen to receive AWS Cost and Usage Reports in its management account and has specified the name of the Amazon S3 bucket in which to store these reports. However, none of the member account owners can view the reports.
+
+Why are the member account owners unable to view the reports?
+
+
+28. Question
+A SysOps administrator is receiving alerts related to high CPU utilization of a Memcached-based Amazon ElastiCache cluster.
+
+Which remediation steps should be taken to resolve this issue? (Select TWO.)
+
+
+29. Question
+A VPC is connected to a company data center by a VPN. An Amazon EC2 instance with the IP address 172.31.16.139 is within a private subnet of the VPC. A SysOps administrator issued a ping command to the EC2 instance from an on-premises computer with the IP address 203.0.113.12 and did not receive an acknowledgment. VPC Flow Logs were enabled and showed the following:
+
+2 123456789010 eni-1235b8ca 203.0.113.12 172.31.16.139 0 0 1 4 336 1432917027 1432917142 ACCEPT OK
+
+2 123456789010 eni-1235b8ca 172.31.16.139 203.0.113.12 0 0 1 4 336 1432917094 1432917142 REJECT OK 
+
+Which action will resolve the issue?
+
+
+30. Question
+A financial company runs a regulated web application. The company uses AWS CloudFormation to deploy the application. The application runs on Amazon EC2 instances behind an Application Load Balancer (ALB). The instances run in an Amazon EC2 Auto Scaling group.
+
+For compliance, the company must send a complete copy of all regulated data on the attached Amazon Elastic Block Store (Amazon EBS) volumes to an Amazon S3 bucket before an EC2 instance is terminated. In testing, some EC2 instances are terminated before the data can be completely copied.
+
+What can a SysOps administrator do to resolve this problem in normal operating conditions?
+
+
+31. Question
+A company has a development team that performs testing on AWS. The costs of this testing must remain within budget. Only a defined subset of AWS services and resources should be available for testing.
+
+Which solution will meet these requirements?
+
+
+32. Question
+A company wants to track Amazon EC2 usage charges that are based on the value of a tag that is named Business-Unit. Company leaders instruct developers to update all EC2 resources with the tag. The developers notify the leaders that they have completed this task.
+
+Later that week, a finance team member checks Cost Explorer. The finance team member sees EC2 costs in the different accounts but cannot find the Business-Unit tag to filter by or group by.
+
+What is the MOST likely reason that the Business-Unit tag is absent?
+
+
+33. Question
+A company's AWS account users are launching Amazon EC2 instances without required cost allocation tags. A SysOps administrator needs to prevent users within an organization in AWS Organizations from launching new EC2 instances that do not have the required tags. The solution must require the least possible operational overhead.
+
+Which solution meets these requirements?
+
+34. Question
+A company that hosts a multi-tier ecommerce web application on AWS has been alerted to suspicious application traffic. The architecture consists of Amazon EC2 instances deployed across multiple Availability Zones behind an Application Load Balancer (ALB). After examining the instance logs, a SysOps administrator determines that the suspicious traffic is an attempted SQL injection attack.
+
+What should the SysOps administrator do to prevent similar attacks?
+
+
+35. Question
+A SysOps administrator implemented the following bucket policy to allow only the corporate IP address range of 54.240.143.0/24 to access objects in an Amazon S3 bucket:
+
+{
+
+    "Version": "2012-10-17",
+
+    "Id": "S3PolicyId1",
+
+    "Statement": [
+
+        {
+
+            "Sid": "S3Allow",
+
+            "Effect": "Allow",
+
+            "Principal": "*",
+
+            "Action": "s3:*",
+
+            "Resource": [
+
+                "arn:aws:s3:::examplebucket",
+
+                "arn:aws:s3:::examplebucket/*"
+
+            ]
+
+        },
+
+        {
+
+            "Sid": "IPAllow",
+
+            "Effect": "Allow",
+
+            "Principal": "*",
+
+            "Action": "s3:*",
+
+            "Resource": [
+
+                "arn:aws:s3:::examplebucket",
+
+                "arn:aws:s3:::examplebucket/*"
+
+            ],
+
+            "Condition": {
+
+                "NotIpAddress": {
+
+                    "aws:SourceIp": "54.240.143.0/24"
+
+                }
+
+            }
+
+        }
+
+    ]
+
+}
+
+Some employees are reporting that they are able to access the S3 bucket from IP addresses outside the corporate IP address range.
+
+How can the administrator address this issue?
+
+
+36. Question
+A company recently adopted a compliance policy that requires a multi-Region presence for all data that is stored for a project. The data consists of CSV files and JSON files. The data is stored in an Amazon S3 bucket in the us-west-2 Region.
+
+Data in the second Region will exist for compliance purposes only. The data will not be accessed through the secondary Region under normal operating conditions. The company needs a solution that minimizes cost.
+
+Which solution meets these requirements?
+
+37. Question
+A company recently migrated its three-tier web application to AWS. The application runs on Amazon EC2 instances that are in an Auto Scaling group. A SysOps administrator must create a monitoring dashboard to watch CPU and network utilization for each instance at 1-minute intervals.
+
+How can the SysOps administrator meet this requirement?
+
+38. Question
+A company has hundreds of Amazon EC2 instances in its environment. The company's security team wants to make sure that all the security patches and critical patches are installed on all the EC2 instances. A SysOps administrator needs to automate this process.
+
+How can the SysOps administrator meet this requirement?
+
+
+39. Question
+A company needs to review its use of AWS services. The company also must forecast expenses for the current billing period.
+
+Which AWS service or tool should the company use to meet these requirements?
+
+40. Question
+A company is building a web service on Amazon EC2 instances behind an Elastic Load Balancing (ELB) load balancer. External clients must be able to add specific public IP addresses to an allow list in their firewalls to access the company's web service.
+
+Which load balancer or ELB feature should the company use to meet these requirements?
+
+
+41. Question
+A SysOps administrator manages an AWS CloudFormation template that provisions Amazon EC2 instances, an Elastic Load Balancer, and Amazon RDS instances. As part of an ongoing transformation project, CloudFormation stacks are being created and deleted continuously. The administrator needs to ensure that the RDS instances continue running after a stack has been deleted.
+
+Which action should be taken to meet these requirements?
+
+
+
+42. Question
+A company wants to launch a group of Amazon EC2 instances that need to communicate with each other with the lowest possible latency.
+
+Which combination of actions should a SysOps administrator take when launching these instances? (Select TWO.)
+
+
+43. Question
+A company is running a media streaming website that serves users around the world. The website is hosted on Amazon EC2 instances that are behind an Application Load Balancer (ALB).
+
+The company is running its infrastructure redundantly across two AWS Regions. Each Region contains its own separate copy of the website infrastructure. If one Region becomes unusable due to an application error, the company wants to automatically fail over traffic to the other Region.
+
+Which solution will meet these requirements?
+
+
+44. Question
+A company has a web application that is deployed in a VPC. Inbound traffic to this web application comes in through an internet gateway and arrives at a Network Load Balancer (NLB). From there, the traffic travels to multiple Amazon EC2 instances in two private subnets. The company wants to perform deep packet inspection on the inbound traffic to identify potential hacking attempts.
+
+Which solution meets these requirements?
+
+
+45. Question
+An application runs on Amazon EC2 instances behind an Application Load Balancer (ALB). The instances run in an Auto Scaling group that terminates unhealthy instances. The Auto Scaling group is configured to determine the health status of EC2 instances by using both EC2 status checks and ALB health checks. The development team wants to analyze the unhealthy instances before termination.
+
+What should the SysOps administrator do to accomplish this?
+
+46. Question
+A SysOps administrator needs an Amazon Elastic Block Store (Amazon EBS) volume type for a big data application. The application data is stored and read sequentially once each night by a batch application that is not time sensitive.
+
+Which EBS volume type meets these requirements MOST cost-effectively?
+
+
+47. Question
+A company is creating an application that will keep records. The application will run on Amazon EC2 instances and will use an Amazon Aurora MySQL database as its data store. To maintain compliance, the application must not retain information that is determined to be sensitive.
+
+Which technique should a SysOps administrator use to detect if sensitive data is being stored in the application?
+
+
+48. Question
+A company developed a tagging strategy to define a tag list and its values. The company's SysOps administrator is setting up the tagging strategy for all of the company's AWS Organizations organizational units (OUs).
+
+The company's financial analyst discovers that tags that are applied to some of the resources do not comply with the tagging strategy. The SysOps administrator must implement a solution that can provide a notification for each tag placement that fails to comply with the tag policy.
+
+Which solution meets these requirements?
+
+
+49. Question
+A web-commerce application stores its data in an Amazon Aurora DB cluster with an Aurora Replica. The application displays shopping cart information by reading data from the reader endpoint. When monitoring the Aurora database, a SysOps administrator sees that the AuroraReplicaLagMaximum metric for a single replica is high.
+
+What behavior is the application MOST likely exhibiting to users?
+
+Areas to review:
+VPC - ip address space., cloudfront
+AWS Config, SSM, route53
+RDS DB - KMS
+RDS DB - notify when DB instance is stopped
+ASG - scaling policies.
+
+
+Q. Which of the following statements are true for an Amazon CloudWatch alarm? (Select THREE.)
+
+- An alarm can be created by using only the CloudWatch console.
+- The number of evaluation periods for an alarm, multiplied by the length of each evaluation period, cannot exceed 1 day.
+- You can create an alarm that watches multiple metrics.
+- An alarm can be in one of three states: OK, ALARM, or INSUFFICIENT_DATA.
+- You cannot change the name of an existing alarm.CloudWatch preserves alarm history for a month.
+
+
+A SysOps administrator has set up an Amazon CloudWatch alarm to provide an alert when a specific Amazon EC2 instance's CPU utilization is more than 60%. The CloudWatch alarm is configured as follows:
+
+Datapoints to Alarm: 3
+Period: 5 minutes
+Evaluation Periods: 3
+Evaluation Range: 5
+Treatment of missing data points: not breaching
+The CPU utilization of the EC2 instance is sustained above 65% in the time frame between 07:00 and 14:00. The SysOps administrator stops the EC2 instance at 07:09 and restarts the EC2 instance at 07:16. The EC2 instance resumes its CPU utilization of more than 65%.
+
+At 07:40, what is the status of the alarm?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
