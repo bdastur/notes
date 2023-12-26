@@ -87,7 +87,7 @@ NOTE:
 --------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-## AWS Route53
+## Service: AWS Route53
 #--------------------------------------------------------------------------------
 
 * Route53 is highly available and scalable DNS web service. You can use Route53 to
@@ -112,7 +112,7 @@ NOTE:
 
 * Domain names: Human friendly name used to associate to an internet source.
 * A proper FQDN ends with a '.', indicating the root of the DNS hierarchy.
-* Sometimes software that calls for an FQDN does not require an ending ., but
+* Sometimes software that calls for an FQDN does not require an ending, but
   it is required to conform to ICAAN standards.
 
 In the URL: api.aws.amazon.com.
@@ -169,6 +169,26 @@ com            == tld
 * It will instead find a record for .org TLD and give the requester address
   of the name server responsible for .org addresses.
 
+**How Amazon Route53 routes traffic for your domain**
+
+step 1: Client enters www.example.com in the address bar.
+step 2: request is routed to ---> DNS resolver (which is typically managed by the users
+        ISP or cable n/w provider.
+
+step 3: DNS resolver -----------------------------------------> DNS root server
+        DNS resolver <-- go to the name server for .com TLD --  DNS root server
+
+step 4: DNS resolver -- www.example.com ----------------------> Name server for .com TLD
+        DNS resolver <-- go to route53 nameserver       ------- Name server for .com TLD
+
+step 5: DNS resolver -- www.example.com  ---------------------> Route53 name server
+step 6  DNS resolver <-- 192.4.54.33 -------------------------- Route53 name server
+
+step 7: (user's browser) <------------------------------------- DNS resolver
+step 8: -- www.example.com ------> (Web server for www.example.com 192.4.54.33)
+step 9  (user's browser) <-- page retured for www.example.com -- (Web server)
+
+
 **Top level domain servers:**
 * After the root server returns the address of the appropriate server
   responsible for the TLD, the requester sends a new request to that address.
@@ -219,27 +239,50 @@ A record is a single mapping between a resource and a name.
 * Identifies the base DNS information about the domain
 * Each zone contains a single SOA record.
 * Stores information about:
-  * Name of the DNS server for that zone
-  * The administrator of the zone.
-  * The current version of the data file
-  * Number of seconds a secondary name server should wait before checking for
-    updates.
-  * Number of seconds a secondary name server should wait before retrying
-    failed zone transfer.
-  * Max number of seconds a secondary name server can use data before it
-    must be refreshed or expire.
-  * Default TTL value for resource records in the zone.
+   * Name of the DNS server for that zone
+   * The administrator of the zone.
+   * The current version of the data file
+   * Number of seconds a secondary name server should wait before checking for
+     updates.
+   * Number of seconds a secondary name server should wait before retrying failed
+     zone transfer.
+   * Max number of seconds a secondary name server can use data before it
+     must be refreshed or expire.
+   * Default TTL value for resource records in the zone.
 
 **A and AAAA Record:**
 * Both types of address records map a host to an IP address
 * A: map a host to IPV4 address
 * AAAA: map a host to IPV6 address
 * A stands for Address
+* use: Used for IP address lookup. Using an A record, a web browser is able to load 
+  a website using the domain name. Another use is in domain name system-based
+  blackhole list (DNSBL). Here the A record is used to block main from known span
+  sources
 
 **Canonical Name (CNAME):**
+* A DNS record that points a domain name (an alias) to another domain. In CNAME
+  record the alias doesn't point to an IP address. Example subdomain ng.example.com
+  can point to example.com using CNAME. Here example.com points to acutal IP addrr
+  using an A record.
 * Defines an alias for the CNAME for your server (the domain name defined in
   A or AAAA record)
-* Resolves one domain to another.
+* DNS protocl does not allow you to create a CNAME record for the top node of a 
+  DNS namespace, known as the zone apex.
+* use: A practical example of CNAME records is running multiple subdomains for
+  different purposes on the same server. Eg: We can use ftp.example.com to serve
+  files, and www.example.com for webpages. We can use CNAME record to point both
+  subdomains to example.com. The main domain example.com then points to the server's
+  IP address using an A record. CNAME can point to another CNAME record, however
+  that is inefficient and can lead to slow load speeds.
+
+**(Route53 Alias records):**
+* This record type is only available in Route53. It lets you route traffic to
+  selected AWS resources, like CF distributions, S3 buckets, LBs
+* It can also redirect queries to another record in the same Route53 hosted zone.
+* Alias records are free to create.
+* Alias records allow you to route queries from one domain to another. You can also
+  create an alias record for a zone apex.
 
 **Mail Exchange (MX):**
 * Define the mail servers used for a domain and ensures emails are routed
@@ -248,6 +291,9 @@ A record is a single mapping between a resource and a name.
   by CNAME.
 
 **Name Server (NS)**
+* A NS record specifies the authoritative DNS server for the domain. NS record
+  helps point to where your internet appln can find the IP address for a domain name.
+  The look like ns1.examplehostingprovider.com, ns2.examplehostingprovider.com
 * Used by TLD servers to direct traffic to the DNS server that contains the
   authoritative DNS record.
 
@@ -331,11 +377,21 @@ Supported record types:
   cannot.
 * Alias Records can also point to AWS Resources that are *hosted in other accounts*
   by manually entering the ARN
+* There is no cost to Alias records.
 
 
 ## Routing Policies:
 
 **Simple**
+* Used for a single resource that performs a given function for your domain.
+* You can use simple routing to create records in a private hosted zone.
+* With simple routing, you can create multiple records that have the same name and
+  type, but you can specify multiple values in the same record, such as multiple
+  IP addresses. Route53 will return all values to the recursive resolver in random
+  order, the resolver returns the values to the client. The client then chooses the
+  value and resubmits the query.
+* Even though you can specify multiple IP addresses, these IP addresses are not
+  health checked.
 * This is the default routing policy when you create a new resource.
 * You can't create multiple records that have the same name and type.
 * You can specify multiple vaules in the same record. Route53 returns all values
@@ -343,19 +399,41 @@ Supported record types:
 
 
 **Weighted**
-* You can associate multiple resources with a single DNS name.
+* You can associate multiple resources with a single DNS name and choose how much
+  trafic is routed to each resource.
 * Useful for load balancing and testing new versions of software.
 
 **Latency based**
+* For apps hosted in multiple regious, it can improve performance for users by serving
+  requests from AWS regions that provide lowest latency.
 * Based on users location and latency.
+* Can be used in a private hosted zone.
+
+**IP Based routing**
+* You can fine tune your DNS routing by using your understanding of your network,
+  apps and clients to make the best DNS routing decision for your users.
+* Eg uses:
+  -  you want to route users from certain ISPs to specific endpoints so you can
+     optimize n/w transit cost and performance.
+  - you want to add overrides to existing route53 routing types, based on your 
+    knowledge of your client's physical locations.
+* Multi-value routing, weighted routing.
 
 
 **Failover**
-* Lets you route traffic to a resource when a resource is health or to a different
+* Lets you route traffic to a resource when a resource is healthy or to a different
   resource when the first resource is unhealthy.
 * Active/Passive
+* You can use failover routing policy for recoards in private hosted zones.
 
 **Geolocation**
+* Lets you choose the resources that serve your traffic based on geographic location
+  of your users.
+* You can localize your content and present some or all of your website in a language
+  of your users. You can restrict distribution of content to only the locations in
+  which you have distribution rights. You can load balance across endpoints in
+  predictable, easy way so each user location is consistently routed to the same
+  endpoint.
 * Allows EU customers to be sent to EU backend and US customers to US backend.
 * Lets you choose the resources that serve your traffic based on geographic
   location of your users, meaning the location that DNS queries originate from.
@@ -363,6 +441,7 @@ Supported record types:
   language of your users. You can also restrict distribution of content based on
   location.
 * Another possible use is for balancing load across endpoints
+* Can be created in both public and private hosted zones.
 
 **Geoproximity Routing**
 * Geoproximity routing lets Route53 route traffic to your resources based on the
@@ -384,7 +463,7 @@ Supported record types:
 
 
 #--------------------------------------------------------------------------------
-## AWS Autoscaling (ASG)
+## Service: AWS Autoscaling (ASG)
 #--------------------------------------------------------------------------------
 * Allows automatic scaling of EC2 instances based on criteria.
 * Scaling in or scaling out.
@@ -1533,6 +1612,9 @@ Core concepts:
 
 
 ## Service: Amazon OpenSearch
+* Can injest data directly from CW logs and Kinesis data firehose. Also injest data
+  from S3 and DynamoDB using lambda.
+* Compatible with standard ES open-source APIs, logstash and Kibana.
 * Service domain consist of Master Notes and Data Nodes.
 * master nodes: review health monitoring data, track nodes in cluster, maintain
   routing info, update the cluster state after changes.
@@ -3742,8 +3824,12 @@ Cognito.
 * Backup vault - after backup job is complete, it will appear in the backup vault.
 
 
+## Service: Control Tower
+-------------------------
 
 
+## Service: AWS Shield
+------------------------
 
 
 
