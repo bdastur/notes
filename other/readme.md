@@ -59,6 +59,7 @@
 * [Linux n/w troubleshooting](https://www.redhat.com/sysadmin/beginners-guide-network-troubleshooting-linux)
 * [Shell script static analysis tool](https://www.shellcheck.net/wiki/Home)
 * [Computer Architecture](https://cpu.land/the-basics)
+* [VIM Tricks: Skeleton files](https://vimtricks.com/p/vim-file-templates/)
 
 
 ## How to terminate a unresponsive ssh connection.
