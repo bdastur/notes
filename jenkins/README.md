@@ -2,8 +2,9 @@
 ----
 
 ## Useful links:
-[Jenkins plugins](https://plugins.jenkins.io/ansible)
-[Official Jenkins Docker repo](https://github.com/jenkinsci/docker)
+* [Jenkins plugins](https://plugins.jenkins.io/ansible)
+* [Official Jenkins Docker repo](https://github.com/jenkinsci/docker)
+* [Automate Jenkins setup with JCAC](https://www.digitalocean.com/community/tutorials/how-to-automate-jenkins-setup-with-docker-and-jenkins-configuration-as-code)
 
 
 ## Allowing your CI container to start other docker agents/containers.
