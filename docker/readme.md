@@ -7,6 +7,13 @@
 * [Dockerfile best practices](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/)
 * [The twelve factor App](https://12factor.net/codebase)
 
+
+
+* Docker image consists of read-only layers each of which represents a Dockerfile
+  instruction. When you run an image and generate a container, you add a new
+  writable layer.
+
+
 ## Format.
 
 # Comment
