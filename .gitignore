@@ -125,10 +125,10 @@ python/diagram/webservice.png
 *.tfstate
 *.tfstate.backup
 *.vscode
-
 **/app/bin
 **bin/
 **/node_modules
 **/.parcel-cache
+**/yarn.lock
 
 *.buildozer
