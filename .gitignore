@@ -128,5 +128,7 @@ python/diagram/webservice.png
 
 **/app/bin
 **bin/
+**/node_modules
+**/.parcel-cache
 
 *.buildozer
