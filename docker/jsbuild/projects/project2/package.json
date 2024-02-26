@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "parcel": "^2.11.0",
+    "postcss": "^8.4.35",
+    "process": "^0.11.10",
+    "tailwindcss": "^3.4.1"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.18",
+    "@heroicons/react": "^2.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}
