@@ -102,6 +102,8 @@ Python tools:
 * [pyright - type checker for python](https://github.com/microsoft/pyright)
 * [Textual - build python terminal UI](https://textual.textualize.io/)
 * [A framework to build web apps from Data/AI algorithms](https://github.com/Avaiga/taipy)
+* [useful python libraries](https://dev.to/taipy/specialized-python-libraries-for-unique-tasks-5dgm)
+* [pyPDF2 - Working with PDFs](https://github.com/py-pdf/pypdf)
 
 ### command sample:
 
