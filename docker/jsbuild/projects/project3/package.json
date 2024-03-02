@@ -16,7 +16,9 @@
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.15.11",
     "bootstrap": "^5.3.3",
+    "postcss": "^8.4.35",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.4.1"
   }
 }

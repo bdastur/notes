@@ -1,9 +1,54 @@
+import { DynamoDBClient, ListTablesCommand } from "@aws-sdk/client-dynamodb";
+
 
 export function getAWSCredentials() {
     return({
-      accessKeyId: "ASIAWXS2QYOD2LG3SMV6",
-      secretAccessKey: "vWpkmyuahtWdHN5wG3XuaOSy7JocIsNvAr/LRcjq",
-      sessionToken: "IQoJb3JpZ2luX2VjED4aCXVzLWVhc3QtMSJHMEUCIQDI2q9TqvvuoS1vcL23NAxMSk0ikKOPs9+YzORENNA1GAIgbcLXwXyplqkAamDZSsL6p35apxydmweIszzEMoOnLHwqngIINxAAGgw0NjI5NzI1Njg0NTUiDK/8I7MhKNVoAmqTWir7AQuyeYxuC5ZkPLSb3T5bFdHnUyk24tutDaredEgo/1p8GbsAGBYTSPNz1jNvJFvMn7x4nNXOAJvLzFYPk4SmxLXS4NgBVJpppp12ur0/3M/A/bpKAbcd+7CmwDGfbpihYIMTuJWEEKlDpvHToF4wlP0cqHV/GFlPNR3+cNWn3KkpNGdZSa3fzUHMuzQhBaLhaDWWiRyWrsCjGfRzxZ/RgeRMk/KodgUbGLfaWoIDH3TxJbGeB17d7RnBQ56Rh/SEfudtIYY80G2MxRIcx5migSGHyLeCfcBwCJrA+9nG9hzpVJT/vBKUAygozTfXPhgx5Ppd7t1Sg7+nt7yJMLeOia8GOp0B+7XNDIOJEOhi7vj5Eukk+etm4dHwc46NTxwVmcFQefWcC//ZkfOOR2jud4UdvkvJV9xhPRfLy/eC9VMIEOqjG3iN11eRzj7V04xrOU049/+GxHgmLfQaTDX7bV8Z0eYOBnTDgteMnYVsUS4S2Ywl7xkyg6Vjx3clEPwG1HojFHy/Rr6OHYw5+r86ubqn7gH7R02zu1V2bieIjXm6fg=="
+      accessKeyId: "ASxxxxNT",
+      secretAccessKey: "8xxxxx"
+      sessionToken: "IQoJxxxx"
     });
 }
 
+export async function ListAsyncBuckets(region) {
+    let data = {}
+    console.log("Invoked ListAsyncBuckets");
+    try {
+        const client = new DynamoDBClient({
+            region: region,
+            credentials: getAWSCredentials()
+        });
+        command = new ListTablesCommand({});
+        data = await client.send(command);
+        console.log("data in list bucket: " + JSON.stringify(data));
+        return(data);
+    } catch (err) {
+        console.error(err);
+        return data;
+    } finally {
+        console.log("In finally!");
+    }
+    return(data);
+}
+
+export function ListBuckets() {
+    let data = {};
+    const listBuckets = async() => {
+        try {
+            const client = new DynamoDBClient({
+                region: "us-east-1",
+                credentials: getAWSCredentials()
+            });
+            command = new ListTablesCommand({});
+            data = await client.send(command);
+	    console.log("data in list bucket: " + JSON.stringify(data));
+	    return(data);
+        } catch (err) {
+            console.error(err);
+    	    return data;
+        } finally {
+            console.log("In finally!");
+        }
+    }
+    data = listBuckets();
+    return(data);
+}
