@@ -1,0 +1,138 @@
+  1  python3
+    2  dnf search python3-dev
+    3  dnf install python3-devel
+    4  python --version
+    5  python3 -m pip install --upgrade pip
+    6  dnf install pip
+    7  pip install spacy
+    8  pip install chatterbot
+    9  pip install setuptools==58.2.0
+   10  pip install chatterbot
+   11  python -m chatterbot --version
+   12  python3 -m chatterbot --version
+   13  pip install pytz
+   14  python3 -m chatterbot --version
+   15  dnf install git
+   16  mkdir chatbot
+   17  cd chatbot
+   18  git clone https://github.com/gunthercox/ChatterBot.git
+   19  pip install .ChatterBot
+   20  ls
+   21  pip install ./ChatterBot
+   22  which python
+   23  which python3
+   24  python3
+   25  dnf install python3.8
+   26  dnf search python
+   27  dnf search python | grep 8
+   28  ls
+   29  cd ChatterBot/
+   30  ls
+   31  more requirements.txt 
+   32  more setup.cfg 
+   33  rg python
+   34  grep python
+   35  grep python *
+   36  vim
+   37  dnf install vim
+   38  vim setup.py 
+   39  pwd
+   40  cd ..
+   41  pip install ./ChatterBot
+   42  python -m chatterbot --version
+   43  python3 -m chatterbot --version
+   44  ls
+   45  chatterbot
+   46  ls
+   47  cd ChatterBot/
+   48  ls
+   49  hsitory
+   50  history
+
+  16  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+   17  dnf install wget -y
+   18  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+   19  ls miniconda3/
+   20  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ./miniconda3/miniconda.sh
+   21  bash ./miniconda3/miniconda.sh -b -u -p ./miniconda3
+   22  uname -a
+   23  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh -O ./miniconda3/miniconda.sh
+   24  ls miniconda3/
+   25  rm -rf miniconda3/
+   26  mkdir miniconda3
+   27  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh -O ./miniconda3/miniconda.sh
+   28  bash ./miniconda3/miniconda.sh -b -u -p ./miniconda3
+   29  ./miniconda3/bin/conda init bash
+   30  pip install --upgrade setuptools
+
+   1  pip
+    2  dnf install python3-devel python3-pip vim git wget -y
+    3  pip install setuptools
+    4  mkdir miniconda3
+    5  wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-aarch64.sh -O ./miniconda3/miniconda.sh
+    6  bash ./miniconda3/miniconda.sh -b -u -p ./miniconda3
+    7  ./miniconda3/bin/conda init bash
+    8  conda
+    9  ./miniconda3/bin/conda 
+   10  ./miniconda3/bin/conda  create -n nlp_env python=3.8 -yq
+   11  ./miniconda3/bin/conda activate nlp_env
+   12  ./miniconda3/bin/conda init
+   13  ./miniconda3/bin/conda activate nlp_env
+   14  which SHELL
+   15  echo $SHELL
+   16  ./miniconda3/bin/conda init /bin/bash
+   17  ./miniconda3/bin/conda initbash
+   18  ./miniconda3/bin/conda init bash
+   19  ./miniconda3/bin/conda activate nlp_env
+   20  more ~/.bashrc 
+   21  source ./bashrc
+   24  source /.bashrc
+   25  ls .bashrc
+   26  source ~/.bashrc
+   27  ./miniconda3/bin/conda activate nlp_env
+   28  ls
+   29  source ./miniconda3/etc/profile.d/conda.sh
+   30  ./miniconda3/bin/conda activate nlp_env
+   31  ls
+   32  ls -l
+   33  conda
+   34  conda init bash
+   35  conda activate nlp_env
+   36  conda install spacy -c conda-forge -y
+   37  pip install chatterbot
+   38  dnf install gcc
+   39  pip install chatterbot
+   40  dnf install gcc-dev
+   41  dnf install gcc-devl
+   42  history
+
+   33  conda
+   34  conda init bash
+   35  conda activate nlp_env
+   36  conda install spacy -c conda-forge -y
+   37  pip install chatterbot
+   38  dnf install gcc
+   39  pip install chatterbot
+   40  dnf install gcc-dev
+   41  dnf install gcc-devl
+   42  history
+   43  dnf install g++
+   44  pip install chatterbot
+   45  pip install -U pip setuptools wheel
+   46  pip install -U spacy
+   47  pip install chatterbot
+   48  history
+
+    1  dnf install -y gcc g++ python3-devel vim wget python3-pip
+    2  pip
+    3  pip install -U pip setuptools wheel
+    4  pip install -U spacy
+    5  python -m spacy download en_core_web_sm
+    6  python3 -m spacy download en_core_web_sm
+    7  pip install chatterbot
+    8  python3 -m chatterbot --version
+    9  pip install pytz
+   10  pip install chatterbot==1.0.4
+   11  pwd
+   12  history
+
