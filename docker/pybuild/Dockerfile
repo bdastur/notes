@@ -3,8 +3,24 @@ FROM al2base:$VERSION
 LABEL version="1.0"
 MAINTAINER bdastur@gmail.com
 
-
 RUN echo "Build python builder image"
+
+RUN dnf install -y gcc \
+    g++ \
+    python3-devel \
+    python3-pip \
+    vim \
+    wget \
+    less
+
+
+RUN pip install -U setuptools wheel
+RUN pip install -U spacy
+RUN pip install pytz
+RUN python3 -m spacy download en_core_web_sm
+RUN pip install chatterbot==1.0.4
+RUN pip install bpython
+
 
 #RUN dnf install -y $JAVA_VERSION \
 #    wget \
