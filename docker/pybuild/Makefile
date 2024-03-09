@@ -10,7 +10,7 @@ build-nocache: Dockerfile
 
 run-it:
 	docker rm -f base
-	docker run --name base -it $(IMAGENAME) /bin/bash
+	docker run --name base -v ./projects:/projects -it $(IMAGENAME) /bin/bash
 
 clean:
 	docker rmi $(IMAGENAME) 
