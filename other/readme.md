@@ -51,8 +51,11 @@
 * [Blog - What do metrics tell you? challenge and be skeptical](https://www.scarletink.com/be-skeptical-challenging-beliefs-underlying-everything/)
 * [List of vim bundles](https://github.com/sharpicx/dotfiles/tree/main/.vim/plugged)
 * [PlantUML - generate diagrams](https://plantuml.biz/en/guide)
+* [Bytebytego - diagraming tools](https://www.youtube.com/watch?v=jCd6XfWLZsg&t=6s)
 * [Large collection of opensource frameworks/tools/libraries](https://free-for.dev/#/)
 * [Convert shell script to compiled C code - https://github.com/neurobin/shc](https://neurobin.github.io/shc/)
+* [useful programming tips, notes etc](https://github.com/charlax/professional-programming?tab=readme-ov-file)
+* [A collection of pipeline toolkits](https://github.com/pditommaso/awesome-pipeline)
 
 # Linux tips:
 
@@ -60,6 +63,12 @@
 * [Shell script static analysis tool](https://www.shellcheck.net/wiki/Home)
 * [Computer Architecture](https://cpu.land/the-basics)
 * [VIM Tricks: Skeleton files](https://vimtricks.com/p/vim-file-templates/)
+
+* GenAI, Bots
+* [Ways to run LLM locally](https://www.infoworld.com/article/3705035/5-easy-ways-to-run-an-llm-locally.html)
+* [ollama models](https://ollama.com/library)
+* [python NLTK library](https://www.nltk.org/)
+* [DiffLib - helpers for computing deltas](https://docs.python.org/3/library/difflib.html)
 
 
 ## How to terminate a unresponsive ssh connection.
