@@ -6,12 +6,12 @@ import sys
 
 
 class A(object):
-    def simple_print(self):
-        print("Function simple_print!")
+    def simple_print(self, value="A"):
+        print("Function simple_print! %s" % value)
 
-class AMock(object):
-    def mocked_print(self):
-        print("Printing Mocked")
+class MockA(object):
+    def mocked_print(self, value="MockedA"):
+        print("Printing Mocked %s " % value)
 
 class B(object):
     def __init__(self, aobj):
@@ -19,25 +19,30 @@ class B(object):
     
     def print_b(self):
         current_frame = sys._getframe(0)
-        import pdb; pdb.set_trace()
-        self.a.simple_print()
+        self.a.simple_print(value="B")
 
+
+def withoutMock():
+    objA = A()
+    objA.simple_print()
+
+    objB = B(objA)
+    objB.print_b()
+
+def mockPrint():
+    objA = A()
+    mockA = MockA()
+    objA.simple_print = mockA.mocked_print
+
+    objB = B(objA)
+    objB.print_b()
 
 
 def main():
-    aobj = A()
-    aobj.simple_print()
+    withoutMock()
+    print("---- mocked ---")
+    mockPrint()
 
-    bobj = B(aobj)
-    bobj.print_b()
-
-    mock_obj = AMock()
-    aobj.simple_print = mock_obj.mocked_print
-
-    print("Simple print:", aobj.simple_print)
-
-    newobj = B(aobj)
-    newobj.print_b()
 
 
 
