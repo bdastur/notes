@@ -119,13 +119,13 @@ PERMISSIONS["s3"] =  {
         "s3:UpdateJobStatus"
     ]},
     "admin": {"actions": [
-        "s3:AbortMultipartUpload",                                                   
-        "s3:BypassGovernanceRetention",                                              
-        "s3:CreateAccessPoint",                                                      
-        "s3:CreateAccessPointForObjectLambda",                                       
-        "s3:CreateBucket",                                                           
-        "s3:CreateJob",                                                              
-        "s3:CreateMultiRegionAccessPoint",         
+        "s3:AbortMultipartUpload",
+        "s3:BypassGovernanceRetention",
+        "s3:CreateAccessPoint",
+        "s3:CreateAccessPointForObjectLambda",
+        "s3:CreateBucket",
+        "s3:CreateJob",
+        "s3:CreateMultiRegionAccessPoint",
         "s3:DeleteAccessPoint",
         "s3:DeleteAccessPointForObjectLambda",
         "s3:DeleteAccessPointPolicy",
@@ -177,7 +177,7 @@ def addAllowPermission(service, operation, resources):
         "Sid": "Allowed%son%s%s" % (operation, service, str(randomNumber)),
         "Effect": "Allow",
         "Action": PERMISSIONS[service][operation]["actions"],
-        "Resource": resources 
+        "Resource": resources
     }
     return statement
 
@@ -234,9 +234,7 @@ Input JSON Definition:
     "delay_create": |True|False # Explicitly call .create to create resource.
 }
 """
-
-
-class IAMRole(object):
+class IAMRoleOld(object):
     def __init__(self, scope, id, **options):
         self.scope = scope
         self.id = id
@@ -261,6 +259,50 @@ class IAMRole(object):
             ]
         }
         return policyDocument
+
+"""
+IAMRole: Handle IAM Role creation and management.
+"""
+class IAMRole(object):
+    def __init__(self, scope, id=None, name=None, **options):
+        assert id is not None
+        assert name is not None
+
+        self.scope = scope
+        self.id = id
+        self.name = name
+        self.sessionDuration = options.get("session_duration", 4200)
+
+        self.trustPolicyDocument = {
+            "Version": "2012-10-17",
+            "Statement": []
+        }
+
+
+    def addTrustEntity(self, servicePrincipal):
+        newStatement = {
+            "Effect": "Allow",
+            "Principal": {
+                "Service": servicePrincipal
+            },
+            "Action": "sts:AssumeRole"
+        }
+        self.trustPolicyDocument["Statement"].append(newStatement)
+
+
+
+
+    def render(self):
+        newCfnRole = iam.CfnRole(self.scope,
+                                 self.id ,
+                                 assume_role_policy_document=self.trustPolicyDocument,
+                                 max_session_duration=self.sessionDuration,
+                                 path="/",
+                                 role_name=self.name)
+
+
+
+
 
 
 
@@ -344,4 +386,7 @@ class IAM(object):
 
 
 
+
+def createRole(roleName, ):
+    pass
 

@@ -21,6 +21,13 @@ Install NPM.
 sudo npm install -g aws-cdk
 ```
 
+2.1 To update CDK:
+
+```
+sudo npm install -g aws-cdk@latest
+
+```
+
 ## Basic Usage.
 
 ### Bootstrap:
