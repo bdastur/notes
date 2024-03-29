@@ -27,7 +27,7 @@ class IAMOneStack(Stack):
                 {
                     "Effect": "Allow",
                     "Principal": {
-                        "AWS": "arn:aws:iam::214732530209:root"
+                        "AWS": "arn:aws:iam::2xxxxxx:root"
                     },
                     "Action": "sts:AssumeRole"
                 }
