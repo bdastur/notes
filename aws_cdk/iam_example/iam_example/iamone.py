@@ -72,14 +72,14 @@ class IAMOneStack(Stack):
         statements = [
             ["Allow",
              ["s3:ListBucket", "s3:GetBucket*"],
-             ["arn:aws:s3:::config-bucket-462972568455",
-              "arn:aws:s3:::config-bucket-462972568455/*"]
+             ["arn:aws:s3:::config-bucket-45",
+              "arn:aws:s3:::config-bucket-45/*"]
              ],
             [
                 "Allow",
                 ["s3:ListBucket", "s3:GetBucket*"],
-                ["arn:aws:s3:::cf-templates-6wdp8l3w5n8i-us-east-1",
-                "arn:aws:s3:::cf-templates-6wdp8l3w5n8i-us-east-1/*"]
+                ["arn:aws:s3:::cf-te-1",
+                "arn:aws:s3:::cf-te-1/*"]
             ]
         ]
         cfnRoleTwo.addInlinePolicy("MyNewInlinePolicy", statements)
