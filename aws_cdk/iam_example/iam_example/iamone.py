@@ -27,7 +27,7 @@ class IAMOneStack(Stack):
                 {
                     "Effect": "Allow",
                     "Principal": {
-                        "AWS": "arn:aws:iam::214732530209:root" 
+                        "AWS": "arn:aws:iam::2xxxxxx:root"
                     },
                     "Action": "sts:AssumeRole"
                 }
@@ -39,7 +39,7 @@ class IAMOneStack(Stack):
                               max_session_duration=sessionDuration,
                               path=rolePath,
                               role_name=roleName)
-    
+
 
         ec2TrustPolicyDocument = {
             "Version": "2012-10-17",
@@ -61,8 +61,29 @@ class IAMOneStack(Stack):
                                  role_name="BRDTestRoleEc2")
 
         # IAM Helper.
-        cfnRoleTwo = iamhelper.IAMRole(self, id="newtestrole", name="BRDTestRoleEC2helper")
-        cfnRoleTwo.addTrustEntity("ec2.amazonaws.com")
+        options = {
+                "session_duration": 3600,
+                "managed_policy_arns": ["arn:aws:iam::aws:policy/AmazonChimeReadOnly",
+                             "arn:aws:iam::aws:policy/AlexaForBusinessLifesizeDelegatedAccessPolicy"]
+        }
+        cfnRoleTwo = iamhelper.IAMRole(self, id="newtestrole",
+                                       name="BRDTestRoleEC2helper", **options)
+
+        statements = [
+            ["Allow",
+             ["s3:ListBucket", "s3:GetBucket*"],
+             ["arn:aws:s3:::config-bucket-45",
+              "arn:aws:s3:::config-bucket-45/*"]
+             ],
+            [
+                "Allow",
+                ["s3:ListBucket", "s3:GetBucket*"],
+                ["arn:aws:s3:::cf-te-1",
+                "arn:aws:s3:::cf-te-1/*"]
+            ]
+        ]
+        cfnRoleTwo.addInlinePolicy("MyNewInlinePolicy", statements)
+        cfnRoleTwo.addTrustEntity(["ec2.amazonaws.com"])
 
         cfnRoleTwo.render()
 
