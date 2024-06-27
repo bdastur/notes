@@ -14,7 +14,7 @@ Placehoders when setting out layouts.
 http://holderjs.com/
 
 * [CSS Notes](https://github.com/bdastur/notes/tree/master/frontend/css.md)
-
+* [FrontEnd Engineer handbook](https://frontendmasters.com/guides/front-end-handbook/2024/#1)
 * [BackboneJS Book](https://addyosmani.com/backbone-fundamentals/#backbone-basics)
 * [BackboneJS templates](https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-grid-examples.php)
 * [Flask BackboneJS tutorial](http://simplectic.com/blog/2014/flask-todomvc-part1/)

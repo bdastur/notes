@@ -17,6 +17,7 @@ serverless deserves a new folder.
 * [Event driven patterns](https://serverlessland.com/event-driven-architecture/visuals)
 * [Inside event driven architectures](https://serverlessland.com/event-driven-architecture/visuals/inside-event-driven-architectures)
 * [Serverless advocate](https://www.serverlessadvocate.com/patterns)
+* [CFN templates - needs investigation??](https://github.com/aws-samples/smb-starter-kits/blob/main/Secure-Website-Starter-Kit/Secure-Website-Starter-Kit.yml)
 
 * Run code/service without provisioning or managing servers.
 * Pay only for the compute time that you consume.
