@@ -16,7 +16,7 @@ from textual.widgets import Input, Button
 from textual.strip import Strip
 from rich.segment import Segment
 
-class CustomInput(Input):
+#class CustomInput(Input):
 
 
 class MainApp(App):
