@@ -8,11 +8,20 @@
 
 ## Notes:
 * if you start the textual app with the --dev switch you appln will run in development
-  mode.
+  mode. To debug the application
+
+1. Open two terminals. In one terminal start "textual console"
+
+```
+textual console
+```
+
+2. Run the textual run --dev test.py to run the app in dev mode.
 
 ```
 textual run --dev swatch01.py
 ```
+
 
 In dev mode, you can live edit CSS files. Any changes to css will be reflected
 within milliseconds on the terminal.
