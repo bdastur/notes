@@ -1,0 +1,27 @@
+#mainScreen {
+    layout: horizontal;
+}
+
+#sideMenuBar {
+    layout: vertical;
+    width: 1fr;
+    scrollbar-color: darkblue;
+}
+
+.menuItem {
+    height: 10%;
+    padding: 1;
+    spacing: 1;
+    border: yellow;
+    margin: 1;
+}
+
+#contentArea {
+    layout: vertical;
+    width: 3fr;
+}
+
+#topInputArea {
+    layout: horizontal;
+}
+
