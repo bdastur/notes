@@ -1,6 +1,8 @@
 Screen {
     layout: grid;
-    grid-size: 3;
+    grid-size: 3 3;
+    grid-gutter: 1;
+    background: indigo 10%;
 }
 
 .box {
@@ -15,4 +17,5 @@ Box {
     border: solid green;
     margin: 0 0;
     padding: 1 1;
+    background: indigo 10%;
 }

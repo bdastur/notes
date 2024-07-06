@@ -1,0 +1,44 @@
+MainDashboardScreen {
+    layout: horizontal;
+    padding: 1;
+}
+
+ProfileScreen {
+    layout: horizontal;
+    padding: 1;
+}
+
+#sideMenuBar {
+    layout: vertical;
+    width: 1fr;
+    padding-top: 1;
+}
+
+.menuItem {
+    height: 15%;
+    padding: 1;
+    background: red;
+    margin: 1;
+}
+
+#contentArea {
+    layout: vertical;
+    width: 3fr;
+    padding-top: 1;
+}
+
+#profileContentArea {
+    layout: vertical;
+    width: 3fr;
+    padding-top: 1;
+}
+
+#searchBar {
+    height: 8%;
+    border: yellow;
+}
+
+#content {
+    height: 90%;
+    border: yellow;
+}
