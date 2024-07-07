@@ -35,10 +35,12 @@ ProfileScreen {
 
 #searchBar {
     height: 8%;
-    border: yellow;
+    border: silver;
+    padding-left: 1;
 }
 
 #content {
     height: 90%;
-    border: yellow;
+    border: silver;
+    padding-left: 1;
 }
