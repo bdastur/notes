@@ -6,6 +6,7 @@ operation=
 name=
 accountId=
 
+
 #---------------------------------------------------
 # Show Usage and Help function.
 #---------------------------------------------------
@@ -13,6 +14,8 @@ function showUsageHelp() {
     echo ""
     echo "--------------------------------------------------"
     echo "Usage ./run_operation.sh <operation> -p <profile> -r <region> [-f <file>] [-n <state machine name>]"
+    echo "Valid operations: create|delete|execute|describe-execution"
+    echo ""
     echo "-----"
     echo "Examples: "
     echo "1. Create new state machine"
@@ -21,7 +24,13 @@ function showUsageHelp() {
     echo "2. Delete state machine"
     echo "./run_operations.sh delete -p dev -r us-east-1 -n first"
     echo ""
-    echo "--------------------------------------------------" 
+    echo "3. Execute state machine"
+    echo "./run_operations.sh execute -p dev -r us-east-1 -e first-cli-execution -n first"
+    echo ""
+    echo "4. Describe Execution"
+    echo "./run_operations.sh describe-execution -p dev -r us-east-1 -e first-cli-execution -n first"
+    echo ""
+    echo "--------------------------------------------------"
 }
 
 #---------------------------------------------------
@@ -88,8 +97,39 @@ function deleteStateMachine() {
 
     aws stepfunctions delete-state-machine \
   --state-machine-arn arn:aws:states:${region}:${accountId}:stateMachine:${name} \
-  --profile $profile --region $region 
+  --profile $profile --region $region
 }
+
+#---------------------------------------------------
+# Execute Step function.
+#---------------------------------------------------
+function executeStateMachine() {
+    local profile=$1
+    local region=$2
+    local name=$3
+    local executionName=$4
+
+    aws stepfunctions start-execution \
+    --state-machine-arn arn:aws:states:${region}:${accountId}:stateMachine:${name} \
+    --name ${executionName} \
+    --profile ${profile} --region ${region}
+}
+
+#---------------------------------------------------
+# Describe Execution of a Step function.
+#---------------------------------------------------
+function describeExecutionOfStateMachine() {
+    local profile=$1
+    local region=$2
+    local name=$3
+    local executionName=$4
+
+    aws stepfunctions describe-execution \
+    --execution-arn arn:aws:states:${region}:${accountId}:execution:${name}:${executionName} \
+    --profile ${profile} --region ${region}
+
+}
+
 
 #---------------------------------------------------
 # MAIN.
@@ -108,12 +148,16 @@ validateOperation $operation
 shift
 
 
-CMD_OPTIONS="n:p:r:f:h"
+CMD_OPTIONS="e:n:p:r:f:h"
 
 while getopts ${CMD_OPTIONS} option; do
     case $option in
         h)
             showUsageHelp
+            ;;
+        e)
+            executionName=$OPTARG
+            echo "Setting execution name: $executionName"
             ;;
         n)
             name=$OPTARG
@@ -149,5 +193,14 @@ fi
 if [[ $operation == "delete" ]]; then
     deleteStateMachine $profile $region $name
 fi
+
+if [[ $operation == "execute" ]]; then
+    executeStateMachine $profile $region $name $executionName
+fi
+
+if [[ $operation == "describe-execution" ]]; then
+    describeExecutionOfStateMachine $profile $region $name $executionName
+fi
+
 
 
