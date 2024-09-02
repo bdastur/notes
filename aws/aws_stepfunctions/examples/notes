@@ -1,0 +1,35 @@
+ACCOUNT="xxxx"
+
+Create a new state machine
+```
+aws stepfunctions create-state-machine \
+  --name first --definition file://first.asl.json \
+  --role-arn arn:aws:iam::${ACCOUNT}:role/service-role/StepFunctions-MyStateMachine-4fiwcr036-role-ba9wkwbla  \
+  --profile dev --region us-east-1
+```
+
+Executing a step function
+
+```
+aws stepfunctions start-execution \
+  --state-machine-arn arn:aws:states:us-east-1:${ACCOUNT}:stateMachine:first \
+  --name cli-first-execution \
+  --profile dev --region us-east-1
+
+```
+
+Describe execution:
+
+```
+aws stepfunctions describe-execution \
+  --execution-arn arn:aws:states:us-east-1:${ACCOUNT}:execution:first:cli-first-execution \
+  --profile dev --region us-east-1
+```
+
+Delete State machine:
+```
+aws stepfunctions delete-state-machine \
+  --state-machine-arn arn:aws:states:us-east-1:${ACCOUNT}:stateMachine:first \
+  --profile dev --region us-east-1
+
+```
