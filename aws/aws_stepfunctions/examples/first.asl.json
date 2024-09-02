@@ -1,0 +1,12 @@
+{
+    "Comment": "A simple example of Amazon States Language",
+    "StartAt": "HelloWorld",
+    "TimeoutSeconds": 5,
+    "States": {
+        "HelloWorld": {
+            "Type": "Pass",
+            "Result": "Hello World!",
+            "End": true
+        }
+    }
+}
