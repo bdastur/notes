@@ -25,7 +25,7 @@ function showUsageHelp() {
     echo "./run_operations.sh delete -p dev -r us-east-1 -n first"
     echo ""
     echo "3. Execute state machine"
-    echo "./run_operations.sh execute -p dev -r us-east-1 -e first-cli-execution -n first"
+    echo "./run_operations.sh execute -p dev -r us-east-1 -e first-cli-execution -n first [-i <input json>]"
     echo ""
     echo "4. Describe Execution"
     echo "./run_operations.sh describe-execution -p dev -r us-east-1 -e first-cli-execution -n first"
@@ -108,10 +108,17 @@ function executeStateMachine() {
     local region=$2
     local name=$3
     local executionName=$4
+    local inputFile=$5
+    local inputParam=
+
+    if [[ ! -z $inputFile ]]; then
+        inputParam="--input $inputFile"
+    fi
 
     aws stepfunctions start-execution \
     --state-machine-arn arn:aws:states:${region}:${accountId}:stateMachine:${name} \
     --name ${executionName} \
+    $inputParam \
     --profile ${profile} --region ${region}
 }
 
@@ -148,7 +155,7 @@ validateOperation $operation
 shift
 
 
-CMD_OPTIONS="e:n:p:r:f:h"
+CMD_OPTIONS="e:i:n:p:r:f:h"
 
 while getopts ${CMD_OPTIONS} option; do
     case $option in
@@ -158,6 +165,10 @@ while getopts ${CMD_OPTIONS} option; do
         e)
             executionName=$OPTARG
             echo "Setting execution name: $executionName"
+            ;;
+        i)
+            inputFile=$OPTARG
+            echo "Setting input file: $inputFile"
             ;;
         n)
             name=$OPTARG
@@ -195,7 +206,7 @@ if [[ $operation == "delete" ]]; then
 fi
 
 if [[ $operation == "execute" ]]; then
-    executeStateMachine $profile $region $name $executionName
+    executeStateMachine $profile $region $name $executionName $inputFile
 fi
 
 if [[ $operation == "describe-execution" ]]; then
