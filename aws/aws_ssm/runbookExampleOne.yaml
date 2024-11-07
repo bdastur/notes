@@ -1,0 +1,67 @@
+schemaVersion: '0.3'
+description: |-
+  *Replace this default text with instructions or other information about your runbook.*
+
+  ---
+  # What is Markdown?
+  Markdown is a lightweight markup language that converts your content with plain text formatting to structurally valid rich text.
+  ## You can add headings
+  You can add *italics* or make the font **bold**.
+  1. Create numbered lists
+  * Add bullet points
+  >Indent `code samples`
+
+  You can create a [link to another webpage](https://aws.amazon.com).
+parameters:
+  JobName:
+    type: String
+  VolumeId:
+    type: String
+  RoleArn:
+    type: AWS::IAM::Role::Arn
+variables:
+  AssumeRoleArn:
+    type: String
+    default: '{{ variable:AssumeRoleArn }}'
+    description: Assume Role Variable.
+assumeRole: '{{ RoleArn }}'
+mainSteps:
+  - description: Do some action.
+    name: PreScript
+    action: aws:executeScript
+    nextStep: CreateSnapshot
+    isEnd: false
+    inputs:
+      Runtime: python3.11
+      Handler: script_handler
+      Script: |-
+        def script_handler(events, context):
+          print('hello world')
+          print("Job Name: ", events["jobName"])
+          print("Volume id: ", events["volumeId"])
+          # print(events["parameter"])
+          return {'message': 'Hello'}
+      InputPayload:
+        jobName: '{{ JobName }}'
+        volumeId: '{{ VolumeId }}'
+  - description: Create a Snapshot
+    name: CreateSnapshot
+    action: aws:executeAwsApi
+    nextStep: PostScript
+    isEnd: false
+    inputs:
+      Service: ec2
+      Api: CreateSnapshot
+      VolumeId: '{{ VolumeId }}'
+  - description: Do some final actions
+    name: PostScript
+    action: aws:executeScript
+    isEnd: true
+    inputs:
+      Runtime: python3.11
+      Handler: script_handler
+      Script: |-
+        def script_handler(events, context):
+          print('hello world')
+          # print(events["parameter"])
+          return {'message': 'Hello'}
