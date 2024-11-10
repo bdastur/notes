@@ -1,0 +1,78 @@
+schemaVersion: '0.3'
+description: |-
+  *Replace this default text with instructions or other information about your runbook.*
+
+  ---
+  # What is Markdown?
+  Markdown is a lightweight markup language that converts your content with plain text formatting to structurally valid rich text.
+  ## You can add headings
+  You can add *italics* or make the font **bold**.
+  1. Create numbered lists
+  * Add bullet points
+  >Indent `code samples`
+
+  You can create a [link to another webpage](https://aws.amazon.com).
+mainSteps:
+  - description: List EBS Volumes
+    name: ListVolumes
+    action: aws:executeScript
+    nextStep: Branch
+    isEnd: false
+    inputs:
+      Runtime: python3.11
+      Handler: script_handler
+      Script: |+
+        def script_handler(events, context):
+          print('hello world')
+          # print(events["parameter"])
+          return {
+             'volumes': ["vol-100", "vol-101", "vol-102"],
+             'listSize': 3
+          }
+
+    outputs:
+      - Type: StringList
+        Name: volumes
+        Selector: $.Payload.volumes
+      - Type: Integer
+        Name: listSize
+        Selector: $.Payload.listSize
+  - name: Branch
+    action: aws:branch
+    inputs:
+      Choices:
+        - NextStep: DeleteVolume
+          Variable: '{{ ListVolumes.listSize }}'
+          NumericGreater: 0
+      Default: defaultAction
+  - name: defaultAction
+    action: aws:executeScript
+    isEnd: true
+    inputs:
+      Runtime: python3.8
+      Handler: script_handler
+      Script: |-
+        def script_handler(events, context):
+          print('Default Action')
+          print("Events: ", events)
+          # print(events["parameter"])
+          return {'message': 'Hello'}
+  - name: DeleteVolume
+    action: aws:executeScript
+    isEnd: true
+    inputs:
+      Runtime: python3.11
+      Handler: script_handler
+      Script: |-
+        def script_handler(events, context):
+          print('hello world')
+          # print(events["parameter"])
+          print("Event: ", events)
+          volumes = events["volumes"]
+          for volume in volumes:
+            print("Volume: ", volume)
+            
+          return {'message': 'Hello'}
+      InputPayload:
+        volumes1: '{{ ListVolumes.OutputPayload }}'
+        volumes: '{{ ListVolumes.volumes }}'
