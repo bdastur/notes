@@ -23,13 +23,12 @@ mainSteps:
       Handler: script_handler
       Script: |+
         def script_handler(events, context):
-          print('hello world')
-          # print(events["parameter"])
-          return {
-             'volumes': ["vol-100", "vol-101", "vol-102"],
-             'listSize': 3
-          }
-
+            print('hello world')
+            # print(events["parameter"])
+            return {
+                'volumes': ["vol-100", "vol-101", "vol-102"],
+                'listSize': 3
+            }
     outputs:
       - Type: StringList
         Name: volumes
