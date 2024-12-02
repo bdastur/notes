@@ -6,7 +6,7 @@ metadata:
   labels:
     app: test
   name: test
-  namespace: testns
+  namespace: default 
   uid: a91162a6-7418-11e8-8545-42010a8e013d
 spec:
   progressDeadlineSeconds: 600
@@ -27,13 +27,13 @@ spec:
         app: test
     spec:
       containers:
-      - image: bdastur/simplepy:1.0
+      - image: xxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/examples/samplepy:latest  
         imagePullPolicy: Always
         name: brdfirstcontainer
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
-      - image: bdastur/simplepy:1.0
+      - image: xxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/examples/samplepy:latest 
         imagePullPolicy: Always
         name: brdsecondcontainer
         resources: {}
