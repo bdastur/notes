@@ -130,5 +130,6 @@ python/diagram/webservice.png
 **/node_modules
 **/.parcel-cache
 **/yarn.lock
+**dev_values.yaml
 
 *.buildozer

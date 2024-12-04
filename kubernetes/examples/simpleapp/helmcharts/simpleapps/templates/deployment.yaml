@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: 2018-06-19T23:29:49Z
+  generation: 1
+  labels:
+    {{- include "simpleapps.labels" . | nindent 4 }}
+    {{- .Values.podLabels }}
+    foo: bar
+  name: {{ include "simpleapps.fullname" . }}
+  namespace: default
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: test
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        {{- include "simpleapps.selectorLabels" . | nindent 8 }}
+        app: "{{ .Values.podLabels.app }}"
+        owner: "{{ .Values.podLabels.owner }}"
+        environment: "{{ .Values.podLabels.environment }}"
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}one
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+      - name: {{ .Chart.Name }}two
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+
