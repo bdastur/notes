@@ -3,6 +3,10 @@ kind: Deployment
 metadata:
   creationTimestamp: 2018-06-19T23:29:49Z
   generation: 1
+  annotations:
+    enableLogging: "true"
+    enableMetrics: "true"
+    production: "false"
   labels:
     {{- include "simpleapps.labels" . | nindent 4 }}
     {{- .Values.podLabels }}
@@ -29,7 +33,14 @@ spec:
         app: "{{ .Values.podLabels.app }}"
         owner: "{{ .Values.podLabels.owner }}"
         environment: "{{ .Values.podLabels.environment }}"
+      annotations:
+        enableLogging: "true"
+        enableMetrics: "true"
+        production: "false"
     spec:
+      selector:
+        matchLabels:
+          app: test 
       containers:
       - name: {{ .Chart.Name }}one
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
