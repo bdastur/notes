@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simpleserver
+  namespace: default
+  labels:
+    owner: "bdastur"
+    environment: "development"
+  annotations:
+    appId: "simpleServer01"
+spec:
+  containers:
+  - name: simpleserver 
+    image: xxxxxxxxxx5.dkr.ecr.us-east-1.amazonaws.com/examples/simpleserver:latest 
+    imagePullPolicy: IfNotPresent
+    ports:
+    - containerPort: 8000
+     
+
