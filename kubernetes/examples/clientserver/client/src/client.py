@@ -4,9 +4,10 @@
 import time
 import http.client
 
+
 def main():
     serverPort = 8000
-    serverAddress = "172.31.94.5"
+    serverAddress = "simpleserverservice"
     connection = http.client.HTTPConnection(serverAddress, serverPort, timeout=10)
 
     while True:
@@ -20,7 +21,6 @@ def main():
         
         time.sleep(2)
         print("Continue.")
-
 
 
 
