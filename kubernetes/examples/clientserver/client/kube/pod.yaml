@@ -12,7 +12,33 @@ metadata:
 spec:
   containers:
   - name: simpleclient 
-    image: xxxx.dkr.ecr.us-east-1.amazonaws.com/examples/simpleclient
+    image: xxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/examples/simpleclient
     imagePullPolicy: Always 
     ports:
     - containerPort: 80 
+    env:
+    - name: USER_NAME
+      value: "Behzad Dastur"
+    # Define environment variable from configmap value
+    - name: INITIAL_COUNT
+      valueFrom:
+        configMapKeyRef:
+          name: demo-configmap
+          key: initial_count
+
+    # Mount configmap.
+    volumeMounts:
+    - name: config
+      mountPath: "/config"
+      readOnly: true
+  volumes:
+  - name: config
+    configMap:
+      name: demo-configmap
+      items:
+      - key: "initial_count"
+        path: "initial_count"
+      - key: "app.properties"
+        path: "app.properties"
+
+

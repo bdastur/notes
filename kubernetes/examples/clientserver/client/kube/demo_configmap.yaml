@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-configmap
+  namespace: default
+  labels:
+    app: simpleclient
+  annotations:
+    owner: bdastur
+    configmapId: demo_configmap_001
+data:
+  initial_count: "3"
+  file_name: "/tmp/foobar"
+
+  app.properties: |
+    platform.type=windows
+    genera.type=strategy
+

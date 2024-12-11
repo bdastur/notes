@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-configmap
+  namespace: default
+data:
+  name: "Behzad"
+  age: "47"
+  location: |
+    address: "Bay area, California"
+    country: "USA"
+  skills: |
+    platforms: "Linux"
+    cloud: "AWS, GCP"
+
