@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: testconfigmap
+  namespace: default
+  labels:
+    app: foo
+  annotations:
+    owner: bdastur
+data:
+  name: "Behzad"
+  age: "47"
