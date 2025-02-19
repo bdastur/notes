@@ -56,6 +56,8 @@
 * [Convert shell script to compiled C code - https://github.com/neurobin/shc](https://neurobin.github.io/shc/)
 * [useful programming tips, notes etc](https://github.com/charlax/professional-programming?tab=readme-ov-file)
 * [A collection of pipeline toolkits](https://github.com/pditommaso/awesome-pipeline)
+* [Regression test and benchmark utility](https://github.com/JoeDog/siege)
+
 
 # Linux tips:
 
