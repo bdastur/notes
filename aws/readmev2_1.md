@@ -51,6 +51,7 @@ NOTE:
 * [AWS Skillbuilder site](https://explore.skillbuilder.aws/learn/signin)
 * [EC2 instance connect - a better way to ssh into EC2 instances](https://aws.amazon.com/blogs/compute/secure-connectivity-from-public-to-private-introducing-ec2-instance-connect-endpoint-june-13-2023/)
 * [Cloud design patterns](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/acl.html)
+* [CLI tool for querying AWS Log groups](https://github.com/jorgebastida/awslogs)
 
 
 **Walkthroughs exercises**:
