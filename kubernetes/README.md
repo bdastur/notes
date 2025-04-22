@@ -52,6 +52,7 @@ docker push $REGISTRY/alpine:0.1
 * [Mizu - kubernetes traffic viewer tool](https://up9.com/traffic-viewer-kubernetes)
 * [Kubernetes prompt for bash and zsh](https://github.com/jonmosco/kube-ps1)
 * [cloud native runtime security tool](https://github.com/falcosecurity/falco)
+* [How to structure a kubernetes project](https://www.techopsexamples.com/p/how-to-structure-your-kubernetes-project)
 
 * https://github.com/karmab/samplecontroller
 * https://blog.openshift.com/writing-custom-controller-python/
