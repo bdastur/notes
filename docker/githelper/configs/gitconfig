@@ -1,0 +1,6 @@
+[user]
+    name = Behzad Dastur
+    email = bdastur@gmail.com
+[http]
+    postBuffer = 157286400
+    getBuffer = 157286400
