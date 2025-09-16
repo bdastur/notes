@@ -25,6 +25,6 @@
 4. turn api key required for the methods.
 
 ```
-> curl https://lx0tbp52uh.execute-api.us-east-1.amazonaws.com/beta --header "jwt_token: pass" --header "x-api-key:Hh0pTp1Ih77fqQ1vIuCyl4Vkv4bFCrBu19yBxLAh"
+> curl https://lx0tbp52uh.execute-api.us-east-1.amazonaws.com/beta --header "jwt_token: pass" --header "x-api-key:HhxxxxxxxxxxxxxLAh"
 {"statusCode": 200, "body": "\"Hello from Lambda (Version 2.0!\""}%
 ```
