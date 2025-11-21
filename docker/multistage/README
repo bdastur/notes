@@ -1,0 +1,5 @@
+Multistage docker file.
+First stage builds the app
+second stage copies the built binary and sets the entry point to the binary
+
+  
