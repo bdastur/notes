@@ -12,10 +12,9 @@ RUN ls -l /app
 RUN echo "End"
 
 # Stage 2: Create the distroless image
-FROM golang:1.22
-#FROM gcr.io/distroless/static-debian12
-RUN ls -l /
+#FROM golang:1.22
+FROM gcr.io/distroless/static-debian12:latest
 COPY  --from=builder /app/myapp myapp
-#USER nonroot:nonroot
+USER nonroot:nonroot
 ENTRYPOINT ["./myapp"]
 
