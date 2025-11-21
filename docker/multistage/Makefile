@@ -11,6 +11,15 @@ build-nocache: Dockerfile
 build-debug: Dockerfile
 	docker build --no-cache -t $(IMAGENAME) --progress=plain .
 
+scan-trivy: Dockerfile
+	docker run aquasec/trivy image ${IMAGENAME} 
+
+lint: Dockerfile
+	hadolint Dockerfile
+
+run:
+	docker run ${IMAGENAME}
+
 run-it:
 	docker rm -f base
 	docker run --name base -v ./projects:/projects -it $(IMAGENAME) /bin/bash
