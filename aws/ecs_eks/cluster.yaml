@@ -1,0 +1,22 @@
+# This creates a new eks cluster in a new vpc.
+#
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: eksctl-1
+  region: us-west-2
+
+nodeGroups:
+  - name: ng-1
+    instanceType: m5.large
+    desiredCapacity: 2 
+    volumeSize: 30
+    ssh:
+      allow: true # will use ~/.ssh/id_rsa.pub as the default ssh key
+  - name: ng-2
+    instanceType: m5.xlarge
+    desiredCapacity: 2
+    volumeSize: 20
+    ssh:
+      publicKeyPath: ~/.ssh/id_rsa.pub
