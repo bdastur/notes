@@ -18,7 +18,7 @@ lint: Dockerfile
 	hadolint Dockerfile
 
 run:
-	docker run ${IMAGENAME}
+	docker run --read-only ${IMAGENAME}
 
 run-it:
 	docker rm -f base

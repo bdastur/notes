@@ -53,6 +53,7 @@ docker push $REGISTRY/alpine:0.1
 * [Kubernetes prompt for bash and zsh](https://github.com/jonmosco/kube-ps1)
 * [cloud native runtime security tool](https://github.com/falcosecurity/falco)
 * [How to structure a kubernetes project](https://www.techopsexamples.com/p/how-to-structure-your-kubernetes-project)
+* [Headlamp UI](https://headlamp.dev/)
 
 * https://github.com/karmab/samplecontroller
 * https://blog.openshift.com/writing-custom-controller-python/
