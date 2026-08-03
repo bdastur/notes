@@ -317,6 +317,73 @@ source ~/pyenv/py3env/bin/activate
 
 ```
 
+## Installing and using specific versions of python with pyenv
+[Link](https://github.com/pyenv/pyenv#installation)
+
+### Install and setup:
+
+```
+brew update
+brew install pyenv
+
+# setup pyenv
+> pyenv init --install
+exec "$SHELL"
+
+```
+
+
+### Check all the python versions available
+
+```
+ %~> pyenv install --list
+Available versions:
+  2.1.3
+  2.2.3
+  2.3.7
+:
+```
+
+
+### Install a specific python version:
+
+```
+
+%~> pyenv install 3.14.4
+
+> ls ~/.pyenv/versions
+3.14.4
+%~> ~/.pyenv/versions/3.14.4/bin/python
+Python 3.14.4 (main, Aug  2 2026, 17:30:03) [Clang 17.0.0 (clang-1700.6.4.2)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 
+
+# Unisntalling the specific python version:
+ %~> pyenv uninstall 3.14.4
+pyenv: remove /Users/bdastur/.pyenv/versions/3.14.4? (y/N) y
+pyenv: 3.14.4 uninstalled
+
+```
+
+### Activate a specific version:
+
+```
+%~> pyenv local 3.14.4
+%~> pyenv version     
+3.14.4 (set by /Users/bdastur/code/EXPERIMENT_DIR/testdir/.python-version)
+
+?2[bdastur] EXPERIMENT_DIR/testdir (⎈ cost-demo-eks-cluster) %~> ls -la
+:
+-rw-r--r--  1 bdastur  staff    7 Aug  2 17:41 .python-version
+
+%~> python --version
+Python 3.14.4
+
+%~> which python
+/Users/bdastur/.pyenv/shims/python
+
+```
+
 
 ## Python3 Asyncio
 * A function that you introduce with async def is a coroutine.
